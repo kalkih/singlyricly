@@ -39,6 +39,7 @@ const actions = {
       title: res.item.name,
       artist: res.item.artists[0].name,
       thumbnail: res.item.album.images[1].url,
+      length: res.item.duration_ms,
     })
     commit('setProgress', res.progress_ms)
     commit('setUpdatedAt', res.timestamp)
