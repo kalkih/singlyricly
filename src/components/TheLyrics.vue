@@ -1,37 +1,31 @@
 <template>
   <div class="the-lyrics">
-    <p>{{ lyrics }}</p>
+
+    <p v-if="hasLyrics" class="the-lyrics__lyrics">{{ normal }}</p>
+    <div v-else class="the-lyrics__loading">
+      <h2>We're getting your lyrics, stay tuned!</h2>
+      <div class="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
   name: 'TheLyrics',
-  props: {
-    lyrics: {
-      type: String,
-      default: `
-        I still see your shadows in my room
-        Can't take back the love that I gave you
-        It's to the point where I love and I hate you
-        And I cannot change you so I must replace you (oh)
-        Easier said than done
-        I thought you were the one
-        Listening to my heart instead of my head
-        You found another one, but
-        I am the better one
-        I won't let you forget me
-        I still see your shadows in my room
-        Can't take back the love that I gave you
-        It's to the point where I love and I hate you
-        And I cannot change you so I must replace you (oh)
-        Easier said than done
-        I thought you were the one
-        Listening to my heart instead of my head
-        You found another one, but
-        I am the better one
-        I won't let you forget me
-      `,
+  computed: {
+    ...mapState({
+      synced: state => state.lyrics.synced,
+      normal: state => state.lyrics.normal,
+    }),
+    hasLyrics () {
+      return this.synced || this.normal
     },
   },
 }
@@ -44,25 +38,45 @@ export default {
   padding: 20px;
   font-size: 2em;
   text-align: center;
-  line-height: 3em;
   letter-spacing: .015em;
   display: flex;
   align-items: center;
   flex-flow: row;
   height: 100vh;
-  background: linear-gradient(
-    180deg,
-    transparent 10%,
-    #fff 40%,
-    #fff 60%,
-    transparent 90%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 
-  p {
+  .the-lyrics__loading {
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin-bottom: 10%;
+
+    h2 {
+      font-size: 1em;
+      margin-bottom: 3em;
+      color: $accent-color;
+      opacity: .75;
+    }
+
+    .spinner {
+      font-size: .8em;
+    }
+  }
+
+  &__lyrics {
+    background: linear-gradient(
+      180deg,
+      transparent 10%,
+      #fff 40%,
+      #fff 60%,
+      transparent 90%
+    );
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    line-height: 3em;
     max-height: 100vh;
     height: auto;
+    animation: fade-in .5s ease-out;
   }
 }
 </style>

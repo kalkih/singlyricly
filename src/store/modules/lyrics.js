@@ -1,23 +1,32 @@
 import api from '@/api/lyrics'
 
 const state = {
-  lyric: '',
+  normal: null,
+  synced: null,
 }
 
 const getters = {
-  getLyric: state => state.lyric,
+  getNormal: state => state.lyrics,
+  getSynced: state => state.lyrics,
+  hasNormal: state => (state.normal),
+  hasSynced: state => (state.synced),
 }
 
 const mutations = {
-  setLyric (state, track) {
-    state.track = track
+  setNormal (state, lyrics) {
+    state.normal = lyrics
+  },
+  setSynced (state, lyrics) {
+    state.synced = lyrics
   },
 }
 
 const actions = {
-  async fetchLyric ({ commit }, track) {
-    const lyric = await api.fetchLyric(track)
-    commit('setLyric', lyric)
+  async fetchLyrics ({ commit }, track) {
+    const { normal, synced } = await api.fetchLyrics(track)
+    commit('setNormal', normal)
+    commit('setSynced', synced)
+    return (normal || synced)
   },
 }
 

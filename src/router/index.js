@@ -37,14 +37,14 @@ const router = new Router({
       path: '/welcome',
       name: 'welcome',
       component: Welcome,
-      beforeEnter: (to, from, next) => {
-        const isAuth = store.getters['auth/isAuthenticated']
-        if (isAuth) {
-          next('/')
-        } else {
-          next()
-        }
-      },
+      // beforeEnter: (to, from, next) => {
+      //   const isAuth = store.getters['auth/isAuthenticated']
+      //   if (isAuth) {
+      //     next('/')
+      //   } else {
+      //     next()
+      //   }
+      // },
     },
     {
       path: '/404',

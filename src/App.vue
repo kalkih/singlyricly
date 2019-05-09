@@ -47,6 +47,9 @@ a {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
+.spinner {
+  @extend %spinner;
+}
 
 @keyframes bg {
   0% {

@@ -21,17 +21,27 @@ export default {
   computed: {
     ...mapState({
       track: state => state.playback.track,
+      synced: state => state.lyrics.synced,
+      normal: state => state.lyrics.normal,
     }),
   },
   methods: {
     ...mapActions({
       fetchUser: 'user/fetchUser',
       fetchPlayback: 'playback/fetchPlayback',
+      fetchLyrics: 'lyrics/fetchLyrics',
     }),
   },
   created () {
     this.fetchUser()
     this.fetchPlayback()
+  },
+  watch: {
+    track (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.fetchLyrics(newVal)
+      }
+    },
   },
 }
 </script>
