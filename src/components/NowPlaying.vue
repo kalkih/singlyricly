@@ -65,9 +65,8 @@ export default {
   align-items: center;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
-
   max-width: 2.6em;
-  transition: max-width .1s ease-out;
+  transition: max-width .25s ease-out;
 
   &__text {
     margin-left: 2.5em;
@@ -76,6 +75,8 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    opacity: 0;
+    transition: opacity .25s;
   }
 
   &__thumbnail {
@@ -90,12 +91,7 @@ export default {
     left: .47em;
     top: .4em;
     height: 1.7em;
-    fill: #fff;
-    // animation: rotate 2s infinite linear;
-
-    &.cd {
-      fill: none;
-    }
+    fill: $font-color;
   }
 
   span:nth-child(2):before {
@@ -107,7 +103,7 @@ export default {
     opacity: .5;
     position: absolute;
     z-index: -2;
-    background: #085078;
+    background: $accent-color;
     height: 100%;
     width: 100%;
     top: 0;
@@ -117,6 +113,11 @@ export default {
 
   &:hover {
     max-width: calc(100vw - 20px - 1em);
+    transition: max-width .15s ease-out;
+
+    .now-playing__text {
+      opacity: 1;
+    }
     &:before {
       opacity: .75;
     }
@@ -124,6 +125,9 @@ export default {
 
   @media only screen and (min-width: 640px) {
     max-width: 50vw;
+    &__text {
+      opacity: 1;
+    }
   }
 }
 </style>
