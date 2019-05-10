@@ -42,7 +42,8 @@ const actions = {
       length: res.item.duration_ms,
     })
     commit('setProgress', res.progress_ms)
-    commit('setUpdatedAt', res.timestamp)
+    // commit('setUpdatedAt', res.timestamp)
+    commit('setUpdatedAt', Date.now())
     commit('setPlaying', res.is_playing)
   },
 }
