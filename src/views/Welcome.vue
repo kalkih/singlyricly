@@ -54,11 +54,12 @@ export default {
   .welcome {
     position: absolute;
     top: 25%;
-    bottom: 5%;
-    width: 100%;
+    bottom: 0;
+    width: calc(100% - 2em);
     display: flex;
     align-items: center;
     flex-flow: column;
+    margin: 1em;
 
     h1 {
       font-family: 'Pacifico', cursive;
@@ -68,20 +69,29 @@ export default {
     }
 
     .base-button {
-      font-size: 1.4em;
+      font-size: 1.2em;
       font-weight: 500;
-      padding: .5em 1em;
+      padding: 1em 1em;
       margin-bottom: 0px;
       margin-top: auto;
+      width: 100%;
+      text-align: center;
+      font-weight: 500;
+      text-transform: uppercase;
+
     }
 
     @media only screen and (min-width: 640px) {
+      bottom: 5%;
+
       h1 {
         font-size: 6em;
       }
       .base-button {
         font-size: 1.6em;
         margin-top: 10vh;
+        width: auto;
+        padding: .6em 1.2em;
       }
     }
   }

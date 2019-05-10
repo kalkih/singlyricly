@@ -3,6 +3,7 @@ import api from '@/api/lyrics'
 const state = {
   normal: null,
   synced: null,
+  found: true,
 }
 
 const getters = {
@@ -19,6 +20,9 @@ const mutations = {
   setSynced (state, lyrics) {
     state.synced = lyrics
   },
+  setFound (state, status) {
+    state.found = status
+  },
 }
 
 const actions = {
@@ -26,6 +30,7 @@ const actions = {
     const { normal, synced } = await api.fetchLyrics(track)
     commit('setNormal', normal)
     commit('setSynced', synced)
+    commit('setFound', (normal || synced))
     return (normal || synced)
   },
 }
