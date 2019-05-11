@@ -10,12 +10,12 @@ export default () => {
   })
 
   instance.interceptors.request.use(async (config) => {
-    const accessToken = store.getters['auth/getAccessToken']
     const expiry = store.getters['auth/getExpiryTime']
     if (expiry <= Date.now() + TTL_MARGIN) {
       console.log('Refreshing token...')
       await store.dispatch('auth/refreshToken')
     }
+    const accessToken = store.getters['auth/getAccessToken']
     if (accessToken) {
       config.headers.common['Authorization'] = `Bearer ${accessToken}`
     }
