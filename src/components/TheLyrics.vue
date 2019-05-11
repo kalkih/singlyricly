@@ -88,7 +88,7 @@ export default {
     },
     move (line) {
       const row = this.$refs.lyrics.querySelector(`p[line="${line || this.activeLine}"]`)
-      this.scroller.center(row, 100, -(row.offsetHeight / 2))
+      this.scroller.center(row, 250, -(row.offsetHeight / 2))
     },
     sync () {
       const progress = this.serverProgress
@@ -184,7 +184,6 @@ export default {
     display: flex;
     flex-flow: column;
     align-items: center;
-    scroll-behavior: smooth;
 
     p {
       transition: transform .25s;
