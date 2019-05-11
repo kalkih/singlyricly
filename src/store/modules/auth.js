@@ -4,6 +4,7 @@ const state = {
   accessToken: '',
   refreshToken: '',
   expiryTime: '',
+  ttl: '',
   url: '',
 }
 
@@ -11,6 +12,7 @@ const getters = {
   getAccessToken: state => state.accessToken,
   getRefreshToken: state => state.refreshToken,
   getExpiryTime: state => state.expiryTime,
+  getTtl: state => state.ttl,
   getAuthURL: state => state.authURL,
   isAuthenticated: state => !!state.accessToken,
 }
@@ -22,13 +24,14 @@ const mutations = {
   setAccessToken (state, token) {
     state.accessToken = token
   },
-
   setRefreshToken (state, token) {
     state.refreshToken = token
   },
-
   setExpiryTime (state, time) {
     state.expiryTime = time
+  },
+  setTtl (state, ttl) {
+    state.ttl = ttl
   },
 }
 
@@ -43,42 +46,25 @@ const actions = {
     }
   },
 
-  async login () {
-    try {
-      const response = await api.getAuthURL()
-      if (response.data) {
-        window.location.href = response.data
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  },
-
-  refreshToken: async function ({ commit, state }) {
+  async refreshToken ({ commit, dispatch, state }) {
     try {
       if (state.refreshToken) {
-        const response = await api.refreshToken(state.refreshToken)
-        commit('setAccessToken', response.data.access_token)
-
-        return response
+        const res = await api.refreshToken(state.refreshToken)
+        if (res) {
+          commit('setAccessToken', res.access_token)
+          commit('setTtl', res.expires_in)
+          dispatch('setExpiryTime')
+        }
+        return res.access_token
       }
     } catch (e) {
       console.log(e)
     }
   },
 
-  logout: function () {
-    let script = document.createElement('script')
-
-    script.src = 'https://www.spotify.com/logout/'
-    document.getElementById('app').appendChild(script)
-
+  logout () {
     window.localStorage.clear()
     window.sessionStorage.clear()
-
-    setTimeout(function () {
-      location.reload()
-    }, 1000)
   },
 
   setAuthURL ({ commit }, url) {
@@ -93,8 +79,13 @@ const actions = {
     commit('setRefreshToken', token)
   },
 
-  setExpiryTime ({ commit }, time) {
-    commit('setExpiryTime', time)
+  setExpiryTime ({ commit, state }) {
+    const expiry = Date.now() + (state.ttl * 1000)
+    commit('setExpiryTime', expiry)
+  },
+
+  setTtl ({ commit }, ttl) {
+    commit('setTtl', ttl)
   },
 }
 

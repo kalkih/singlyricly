@@ -11,6 +11,7 @@ export default {
       setAccessToken: 'auth/setAccessToken',
       setRefreshToken: 'auth/setRefreshToken',
       setExpiryTime: 'auth/setExpiryTime',
+      setTtl: 'auth/setTtl',
       fetchUser: 'user/fetchUser',
     }),
   },
@@ -25,6 +26,8 @@ export default {
     if (!error) {
       this.setAccessToken(access_token)
       this.setRefreshToken(refresh_token)
+      this.setTtl(expires_in)
+      this.setExpiryTime()
       this.fetchUser()
       this.$router.push('/')
     } else {
