@@ -37,14 +37,17 @@
 
 import { mapState } from 'vuex'
 import sad from '@/assets/sad.svg'
+import { setTimeout } from 'timers'
 
 export default {
   name: 'TheLyrics',
   components: { sad },
+  props: [ 'updatePlayback' ],
   data () {
     return {
-      scroller: {},
+      scroller: null,
       activeLine: 0,
+      timeout: null,
     }
   },
   computed: {
@@ -52,30 +55,75 @@ export default {
       synced: state => state.lyrics.synced,
       normal: state => state.lyrics.normal,
       found: state => state.lyrics.found,
+      progress: state => state.playback.progress,
+      updatedAt: state => state.playback.updatedAt,
+      duration: state => state.playback.track.length,
     }),
+    length () {
+      return this.synced.length - 1
+    },
     hasLyrics () {
       return this.synced || this.normal
+    },
+    times () {
+      return this.synced.map(line => Number(line.milliseconds))
+    },
+    serverProgress () {
+      const now = Date.now()
+      return this.progress + (now - this.updatedAt)
     },
   },
   watch: {
     synced () {
+      if (this.scroller) {
+        console.log('new lyrics, syncing...')
+        this.$nextTick(() => this.sync())
+      }
     },
   },
   methods: {
-    nextLine () {
+    next () {
       this.activeLine = this.activeLine + 1
-      const row = this.$refs.lyrics.querySelector(`p[line="${this.activeLine}"]`)
+      this.move()
+    },
+    move (line) {
+      const row = this.$refs.lyrics.querySelector(`p[line="${line || this.activeLine}"]`)
       this.scroller.center(row, 100, -(row.offsetHeight / 2))
+    },
+    sync () {
+      const progress = this.serverProgress
+
+      if (this.timeout) {
+        clearTimeout(this.timeout)
+        this.timeout = null
+      }
+      const line = this.times.findIndex(time => time > progress) || 0
+      this.activeLine = line > 0 ? line - 1 : 0
+
+      const next = this.times[this.activeLine + 1] - progress
+      this.move(line)
+      this.calculateNext(next)
     },
     lyricsCreated (el, done) {
       this.scroller = this.$scroll.createScroller(el, 1000, 0)
-      this.nextLine()
-      for (let index = 1; index < this.synced.length; index++) {
-        setTimeout(() => {
-          this.nextLine()
-        }, 3000 * index)
-      }
+      this.sync()
       done()
+    },
+    calculateNext (ms) {
+      if (this.activeLine >= this.length) {
+        setTimeout(this.updatePlayback, this.duration - this.times[this.activeLine] + 1000)
+        this.pause()
+        return
+      }
+      const timer = ms || (this.times[this.activeLine + 1] - this.times[this.activeLine])
+      this.timeout = setTimeout(() => {
+        this.next()
+        this.calculateNext()
+      }, timer)
+    },
+    pause () {
+      clearTimeout(this.timeout)
+      this.timeout = null
     },
   },
 }
