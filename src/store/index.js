@@ -20,7 +20,7 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       key: 'lyricly',
-      paths: ['auth', 'settings'],
+      paths: ['auth', 'user', 'settings'],
     }),
   ],
 })

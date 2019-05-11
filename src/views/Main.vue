@@ -23,6 +23,7 @@ export default {
       track: state => state.playback.track,
       synced: state => state.lyrics.synced,
       normal: state => state.lyrics.normal,
+      user: state => state.user.name,
     }),
   },
   methods: {
@@ -33,7 +34,9 @@ export default {
     }),
   },
   created () {
-    this.fetchUser()
+    if (!this.user) {
+      this.fetchUser()
+    }
     this.fetchPlayback()
   },
   watch: {
