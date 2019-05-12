@@ -18,7 +18,7 @@ export default {
     TheLyrics,
     NowPlaying,
   },
-  data() {
+  data () {
     return {
       interval: null,
     }
@@ -50,7 +50,7 @@ export default {
       }
     },
   },
-  destroyed() {
+  destroyed () {
     clearInterval(this.interval)
   },
   created () {
