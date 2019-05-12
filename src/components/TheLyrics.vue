@@ -52,6 +52,7 @@ export default {
       normal: state => state.lyrics.normal,
       found: state => state.lyrics.found,
       progress: state => state.playback.progress,
+      playing: state => state.playback.playing,
       updatedAt: state => state.playback.updatedAt,
       duration: state => state.playback.track.length,
     }),
@@ -129,14 +130,14 @@ export default {
         ? this.length
         : line === 0 ? line : line - 1
 
-      if (line >= this.length) {
-        this.clear()
-      } else {
+      if (line < this.length) {
         // if (line !== this.activeLine) {
         //   this.move()
         // }
         this.move()
-        this.calculateNext()
+        if (this.playing) {
+          this.calculateNext()
+        }
       }
     },
     lyricsCreated (el, done) {
