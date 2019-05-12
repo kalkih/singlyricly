@@ -1,6 +1,6 @@
 <template>
   <div class="the-lyrics">
-    <transition v-if="hasSynced" appear v-on:appear="lyricsCreated">
+    <transition v-if="hasSynced" appear v-on:appear="lyricsCreated" name="lyrics-trans">
       <div class="the-lyrics__lyrics" ref="lyrics">
         <p
           v-for="(entry, index) in synced"
@@ -138,7 +138,6 @@ export default {
         this.move()
         this.calculateNext()
       }
-
     },
     lyricsCreated (el, done) {
       this.scroller = this.$scroll.createScroller(el, 1000)
@@ -220,9 +219,10 @@ export default {
     }
 
     p {
-      transition: transform .25s;
+      transition: transform .15s cubic-bezier(0.645, 0.045, 0.355, 1);;
       max-width: 75%;
       word-break: break-word;
+      opacity: .75;
 
       &:first-child {
         margin-top: 0;
@@ -233,8 +233,21 @@ export default {
 
       &.active {
         transform: scale(1.25);
+        opacity: 1;
+      }
+
+      @media only screen and (min-width: 640px) {
+        max-width: 60%;
+        font-size: calc(1em + 1vw);
+
+        &.active {
+          transform: scale(1.4);
+        }
       }
     }
+  }
+  .lyrics-trans-leave-active {
+    display: none;
   }
 }
 </style>
