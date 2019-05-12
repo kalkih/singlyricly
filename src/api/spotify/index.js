@@ -9,4 +9,12 @@ export default {
     const res = await request().get('/me')
     return res.status === 200 ? res.data : {}
   },
+  async play () {
+    const res = await request().put('/me/player/play')
+    return res.status === 200 ? res.data : {}
+  },
+  async pause () {
+    const res = await request().put('/me/player/pause')
+    return res.status === 200 ? res.data : {}
+  },
 }

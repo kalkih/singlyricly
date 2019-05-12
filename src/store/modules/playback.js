@@ -48,6 +48,14 @@ const actions = {
     commit('setProgress', res.progress_ms)
     commit('setPlaying', res.is_playing)
   },
+  async play ({ dispatch }) {
+    await api.play()
+    dispatch('fetchPlayback')
+  },
+  async pause ({ dispatch }) {
+    await api.pause()
+    dispatch('fetchPlayback')
+  },
 }
 
 const module = {
