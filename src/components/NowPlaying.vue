@@ -1,29 +1,27 @@
 <template>
   <div class="now-playing">
-    <div class="now-playing__text">
-      <template v-if="hasInfo">
-        <span v-if="artist">
-          {{ artist }}
-        </span>
-        <span v-if="title">
-          {{ title }}
-        </span>
-      </template>
-      <span v-else>
-        {{ placeholder }}
+    <transition name="fade" mode="out-in">
+      <span v-bind:key="hasInfo" class="now-playing__text">
+        {{ hasInfo ? `${artist} - ${title}`  : placeholder }}
       </span>
-    </div>
-    <note/>
+    </transition>
+    <transition name="fade" mode="out-in">
+      <pause v-if="playing" @click="pause"/>
+    </transition>
+    <transition name="fade" mode="out-in">
+      <play v-if="!playing" @click="play"/>
+    </transition>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import note from '@/assets/note.svg'
+import { mapState, mapActions } from 'vuex'
+import play from '@/assets/play.svg'
+import pause from '@/assets/pause.svg'
 
 export default {
   components: {
-    note,
+    play, pause,
   },
   data () {
     return {
@@ -33,6 +31,7 @@ export default {
   computed: {
     ...mapState({
       track: state => state.playback.track,
+      playing: state => state.playback.playing,
     }),
     title () {
       return this.track.title
@@ -46,6 +45,12 @@ export default {
     hasInfo () {
       return this.track.title || this.track.artist
     },
+  },
+  methods: {
+    ...mapActions({
+      play: 'playback/play',
+      pause: 'playback/pause',
+    }),
   },
 }
 </script>
@@ -66,17 +71,18 @@ export default {
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
   max-width: 2.6em;
-  transition: max-width .25s ease-out;
+  transition: max-width .25s ease-out, width .25s ease-out;
 
   &__text {
     margin-left: 2.5em;
-    margin-left: 2.5em;
     margin-right: .8em;
+    opacity: 0;
+    transition: opacity .25s;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    opacity: 0;
-    transition: opacity .25s;
+    height: 2.6em;
+    line-height: 2.6em;
   }
 
   &__thumbnail {
@@ -92,6 +98,15 @@ export default {
     top: .4em;
     height: 1.7em;
     fill: $font-color;
+
+    &:hover {
+      opacity: .75;
+    }
+
+    &.svg-play, &.svg-pause {
+      width: 1.2em;
+      left: .7em;
+    }
   }
 
   span:nth-child(2):before {
@@ -128,6 +143,24 @@ export default {
     &__text {
       opacity: 1;
     }
+  }
+  .fade-leave-active,
+  .fade-enter-active {
+    transition:
+      opacity .25s ease-out,
+      transform .25s ease-out;
+  }
+  .fade-enter {
+    opacity: 0 !important;
+    transform: translateY(1em);
+  }
+  .fade-leave-to {
+    opacity: 0 !important;
+    transform: translateY(-1em);
+  }
+  .fade-enter-to, .fade-leave {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>
