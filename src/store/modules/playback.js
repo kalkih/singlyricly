@@ -34,7 +34,11 @@ const mutations = {
 
 const actions = {
   async fetchPlayback ({ commit }) {
+    const startTime = Date.now()
     const res = await api.fetchPlayback()
+    const endTime = Date.now()
+    const delay = (endTime - startTime) / 2
+    commit('setUpdatedAt', endTime - delay)
     commit('setTrack', {
       title: res.item.name,
       artist: res.item.artists[0].name,
@@ -42,8 +46,6 @@ const actions = {
       length: res.item.duration_ms,
     })
     commit('setProgress', res.progress_ms)
-    // commit('setUpdatedAt', res.timestamp)
-    commit('setUpdatedAt', Date.now())
     commit('setPlaying', res.is_playing)
   },
 }
