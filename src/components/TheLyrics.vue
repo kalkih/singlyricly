@@ -1,18 +1,13 @@
 <template>
   <div class="the-lyrics">
-    <transition v-if="hasLyrics" appear v-on:appear="lyricsCreated">
+    <transition v-if="hasSynced" appear v-on:appear="lyricsCreated">
       <div class="the-lyrics__lyrics" ref="lyrics">
         <p
           v-for="(entry, index) in synced"
           :key="index"
           :line="index"
           :class="{ active: activeLine === index}">
-          <template v-if="entry.line">
-            {{ entry.line }}
-          </template>
-          <template v-else>
-            - - -
-          </template>
+          {{ entry.line }}
         </p>
       </div>
     </transition>
@@ -42,12 +37,13 @@ import { setTimeout } from 'timers'
 export default {
   name: 'TheLyrics',
   components: { sad },
-  props: [ 'updatePlayback' ],
   data () {
     return {
       scroller: null,
       activeLine: 0,
-      timeout: null,
+      row: null,
+      timer: null,
+      offset: 0,
     }
   },
   computed: {
@@ -65,66 +61,91 @@ export default {
     hasLyrics () {
       return this.synced || this.normal
     },
+    hasSynced () {
+      return this.synced
+    },
     times () {
       return this.synced.map(line => Number(line.milliseconds))
     },
     serverProgress () {
-      const now = Date.now()
-      return this.progress + (now - this.updatedAt)
+      return this.progress + (Date.now() - this.updatedAt) - 750
     },
   },
   watch: {
     synced () {
-      if (this.scroller) {
+      if (this.scroller && this.hasSynced) {
         console.log('new lyrics, syncing...')
         this.$nextTick(() => this.sync())
       }
     },
+    progress () {
+      if (this.hasSynced) {
+        this.sync()
+      }
+    },
   },
   methods: {
+    computeProgress () {
+      return this.progress + (Date.now() - this.updatedAt) - 750
+    },
     next () {
       this.activeLine = this.activeLine + 1
       this.move()
     },
     move (line) {
-      const row = this.$refs.lyrics.querySelector(`p[line="${line || this.activeLine}"]`)
-      this.scroller.center(row, 250, -(row.offsetHeight / 2))
+      const prev = this.row
+      this.row = this.$refs.lyrics.querySelector(`p[line="${line || this.activeLine}"]`)
+      const offset = !prev ? -((this.row.offsetHeight * 1.25)) : 0
+      this.scroller.center(this.row, 250, offset + this.offset / 2)
+    },
+    calculateNext (ms) {
+      const timer = ms || (this.times[this.activeLine + 1] - this.computeProgress())
+      this.timer = setTimeout(this.tick, timer)
+    },
+    tick () {
+      if (this.hasSynced && this.activeLine < this.length) {
+        this.next()
+        this.calculateNext()
+      }
+    },
+    pause () {
+      this.clear()
+    },
+    clear () {
+      if (this.timer) {
+        clearTimeout(this.timer._id)
+        this.timer = null
+      }
+    },
+    resume () {
+      this.sync()
     },
     sync () {
       const progress = this.serverProgress
 
-      if (this.timeout) {
-        clearTimeout(this.timeout)
-        this.timeout = null
-      }
-      const line = this.times.findIndex(time => time > progress) || 0
-      this.activeLine = line > 0 ? line - 1 : 0
+      this.clear()
+      const line = this.times.findIndex(time => time > progress) || this.length
+      this.activeLine = line === -1 ? this.length : line - 1
 
-      const next = this.times[this.activeLine + 1] - progress
-      this.move(line)
-      this.calculateNext(next)
+      if (line >= this.length) {
+        this.clear()
+        return
+      }
+
+      if (line !== this.activeLine) {
+        this.move()
+      }
+      this.calculateNext()
     },
     lyricsCreated (el, done) {
-      this.scroller = this.$scroll.createScroller(el, 1000, 0)
+      this.scroller = this.$scroll.createScroller(el, 1000)
+      this.offset = this.$refs.lyrics.offsetTop
       this.sync()
       done()
     },
-    calculateNext (ms) {
-      if (this.activeLine >= this.length) {
-        setTimeout(this.updatePlayback, this.duration - this.times[this.activeLine] + 1000)
-        this.pause()
-        return
-      }
-      const timer = ms || (this.times[this.activeLine + 1] - this.times[this.activeLine])
-      this.timeout = setTimeout(() => {
-        this.next()
-        this.calculateNext()
-      }, timer)
-    },
-    pause () {
-      clearTimeout(this.timeout)
-      this.timeout = null
-    },
+  },
+  destroyed () {
+    this.clear()
   },
 }
 </script>
@@ -184,6 +205,16 @@ export default {
     display: flex;
     flex-flow: column;
     align-items: center;
+    position: relative;
+
+    &:before {
+      content: '';
+      padding-top: calc(50vh - 3em);
+    }
+    &:after {
+      content: '';
+      padding-top: calc(50vh - 3em);
+    }
 
     p {
       transition: transform .25s;
@@ -191,11 +222,10 @@ export default {
       word-break: break-word;
 
       &:first-child {
-        position: relative;
-        padding-top: calc(50vh - 6em);
+        margin-top: 0;
       }
       &:last-child {
-        margin-bottom: calc(50vh - 6em);
+        margin-bottom: 0;
       }
 
       &.active {

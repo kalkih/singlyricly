@@ -18,6 +18,11 @@ export default {
     TheLyrics,
     NowPlaying,
   },
+  data() {
+    return {
+      interval: null,
+    }
+  },
   computed: {
     ...mapState({
       track: state => state.playback.track,
@@ -32,19 +37,28 @@ export default {
       fetchPlayback: 'playback/fetchPlayback',
       fetchLyrics: 'lyrics/fetchLyrics',
     }),
+    comparePlayback (newVal, oldVal) {
+      return newVal.artist !== oldVal.artist || newVal.title !== oldVal.title
+    },
+  },
+  watch: {
+    track (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        if (this.comparePlayback(newVal, oldVal)) {
+          this.fetchLyrics(newVal)
+        }
+      }
+    },
+  },
+  destroyed() {
+    clearInterval(this.interval)
   },
   created () {
     if (!this.user) {
       this.fetchUser()
     }
     this.fetchPlayback()
-  },
-  watch: {
-    track (newVal, oldVal) {
-      if (newVal !== oldVal) {
-        this.fetchLyrics(newVal)
-      }
-    },
+    this.interval = setInterval(this.fetchPlayback, 5000)
   },
 }
 </script>
