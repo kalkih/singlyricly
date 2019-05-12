@@ -122,20 +122,23 @@ export default {
     },
     sync () {
       const progress = this.serverProgress
-
       this.clear()
-      const line = this.times.findIndex(time => time > progress) || this.length
-      this.activeLine = line === -1 ? this.length : line - 1
+
+      const line = this.times.findIndex(time => time > progress)
+      this.activeLine = line === -1
+        ? this.length
+        : line === 0 ? line : line - 1
 
       if (line >= this.length) {
         this.clear()
-        return
+      } else {
+        // if (line !== this.activeLine) {
+        //   this.move()
+        // }
+        this.move()
+        this.calculateNext()
       }
 
-      if (line !== this.activeLine) {
-        this.move()
-      }
-      this.calculateNext()
     },
     lyricsCreated (el, done) {
       this.scroller = this.$scroll.createScroller(el, 1000)
