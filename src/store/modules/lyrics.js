@@ -4,6 +4,7 @@ const state = {
   normal: null,
   synced: null,
   found: true,
+  searching: false,
 }
 
 const getters = {
@@ -23,15 +24,25 @@ const mutations = {
   setFound (state, status) {
     state.found = status
   },
+  setSearching (state, status) {
+    state.found = status
+  },
 }
 
 const actions = {
   async fetchLyrics ({ commit }, track) {
+    commit('setSearching', true)
     const { normal, synced } = await api.fetchLyrics(track)
     commit('setNormal', normal)
     commit('setSynced', synced)
     commit('setFound', (normal || synced))
+    commit('setSearching', false)
     return (normal || synced)
+  },
+  clearLyrics ({ commit }) {
+    commit('setNormal', null)
+    commit('setSynced', null)
+    commit('setFound', false)
   },
 }
 

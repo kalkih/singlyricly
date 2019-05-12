@@ -36,6 +36,7 @@ export default {
       fetchUser: 'user/fetchUser',
       fetchPlayback: 'playback/fetchPlayback',
       fetchLyrics: 'lyrics/fetchLyrics',
+      clearLyrics: 'lyrics/clearLyrics',
     }),
     comparePlayback (newVal, oldVal) {
       return newVal.artist !== oldVal.artist || newVal.title !== oldVal.title
@@ -45,7 +46,9 @@ export default {
     track (newVal, oldVal) {
       if (newVal !== oldVal) {
         if (this.comparePlayback(newVal, oldVal)) {
+          this.clearLyrics()
           this.fetchLyrics(newVal)
+          console.log('fetching lyrics...')
         }
       }
     },
