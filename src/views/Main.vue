@@ -2,6 +2,7 @@
   <div class="main">
     <the-header/>
     <the-lyrics/>
+    <delay-bar v-if="hasPlayback"/>
     <now-playing/>
   </div>
 </template>
@@ -10,6 +11,7 @@
 import TheHeader from '@/components/TheHeader'
 import TheLyrics from '@/components/TheLyrics'
 import NowPlaying from '@/components/NowPlaying'
+import DelayBar from '@/components/DelayBar'
 import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -17,6 +19,7 @@ export default {
     TheHeader,
     TheLyrics,
     NowPlaying,
+    DelayBar,
   },
   data () {
     return {
@@ -77,6 +80,11 @@ export default {
   .now-playing {
     position: fixed;
     left: 20px;
+    bottom: 20px;
+  }
+  .delay-bar {
+    position: fixed;
+    right: 20px;
     bottom: 20px;
   }
 }

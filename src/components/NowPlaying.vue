@@ -123,7 +123,7 @@ export default {
     width: 100%;
     top: 0;
     left: 0;
-    transition: opacity .1s;
+    transition: opacity .15s;
   }
 
   &:hover {
@@ -134,7 +134,7 @@ export default {
       opacity: 1;
     }
     &:before {
-      opacity: .75;
+      opacity: .65;
     }
   }
 

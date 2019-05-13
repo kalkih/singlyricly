@@ -48,6 +48,7 @@ export default {
       row: null,
       timer: null,
       offset: 0,
+      baseDelay: 750,
     }
   },
   computed: {
@@ -59,6 +60,7 @@ export default {
       playing: state => state.playback.playing,
       updatedAt: state => state.playback.updatedAt,
       duration: state => state.playback.track.length,
+      delay: state => state.settings.delay,
     }),
     length () {
       return this.synced.length - 1
@@ -73,7 +75,7 @@ export default {
       return this.synced.map(line => Number(line.milliseconds))
     },
     serverProgress () {
-      return this.progress + (Date.now() - this.updatedAt) - 750
+      return this.progress + (Date.now() - this.updatedAt) - (this.baseDelay + this.delay)
     },
   },
   watch: {
@@ -88,10 +90,15 @@ export default {
         this.sync()
       }
     },
+    delay () {
+      if (this.hasSynced) {
+        this.sync()
+      }
+    }
   },
   methods: {
     computeProgress () {
-      return this.progress + (Date.now() - this.updatedAt) - 750
+      return this.progress + (Date.now() - this.updatedAt) - (this.baseDelay + this.delay)
     },
     next () {
       this.activeLine = this.activeLine + 1

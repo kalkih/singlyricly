@@ -20,6 +20,17 @@
   }
 }
 
+@keyframes reveal-bottom {
+  0% {
+    transform: translate3d(0, 100px, 0);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg)
