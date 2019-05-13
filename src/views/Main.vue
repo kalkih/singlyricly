@@ -32,7 +32,7 @@ export default {
     }),
     ...mapGetters({
       hasPlayback: 'playback/hasPlayback',
-    })
+    }),
   },
   methods: {
     ...mapActions({
@@ -42,8 +42,8 @@ export default {
       clearLyrics: 'lyrics/clearLyrics',
     }),
     comparePlayback (newVal, oldVal) {
-      return (newVal.artist !== oldVal.artist
-        || newVal.title !== oldVal.title)
+      return (newVal.artist !== oldVal.artist ||
+        newVal.title !== oldVal.title)
     },
   },
   watch: {
