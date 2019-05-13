@@ -12,6 +12,7 @@ const getters = {
   getProgress: state => state.progress,
   getUpdatedAt: state => state.updatedAt,
   isPlaying: state => state.playing,
+  hasPlayback: state => !!(state.track.title && state.track.artist && state.progress),
 }
 
 const mutations = {
@@ -39,14 +40,14 @@ const actions = {
     const endTime = Date.now()
     const delay = (endTime - startTime) / 2
     commit('setUpdatedAt', endTime - delay)
-    commit('setTrack', {
+    commit('setTrack', res.item ? {
       title: res.item.name,
       artist: res.item.artists[0].name,
-      thumbnail: res.item.album.images[1].url,
+      thumbnail: res.item.album.images[1] && res.item.album.images[1].url,
       length: res.item.duration_ms,
-    })
-    commit('setProgress', res.progress_ms)
-    commit('setPlaying', res.is_playing)
+    } : {})
+    commit('setProgress', res.progress_ms || null)
+    commit('setPlaying', res.is_playing || false)
   },
   async play ({ dispatch }) {
     await api.play()

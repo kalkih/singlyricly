@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <the-header/>
-      <the-lyrics/>
+    <the-lyrics/>
     <now-playing/>
   </div>
 </template>
@@ -10,7 +10,7 @@
 import TheHeader from '@/components/TheHeader'
 import TheLyrics from '@/components/TheLyrics'
 import NowPlaying from '@/components/NowPlaying'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -30,6 +30,9 @@ export default {
       normal: state => state.lyrics.normal,
       user: state => state.user.name,
     }),
+    ...mapGetters({
+      hasPlayback: 'playback/hasPlayback',
+    })
   },
   methods: {
     ...mapActions({
@@ -39,7 +42,8 @@ export default {
       clearLyrics: 'lyrics/clearLyrics',
     }),
     comparePlayback (newVal, oldVal) {
-      return newVal.artist !== oldVal.artist || newVal.title !== oldVal.title
+      return (newVal.artist !== oldVal.artist
+        || newVal.title !== oldVal.title)
     },
   },
   watch: {
@@ -47,8 +51,10 @@ export default {
       if (newVal !== oldVal) {
         if (this.comparePlayback(newVal, oldVal)) {
           this.clearLyrics()
-          this.fetchLyrics(newVal)
-          console.log('fetching lyrics...')
+          if (this.hasPlayback) {
+            this.fetchLyrics(newVal)
+            console.log('fetching lyrics...')
+          }
         }
       }
     },
