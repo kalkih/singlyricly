@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <the-header/>
-    <the-lyrics :updatePlayback="fetchPlayback"></the-lyrics>
+      <the-lyrics/>
     <now-playing/>
   </div>
 </template>
