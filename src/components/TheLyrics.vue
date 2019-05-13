@@ -11,8 +11,12 @@
         </p>
       </div>
     </transition>
-    <div v-else class="the-lyrics__loading">
-      <div v-if="found">
+    <div v-else class="the-lyrics__info">
+      <div v-if="!progress" class="not-available">
+        <play/>
+        <h2>Play something on Spotify and check back here</h2>
+      </div>
+      <div v-else-if="found">
         <h2>We're getting your lyrics, stay tuned!</h2>
         <div class="spinner">
           <div></div>
@@ -22,7 +26,7 @@
       </div>
       <div class="not-found" v-else>
         <sad/>
-        <h2>Sorry but couldn't find any lyrics for this track</h2>
+        <h2>Sorry but we couldn't find any lyrics for this track</h2>
       </div>
     </div>
   </div>
@@ -32,10 +36,11 @@
 
 import { mapState } from 'vuex'
 import sad from '@/assets/sad.svg'
+import play from '@/assets/play.svg'
 
 export default {
   name: 'TheLyrics',
-  components: { sad },
+  components: { sad, play },
   data () {
     return {
       scroller: null,
@@ -164,15 +169,18 @@ export default {
   flex-flow: row;
   height: 100vh;
 
-  .the-lyrics__loading {
+  &__info {
     width: 100%;
+    padding: 1em;
+
+    @media only screen and (min-width: 640px) {
+      font-size: calc(1em + 1vw);
+    }
 
     > div {
-      margin: 0 auto;
       display: flex;
       flex-flow: column;
       align-items: center;
-      margin-bottom: 10%;
       animation: fade-in .5s ease-out;
     }
 

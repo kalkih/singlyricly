@@ -2,8 +2,8 @@ import api from '@/api/spotify'
 
 const state = {
   track: {},
-  progress: '',
-  updatedAt: '',
+  progress: null,
+  updatedAt: null,
   playing: false,
 }
 
