@@ -32,7 +32,6 @@
 
 import { mapState } from 'vuex'
 import sad from '@/assets/sad.svg'
-import { setTimeout } from 'timers'
 
 export default {
   name: 'TheLyrics',
@@ -114,7 +113,7 @@ export default {
     },
     clear () {
       if (this.timer) {
-        clearTimeout(this.timer._id)
+        clearTimeout(this.timer)
         this.timer = null
       }
     },
