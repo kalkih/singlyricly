@@ -44,7 +44,7 @@ export default {
   data () {
     return {
       scroller: null,
-      activeLine: 0,
+      activeLine: -1,
       row: null,
       timer: null,
       offset: 0,
@@ -97,9 +97,9 @@ export default {
       this.activeLine = this.activeLine + 1
       this.move()
     },
-    move (line) {
+    move (line = this.activeLine) {
       const prev = this.row
-      this.row = this.$refs.lyrics.querySelector(`p[line="${line || this.activeLine}"]`)
+      this.row = this.$refs.lyrics.querySelector(`p[line="${line}"]`)
       const offset = !prev ? -((this.row.offsetHeight * 1.25)) : 0
       this.scroller.center(this.row, 250, offset + this.offset / 2)
     },
@@ -132,13 +132,17 @@ export default {
       const line = this.times.findIndex(time => time > progress)
       this.activeLine = line === -1
         ? this.length
-        : line === 0 ? line : line - 1
+        : line - 1
 
       if (line < this.length) {
         // if (line !== this.activeLine) {
         //   this.move()
         // }
-        this.move()
+        if (this.activeLine === -1) {
+          this.move(0)
+        } else {
+          this.move()
+        }
         if (this.playing) {
           this.calculateNext()
         }
