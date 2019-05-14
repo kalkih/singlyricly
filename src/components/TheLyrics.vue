@@ -33,19 +33,18 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex'
 import sad from '@/assets/sad.svg'
 import play from '@/assets/play.svg'
+import easyScroll from 'easy-scroll'
 
 export default {
   name: 'TheLyrics',
   components: { sad, play },
   data () {
     return {
-      scroller: null,
+      loaded: false,
       activeLine: -1,
-      row: null,
       timer: null,
       offset: 0,
       baseDelay: 750,
@@ -80,7 +79,7 @@ export default {
   },
   watch: {
     synced () {
-      if (this.scroller && this.hasSynced) {
+      if (this.hasSynced) {
         console.log('new lyrics, syncing...')
         this.$nextTick(() => this.sync())
       }
@@ -105,10 +104,18 @@ export default {
       this.move()
     },
     move (line = this.activeLine) {
-      const prev = this.row
-      this.row = this.$refs.lyrics.querySelector(`p[line="${line}"]`)
-      const offset = !prev ? -((this.row.offsetHeight * 1.25)) : 0
-      this.scroller.center(this.row, 100, offset + this.offset / 2)
+      const target = this.$refs.lyrics
+        .querySelector(`p[line="${line}"]`)
+      const height = target.offsetHeight
+      const center = this.$refs.lyrics.offsetHeight / 2
+      const top = target.getBoundingClientRect().top
+      easyScroll({
+        scrollableDomEle: this.$refs.lyrics,
+        direction: 'bottom',
+        easingPreset: 'easeInOutCubic',
+        duration: 200,
+        scrollAmount: top - this.offset - center + (height / 2),
+      })
     },
     calculateNext (ms) {
       const timer = ms || (this.times[this.activeLine + 1] - this.computeProgress())
@@ -156,7 +163,7 @@ export default {
       }
     },
     lyricsCreated (el, done) {
-      this.scroller = this.$scroll.createScroller(el, 1000)
+      this.loaded = true
       this.offset = this.$refs.lyrics.offsetTop
       this.sync()
       done()
@@ -170,6 +177,7 @@ export default {
 
 <style lang="scss" scoped>
 .the-lyrics {
+  position: relative;
   font-weight: 600;
   width: 100%;
   font-size: 1.8em;
@@ -179,6 +187,17 @@ export default {
   align-items: center;
   flex-flow: row;
   height: 100vh;
+
+  // DEBUG CENTER
+  // &:before {
+  //   content: '';
+  //   position: fixed;
+  //   top: calc(50% - 2px);
+  //   height: 4px;
+  //   background: red;
+  //   width: 100%;
+  //   z-index: 200;
+  // }
 
   &__info {
     width: 100%;
@@ -238,17 +257,12 @@ export default {
     }
 
     p {
-      transition: transform .15s cubic-bezier(0.645, 0.045, 0.355, 1);;
+      transition: transform .15s cubic-bezier(0.645, 0.045, 0.355, 1);
       max-width: 75%;
       word-break: break-word;
       opacity: .75;
-
-      &:first-child {
-        margin-top: 0;
-      }
-      &:last-child {
-        margin-bottom: 0;
-      }
+      margin: 0;
+      padding: 1em 0;
 
       &.active {
         transform: scale(1.25);
