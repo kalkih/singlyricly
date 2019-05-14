@@ -63,7 +63,6 @@ export default {
 
     h1 {
       font-family: 'Pacifico', cursive;
-      font-weight: 400;
       font-size: 3em;
       margin: 0;
     }
@@ -76,7 +75,6 @@ export default {
       margin-top: auto;
       width: 100%;
       text-align: center;
-      font-weight: 500;
       text-transform: uppercase;
 
     }
