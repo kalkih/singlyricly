@@ -1,8 +1,8 @@
 <template>
   <div class="delay-bar">
-    <icon-button @click.native="subtract(step)">
+    <base-button circle @click.native="subtract(step)">
       <minus/>
-    </icon-button>
+    </base-button>
     <transition name="fade" mode="out-in">
       <div class="delay-bar__delay">
         <span>
@@ -13,21 +13,21 @@
         </span>
       </div>
     </transition>
-    <icon-button @click.native="add(step)">
+    <base-button circle @click.native="add(step)">
       <plus/>
-    </icon-button>
+    </base-button>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import IconButton from './IconButton'
+import BaseButton from './BaseButton'
 import plus from '@/assets/plus.svg'
 import minus from '@/assets/minus.svg'
 
 export default {
   components: {
-    IconButton, plus, minus,
+    BaseButton, plus, minus,
   },
   data () {
     return {

@@ -1,8 +1,8 @@
 <template>
-  <div class="base-button">
+  <div class="base-button" :class="{'--circle': circle}">
     <span v-if="text">{{ text }}</span>
     <span v-if="icon">{{ icon }}</span>
-    <span><slot></slot></span>
+    <slot></slot>
   </div>
 </template>
 
@@ -15,6 +15,9 @@ export default {
     icon: {
       type: String,
     },
+    circle: {
+      type: Boolean,
+    },
   },
 }
 </script>
@@ -23,25 +26,48 @@ export default {
 .base-button {
   position: relative;
   cursor: pointer;
-  display: block;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: center;
   font-size: 1.4em;
-  border-radius: 2em;
-  padding: .4em 1em;
-  user-select: none;
+  border-radius: 2.6em;
+  height: 2.6em;
+  min-width: 2.6em;
+  padding: 0 1.2em;
   overflow: hidden;
-  font-weight: 400;
+  font-weight: 500;
+  user-select: none;
   -webkit-tap-highlight-color: transparent;
+
+  &.--circle {
+    padding: 0;
+    max-width: 2.6em;
+    svg {
+      font-size: 1em;
+    }
+  }
+
+  *:nth-child(2),
+  *:nth-child(3) {
+    margin-left: .5em;
+  }
+
+  svg {
+    height: 1.2em;
+    fill: $font-color;
+  }
 
   &:before {
     content: '';
     opacity: .5;
     position: absolute;
     z-index: -2;
-    background: #085078;
+    background: $accent-color;
     height: 100%;
     width: 100%;
-    top: 0;
     left: 0;
+    right: 0;
     transition: opacity .1s;
   }
 
