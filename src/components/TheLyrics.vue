@@ -94,7 +94,7 @@ export default {
       if (this.hasSynced) {
         this.sync()
       }
-    }
+    },
   },
   methods: {
     computeProgress () {
@@ -108,7 +108,7 @@ export default {
       const prev = this.row
       this.row = this.$refs.lyrics.querySelector(`p[line="${line}"]`)
       const offset = !prev ? -((this.row.offsetHeight * 1.25)) : 0
-      this.scroller.center(this.row, 250, offset + this.offset / 2)
+      this.scroller.center(this.row, 100, offset + this.offset / 2)
     },
     calculateNext (ms) {
       const timer = ms || (this.times[this.activeLine + 1] - this.computeProgress())
@@ -123,32 +123,32 @@ export default {
     pause () {
       this.clear()
     },
+    resume () {
+      this.sync()
+    },
     clear () {
       if (this.timer) {
         clearTimeout(this.timer)
         this.timer = null
       }
     },
-    resume () {
-      this.sync()
-    },
     sync () {
       const progress = this.serverProgress
       this.clear()
 
-      const line = this.times.findIndex(time => time > progress)
-      this.activeLine = line === -1
+      let line = this.times.findIndex(time => time > progress)
+      line = line === -1
         ? this.length
         : line - 1
 
       if (line < this.length) {
-        // if (line !== this.activeLine) {
-        //   this.move()
-        // }
-        if (this.activeLine === -1) {
-          this.move(0)
-        } else {
-          this.move()
+        if (line !== this.activeLine) {
+          this.activeLine = line
+          if (line === -1) {
+            this.move(0)
+          } else {
+            this.move(line)
+          }
         }
         if (this.playing) {
           this.calculateNext()
