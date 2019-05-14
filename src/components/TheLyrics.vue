@@ -47,7 +47,7 @@ export default {
       activeLine: -1,
       timer: null,
       offset: 0,
-      baseDelay: 750,
+      baseDelay: -750,
     }
   },
   computed: {
@@ -74,7 +74,7 @@ export default {
       return this.synced.map(line => Number(line.milliseconds))
     },
     serverProgress () {
-      return this.progress + (Date.now() - this.updatedAt) - (this.baseDelay + this.delay)
+      return this.progress + (Date.now() - this.updatedAt) + (this.baseDelay + this.delay)
     },
   },
   watch: {
@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     computeProgress () {
-      return this.progress + (Date.now() - this.updatedAt) - (this.baseDelay + this.delay)
+      return this.progress + (Date.now() - this.updatedAt) + (this.baseDelay + this.delay)
     },
     next () {
       this.activeLine = this.activeLine + 1
