@@ -62,15 +62,15 @@ export default {
       }
     },
   },
-  destroyed () {
-    clearInterval(this.interval)
-  },
   created () {
     if (!this.user) {
       this.fetchUser()
     }
     this.fetchPlayback()
     this.interval = setInterval(this.fetchPlayback, 5000)
+  },
+  destroyed () {
+    clearInterval(this.interval)
   },
 }
 </script>

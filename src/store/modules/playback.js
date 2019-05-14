@@ -12,7 +12,7 @@ const getters = {
   getProgress: state => state.progress,
   getUpdatedAt: state => state.updatedAt,
   isPlaying: state => state.playing,
-  hasPlayback: state => !!(state.track.title && state.track.artist && state.progress),
+  hasPlayback: state => !!(state.track.title && state.track.artist),
 }
 
 const mutations = {
