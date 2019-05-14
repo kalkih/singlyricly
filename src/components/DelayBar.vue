@@ -1,19 +1,26 @@
 <template>
   <div class="delay-bar">
-    <base-button circle @click.native="subtract(step)">
+    <base-button circle @click.native="sub">
       <minus/>
     </base-button>
     <transition name="fade" mode="out-in">
-      <div class="delay-bar__delay">
+      <div class="delay-bar__delay" v-if="delay" key="has-delay">
+        <transition :name="'fade-' + direction" mode="out-in">
+          <span :key="delay">
+            {{ delay }}
+          </span>
+        </transition>
         <span>
           {{ title }}
         </span>
+      </div>
+      <div class="delay-bar__delay" v-else key="default">
         <span>
-          {{ delay }}
+          {{ title }}
         </span>
       </div>
     </transition>
-    <base-button circle @click.native="add(step)">
+    <base-button circle @click.native="add">
       <plus/>
     </base-button>
   </div>
@@ -32,7 +39,8 @@ export default {
   data () {
     return {
       step: 100,
-      title: 'Delay',
+      title: 'offset',
+      direction: 'left',
     }
   },
   computed: {
@@ -43,9 +51,17 @@ export default {
   methods: {
     ...mapActions({
       set: 'settings/setDelay',
-      add: 'settings/addDelay',
-      subtract: 'settings/subtractDelay',
+      addDelay: 'settings/addDelay',
+      subtractDelay: 'settings/subtractDelay',
     }),
+    add () {
+      this.direction = 'left'
+      this.addDelay(this.step)
+    },
+    sub () {
+      this.direction = 'right'
+      this.subtractDelay(this.step)
+    },
   },
 }
 </script>
@@ -72,13 +88,14 @@ export default {
   &__delay {
     font-size: 1.4em;
     display: flex;
-    flex-flow: column;
+    flex-flow: column-reverse;
     align-items: center;
     justify-content: center;
-    width: 5em;
+    width: 4.6em;
+    overflow: hidden;
 
-    > span {
-      &:first-child {
+    span {
+      &:nth-child(2) {
         font-size: .6em;
         opacity: 1;
       }
@@ -86,12 +103,46 @@ export default {
       font-variant-numeric: tabular-nums;
       letter-spacing: .05em;
       font-weight: 700;
-      font-size: 1.2em;
+      font-size: 1em;
       color: white;
     }
   }
   @media only screen and (min-width: 640px) {
     display: flex;
+  }
+  .fade-enter {
+    opacity: 0 !important;
+    transform: translateY(1em);
+  }
+  .fade-leave-to {
+    opacity: 0 !important;
+    transform: translateY(-1em);
+  }
+  .fade-leave-active,
+  .fade-enter-active,
+  .fade-left-leave-active,
+  .fade-left-enter-active,
+  .fade-right-leave-active,
+  .fade-right-enter-active {
+    transition:
+      opacity .1s cubic-bezier(0.645, 0.045, 0.355, 1),
+      transform .1s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  .fade-left-enter,
+  .fade-right-leave-to {
+    opacity: 0 !important;
+    transform: translateX(2em);
+  }
+  .fade-left-leave-to,
+  .fade-right-enter {
+    opacity: 0 !important;
+    transform: translateX(-2em);
+  }
+  .fade-enter-to, .fade-leave,
+  .fade-left-enter-to, .fade-left-leave,
+  .fade-right-enter-to, .fade-right-leave {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 </style>
