@@ -5,17 +5,19 @@
       v-if="username"
       class="the-header__settings"
       :text="'Hey ' + username">
+      <dropdown/>
     </base-button>
   </div>
 </template>
 
 <script>
-import BaseButton from './BaseButton'
 import { mapState } from 'vuex'
+import BaseButton from './BaseButton'
+import dropdown from '@/assets/dropdown.svg'
 
 export default {
   components: {
-    BaseButton,
+    BaseButton, dropdown,
   },
   computed: {
     title: () => {
@@ -37,6 +39,7 @@ export default {
   padding: 10px;
   position: absolute;
   width: 100%;
+  z-index: 10;
 
   @media only screen and (min-width: 640px) {
     justify-content: space-between;
@@ -47,7 +50,7 @@ export default {
     }
 
     .the-header__settings {
-      display: block;
+      display: flex;
     }
   }
 
