@@ -148,15 +148,15 @@ export default {
         ? this.length
         : line - 1
 
-      if (line < this.length) {
+      if (line <= this.length) {
         if (line !== this.activeLine) {
-          this.activeLine = line
           if (line === -1) {
             this.move(0)
           } else {
             this.move(line)
           }
         }
+        this.activeLine = line
         if (this.playing) {
           this.calculateNext()
         }
