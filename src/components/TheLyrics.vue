@@ -79,7 +79,7 @@ export default {
   },
   watch: {
     synced () {
-      if (this.hasSynced) {
+      if (this.hasSynced && this.loaded) {
         console.log('new lyrics, syncing...')
         this.$nextTick(() => this.sync())
       }
@@ -142,6 +142,7 @@ export default {
     sync () {
       const progress = this.serverProgress
       this.clear()
+      console.trace('syncing')
 
       let line = this.times.findIndex(time => time > progress)
       line = line === -1
