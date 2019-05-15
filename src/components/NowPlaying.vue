@@ -129,6 +129,7 @@ export default {
   &:hover {
     max-width: calc(100vw - 20px - 1em);
     transition: max-width .15s ease-out;
+    z-index: 99;
 
     .now-playing__text {
       opacity: 1;
@@ -140,6 +141,7 @@ export default {
 
   @media only screen and (min-width: 640px) {
     max-width: 50vw;
+
     &__text {
       opacity: 1;
     }
@@ -147,8 +149,8 @@ export default {
   .fade-leave-active,
   .fade-enter-active {
     transition:
-      opacity .25s ease-out,
-      transform .25s ease-out;
+      opacity .15s ease-out,
+      transform .15s ease-out;
   }
   .fade-enter {
     opacity: 0 !important;

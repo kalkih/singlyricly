@@ -107,9 +107,6 @@ export default {
       color: white;
     }
   }
-  @media only screen and (min-width: 640px) {
-    display: flex;
-  }
   .fade-enter {
     opacity: 0 !important;
     transform: translateY(1em);
