@@ -40,6 +40,11 @@ export default {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 
+  svg {
+    height: 1.2em;
+    fill: $font-color;
+  }
+
   &.--circle {
     padding: 0;
     max-width: 2.6em;
@@ -53,11 +58,6 @@ export default {
     margin-left: .5em;
   }
 
-  svg {
-    height: 1.2em;
-    fill: $font-color;
-  }
-
   &:before {
     content: '';
     opacity: .5;
@@ -69,6 +69,7 @@ export default {
     left: 0;
     right: 0;
     transition: opacity .1s;
+    border-radius: 2.6em;
   }
 
   &:hover {
