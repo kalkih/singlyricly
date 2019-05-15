@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import state from './state'
+import actions from './actions'
+import mutations from './mutations'
 import createPersistedState from 'vuex-persistedstate'
 import auth from './modules/auth'
 import playback from './modules/playback'
@@ -10,6 +13,9 @@ import lyrics from './modules/lyrics'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  state: state,
+  actions,
+  mutations,
   modules: {
     settings,
     auth,
