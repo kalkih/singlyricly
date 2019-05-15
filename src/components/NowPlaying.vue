@@ -125,6 +125,7 @@ export default {
     left: 0;
     transition: opacity .15s;
     transform: translateZ(0);
+    border-radius: 2.6em;
   }
 
   &:hover {
