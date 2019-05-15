@@ -47,8 +47,8 @@ export default {
     position: absolute;
     width: 3.6em;
     height: 3.6em;
-    border-radius: 50%;
-    transform: scale(50);
+    border-radius: 3.6em;
+    transform: scale(50) translateZ(0);
     z-index: -1;
   }
 

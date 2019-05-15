@@ -14,8 +14,7 @@ export default {}
   //   background-color .25s ease-in;
   transition:
     opacity .5s cubic-bezier(0.645, 0.045, 0.355, 1),
-    background-color 0s ease-in;
-  transition-delay: .25s;
+    background-color 0s ease-in .25s;
 
   .the-menu__content {
     transition:
@@ -24,8 +23,7 @@ export default {}
   }
   .the-menu__bg {
     transition:
-      transform .25s cubic-bezier(0.645, 0.045, 0.355, 1),
-      opacity .15s cubic-bezier(0.645, 0.045, 0.355, 1) .1s;
+      transform .35s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
 }
 .menu-transition-leave-active {
@@ -33,7 +31,7 @@ export default {}
   //   opacity .75s cubic-bezier(0.645, 0.045, 0.355, 1),
   //   background-color .5s ease-in;
   transition:
-    opacity .75s cubic-bezier(0.645, 0.045, 0.355, 1),
+    opacity .5s cubic-bezier(0.645, 0.045, 0.355, 1),
     background-color 0s ease-in .15s;
 
   .the-menu__content {
@@ -44,8 +42,7 @@ export default {}
   }
   .the-menu__bg {
     transition:
-      transform .25s cubic-bezier(0.645, 0.045, 0.355, 1) .15s,
-      opacity .35s cubic-bezier(0.645, 0.045, 0.355, 1) .25s;
+      transform .25s cubic-bezier(0.645, 0.045, 0.355, 1) .1s;
   }
 }
 .menu-transition-enter,
@@ -60,14 +57,6 @@ export default {}
     transform: scale(1);
   }
 }
-.menu-transition-leave-to {
-  .the-menu__content {
-    transform: translateY(2em);
-  }
-  .the-menu__bg {
-    opacity: 0 !important;
-  }
-}
 .menu-transition-enter-to, .menu-transition-leave {
   background-color: $accent-color;
 
@@ -75,7 +64,7 @@ export default {}
     transform: translateY(0);
   }
   .the-menu__bg {
-    transform: scale(50);
+    transform: scale(50) translateZ(0);
   }
 }
 </style>
