@@ -70,6 +70,7 @@ export default {
     right: 0;
     transition: opacity .1s;
     border-radius: 2.6em;
+    transform: translateZ(0);
   }
 
   &:hover {

@@ -124,6 +124,7 @@ export default {
     top: 0;
     left: 0;
     transition: opacity .15s;
+    transform: translateZ(0);
   }
 
   &:hover {
