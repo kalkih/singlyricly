@@ -1,8 +1,8 @@
-const state = {
+const initialState = () => ({
   delay: 0,
   max: 9800,
   min: -9800,
-}
+})
 
 const getters = {
   getDelay: state => state.delay,
@@ -11,6 +11,10 @@ const getters = {
 const mutations = {
   setDelay (state, delay) {
     state.delay = delay
+  },
+  reset (state) {
+    const initial = initialState()
+    Object.keys(initial).forEach(key => { state[key] = initial[key] })
   },
 }
 
@@ -32,7 +36,7 @@ const actions = {
 
 const module = {
   namespaced: true,
-  state,
+  state: initialState,
   getters,
   mutations,
   actions,

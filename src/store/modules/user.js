@@ -1,8 +1,8 @@
 import api from '@/api/spotify'
 
-const state = {
+const initialState = () => ({
   name: '',
-}
+})
 
 const getters = {
   getName: state => state.name,
@@ -11,6 +11,10 @@ const getters = {
 const mutations = {
   setName (state, name) {
     state.name = name
+  },
+  reset (state) {
+    const initial = initialState()
+    Object.keys(initial).forEach(key => { state[key] = initial[key] })
   },
 }
 
@@ -25,7 +29,7 @@ const actions = {
 
 const module = {
   namespaced: true,
-  state,
+  state: initialState,
   getters,
   mutations,
   actions,

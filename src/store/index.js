@@ -13,7 +13,7 @@ import lyrics from './modules/lyrics'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: state,
+  state,
   actions,
   mutations,
   modules: {

@@ -1,12 +1,12 @@
 import api from '@/api/auth'
 
-const state = {
+const initialState = () => ({
   accessToken: '',
   refreshToken: '',
   expiryTime: '',
   ttl: '',
   url: '',
-}
+})
 
 const getters = {
   getAccessToken: state => state.accessToken,
@@ -32,6 +32,11 @@ const mutations = {
   },
   setTtl (state, ttl) {
     state.ttl = ttl
+  },
+  reset (state) {
+    const initial = initialState()
+    console.log('resetting auth')
+    Object.keys(initial).forEach(key => { state[key] = initial[key] })
   },
 }
 
@@ -91,7 +96,7 @@ const actions = {
 
 const module = {
   namespaced: true,
-  state,
+  state: initialState,
   getters,
   mutations,
   actions,
