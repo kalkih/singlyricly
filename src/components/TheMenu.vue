@@ -2,19 +2,23 @@
   <div class="the-menu">
     <div class="the-menu__bg"></div>
     <div class="the-menu__content">
+      <div></div>
       <h1>About</h1>
       <h1>Something</h1>
       <h1>Something else</h1>
       <h1 @click="logout" class="--red">Sign out</h1>
+      <delay-bar hideTitle/>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import DelayBar from '@/components/DelayBar'
 
 export default {
   components: {
+    DelayBar,
   },
   computed: {
     ...mapState({
@@ -75,20 +79,38 @@ export default {
     align-items: center;
     text-align: center;
     padding: 20px;
+    height: 100%;
+
+    @media only screen and (max-width: 320px) {
+      font-size: .8em;
+    }
 
     > * {
-      transition: opacity .1s ease-out;
-      cursor: pointer;
       opacity: .85;
       font-weight: 600;
+      transition: opacity .1s ease-out;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    > h1 {
+      cursor: pointer;
 
       &.--red {
         color: $red;
       }
     }
 
-    > *:hover {
-      opacity: 1;
+    .delay-bar {
+      font-size: 1em;
+      margin-top: auto;
+    }
+
+    > div:first-child {
+      margin-top: 25vh;
+      margin-bottom: auto;
     }
   }
 }

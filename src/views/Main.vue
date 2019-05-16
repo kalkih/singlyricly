@@ -94,9 +94,11 @@ export default {
     bottom: 20px;
   }
   .delay-bar {
+    display: none;
     position: fixed;
     right: 20px;
     bottom: 20px;
+    animation: reveal-bottom .25s ease-out;
 
     @media only screen and (min-width: 640px) {
       display: flex;

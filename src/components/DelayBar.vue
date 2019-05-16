@@ -7,10 +7,10 @@
       <div class="delay-bar__delay" v-if="delay" key="has-delay">
         <transition :name="'fade-' + direction" mode="out-in">
           <span :key="delay">
-            {{ delay }}
+            {{ delay > 0 ? '+' : '' }}{{ delay }}
           </span>
         </transition>
-        <span>
+        <span v-if="!hideTitle">
           {{ title }}
         </span>
       </div>
@@ -35,6 +35,12 @@ import minus from '@/assets/minus.svg'
 export default {
   components: {
     BaseButton, plus, minus,
+  },
+  props: {
+    hideTitle: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     return {
@@ -68,11 +74,12 @@ export default {
 
 <style lang="scss" scoped>
 .delay-bar {
+  position: relative;
   flex-flow: row;
   border-radius: 2.6em;
   overflow: hidden;
-  display: none;
-  animation: reveal-bottom .25s ease-out;
+  display: flex;
+  font-weight: 700;
 
   &:before {
     content: '';
@@ -93,6 +100,7 @@ export default {
     justify-content: center;
     width: 4.6em;
     overflow: hidden;
+    font-weight: inherit;
 
     span {
       &:nth-child(2) {
@@ -102,7 +110,7 @@ export default {
       opacity: .85;
       font-variant-numeric: tabular-nums;
       letter-spacing: .05em;
-      font-weight: 700;
+      font-weight: inherit;
       font-size: 1em;
       color: white;
     }
