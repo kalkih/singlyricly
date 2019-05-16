@@ -4,20 +4,25 @@
     <base-button
       v-if="username"
       class="the-header__settings"
-      :text="'Hey ' + username">
-      <dropdown/>
+      :text="'Hey ' + username"
+      @click.native="toggle()">
+      <transition name="swap-trans">
+        <close v-if="menu" key="open-menu"/>
+        <hamburger v-else key="closed-menu"/>
+      </transition>
     </base-button>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import BaseButton from './BaseButton'
-import dropdown from '@/assets/dropdown.svg'
+import close from '@/assets/close.svg'
+import hamburger from '@/assets/hamburger.svg'
 
 export default {
   components: {
-    BaseButton, dropdown,
+    BaseButton, close, hamburger,
   },
   computed: {
     title: () => {
@@ -25,6 +30,12 @@ export default {
     },
     ...mapState({
       username: state => state.user.name,
+      menu: state => state.menu,
+    }),
+  },
+  methods: {
+    ...mapActions({
+      toggle: 'toggleMenu',
     }),
   },
 }
@@ -34,8 +45,7 @@ export default {
 .the-header {
   display: flex;
   flex-flow: row;
-  align-items: center;
-  justify-content: center;
+  align-items: top;
   padding: 10px;
   position: absolute;
   width: 100%;
@@ -57,6 +67,15 @@ export default {
   &__settings {
     display: none;
     animation: reveal .25s ease-out;
+    padding-right: 2.4em;
+    padding-left: .8em;
+
+    svg {
+      fill: $font-color;
+      height: 1em;
+      position: absolute;
+      right: .8em;
+    }
   }
 
   &__title {

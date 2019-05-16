@@ -22,8 +22,10 @@ export default {}
       transform .35s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
   .the-menu__bg {
-    transition:
-      transform .35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: transform .35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    @media only screen and (min-width: 640px) {
+      transition: transform .25s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
   }
 }
 .menu-transition-leave-active {
@@ -54,17 +56,24 @@ export default {}
     transform: translateY(2em);
   }
   .the-menu__bg {
-    transform: scale(1);
+    transform: scale(1) translateZ(0);
+    @media only screen and (min-width: 640px) {
+      transform: translateY(100vh) translateZ(0);
+    }
   }
 }
 .menu-transition-enter-to, .menu-transition-leave {
   background-color: $accent-color;
 
   .the-menu__content {
+    opacity: 1;
     transform: translateY(0);
   }
   .the-menu__bg {
     transform: scale(50) translateZ(0);
+    @media only screen and (min-width: 640px) {
+      transform: translateY(0) translateZ(0);
+    }
   }
 }
 </style>

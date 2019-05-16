@@ -50,6 +50,17 @@ export default {
     border-radius: 3.6em;
     transform: scale(50) translateZ(0);
     z-index: -1;
+
+    @media only screen and (min-width: 640px) {
+      bottom: unset;
+      top: 0;
+      right: 0;
+
+      border-radius: 0;
+      width: 100%;
+      height: 100vh;
+      transform: translateY(0) translateZ(0);
+    }
   }
 
   &__content {
