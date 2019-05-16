@@ -25,7 +25,6 @@ export default {
 <style lang="scss" scoped>
 .base-button {
   position: relative;
-  cursor: pointer;
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -37,7 +36,9 @@ export default {
   padding: 0 1.2em;
   overflow: hidden;
   font-weight: 500;
+  cursor: pointer;
   user-select: none;
+  touch-action: none;
   -webkit-tap-highlight-color: transparent;
 
   svg {

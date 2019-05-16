@@ -246,6 +246,7 @@ export default {
     flex-flow: column;
     align-items: center;
     position: relative;
+    touch-action: pan-y;
 
     &:before {
       content: '';

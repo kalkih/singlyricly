@@ -51,6 +51,8 @@ export default {
   position: absolute;
   width: 100%;
   z-index: 10;
+  pointer-events: none;
+  touch-action: pan-y;
 
   @media only screen and (min-width: 640px) {
     justify-content: space-between;
@@ -70,6 +72,7 @@ export default {
     animation: reveal .25s ease-out;
     padding-right: 2.4em;
     padding-left: .8em;
+    pointer-events: auto;
 
     svg {
       fill: $font-color;
@@ -84,8 +87,10 @@ export default {
     font-weight: 500;
     margin: 0;
     font-size: 2em;
-    cursor: pointer;
     transition: opacity .1s;
+    cursor: pointer;
+    pointer-events: auto;
+    touch-action: none;
     -webkit-tap-highlight-color: transparent;
 
     &:hover {

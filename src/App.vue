@@ -41,6 +41,7 @@ body {
     Helvetica,
     Arial,
     sans-serif;
+  touch-action: none;
 }
 a {
   color: #fff;

@@ -81,6 +81,7 @@ export default {
     text-align: center;
     padding: 20px;
     height: 100%;
+    touch-action: none;
 
     @media only screen and (max-width: 320px) {
       font-size: .6em;
