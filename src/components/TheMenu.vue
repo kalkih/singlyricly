@@ -33,7 +33,7 @@ export default {
     logout () {
       this.resetState()
       this.$router.push('welcome')
-    }
+    },
   },
 }
 </script>
