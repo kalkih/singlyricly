@@ -74,6 +74,7 @@ export default {
   }
 
   &__content {
+    font-size: .8em;
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -82,11 +83,14 @@ export default {
     height: 100%;
 
     @media only screen and (max-width: 320px) {
-      font-size: .8em;
+      font-size: .6em;
+    }
+    @media only screen and (min-width: 640px) {
+      font-size: 1em;
     }
 
     > * {
-      opacity: .85;
+      opacity: .75;
       font-weight: 600;
       transition: opacity .1s ease-out;
 
@@ -97,6 +101,8 @@ export default {
 
     > h1 {
       cursor: pointer;
+      margin: .8em 0;
+      -webkit-tap-highlight-color: transparent;
 
       &.--red {
         color: $red;
@@ -104,13 +110,20 @@ export default {
     }
 
     .delay-bar {
-      font-size: 1em;
+      font-size: 1.2em;
       margin-top: auto;
+      margin-bottom: .05em;
     }
 
     > div:first-child {
-      margin-top: 25vh;
       margin-bottom: auto;
+      margin-top: 0;
+      height: 20vh;
+      width: 100%;
+
+      @media only screen and (min-width: 640px) {
+        height: 60px;
+      }
     }
   }
 }
