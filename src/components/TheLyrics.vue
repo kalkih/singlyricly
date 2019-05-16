@@ -258,7 +258,7 @@ export default {
     }
 
     p {
-      transition: transform .15s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: transform .15s $easeInOutCubic;
       max-width: 75%;
       word-break: break-word;
       opacity: .75;

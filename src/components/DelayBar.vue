@@ -120,8 +120,8 @@ export default {
   .fade-right-leave-active,
   .fade-right-enter-active {
     transition:
-      opacity .1s cubic-bezier(0.645, 0.045, 0.355, 1),
-      transform .1s cubic-bezier(0.645, 0.045, 0.355, 1);
+      opacity .1s $easeInOutCubic,
+      transform .1s $easeInOutCubic;
   }
   .fade-left-enter,
   .fade-right-leave-to {

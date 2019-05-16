@@ -9,42 +9,35 @@ export default {}
 <style lang="scss">
 .menu-transition-leave-active,
 .menu-transition-enter-active {
-  // transition:
-  //   opacity .5s cubic-bezier(0.645, 0.045, 0.355, 1),
-  //   background-color .25s ease-in;
   transition:
-    opacity .5s cubic-bezier(0.645, 0.045, 0.355, 1),
+    opacity .5s $easeInOutCubic,
     background-color 0s ease-in .25s;
 
   .the-menu__content {
     transition:
-      opacity .35s cubic-bezier(0.645, 0.045, 0.355, 1),
-      transform .35s cubic-bezier(0.645, 0.045, 0.355, 1);
+      opacity .35s $easeInOutCubic,
+      transform .35s $easeInOutCubic;
   }
   .the-menu__bg {
-    transition: transform .35s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: transform .35s $easeInOutCubic;
     @media only screen and (min-width: 640px) {
-      transition: transform .25s cubic-bezier(0.645, 0.045, 0.355, 1);
+      transition: transform .25s $easeInOutCubic;
     }
   }
 }
 .menu-transition-leave-active {
-  // transition:
-  //   opacity .75s cubic-bezier(0.645, 0.045, 0.355, 1),
-  //   background-color .5s ease-in;
   transition:
-    opacity .5s cubic-bezier(0.645, 0.045, 0.355, 1),
+    opacity .5s $easeInOutCubic,
     background-color 0s ease-in .15s;
 
   .the-menu__content {
     transition-delay: 0s;
     transition:
-      opacity .25s cubic-bezier(0.645, 0.045, 0.355, 1),
-      transform .25s cubic-bezier(0.645, 0.045, 0.355, 1);;
+      opacity .25s $easeInOutCubic,
+      transform .25s $easeInOutCubic;
   }
   .the-menu__bg {
-    transition:
-      transform .25s cubic-bezier(0.645, 0.045, 0.355, 1) .1s;
+    transition: transform .25s $easeInOutCubic .1s;
   }
 }
 .menu-transition-enter,
