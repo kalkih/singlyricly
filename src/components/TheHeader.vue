@@ -69,7 +69,7 @@ export default {
 
   &__settings {
     display: none;
-    animation: reveal .25s ease-out;
+    animation: fade-in-top .25s ease-out;
     padding-right: 2.4em;
     padding-left: .8em;
     pointer-events: auto;

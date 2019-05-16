@@ -79,7 +79,7 @@ export default {
   border-radius: 2.6em;
   overflow: hidden;
   display: flex;
-  font-weight: 700;
+  font-weight: 600;
 
   &:before {
     content: '';
@@ -115,13 +115,19 @@ export default {
       color: white;
     }
   }
+  .swap-trans-leave-active,
+  .swap-trans-enter-active {
+    transition:
+      opacity .1s $easeInOutCubic,
+      transform .1s $easeInOutCubic;
+  }
   .fade-left-leave-active,
   .fade-left-enter-active,
   .fade-right-leave-active,
   .fade-right-enter-active {
     transition:
-      opacity .1s $easeInOutCubic,
-      transform .1s $easeInOutCubic;
+      opacity .075s $easeInOutCubic,
+      transform .075s $easeInOutCubic;
   }
   .fade-left-enter,
   .fade-right-leave-to {

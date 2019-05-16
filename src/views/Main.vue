@@ -5,7 +5,7 @@
     </the-menu-transition>
     <the-header/>
     <the-lyrics/>
-    <delay-bar v-if="hasPlayback"/>
+    <delay-bar v-if="hasPlayback" hideTitle/>
     <the-menu-toggle/>
     <now-playing/>
   </div>
@@ -92,13 +92,14 @@ export default {
     position: fixed;
     left: 20px;
     bottom: 20px;
+    animation: fade-in .25s ease-out;
   }
   .delay-bar {
     display: none;
     position: fixed;
     right: 20px;
     bottom: 20px;
-    animation: reveal-bottom .25s ease-out;
+    animation: fade-in .25s ease-out;
 
     @media only screen and (min-width: 640px) {
       display: flex;
@@ -110,6 +111,7 @@ export default {
     right: 20px;
     bottom: 20px;
     z-index: 9;
+    animation: fade-in .25s ease-out;
 
     @media only screen and (min-width: 640px) {
       display: none;
