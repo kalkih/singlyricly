@@ -5,6 +5,7 @@
       <h1>About</h1>
       <h1>Something</h1>
       <h1>Something else</h1>
+      <h1 @click="logout" class="--red">Sign out</h1>
     </div>
   </div>
 </template>
@@ -23,7 +24,12 @@ export default {
   methods: {
     ...mapActions({
       toggle: 'toggleMenu',
+      resetState: 'reset',
     }),
+    logout () {
+      this.resetState()
+      this.$router.push('welcome')
+    }
   },
 }
 </script>
@@ -67,12 +73,18 @@ export default {
     display: flex;
     flex-flow: column;
     align-items: center;
+    text-align: center;
+    padding: 20px;
 
     > * {
       transition: opacity .1s ease-out;
       cursor: pointer;
       opacity: .85;
       font-weight: 600;
+
+      &.--red {
+        color: $red;
+      }
     }
 
     > *:hover {
