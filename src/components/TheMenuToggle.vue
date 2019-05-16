@@ -1,7 +1,7 @@
 <template>
   <div class="the-menu-toggle">
     <base-button circle @click.native="toggle()">
-      <transition name="fade">
+      <transition name="swap-trans">
         <close v-if="menu" key="open"/>
         <hamburger v-else key="closed"/>
       </transition>
@@ -41,24 +41,6 @@ export default {
       height: 1.2em;
       position: absolute;
     }
-  }
-
-  .fade-leave-active,
-  .fade-enter-active {
-    opacity: 0;
-    transition:
-      opacity .15s ease-out,
-      transform .15s ease-out;
-  }
-  .fade-enter {
-    transform: translateY(1em);
-  }
-  .fade-leave-to {
-    transform: translateY(-1em);
-  }
-  .fade-enter-to, .fade-leave {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 </style>

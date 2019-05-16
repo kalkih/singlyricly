@@ -3,7 +3,7 @@
     <base-button circle @click.native="sub">
       <minus/>
     </base-button>
-    <transition name="fade" mode="out-in">
+    <transition name="swap-trans" mode="out-in">
       <div class="delay-bar__delay" v-if="delay" key="has-delay">
         <transition :name="'fade-' + direction" mode="out-in">
           <span :key="delay">
@@ -107,16 +107,6 @@ export default {
       color: white;
     }
   }
-  .fade-enter {
-    opacity: 0 !important;
-    transform: translateY(1em);
-  }
-  .fade-leave-to {
-    opacity: 0 !important;
-    transform: translateY(-1em);
-  }
-  .fade-leave-active,
-  .fade-enter-active,
   .fade-left-leave-active,
   .fade-left-enter-active,
   .fade-right-leave-active,
@@ -135,7 +125,6 @@ export default {
     opacity: 0 !important;
     transform: translateX(-2em);
   }
-  .fade-enter-to, .fade-leave,
   .fade-left-enter-to, .fade-left-leave,
   .fade-right-enter-to, .fade-right-leave {
     opacity: 1;

@@ -1,0 +1,18 @@
+.swap-trans-leave-active,
+.swap-trans-enter-active {
+  transition:
+    opacity .15s ease-out,
+    transform .15s ease-out;
+}
+.swap-trans-enter {
+  opacity: 0 !important;
+  transform: translateY(1em);
+}
+.swap-trans-leave-to {
+  opacity: 0 !important;
+  transform: translateY(-1em);
+}
+.swap-trans-enter-to, .swap-trans-leave {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -5,11 +5,9 @@
         {{ hasInfo ? `${artist} - ${title}`  : placeholder }}
       </span>
     </transition>
-    <transition name="fade" mode="out-in">
-      <pause v-if="playing" @click="pause"/>
-    </transition>
-    <transition name="fade" mode="out-in">
-      <play v-if="!playing" @click="play"/>
+    <transition name="swap-trans">
+      <pause v-if="playing" @click="pause" key="playing"/>
+      <play v-else @click="play" key="paused"/>
     </transition>
   </div>
 </template>
@@ -147,24 +145,6 @@ export default {
     &__text {
       opacity: 1;
     }
-  }
-  .fade-leave-active,
-  .fade-enter-active {
-    transition:
-      opacity .15s ease-out,
-      transform .15s ease-out;
-  }
-  .fade-enter {
-    opacity: 0 !important;
-    transform: translateY(1em);
-  }
-  .fade-leave-to {
-    opacity: 0 !important;
-    transform: translateY(-1em);
-  }
-  .fade-enter-to, .fade-leave {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
 </style>
