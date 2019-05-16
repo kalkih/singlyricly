@@ -53,8 +53,9 @@ const actions = {
     await api.play()
     setTimeout(() => dispatch('fetchPlayback'), 100)
   },
-  async pause ({ dispatch }) {
+  async pause ({ dispatch, commit }) {
     await api.pause()
+    commit('setPlaying', false)
     setTimeout(() => dispatch('fetchPlayback'), 100)
   },
 }
