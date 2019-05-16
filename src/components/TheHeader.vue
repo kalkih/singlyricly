@@ -46,7 +46,8 @@ export default {
   display: flex;
   flex-flow: row;
   align-items: top;
-  padding: 10px;
+  justify-content: center;
+  padding: 10px 20px;
   position: absolute;
   width: 100%;
   z-index: 10;
