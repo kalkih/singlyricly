@@ -146,5 +146,23 @@ export default {
       opacity: 1;
     }
   }
+  .fade-leave-active,
+  .fade-enter-active {
+    transition:
+      opacity .15s $easeInOutCubic,
+      transform .15s $easeInOutCubic;
+  }
+  .fade-enter {
+    opacity: 0 !important;
+    transform: translateY(1em);
+  }
+  .fade-leave-to {
+    opacity: 0 !important;
+    transform: translateY(-1em);
+  }
+  .fade-enter-to, .fade-leave {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
