@@ -43,7 +43,7 @@ const actions = {
     commit('setTrack', res.item ? {
       title: res.item.name,
       artist: res.item.artists[0].name,
-      thumbnail: res.item.album.images[1] && res.item.album.images[1].url,
+      thumbnail: res.item.album.images[2] && res.item.album.images[2].url,
       length: res.item.duration_ms,
     } : {})
     commit('setProgress', res.progress_ms || null)

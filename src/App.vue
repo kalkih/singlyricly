@@ -1,5 +1,12 @@
 <template>
   <div id="app">
+    <transition name="fade-bg">
+      <div v-if="thumbnail"
+        class="app__bg"
+        :style="styleObject"
+        :key="alt">
+      </div>
+    </transition>
     <main>
       <router-view/>
     </main>
@@ -7,11 +14,31 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
   components: {},
+  data () {
+    return {
+      alt: 1,
+    }
+  },
+  computed: {
+    ...mapState({
+      thumbnail: state => state.playback.track.thumbnail,
+    }),
+    styleObject () {
+      return {
+        backgroundImage: `url(${this.thumbnail})`,
+      }
+    },
+  },
+  watch: {
+    thumbnail () {
+      this.alt = +!this.alt
+    },
+  },
 }
 </script>
 
@@ -52,6 +79,19 @@ a {
   @extend %spinner;
 }
 
+.app__bg {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  opacity: .1;
+  mask-image: linear-gradient(transparent 0%, black 200px, black calc(100% - 200px), transparent 100%);
+  -webkit-mask-image: linear-gradient(transparent 0%, black 200px, black calc(100% - 200px), transparent 100%);
+}
+
 @keyframes bg {
   0% {
     background-position: 0% 50%
@@ -62,5 +102,19 @@ a {
   100% {
     background-position: 0% 50%
   }
+}
+
+.fade-bg-leave-active,
+.fade-bg-enter-active {
+  transition: opacity 2.5s $easeInOutCubic;
+}
+.fade-bg-enter {
+  opacity: 0 !important;
+}
+.fade-bg-leave-to {
+  opacity: 0 !important;
+}
+.fade-bg-enter-to, .fade-bg-leave {
+  opacity: .1;
 }
 </style>
