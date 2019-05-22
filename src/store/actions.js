@@ -1,9 +1,9 @@
 export default {
   toggleMenu ({ commit, state }, status) {
-    commit('setMenu', status || !state.menu)
+    commit('setMenu', status !== undefined ? status : !state.menu)
   },
   toggleAbout ({ commit, state }, status) {
-    commit('setAbout', status || !state.about)
+    commit('setAbout', status !== undefined ? status : !state.about)
   },
   reset ({ commit }) {
     commit('reset')
