@@ -1,6 +1,6 @@
 <template>
   <div class="the-header">
-    <h1 class="the-header__title">{{ title }}</h1>
+    <h1 class="the-header__title" @click="close">{{ title }}</h1>
     <base-button
       v-if="username"
       class="the-header__settings"
@@ -50,6 +50,10 @@ export default {
       } else {
         this.toggle()
       }
+    },
+    close () {
+      this.toggle(false)
+      this.toggleAbout(false)
     },
   },
 }
