@@ -3,6 +3,9 @@
     <the-menu-transition mode="out-in">
       <the-menu v-if="menu" key="menu"/>
     </the-menu-transition>
+    <page-transition mode="out-in">
+      <the-about v-if="about" key="about"/>
+    </page-transition>
     <the-header/>
     <the-lyrics/>
     <delay-bar v-if="hasPlayback" hideTitle/>
@@ -17,8 +20,10 @@ import TheLyrics from '@/components/TheLyrics'
 import NowPlaying from '@/components/NowPlaying'
 import DelayBar from '@/components/DelayBar'
 import TheMenuToggle from '@/components/TheMenuToggle'
+import TheAbout from '@/components/TheAbout'
 import TheMenu from '@/components/TheMenu'
 import TheMenuTransition from '@/components/TheMenuTransition'
+import PageTransition from '@/components/PageTransition'
 import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -28,8 +33,10 @@ export default {
     NowPlaying,
     DelayBar,
     TheMenuToggle,
+    TheAbout,
     TheMenu,
     TheMenuTransition,
+    PageTransition,
   },
   data () {
     return {
@@ -43,6 +50,7 @@ export default {
       normal: state => state.lyrics.normal,
       user: state => state.user.name,
       menu: state => state.menu,
+      about: state => state.about,
     }),
     ...mapGetters({
       hasPlayback: 'playback/hasPlayback',

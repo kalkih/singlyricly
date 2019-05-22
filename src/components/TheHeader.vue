@@ -4,8 +4,8 @@
     <base-button
       v-if="username"
       class="the-header__settings"
-      :text="'Hey ' + username"
-      @click.native="toggle()">
+      @click.native="handleClick">
+      <span>{{ text }}</span>
       <transition name="swap-trans">
         <close v-if="menu" key="open-menu"/>
         <hamburger v-else key="closed-menu"/>
@@ -22,7 +22,9 @@ import hamburger from '@/assets/hamburger.svg'
 
 export default {
   components: {
-    BaseButton, close, hamburger,
+    BaseButton,
+    close,
+    hamburger,
   },
   computed: {
     title: () => {
@@ -31,12 +33,24 @@ export default {
     ...mapState({
       username: state => state.user.name,
       menu: state => state.menu,
+      about: state => state.about,
     }),
+    text () {
+      return 'Hey ' + this.username
+    },
   },
   methods: {
     ...mapActions({
       toggle: 'toggleMenu',
+      toggleAbout: 'toggleAbout',
     }),
+    handleClick () {
+      if (this.about) {
+        this.toggleAbout(false)
+      } else {
+        this.toggle()
+      }
+    },
   },
 }
 </script>

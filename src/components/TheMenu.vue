@@ -3,7 +3,7 @@
     <div class="the-menu__bg"></div>
     <div class="the-menu__content">
       <div></div>
-      <h1>About</h1>
+      <h1 @click="toggleAbout()">About</h1>
       <h1>Something</h1>
       <h1>Something else</h1>
       <h1 @click="logout" class="--red">Sign out</h1>
@@ -28,6 +28,7 @@ export default {
   methods: {
     ...mapActions({
       toggle: 'toggleMenu',
+      toggleAbout: 'toggleAbout',
       resetState: 'reset',
     }),
     logout () {
