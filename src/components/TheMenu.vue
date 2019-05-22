@@ -92,7 +92,7 @@ export default {
     }
 
     > * {
-      opacity: .75;
+      opacity: .8;
       font-weight: 600;
       transition: opacity .1s ease-out;
 
