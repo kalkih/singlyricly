@@ -1,7 +1,9 @@
 <template>
   <div class="welcome">
     <h1>{{ name }}</h1>
-    <base-button @click.native="login()">Connect with Spotify</base-button>
+    <base-button @click.native="login()">
+      <span>Connect with Spotify</span>
+    </base-button>
   </div>
 </template>
 
@@ -60,6 +62,7 @@ export default {
     align-items: center;
     flex-flow: column;
     margin: 1em;
+    animation: fade .15s ease-out;
 
     h1 {
       font-family: 'Pacifico', cursive;
@@ -68,14 +71,25 @@ export default {
     }
 
     .base-button {
+      font-weight: 600;
       font-size: 1.2em;
-      font-weight: 500;
       padding: 1em 1em;
       margin-bottom: 0px;
       margin-top: auto;
       width: 100%;
       text-align: center;
       text-transform: uppercase;
+      height: auto;
+
+      &:hover {
+        span {
+          opacity: 1;
+        }
+      }
+      span {
+        transition: opacity .1s $easeInOutCubic;
+        opacity: .85;
+      }
 
     }
 
@@ -89,7 +103,7 @@ export default {
         font-size: 1.6em;
         margin-top: 10vh;
         width: auto;
-        padding: .6em 1.2em;
+        padding: .6em 1.4em;
       }
     }
   }
