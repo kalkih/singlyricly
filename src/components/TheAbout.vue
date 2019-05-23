@@ -100,7 +100,7 @@ export default {
       opacity: .75;
       font-weight: 500;
       font-size: .8em;
-      margin: 2em 60px;
+      margin: 2em 100px;
       left: 0;
       right: 0;
     }
