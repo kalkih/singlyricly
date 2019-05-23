@@ -52,13 +52,14 @@ export default {
   user-select: none;
 }
 html {
-  background: linear-gradient(135deg, #085078 0%, #85D8CE 100%);
+  background: linear-gradient(135deg, $accent-color 0%, $secondary-color 100%) !important;
   height: 100%;
   overflow: hidden;
   // animation: bg 15s ease infinite;
   // background-size: 400% 400%;
 }
 body {
+  height: 100%;
   padding: 0;
   margin: 0;
   color: #fff;
