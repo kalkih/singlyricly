@@ -1,13 +1,33 @@
 <template>
   <div class="the-lyrics">
     <transition v-if="hasSynced" appear v-on:appear="lyricsCreated" name="lyrics-trans">
-      <div class="the-lyrics__lyrics" ref="lyrics">
+      <div class="the-lyrics__lyrics --synced" ref="lyrics">
+        <p class="--accent">
+          ( SYNCED )
+        </p>
         <p
           v-for="(entry, index) in synced"
           :key="index"
           :line="index"
           :class="{ active: activeLine === index}">
           {{ entry.line }}
+        </p>
+      </div>
+    </transition>
+    <transition v-else-if="hasNormal" appear v-on:appear="goToFirstLine" name="lyrics-trans">
+      <div class="the-lyrics__lyrics --normal" ref="lyrics">
+        <p class="--accent">
+          ( UNSYNCED )
+        </p>
+        <p
+          v-for="(line, index) in normal"
+          :key="index"
+          :line="index"
+          :class="{ '--accent': !line }">
+          {{ line ? line : '● ● ●' }}
+        </p>
+        <p class="--accent">
+          ( END )
         </p>
       </div>
     </transition>
@@ -69,6 +89,9 @@ export default {
     },
     hasSynced () {
       return this.synced
+    },
+    hasNormal () {
+      return this.normal
     },
     times () {
       return this.synced.map(line => Number(line.milliseconds))
@@ -168,6 +191,11 @@ export default {
       this.sync()
       done()
     },
+    goToFirstLine (el, done) {
+      this.offset = this.$refs.lyrics.offsetTop
+      this.move(0)
+      done()
+    }
   },
   destroyed () {
     this.clear()
@@ -264,10 +292,17 @@ export default {
       opacity: .75;
       margin: 0;
       padding: 1em 0;
+      transform: scale(1);
+
+      &.--accent {
+        color: $accent-color;
+        opacity: .75;
+      }
 
       &.active {
         transform: scale(1.25);
         opacity: 1;
+        will-change: transform;
       }
 
       @media only screen and (min-width: 640px) {

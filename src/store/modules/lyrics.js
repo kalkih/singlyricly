@@ -16,7 +16,12 @@ const getters = {
 
 const mutations = {
   setNormal (state, lyrics) {
-    state.normal = lyrics
+    if (lyrics) {
+      lyrics = lyrics.replace(/\r/g, '').split('\n')
+      state.normal = lyrics
+    } else {
+      state.normal = lyrics
+    }
   },
   setSynced (state, lyrics) {
     state.synced = lyrics
