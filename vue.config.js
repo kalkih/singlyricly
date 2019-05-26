@@ -25,6 +25,8 @@ module.exports = {
             { collapseGroups: false },
             { moveGroupAttrsToElems: false },
             { moveElemsAttrsToGroup: false },
+            { removeUselessStrokeAndFill: false },
+            { removeUnknownsAndDefaults: false },
             { cleanupIDs: false },
           ],
         },

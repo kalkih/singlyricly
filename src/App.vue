@@ -71,6 +71,14 @@ body {
     sans-serif;
   touch-action: none;
 }
+svg {
+  fill: $accent-color;
+}
+.svg-sad {
+  fill: $accent-color;
+  stroke: $accent-color;
+}
+
 a {
   color: #fff;
   text-decoration: none;
