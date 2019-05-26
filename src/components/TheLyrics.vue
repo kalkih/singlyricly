@@ -2,9 +2,6 @@
   <div class="the-lyrics">
     <transition v-if="hasSynced" appear v-on:appear="lyricsCreated" name="lyrics-trans">
       <div class="the-lyrics__lyrics --synced" ref="lyrics">
-        <p class="--accent">
-          ( SYNCED )
-        </p>
         <p
           v-for="(entry, index) in synced"
           :key="index"
@@ -195,7 +192,7 @@ export default {
       this.offset = this.$refs.lyrics.offsetTop
       this.move(0)
       done()
-    }
+    },
   },
   destroyed () {
     this.clear()
