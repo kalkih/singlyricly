@@ -56,7 +56,7 @@ export default {}
   }
 }
 .menu-transition-enter-to, .menu-transition-leave {
-  background-color: $accent-color;
+  background-color: var(--accent-color-trans);
 
   .the-menu__content {
     opacity: 1;

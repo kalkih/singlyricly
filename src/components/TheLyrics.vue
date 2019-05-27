@@ -241,13 +241,15 @@ export default {
 
     svg {
       height: 4em;
-      fill: $accent-color;
+      fill: var(--accent-color-trans);
+      transition: fill 1s;
       margin-bottom: 1em;
     }
 
     h2 {
       font-size: 1em;
-      color: $accent-color;
+      color: var(--accent-color-trans);
+      transition: color 1s;
       opacity: .75;
       margin: 0;
     }
@@ -292,7 +294,7 @@ export default {
       transform: scale(1);
 
       &.--accent {
-        color: $accent-color;
+        color: var(--accent-color-trans);
         opacity: .75;
       }
 

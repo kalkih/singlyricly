@@ -1,9 +1,14 @@
 <template>
-  <div id="app">
+  <div id="app" :style="appStyle">
+    <div class="debug" :style="{ background: this.color[this.alt][0] }"></div>
+    <div class="debug--1" :style="{ background: this.color[this.alt][1] }"></div>
+    <transition name="fade-color">
+      <div :key="alt" class="app__bg" :style="bgStyle"></div>
+    </transition>
     <transition name="fade-bg">
       <div v-if="thumbnail"
-        class="app__bg"
-        :style="styleObject"
+        class="app__bg app__bg--image"
+        :style="imageStyle"
         :key="alt">
       </div>
     </transition>
@@ -15,6 +20,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import * as Vibrant from 'node-vibrant'
 
 export default {
   name: 'App',
@@ -22,21 +28,42 @@ export default {
   data () {
     return {
       alt: 1,
+      color: [
+        '',
+        '',
+      ],
     }
   },
   computed: {
     ...mapState({
       thumbnail: state => state.playback.track.thumbnail,
     }),
-    styleObject () {
+    bgStyle () {
+      return {
+        background: `linear-gradient(135deg, ${this.color[0]} 0%, ${this.color[1]} 100%)`,
+      }
+    },
+    appStyle () {
+      return {
+        '--accent-color': this.color[0],
+        '--accent-color-trans': this.color[0],
+        '--accent-color-light': this.color[1],
+      }
+    },
+    imageStyle () {
       return {
         backgroundImage: `url(${this.thumbnail})`,
       }
     },
   },
   watch: {
-    thumbnail () {
+    async thumbnail (newVal, oldVal) {
       this.alt = +!this.alt
+      if (newVal && oldVal !== newVal) {
+        let v = new Vibrant(newVal)
+        const { DarkVibrant, LightVibrant } = await v.getPalette()
+        this.color = [DarkVibrant.hex, LightVibrant.hex]
+      }
     },
   },
 }
@@ -53,10 +80,15 @@ export default {
 }
 html {
   background: linear-gradient(135deg, $accent-color 0%, $secondary-color 100%) !important;
+  background: black;
   height: 100%;
   overflow: hidden;
   // animation: bg 15s ease infinite;
   // background-size: 400% 400%;
+
+  --accent-color: #085078;
+  --accent-color-trans: #085078;
+  --accent-color-light: #85D8CE;
 }
 body {
   height: 100%;
@@ -72,13 +104,12 @@ body {
   touch-action: none;
 }
 svg {
-  fill: $accent-color;
+  fill: var(--accent-color-trans);
 }
 .svg-sad {
-  fill: $accent-color;
-  stroke: $accent-color;
+  fill: var(--accent-color-trans);
+  stroke: var(--accent-color-trans);
 }
-
 a {
   color: #fff;
   text-decoration: none;
@@ -92,13 +123,16 @@ a {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  opacity: .1;
-  mask-image: linear-gradient(transparent 0%, black 200px, black calc(100% - 200px), transparent 100%);
-  -webkit-mask-image: linear-gradient(transparent 0%, black 200px, black calc(100% - 200px), transparent 100%);
+
+  &--image {
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    opacity: .1;
+    mask-image: linear-gradient(transparent 0%, black 200px, black calc(100% - 200px), transparent 100%);
+    -webkit-mask-image: linear-gradient(transparent 0%, black 200px, black calc(100% - 200px), transparent 100%);
+  }
 }
 
 @keyframes bg {
@@ -119,11 +153,20 @@ a {
 }
 .fade-bg-enter {
   opacity: 0 !important;
-}
-.fade-bg-leave-to {
   opacity: 0 !important;
 }
 .fade-bg-enter-to, .fade-bg-leave {
   opacity: .1;
+}
+
+.fade-color-leave-active,
+.fade-color-enter-active {
+  transition: opacity 1.5s $easeInOutCubic;
+}
+.fade-color-enter {
+  opacity: 0 !important;
+}
+.fade-color-enter-to, .fade-color-leave {
+  opacity: 1 !important;
 }
 </style>

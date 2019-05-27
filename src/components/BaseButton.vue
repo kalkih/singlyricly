@@ -64,12 +64,12 @@ export default {
     opacity: .5;
     position: absolute;
     z-index: -2;
-    background: $accent-color;
+    background: var(--accent-color-trans);
     height: 100%;
     width: 100%;
     left: 0;
     right: 0;
-    transition: opacity .1s;
+    transition: opacity .1s, background 1s;
     border-radius: 2.6em;
     transform: translateZ(0);
   }

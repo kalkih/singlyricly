@@ -46,7 +46,7 @@ export default {
   justify-content: center;
 
   &__bg {
-    background: darken($accent-color, 5%);
+    background: var(--accent-color);
     position: absolute;
     top: 0;
     right: 0;
@@ -56,6 +56,18 @@ export default {
     width: 100%;
     height: 100vh;
     transform: translateY(0) translateZ(0);
+
+    &:before {
+      content: '';
+      position: absolute;
+      background: rgba(0,0,0,.25);
+      height: 100%;
+      width: 100%;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
   }
 
   &__content {

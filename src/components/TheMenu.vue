@@ -44,7 +44,7 @@ export default {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: $accent-color;
+  background-color: var(--accent-color);
   z-index: 8;
   opacity: 1;
   display: flex;
@@ -52,7 +52,7 @@ export default {
   justify-content: center;
 
   &__bg {
-    background: $accent-color;
+    background: var(--accent-color);
     bottom: 20px;
     right: 20px;
     position: absolute;
@@ -66,7 +66,6 @@ export default {
       bottom: unset;
       top: 0;
       right: 0;
-
       border-radius: 0;
       width: 100%;
       height: 100vh;

@@ -86,7 +86,8 @@ export default {
     opacity: .5;
     position: absolute;
     z-index: -2;
-    background: $accent-color;
+    background: var(--accent-color-trans);
+    transition: background 1s !important;
     height: 100%;
     width: 100%;
     transition: opacity .15s;

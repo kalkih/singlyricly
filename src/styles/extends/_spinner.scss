@@ -10,7 +10,7 @@
     width: 0.8em;
     height: 0.8em;
     border-radius: 50%;
-    background-color: $accent-color;
+    background-color: var(--accent-color-trans);
     transform: translateY(-100%);
     animation: spinner-wave 0.8s ease-in-out alternate infinite;
   }

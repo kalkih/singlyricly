@@ -15,6 +15,12 @@ module.exports = {
   },
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg')
+    const compile = config.module.rule('compile')
+
+    compile
+      .test(/\.worker\.js$/)
+      .use('worker-loader')
+      .loader('worker-loader')
     svgRule.uses.clear()
     svgRule
       .use('vue-svg-loader')
