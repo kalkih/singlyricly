@@ -80,7 +80,6 @@ export default {
 }
 html {
   background: linear-gradient(135deg, $accent-color 0%, $secondary-color 100%) !important;
-  background: black;
   height: 100%;
   overflow: hidden;
   // animation: bg 15s ease infinite;
@@ -151,14 +150,13 @@ a {
 .fade-bg-enter-active {
   transition: opacity 2.5s $easeInOutCubic;
 }
-.fade-bg-enter {
-  opacity: 0 !important;
+.fade-bg-enter,
+.fade-bg-leave-to {
   opacity: 0 !important;
 }
 .fade-bg-enter-to, .fade-bg-leave {
   opacity: .1;
 }
-
 .fade-color-leave-active,
 .fade-color-enter-active {
   transition: opacity 1.5s $easeInOutCubic;
@@ -167,6 +165,6 @@ a {
   opacity: 0 !important;
 }
 .fade-color-enter-to, .fade-color-leave {
-  opacity: 1 !important;
+  opacity: 1;
 }
 </style>
