@@ -259,8 +259,8 @@ export default {
   }
 
   &__lyrics {
-    mask-image: linear-gradient(transparent 0%, black 30%, black 70%, transparent 100%);
-    -webkit-mask-image: linear-gradient(transparent 0%, black 30%, black 70%, transparent 100%);
+    mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
+    -webkit-mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
 
     max-height: calc(100vh - 6em);
     animation: fade-in .5s ease-out;
@@ -282,11 +282,16 @@ export default {
       padding-top: calc(50vh - 3em);
     }
 
+    &.--synced {
+      p {
+        opacity: .5;
+      }
+    }
+
     p {
       transition: transform .15s $easeInOutCubic;
       max-width: 75%;
       word-break: break-word;
-      opacity: .75;
       margin: 0;
       padding: 1em 0;
       transform: scale(1);
