@@ -1,7 +1,7 @@
 <template>
   <div class="the-lyrics">
     <transition v-if="hasSynced" appear v-on:appear="lyricsCreated" name="lyrics-trans">
-      <div class="the-lyrics__lyrics --synced" ref="lyrics">
+      <div class="the-lyrics__lyrics --synced" :class="{'--static': !animate}" ref="lyrics">
         <p
           v-for="(entry, index) in synced"
           :key="index"
@@ -65,6 +65,7 @@ export default {
       timer: null,
       offset: 0,
       baseDelay: -750,
+      animate: true,
     }
   },
   computed: {
@@ -288,13 +289,34 @@ export default {
       }
     }
 
+    &.--static {
+      p {
+        display: none;
+
+        &.active {
+          display: block;
+          position: absolute;
+          top: 50%;
+          transform:
+            translateY(-50%)
+            scale3d(1.25, 1.25, 1.25);
+
+          @media only screen and (min-width: 640px) {
+            transform:
+              translateY(-50%)
+              scale3d(1.4, 1.4, 1.4);
+          }
+        }
+      }
+    }
+
     p {
       transition: transform .1s ease-out;
       max-width: 75%;
       word-break: break-word;
       margin: 0;
       padding: 1em 0;
-      transform: scale(1);
+      transform: scale3d(1, 1, 1);
 
       &.--accent {
         color: $accent-color;
@@ -302,7 +324,7 @@ export default {
       }
 
       &.active {
-        transform: scale(1.25);
+        transform: scale3d(1.25, 1.25, 1.25);
         opacity: 1;
         will-change: transform;
         transition: transform .1s ease-in;
@@ -313,7 +335,7 @@ export default {
         font-size: calc(1em + 1vw);
 
         &.active {
-          transform: scale(1.4);
+          transform: scale3d(1.4, 1.4, 1.4);
         }
       }
     }
