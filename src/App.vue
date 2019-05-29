@@ -70,6 +70,10 @@ body {
     Arial,
     sans-serif;
   touch-action: none;
+
+  @media only screen and (max-height: 640px) {
+    font-size: 12px;
+  }
 }
 svg {
   fill: $accent-color;

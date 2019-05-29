@@ -233,6 +233,10 @@ export default {
       font-size: calc(1em + 1vw);
     }
 
+    @media only screen and (max-height: 640px) {
+      font-size: 1.2em;
+    }
+
     > div {
       display: flex;
       flex-flow: column;
@@ -262,6 +266,11 @@ export default {
   &__lyrics {
     mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
     -webkit-mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
+
+    @media only screen and (max-height: 640px) {
+      mask-image: linear-gradient(transparent 0%, black 10%, black 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(transparent 0%, black 10%, black 90%, transparent 100%);
+    }
 
     max-height: calc(100vh - 6em);
     animation: fade-in .5s ease-out;
