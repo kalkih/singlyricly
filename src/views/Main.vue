@@ -3,9 +3,9 @@
     <the-menu-transition mode="out-in">
       <the-menu v-if="menu" key="menu"/>
     </the-menu-transition>
-    <page-transition mode="out-in">
+    <base-page-transition mode="out-in">
       <the-about v-if="about" key="about"/>
-    </page-transition>
+    </base-page-transition>
     <the-header/>
     <the-lyrics/>
     <delay-bar v-if="hasPlayback" hideTitle/>
@@ -23,7 +23,7 @@ import TheMenuToggle from '@/components/TheMenuToggle'
 import TheAbout from '@/components/TheAbout'
 import TheMenu from '@/components/TheMenu'
 import TheMenuTransition from '@/components/TheMenuTransition'
-import PageTransition from '@/components/PageTransition'
+import BasePageTransition from '@/components/BasePageTransition'
 import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -36,7 +36,7 @@ export default {
     TheAbout,
     TheMenu,
     TheMenuTransition,
-    PageTransition,
+    BasePageTransition,
   },
   data () {
     return {
