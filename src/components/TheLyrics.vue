@@ -132,7 +132,7 @@ export default {
       easyScroll({
         scrollableDomEle: this.$refs.lyrics,
         direction: 'bottom',
-        easingPreset: 'easeInOutCubic',
+        easingPreset: 'easeOutCubic',
         duration: 200,
         scrollAmount: top - this.offset - center + (height / 2),
       })
@@ -289,7 +289,7 @@ export default {
     }
 
     p {
-      transition: transform .15s $easeInOutCubic;
+      transition: transform .1s ease-out;
       max-width: 75%;
       word-break: break-word;
       margin: 0;
@@ -305,6 +305,7 @@ export default {
         transform: scale(1.25);
         opacity: 1;
         will-change: transform;
+        transition: transform .1s ease-in;
       }
 
       @media only screen and (min-width: 640px) {
