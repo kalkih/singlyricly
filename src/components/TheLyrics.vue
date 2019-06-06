@@ -46,18 +46,20 @@
         <h2>Sorry but we couldn't find any lyrics for this track</h2>
       </div>
     </div>
+    <progress-bar v-if="hasSynced" ref="progress" :delay="timing"/>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import ProgressBar from './ProgressBar'
 import sad from '@/assets/sad.svg'
 import play from '@/assets/play.svg'
 import easyScroll from 'easy-scroll'
 
 export default {
   name: 'TheLyrics',
-  components: { sad, play },
+  components: { sad, play, ProgressBar },
   data () {
     return {
       loaded: false,
@@ -66,6 +68,7 @@ export default {
       offset: 0,
       baseDelay: -750,
       animate: true,
+      timing: 0,
     }
   },
   computed: {
@@ -125,6 +128,7 @@ export default {
       this.move()
     },
     move (line = this.activeLine) {
+      this.$refs.progress.reset()
       const target = this.$refs.lyrics
         .querySelector(`p[line="${line}"]`)
       const height = target.offsetHeight
@@ -141,6 +145,7 @@ export default {
     calculateNext (ms) {
       const timer = ms || (this.times[this.activeLine + 1] - this.computeProgress())
       this.timer = setTimeout(this.tick, timer)
+      this.timing = timer
     },
     tick () {
       if (this.hasSynced && this.activeLine < this.length) {
