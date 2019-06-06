@@ -51,12 +51,12 @@ const actions = {
   },
   async play ({ dispatch }) {
     await api.play()
-    setTimeout(() => dispatch('fetchPlayback'), 100)
+    setTimeout(() => dispatch('fetchPlayback'), 250)
   },
   async pause ({ dispatch, commit }) {
     await api.pause()
     commit('setPlaying', false)
-    setTimeout(() => dispatch('fetchPlayback'), 100)
+    setTimeout(() => dispatch('fetchPlayback'), 250)
   },
 }
 
