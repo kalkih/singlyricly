@@ -1,10 +1,10 @@
 <template>
   <div class="the-header">
-    <h1 class="the-header__title" @click="close">{{ title }}</h1>
+    <h1 class="the-header__title" @click="closeMenu">{{ title }}</h1>
     <base-button
       v-if="username"
       class="the-header__settings"
-      @click.native="handleClick">
+      @click.native="toggleMenu">
       <span>{{ text }}</span>
       <transition name="swap-trans">
         <close v-if="menu" key="open-menu"/>
@@ -15,8 +15,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import BaseButton from './BaseButton'
+import menuNav from '@/mixins/menuNav'
 import close from '@/assets/close.svg'
 import hamburger from '@/assets/hamburger.svg'
 
@@ -26,6 +27,7 @@ export default {
     close,
     hamburger,
   },
+  mixins: [ menuNav ],
   computed: {
     title: () => {
       return process.env.VUE_APP_NAME
@@ -33,27 +35,9 @@ export default {
     ...mapState({
       username: state => state.user.name,
       menu: state => state.menu,
-      about: state => state.about,
     }),
     text () {
       return 'Hey ' + this.username
-    },
-  },
-  methods: {
-    ...mapActions({
-      toggle: 'toggleMenu',
-      toggleAbout: 'toggleAbout',
-    }),
-    handleClick () {
-      if (this.about) {
-        this.toggleAbout(false)
-      } else {
-        this.toggle()
-      }
-    },
-    close () {
-      this.toggle(false)
-      this.toggleAbout(false)
     },
   },
 }
