@@ -1,7 +1,9 @@
 <script>
 import { mapActions } from 'vuex'
+import menuNav from '@/mixins/menuNav'
 
 export default {
+  mixins: [ menuNav ],
   methods: {
     ...mapActions({
       togglePlayback: 'playback/toggle',
@@ -13,6 +15,8 @@ export default {
       if (keyCode === 32) {
         this.togglePlayback()
         ev.preventDefault()
+      } else if (keyCode === 27) {
+        this.backMenu()
       } else if (keyCode === 187) {
         this.addDelay()
       } else if (keyCode === 189) {

@@ -29,13 +29,11 @@ export default {
   },
   mixins: [ menuNav ],
   computed: {
-    title: () => {
-      return process.env.VUE_APP_NAME
-    },
     ...mapState({
       username: state => state.user.name,
       menu: state => state.menu,
     }),
+    title: () => process.env.VUE_APP_NAME,
     text () {
       return 'Hey ' + this.username
     },

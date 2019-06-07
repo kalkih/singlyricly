@@ -23,5 +23,12 @@ export default {
       this.toggle(false)
       this.toggleAbout(false)
     },
+    backMenu () {
+      if (this.about) {
+        this.toggleAbout(false)
+      } else {
+        this.toggleBase(false)
+      }
+    },
   },
 }
