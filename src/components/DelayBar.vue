@@ -56,7 +56,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      set: 'settings/setDelay',
       addDelay: 'settings/addDelay',
       subtractDelay: 'settings/subtractDelay',
     }),

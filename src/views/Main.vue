@@ -11,12 +11,14 @@
     <delay-bar v-if="hasPlayback" hideTitle/>
     <the-menu-toggle/>
     <now-playing/>
+    <the-keys/>
   </div>
 </template>
 
 <script>
 import TheHeader from '@/components/TheHeader'
 import TheLyrics from '@/components/TheLyrics'
+import TheKeys from '@/components/TheKeys'
 import NowPlaying from '@/components/NowPlaying'
 import DelayBar from '@/components/DelayBar'
 import TheMenuToggle from '@/components/TheMenuToggle'
@@ -30,6 +32,7 @@ export default {
   components: {
     TheHeader,
     TheLyrics,
+    TheKeys,
     NowPlaying,
     DelayBar,
     TheMenuToggle,

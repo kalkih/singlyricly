@@ -49,6 +49,13 @@ const actions = {
     commit('setProgress', res.progress_ms || null)
     commit('setPlaying', res.is_playing || false)
   },
+  async toggle ({ dispatch, state }) {
+    if (state.playing) {
+      await dispatch('pause')
+    } else {
+      await dispatch('play')
+    }
+  },
   async play ({ dispatch }) {
     await api.play()
     setTimeout(() => dispatch('fetchPlayback'), 250)

@@ -22,12 +22,12 @@ const actions = {
   async setDelay ({ commit }, delay) {
     commit('setDelay', delay)
   },
-  async addDelay ({ commit, state }, amount) {
+  async addDelay ({ commit, state }, amount = 100) {
     if (state.delay + amount <= state.max) {
       commit('setDelay', state.delay + amount)
     }
   },
-  async subtractDelay ({ commit, state }, amount) {
+  async subtractDelay ({ commit, state }, amount = 100) {
     if (state.delay - amount >= state.min) {
       commit('setDelay', state.delay - amount)
     }
