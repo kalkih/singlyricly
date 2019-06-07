@@ -22,5 +22,15 @@ export default () => {
     return config
   })
 
+  instance.interceptors.response.use(async (response) => {
+    return response
+  }, (error) => {
+    if (error.response.status === 401) {
+      console.log('refresh token')
+      store.dispatch('auth/refreshToken')
+      return error.response
+    }
+  })
+
   return instance
 }
