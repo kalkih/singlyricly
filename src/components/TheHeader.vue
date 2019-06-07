@@ -60,6 +60,7 @@ export default {
 
     .the-header__title {
       font-size: 2.4em;
+      line-height: 1em;
     }
 
     .the-header__settings {
