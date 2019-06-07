@@ -298,9 +298,18 @@ export default {
       }
     }
 
+    &.--normal {
+      touch-action: pan-y;
+      scroll-snap-type: y mandatory;
+      p {
+        scroll-snap-align: center;
+      }
+    }
+
     &.--static {
       p {
         display: none;
+        scroll-snap-type: y mandatory;
 
         &.active {
           display: block;
