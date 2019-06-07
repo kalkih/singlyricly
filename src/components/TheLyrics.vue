@@ -63,7 +63,6 @@ export default {
       loaded: false,
       activeLine: -1,
       timer: null,
-      offset: 0,
       baseDelay: -750,
       animate: true,
     }
@@ -135,7 +134,7 @@ export default {
         direction: 'bottom',
         easingPreset: 'easeOutCubic',
         duration: 200,
-        scrollAmount: top - this.offset - center + (height / 2),
+        scrollAmount: top - center + (height / 3),
       })
     },
     calculateNext (ms) {
@@ -185,12 +184,10 @@ export default {
     },
     lyricsCreated (el, done) {
       this.loaded = true
-      this.offset = this.$refs.lyrics.offsetTop
       this.sync()
       done()
     },
     goToFirstLine (el, done) {
-      this.offset = this.$refs.lyrics.offsetTop
       this.move(0)
       done()
     },
@@ -264,15 +261,14 @@ export default {
   }
 
   &__lyrics {
-    mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
-    -webkit-mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
+    mask-image: linear-gradient(transparent 70px, black 33%, black 66%, transparent 100%);
 
     @media only screen and (max-height: 640px) {
-      mask-image: linear-gradient(transparent 0%, black 10%, black 90%, transparent 100%);
-      -webkit-mask-image: linear-gradient(transparent 0%, black 10%, black 90%, transparent 100%);
+      mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
     }
 
-    max-height: calc(100vh - 6em);
+    // max-height: calc(100vh - 6em);
+    height: 100vh;
     animation: fade-in .5s ease-out;
     overflow-y: scroll;
     overflow-x: visible;
@@ -292,11 +288,11 @@ export default {
 
     &:before {
       content: '';
-      padding-top: calc(50vh - 3em);
+      padding-top: 50vh;
     }
     &:after {
       content: '';
-      padding-top: calc(50vh - 3em);
+      padding-top: 50vh;
     }
 
     &.--synced {
@@ -333,8 +329,8 @@ export default {
       transition: transform .1s ease-out;
       word-break: break-word;
       margin: 0;
-      padding: .6em 0;
-      transform: scale3d(.65, .65, .65);
+      padding: .4em 0;
+      transform: scale3d(.75, .75, .75);
       max-width: 1920px;
 
       &.--accent {
@@ -350,7 +346,13 @@ export default {
       }
 
       @media only screen and (min-width: 640px) {
+        transform: scale3d(.65, .65, .65);
         font-size: calc(1em + 1vw);
+        padding: .5em 0;
+      }
+      @media only screen and (max-height: 640px) {
+        mask-image: linear-gradient(transparent 0%, black 10%, black 90%, transparent 100%);
+        padding: .2em 0;
       }
     }
   }
