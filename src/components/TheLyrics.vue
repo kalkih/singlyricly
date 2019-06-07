@@ -277,11 +277,18 @@ export default {
     overflow-y: scroll;
     overflow-x: visible;
     width: 100%;
+    padding: 0 10px;
     display: flex;
     flex-flow: column;
     align-items: center;
     position: relative;
     touch-action: pan-y;
+    font-size: 1.25em;
+
+    @media only screen and (min-width: 640px) {
+      padding: 0 1em;
+      font-size: 1.6em;
+    }
 
     &:before {
       content: '';
@@ -301,6 +308,7 @@ export default {
     &.--normal {
       touch-action: pan-y;
       scroll-snap-type: y mandatory;
+
       p {
         scroll-snap-align: center;
       }
@@ -309,7 +317,6 @@ export default {
     &.--static {
       p {
         display: none;
-        scroll-snap-type: y mandatory;
 
         &.active {
           display: block;
@@ -317,24 +324,18 @@ export default {
           top: 50%;
           transform:
             translateY(-50%)
-            scale3d(1.25, 1.25, 1.25);
-
-          @media only screen and (min-width: 640px) {
-            transform:
-              translateY(-50%)
-              scale3d(1.4, 1.4, 1.4);
-          }
+            scale3d(1, 1, 1);
         }
       }
     }
 
     p {
       transition: transform .1s ease-out;
-      max-width: 75%;
       word-break: break-word;
       margin: 0;
-      padding: 1em 0;
-      transform: scale3d(1, 1, 1);
+      padding: .6em 0;
+      transform: scale3d(.65, .65, .65);
+      max-width: 1920px;
 
       &.--accent {
         color: $accent-color;
@@ -342,19 +343,14 @@ export default {
       }
 
       &.active {
-        transform: scale3d(1.25, 1.25, 1.25);
+        transform: scale3d(1, 1, 1);
         opacity: 1;
         will-change: transform;
         transition: transform .1s ease-in;
       }
 
       @media only screen and (min-width: 640px) {
-        max-width: 60%;
         font-size: calc(1em + 1vw);
-
-        &.active {
-          transform: scale3d(1.4, 1.4, 1.4);
-        }
       }
     }
   }
