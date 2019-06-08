@@ -6,7 +6,7 @@
           v-for="(entry, index) in synced"
           :key="index"
           :line="index"
-          :class="{ active: activeLine === index}">
+          :class="{ active: activeLine === index, visible: isVisible(index)}">
           {{ entry.line }}
         </p>
       </div>
@@ -191,6 +191,10 @@ export default {
       this.move(0)
       done()
     },
+    isVisible (line) {
+      return line === this.activeLine - 1 ||
+        line === this.activeLine + 1
+    },
   },
   destroyed () {
     this.clear()
@@ -332,10 +336,16 @@ export default {
       padding: .4em 0;
       transform: scale3d(.75, .75, .75);
       max-width: 1920px;
+      display: none;
 
       &.--accent {
         color: $accent-color;
         opacity: .75;
+      }
+
+      &.active,
+      &.visible {
+        display: block;
       }
 
       &.active {
