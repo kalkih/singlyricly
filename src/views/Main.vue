@@ -8,7 +8,7 @@
     </base-page-transition>
     <the-header/>
     <the-lyrics/>
-    <delay-bar v-if="hasPlayback" hideTitle/>
+    <delay-bar v-if="synced" hideTitle/>
     <the-menu-toggle/>
     <now-playing/>
     <the-keys/>
