@@ -1,9 +1,8 @@
 <template>
   <div class="the-sync">
     <the-header/>
-
     <transition name="swap-trans" mode="out-in">
-      <div v-if="syncing" class="the-sync__lyrics" ref="lyrics" key="lyrics">
+      <div v-if="step === 4" class="the-sync__lyrics" ref="lyrics" key="lyrics">
         <transition name="line-trans" mode="out-in">
           <p :key="current"> {{ lyrics[current - 1] }}</p>
         </transition>
@@ -15,15 +14,33 @@
         </transition>
       </div>
       <div v-else class="the-sync__info" key="info">
-        <div v-if="complete">
-          <h2>Complete</h2>
-          <router-link to="/">
-            <base-button>Return to app</base-button>
-          </router-link>
-        </div>
+        <transition name="swap-trans" mode="out-in">
+          <div v-if="step === 0" key="one">
+            <h2>SYNC LYRICS</h2>
+            <h3>{{ track.title }} - {{ track.artist }}</h3>
+            <p>Syncing lyrics for a song is easy, just press the next line button when you hear the beginning of the next line</p>
+            <p>We will start the music when you're ready</p>
+            <base-button @click.native="startCountdown">I'm ready!</base-button>
+          </div>
+          <div v-else-if="step === 5" key="two">
+            <h2>That's it, well done!</h2>
+            <router-link to="/">
+              <base-button>Return to app</base-button>
+            </router-link>
+          </div>
+          <div v-else-if="step === 1" key="three">
+            <h2 class="--cd">3</h2>
+          </div>
+          <div v-else-if="step === 2" key="four">
+            <h2 class="--cd">2</h2>
+          </div>
+          <div v-else-if="step === 3" key="five">
+            <h2 class="--cd">1</h2>
+          </div>
+        </transition>
       </div>
     </transition>
-    <base-button v-if="syncing" class="next-line__button" @click.native="next">Next line</base-button>
+    <base-button v-if="step === 4" class="next-line__button" @click.native="next">Next line</base-button>
   </div>
 </template>
 
@@ -43,8 +60,8 @@ export default {
       delay: 0,
       baseDelay: -100,
       startTime: null,
-      syncing: true,
-      complete: false,
+      step: 0,
+      interval: null,
     }
   },
   computed: {
@@ -75,8 +92,19 @@ export default {
       this.current += 1
       this.pushLine(this.current)
       if (this.current >= this.length - 1) {
-        this.syncing = false
-        this.complete = true
+        this.step = 5
+      }
+    },
+    startCountdown () {
+      this.countdown()
+      this.interval = setInterval(this.countdown, 1000)
+    },
+    countdown () {
+      if (this.step === 3) {
+        this.startSyncing()
+        clearInterval(this.interval)
+      } else {
+        this.step += 1
       }
     },
     pushLine (num) {
@@ -88,20 +116,29 @@ export default {
       this.push(line)
     },
     async startSyncing () {
-      await this.initSync({ lyrics: this.unsynced, uri: this.uri })
       const { start, delay } = await this.startPlayback(this.track.uri)
+      this.step = 4
       this.startTime = start
       this.delay = delay
+    },
+    async init () {
+      this.step = 0
+      await this.initSync({ lyrics: this.unsynced, uri: this.uri })
+    },
+    async reset () {
+      clearInterval(this.interval)
+      this.step = 0
+      this.resetSync()
     },
   },
   async created () {
     if (!this.track.uri || !this.unsynced || this.hasSynced) {
       this.$router.push('/')
     }
-    this.startSyncing()
+    this.init()
   },
   destroyed () {
-    this.resetSync()
+    this.reset()
   },
 }
 </script>
@@ -114,24 +151,41 @@ export default {
     width: 100%;
     height: 100%;
     padding: 1em;
-    color: $accent-color;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    font-size: 1.4em;
+    animation: fade-in .5s ease-out;
 
     @media only screen and (min-width: 640px) {
-      font-size: calc(1.2em + 1vw);
-    }
-
-    @media only screen and (max-height: 640px) {
-      font-size: 1.2em;
+      font-size: calc(1em + 1vw);
     }
 
     > div {
       display: flex;
       flex-flow: column;
       align-items: center;
-      animation: fade-in .5s ease-out;
+    }
+
+    .--cd {
+      font-size: 4em;
+      margin: 0;
+    }
+
+    h2 {
+      color: $accent-color;
+    }
+
+    p {
+      color: $font-color;
+      font-size: .8em;
+      margin: 0 0 1em 0;
+      line-height: 1.5em;
+    }
+
+    h2, h3 {
+      margin-top: 0;
     }
 
     .base-button {
