@@ -66,6 +66,10 @@ const actions = {
     commit('setPlaying', false)
     setTimeout(() => dispatch('fetchPlayback'), 250)
   },
+  async playTrack ({ dispatch }, uri) {
+    await api.playTrack(uri)
+    setTimeout(() => dispatch('fetchPlayback'), 250)
+  },
 }
 
 const module = {
