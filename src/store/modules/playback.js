@@ -67,8 +67,12 @@ const actions = {
     setTimeout(() => dispatch('fetchPlayback'), 250)
   },
   async playTrack ({ dispatch }, uri) {
+    const startTime = Date.now()
     await api.playTrack(uri)
+    const endTime = Date.now()
+    const delay = (endTime - startTime) / 2
     setTimeout(() => dispatch('fetchPlayback'), 250)
+    return { start: endTime, delay }
   },
 }
 

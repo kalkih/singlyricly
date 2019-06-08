@@ -13,9 +13,9 @@
     </transition>
     <transition v-else-if="hasNormal" appear v-on:appear="goToFirstLine" name="lyrics-trans">
       <div class="the-lyrics__lyrics --normal" ref="lyrics">
-        <p class="--accent">
-          ( UNSYNCED )
-        </p>
+        <router-link to="/sync">
+          <base-button>Help us sync this track</base-button>
+        </router-link>
         <p
           v-for="(line, index) in normal"
           :key="index"
@@ -51,13 +51,14 @@
 
 <script>
 import { mapState } from 'vuex'
+import BaseButton from './BaseButton'
 import sad from '@/assets/sad.svg'
 import play from '@/assets/play.svg'
 import easyScroll from 'easy-scroll'
 
 export default {
   name: 'TheLyrics',
-  components: { sad, play },
+  components: { BaseButton, sad, play },
   data () {
     return {
       loaded: false,
@@ -267,6 +268,13 @@ export default {
       mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
     }
 
+    .base-button {
+      font-size: .7em;
+      padding: .4em 1em;
+      margin: 1em 0;
+      height: auto;
+    }
+
     // max-height: calc(100vh - 6em);
     height: 100vh;
     animation: fade-in .5s ease-out;
@@ -288,7 +296,7 @@ export default {
 
     &:before {
       content: '';
-      padding-top: 50vh;
+      padding-top: 40vh;
     }
     &:after {
       content: '';
@@ -305,8 +313,17 @@ export default {
       touch-action: pan-y;
       scroll-snap-type: y mandatory;
 
+      &:before {
+        content: '';
+        padding-top: 25vh;
+      }
+
       p {
         scroll-snap-align: center;
+
+        @media only screen and (min-width: 640px) {
+          padding: .4em 0;
+        }
       }
     }
 

@@ -8,20 +8,28 @@ import Welcome from '@/views/Welcome'
 
 Vue.use(Router)
 
+const isAuthenticated = (to, from, next) => {
+  const isAuth = store.getters['auth/isAuthenticated']
+  if (!isAuth) {
+    next('/welcome')
+  } else {
+    next()
+  }
+}
+
 const router = new Router({
   routes: [
     {
       path: '/',
       name: 'main',
       component: Main,
-      beforeEnter: (to, from, next) => {
-        const isAuth = store.getters['auth/isAuthenticated']
-        if (!isAuth) {
-          next('/welcome')
-        } else {
-          next()
-        }
-      },
+      beforeEnter: isAuthenticated,
+    },
+    {
+      path: '/sync',
+      name: 'sync',
+      component: () => import('../views/Sync.vue'),
+      beforeEnter: isAuthenticated,
     },
     {
       path: '/login',

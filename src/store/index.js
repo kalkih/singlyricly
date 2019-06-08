@@ -9,6 +9,7 @@ import playback from './modules/playback'
 import user from './modules/user'
 import settings from './modules/settings'
 import lyrics from './modules/lyrics'
+import sync from './modules/sync'
 
 Vue.use(Vuex)
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     user,
     playback,
     lyrics,
+    sync,
   },
   plugins: [
     createPersistedState({
