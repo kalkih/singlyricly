@@ -1,6 +1,6 @@
 <template>
   <div class="the-header">
-    <h1 class="the-header__title" @click="closeMenu">{{ title }}</h1>
+    <h1 class="the-header__title" @click="reset">{{ title }}</h1>
     <base-button
       v-if="username"
       class="the-header__settings"
@@ -37,6 +37,12 @@ export default {
     text () {
       return 'Hey ' + this.username
     },
+  },
+  methods: {
+    reset () {
+      this.closeMenu
+      this.$router.push('/')
+    }
   },
 }
 </script>
