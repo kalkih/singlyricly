@@ -52,7 +52,7 @@ export default {
       track: state => state.playback.track,
       unsynced: state => state.lyrics.normal,
       lyrics: state => state.sync.lyrics,
-      uri: state => state.sync.uri,
+      uri: state => state.sync.track.uri,
     }),
     ...mapGetters({
       hasSynced: 'lyrics/hasSynced',

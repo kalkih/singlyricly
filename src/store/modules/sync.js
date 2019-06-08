@@ -1,7 +1,7 @@
 const initialState = () => ({
   lyrics: null,
-  uri: null,
   synced: [],
+  track: {},
 })
 
 const getters = {
@@ -11,8 +11,8 @@ const mutations = {
   setLyrics (state, lyrics) {
     state.lyrics = [ ' ', 'Intro', ...lyrics.filter(Boolean) ]
   },
-  setUri (state, uri) {
-    state.uri = uri
+  setTrack (state, track) {
+    state.track = track
   },
   setSynced (state, synced) {
     state.synced = synced
@@ -29,7 +29,7 @@ const mutations = {
 const actions = {
   async init ({ commit }, obj) {
     commit('setLyrics', obj.lyrics)
-    commit('setUri', obj.uri)
+    commit('setTrack', obj.track)
     commit('setSynced', [])
   },
   async reset ({ commit }) {
