@@ -20,7 +20,7 @@ export default {
       }
     },
     closeMenu () {
-      this.toggle(false)
+      this.toggleBase(false)
       this.toggleAbout(false)
     },
     backMenu () {
