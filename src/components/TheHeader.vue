@@ -1,5 +1,5 @@
 <template>
-  <div class="the-header">
+  <div class="the-header" :class="{ '--home': home }">
     <h1 class="the-header__title" @click="reset">{{ title }}</h1>
     <base-button
       v-if="username"
@@ -28,6 +28,11 @@ export default {
     hamburger,
   },
   mixins: [ menuNav ],
+  data () {
+    return {
+      home: false,
+    }
+  },
   computed: {
     ...mapState({
       username: state => state.user.name,
@@ -40,9 +45,22 @@ export default {
   },
   methods: {
     reset () {
-      this.closeMenu
+      this.closeMenu()
       this.$router.push('/')
-    }
+    },
+  },
+  watch: {
+    '$route.name': {
+      handler (name) {
+        if (name !== 'main') {
+          this.home = false
+        } else {
+          this.home = true
+        }
+      },
+      deep: true,
+      immediate: true,
+    },
   },
 }
 </script>
@@ -61,16 +79,20 @@ export default {
   touch-action: pan-y;
 
   @media only screen and (min-width: 640px) {
-    justify-content: space-between;
-    padding: 20px;
-
     .the-header__title {
       font-size: 2.4em;
       line-height: 1em;
+      padding: 20px;
     }
+  }
 
-    .the-header__settings {
-      display: flex;
+  &.--home {
+    @media only screen and (min-width: 640px) {
+      justify-content: space-between;
+
+      .the-header__settings {
+        display: flex;
+      }
     }
   }
 
