@@ -45,6 +45,7 @@ const actions = {
       artist: res.item.artists[0].name,
       thumbnail: res.item.album.images[2] && res.item.album.images[2].url,
       length: res.item.duration_ms,
+      uri: res.item.uri,
     } : {})
     commit('setProgress', res.progress_ms || null)
     commit('setPlaying', res.is_playing || false)
