@@ -1,11 +1,10 @@
+import api from '@/api/lyrics'
+
 const initialState = () => ({
   lyrics: null,
   synced: [],
   track: {},
 })
-
-const getters = {
-}
 
 const mutations = {
   setLyrics (state, lyrics) {
@@ -38,6 +37,9 @@ const actions = {
   async setLyrics ({ commit }, lyrics) {
     commit('setLyrics', lyrics)
   },
+  async save ({ state }) {
+    return api.saveLyrics(state.synced, state.track)
+  },
   async push ({ commit }, line) {
     commit('push', line)
   },
@@ -46,7 +48,6 @@ const actions = {
 const module = {
   namespaced: true,
   state: initialState,
-  getters,
   mutations,
   actions,
 }
