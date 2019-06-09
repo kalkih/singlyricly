@@ -2,7 +2,6 @@
   <div class="the-header" :class="{ '--home': home }">
     <h1 class="the-header__title" @click="reset">{{ title }}</h1>
     <base-button
-      v-if="username"
       class="the-header__settings"
       @click.native="toggleMenu">
       <span>{{ text }}</span>
@@ -35,12 +34,16 @@ export default {
   },
   computed: {
     ...mapState({
-      username: state => state.user.name,
+      alias: state => state.user.alias,
       menu: state => state.menu,
     }),
     title: () => process.env.VUE_APP_NAME,
     text () {
-      return 'Hey ' + this.username
+      if (this.alias) {
+        return `Hey ${this.alias}`
+      } else {
+        return 'Menu'
+      }
     },
   },
   methods: {

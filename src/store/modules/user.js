@@ -1,16 +1,24 @@
 import api from '@/api/spotify'
 
 const initialState = () => ({
+  id: '',
   name: '',
+  alias: '',
 })
 
 const getters = {
-  getName: state => state.name,
+  getAlias: state => state.alias,
 }
 
 const mutations = {
+  setId (state, id) {
+    state.id = id
+  },
   setName (state, name) {
     state.name = name
+  },
+  setAlias (state, alias) {
+    state.alias = alias
   },
   reset (state) {
     const initial = initialState()
@@ -19,11 +27,11 @@ const mutations = {
 }
 
 const actions = {
-  async fetchUser ({ commit, rootState }) {
+  async fetchUser ({ commit }) {
     const user = await api.fetchUser()
-    let username = user.display_name || user.id
-    username = username.split(' ')[0]
-    commit('setName', username)
+    commit('setId', user.id)
+    commit('setName', user.display_name)
+    commit('setAlias', user.display_name.split(' ')[0])
   },
 }
 
