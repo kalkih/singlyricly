@@ -29,17 +29,17 @@
       </div>
     </transition>
     <div v-else class="the-lyrics__info">
-      <div v-if="!progress" class="not-available">
-        <play/>
-        <h2>Play something on Spotify and check back here</h2>
-      </div>
-      <div v-else-if="found">
+      <div v-if="searching">
         <h2>We're getting your lyrics, stay tuned!</h2>
         <div class="spinner">
           <div></div>
           <div></div>
           <div></div>
         </div>
+      </div>
+      <div v-else-if="!progress" class="not-available">
+        <play/>
+        <h2>Play something on Spotify and check back here</h2>
       </div>
       <div class="not-found" v-else>
         <sad/>
@@ -72,7 +72,7 @@ export default {
     ...mapState({
       synced: state => state.lyrics.synced,
       normal: state => state.lyrics.normal,
-      found: state => state.lyrics.found,
+      searching: state => state.lyrics.searching,
       progress: state => state.playback.progress,
       playing: state => state.playback.playing,
       updatedAt: state => state.playback.updatedAt,

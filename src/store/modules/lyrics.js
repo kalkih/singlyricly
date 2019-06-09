@@ -30,7 +30,7 @@ const mutations = {
     state.found = status
   },
   setSearching (state, status) {
-    state.found = status
+    state.searching = status
   },
 }
 

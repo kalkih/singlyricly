@@ -1,11 +1,11 @@
 import api from '@/api/spotify'
 
-const state = {
+const initialState = () => ({
   track: {},
   progress: null,
   updatedAt: null,
   playing: false,
-}
+})
 
 const getters = {
   getTrack: state => state.track,
@@ -31,6 +31,11 @@ const mutations = {
   setPlaying (state, playing) {
     state.playing = playing
   },
+
+  reset (state) {
+    const initial = initialState()
+    Object.keys(initial).forEach(key => { state[key] = initial[key] })
+  },
 }
 
 const actions = {
@@ -48,7 +53,7 @@ const actions = {
       uri: res.item.uri,
       id: res.item.id,
     } : {})
-    commit('setProgress', res.progress_ms || null)
+    commit('setProgress', res.progress_ms)
     commit('setPlaying', res.is_playing || false)
   },
   async toggle ({ dispatch, state }) {
@@ -75,11 +80,14 @@ const actions = {
     setTimeout(() => dispatch('fetchPlayback'), 250)
     return { start: endTime, delay }
   },
+  async clear ({ commit }) {
+    commit('reset')
+  },
 }
 
 const module = {
   namespaced: true,
-  state,
+  state: initialState,
   getters,
   mutations,
   actions,
