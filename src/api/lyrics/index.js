@@ -17,6 +17,6 @@ export default {
         user,
       },
     })
-    return req.status === 200 ? req.data : {}
+    return req.status === 201 ? 1 : 0
   },
 }

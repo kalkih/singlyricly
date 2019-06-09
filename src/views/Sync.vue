@@ -22,19 +22,25 @@
             <p>We will start the music when you're ready</p>
             <base-button @click.native="startCountdown">I'm ready!</base-button>
           </div>
-          <div v-else-if="step === 5" key="two">
+          <div v-else-if="step === 6" key="two">
             <h2>That's it, well done!</h2>
-            <router-link to="/">
-              <base-button>Return to app</base-button>
-            </router-link>
+            <base-button @click.native="exit">Return to app</base-button>
           </div>
-          <div v-else-if="step === 1" key="three">
+          <div v-else-if="step === 5" key="three">
+            <h2>Processing your sync</h2>
+            <div class="spinner">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div v-else-if="step === 1" key="four">
             <h2 class="--cd">3</h2>
           </div>
-          <div v-else-if="step === 2" key="four">
+          <div v-else-if="step === 2" key="five">
             <h2 class="--cd">2</h2>
           </div>
-          <div v-else-if="step === 3" key="five">
+          <div v-else-if="step === 3" key="six">
             <h2 class="--cd">1</h2>
           </div>
         </transition>
@@ -85,16 +91,19 @@ export default {
       saveSync: 'sync/save',
       push: 'sync/push',
       startPlayback: 'playback/playTrack',
+      clearPlayback: 'playback/clear',
+      clearLyrics: 'lyrics/clearLyrics',
     }),
     progress () {
       return Date.now() - this.startTime + this.delay + this.baseDelay
     },
-    next () {
+    async next () {
       this.current += 1
       this.pushLine(this.current)
       if (this.current >= this.length - 1) {
         this.step = 5
-        this.saveSync()
+        await this.saveSync()
+        this.step = 6
       }
     },
     startCountdown () {
@@ -114,7 +123,6 @@ export default {
         milliseconds: this.progress(),
         line: this.lyrics[num] || '',
       }
-      console.log(line)
       this.push(line)
     },
     async startSyncing () {
@@ -126,6 +134,12 @@ export default {
     async init () {
       this.step = 0
       await this.initSync({ lyrics: this.unsynced, track: this.track })
+    },
+    exit () {
+      this.clearPlayback()
+      this.clearLyrics()
+      this.startPlayback(this.uri)
+      this.$router.push('/')
     },
     async reset () {
       clearInterval(this.interval)
@@ -193,6 +207,11 @@ export default {
     .base-button {
       font-size: .8em;
       color: $font-color;
+    }
+
+    .spinner {
+      font-size: 1.2em;
+      margin-top: 1em;
     }
   }
 
