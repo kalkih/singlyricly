@@ -82,6 +82,7 @@ export default {
     ...mapActions({
       initSync: 'sync/init',
       resetSync: 'sync/reset',
+      saveSync: 'sync/save',
       push: 'sync/push',
       startPlayback: 'playback/playTrack',
     }),
@@ -93,6 +94,7 @@ export default {
       this.pushLine(this.current)
       if (this.current >= this.length - 1) {
         this.step = 5
+        this.saveSync()
       }
     },
     startCountdown () {
@@ -116,14 +118,14 @@ export default {
       this.push(line)
     },
     async startSyncing () {
-      const { start, delay } = await this.startPlayback(this.track.uri)
+      const { start, delay } = await this.startPlayback(this.uri)
       this.step = 4
       this.startTime = start
       this.delay = delay
     },
     async init () {
       this.step = 0
-      await this.initSync({ lyrics: this.unsynced, uri: this.uri })
+      await this.initSync({ lyrics: this.unsynced, track: this.track })
     },
     async reset () {
       clearInterval(this.interval)
