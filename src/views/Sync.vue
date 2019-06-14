@@ -43,6 +43,11 @@
           <div v-else-if="step === 3" key="six">
             <h2 class="--cd">1</h2>
           </div>
+          <div v-else>
+            <sad/>
+            <h2>Oops! Something went wrong, please try again</h2>
+            <base-button @click.native="exit">Reload</base-button>
+          </div>
         </transition>
       </div>
     </transition>
@@ -53,12 +58,14 @@
 <script>
 import TheHeader from '@/components/TheHeader'
 import BaseButton from '@/components/BaseButton'
+import sad from '@/assets/sad.svg'
 import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
     TheHeader,
     BaseButton,
+    sad,
   },
   data () {
     return {
@@ -106,10 +113,15 @@ export default {
     async next () {
       this.current += 1
       this.pushLine(this.current)
-      if (this.current >= this.length - 1) {
+      if (this.current >= this.length - 1 && this.step === 4) {
         this.step = 5
-        await this.saveSync()
-        this.step = 6
+        window.removeEventListener('keydown', this.keyEvent)
+        const saved = await this.saveSync()
+        if (saved) {
+          this.step = 6
+        } else {
+          this.step = 7
+        }
       }
     },
     startCountdown () {
@@ -132,11 +144,15 @@ export default {
       this.push(line)
     },
     async startSyncing () {
-      const { start, delay } = await this.startPlayback(this.uri)
-      this.step = 4
-      this.startTime = start
-      this.delay = delay
-      window.addEventListener('keydown', this.keyEvent)
+      try {
+        const { start, delay } = await this.startPlayback(this.uri)
+        this.step = 4
+        this.startTime = start
+        this.delay = delay
+        window.addEventListener('keydown', this.keyEvent)
+      } catch (err) {
+        this.step = 7
+      }
     },
     async init () {
       this.step = 0
@@ -210,6 +226,11 @@ export default {
 
     h2, h3 {
       margin-top: 0;
+    }
+
+    svg {
+      height: 5em;
+      margin-bottom: 1em;
     }
 
     .base-button {

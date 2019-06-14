@@ -10,13 +10,18 @@ export default {
     return req.status === 200 ? req.data : {}
   },
   async saveLyrics (lyrics, track, user) {
-    const req = await request.post('/', {
-      data: {
-        lyrics,
-        track,
-        user,
-      },
-    })
-    return req.status === 201 ? 1 : 0
+    try {
+      const req = await request.post('/', {
+        validateStatus: false,
+        data: {
+          lyrics,
+          track,
+          user,
+        },
+      })
+      return req.status === 201 ? 1 : 0
+    } catch (err) {
+      return 0
+    }
   },
 }
