@@ -274,16 +274,6 @@ export default {
       margin: 1em 0;
       height: auto;
       font-weight: 600;
-
-      // &:hover {
-      //   &:before {
-      //     opacity: 1 !important;
-      //   }
-      // }
-      
-      // &:before {
-      //   opacity: .75 !important;
-      // }
     }
 
     // max-height: calc(100vh - 6em);
