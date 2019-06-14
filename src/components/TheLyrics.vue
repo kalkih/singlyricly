@@ -14,7 +14,7 @@
     <transition v-else-if="hasNormal" appear v-on:appear="goToFirstLine" name="lyrics-trans">
       <div class="the-lyrics__lyrics --normal" ref="lyrics">
         <router-link to="/sync">
-          <base-button>Help us sync this track</base-button>
+          <base-button>Help sync these lyrics</base-button>
         </router-link>
         <p
           v-for="(line, index) in normal"
@@ -273,6 +273,17 @@ export default {
       padding: .4em 1em;
       margin: 1em 0;
       height: auto;
+      font-weight: 600;
+
+      // &:hover {
+      //   &:before {
+      //     opacity: 1 !important;
+      //   }
+      // }
+      
+      // &:before {
+      //   opacity: .75 !important;
+      // }
     }
 
     // max-height: calc(100vh - 6em);
