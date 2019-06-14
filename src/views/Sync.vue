@@ -241,6 +241,8 @@ export default {
     .highlight {
       color: $accent-color;
       font-weight: 600;
+      line-break: none;
+      white-space: nowrap;
     }
 
     .spinner {
