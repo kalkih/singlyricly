@@ -269,11 +269,16 @@ export default {
     }
 
     .base-button {
-      font-size: .7em;
-      padding: .4em 1em;
+      font-size: .6em;
+      padding: .8em 1em;
       margin: 1em 0;
       height: auto;
       font-weight: 600;
+
+      @media only screen and (min-width: 640px) {
+        padding: .5em 1em;
+        font-size: .6em;
+      }
     }
 
     // max-height: calc(100vh - 6em);
