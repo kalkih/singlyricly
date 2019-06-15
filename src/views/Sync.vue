@@ -51,7 +51,15 @@
         </transition>
       </div>
     </transition>
-    <base-button v-if="step === 4" class="next-line__button" @click.native="next">Next line</base-button>
+    <div class="the-sync__buttons">
+      <base-button circle @click.native="exit">
+        <close/>
+      </base-button>
+      <base-button v-if="step === 4" class="next" @click.native="next">next line</base-button>
+      <base-button v-if="step !== 7" circle @click.native="reset">
+        <reload/>
+      </base-button>
+    </div>
   </div>
 </template>
 
@@ -59,6 +67,8 @@
 import TheHeader from '@/components/TheHeader'
 import BaseButton from '@/components/BaseButton'
 import sad from '@/assets/sad.svg'
+import close from '@/assets/close.svg'
+import reload from '@/assets/reload.svg'
 import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -66,6 +76,8 @@ export default {
     TheHeader,
     BaseButton,
     sad,
+    close,
+    reload,
   },
   data () {
     return {
@@ -166,8 +178,9 @@ export default {
     },
     async reset () {
       clearInterval(this.interval)
-      this.step = 0
       this.resetSync()
+      this.current = 1
+      this.init()
     },
   },
   async created () {
@@ -177,7 +190,8 @@ export default {
     this.init()
   },
   beforeDestroy () {
-    this.reset()
+    clearInterval(this.interval)
+    this.resetSync()
     window.removeEventListener('keydown', this.keyEvent)
   },
 }
@@ -279,11 +293,23 @@ export default {
       opacity: 1;
     }
   }
-  .next-line__button {
+  &__buttons {
     position: fixed;
-    left: 50%;
     bottom: 20px;
-    transform: translate(-50%, 0);
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .next {
+      text-align: center;
+      height: auto;
+      min-height: 2.6em;
+      padding: .4em 1em;
+      margin: 0 10px;
+      font-weight: 600;
+    }
   }
   .line-trans-leave-active,
   .line-trans-enter-active {
