@@ -7,7 +7,7 @@
       <the-about v-if="about" key="about"/>
     </base-page-transition>
     <the-header/>
-    <the-lyrics/>
+    <the-lyrics-screen/>
     <delay-bar v-if="synced" hideTitle/>
     <the-menu-toggle/>
     <now-playing/>
@@ -17,7 +17,7 @@
 
 <script>
 import TheHeader from '@/components/TheHeader'
-import TheLyrics from '@/components/TheLyrics'
+import TheLyricsScreen from '@/components/TheLyricsScreen'
 import TheKeys from '@/components/TheKeys'
 import NowPlaying from '@/components/NowPlaying'
 import DelayBar from '@/components/DelayBar'
@@ -31,7 +31,7 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 export default {
   components: {
     TheHeader,
-    TheLyrics,
+    TheLyricsScreen,
     TheKeys,
     NowPlaying,
     DelayBar,
@@ -78,7 +78,7 @@ export default {
           this.clearLyrics()
           if (this.hasPlayback) {
             this.fetchLyrics(newVal)
-            console.log('fetching lyrics...')
+            console.log('Fetching lyrics...')
           }
         }
       }
