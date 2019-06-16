@@ -165,14 +165,12 @@ export default {
     },
   },
   mounted () {
-    console.log('created')
     this.loaded = true
     if (this.hasSynced) {
       this.sync()
     }
   },
   beforeDestroy () {
-    console.log('destroyed')
     this.clear()
   },
 }
