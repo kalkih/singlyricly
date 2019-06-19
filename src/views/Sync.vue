@@ -199,7 +199,7 @@ export default {
 
 <style lang="scss" scoped>
 .the-sync {
-  height: 100vh;
+  height: 100%;
 
   &__info {
     width: 100%;

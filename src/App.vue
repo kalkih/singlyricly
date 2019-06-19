@@ -93,6 +93,14 @@ a {
   @extend %spinner;
 }
 
+#app {
+  height: 100%;
+
+  main {
+    height: 100%;
+  }
+}
+
 .app__bg {
   transform: translate3d(0,0,0);
   position: fixed;

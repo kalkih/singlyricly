@@ -178,7 +178,7 @@ export default {
 
 <style lang="scss" scoped>
 .the-lyrics {
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
   overflow-x: visible;
   width: 100%;

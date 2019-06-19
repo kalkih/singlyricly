@@ -99,6 +99,8 @@ export default {
 
 <style lang="scss" scoped>
 .main {
+  height: 100%;
+  
   .now-playing {
     position: fixed;
     left: 20px;

@@ -52,7 +52,7 @@ export default {}
   .the-menu__bg {
     transform: scale3d(1, 1, 1) translateZ(0);
     @media only screen and (min-width: 640px) {
-      transform: translateY(100vh) translateZ(0);
+      transform: translateY(100%) translateZ(0);
     }
   }
 }

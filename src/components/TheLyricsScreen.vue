@@ -70,7 +70,7 @@ export default {
   display: flex;
   align-items: center;
   flex-flow: row;
-  height: 100vh;
+  height: 100%;
 
   // DEBUG CENTER
   // &:before {

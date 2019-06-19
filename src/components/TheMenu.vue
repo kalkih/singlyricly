@@ -69,7 +69,7 @@ export default {
 
       border-radius: 0;
       width: 100%;
-      height: 100vh;
+      height: 100%;
       transform: translateY(0) translateZ(0);
     }
   }
@@ -82,7 +82,8 @@ export default {
     text-align: center;
     padding: 20px;
     height: 100%;
-    touch-action: none;
+    overflow: scroll;
+    touch-action: pan-y;
     transform: translateY(0) translateZ(0);
 
     @media only screen and (max-width: 320px) {
@@ -116,6 +117,7 @@ export default {
       font-size: 1.2em;
       margin-top: auto;
       margin-bottom: .05em;
+      overflow: visible;
     }
 
     > div:first-child {
