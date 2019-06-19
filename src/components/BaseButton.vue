@@ -1,5 +1,10 @@
 <template>
-  <div class="base-button" :class="{'--circle': circle}">
+  <div class="base-button"
+    :class="classList"
+    v-touch:start="down"
+    v-touch:end="reset"
+    @mouseleave="reset"
+    >
     <span v-if="text">{{ text }}</span>
     <span v-if="icon">{{ icon }}</span>
     <slot></slot>
@@ -17,6 +22,27 @@ export default {
     },
     circle: {
       type: Boolean,
+    },
+  },
+  data () {
+    return {
+      pressed: false,
+    }
+  },
+  methods: {
+    down (ev) {
+      this.pressed = true
+    },
+    reset (ev) {
+      this.pressed = false
+    },
+  },
+  computed: {
+    classList () {
+      return {
+        '--circle': this.circle,
+        '--pressed': this.pressed,
+      }
     },
   },
 }
@@ -40,6 +66,7 @@ export default {
   user-select: none;
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
+  transition: transform .05s ease-out;
 
   svg {
     height: 1.2em;
@@ -52,6 +79,11 @@ export default {
     svg {
       font-size: 1em;
     }
+  }
+
+  &.--pressed {
+    transform: scale3d(0.975, 0.975, 0.975);
+    opacity: .85;
   }
 
   *:nth-child(2),
