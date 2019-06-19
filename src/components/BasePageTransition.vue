@@ -35,8 +35,12 @@ export default {}
 }
 .base-page-transition-enter,
 .base-page-transition-leave-to {
+  .base-page__content {
+    opacity: 0;
+    transform: translateY(2em);
+  }
   .base-page__bg {
-    transform: translate3d(0, 100vh, 0) translateZ(0);
+    transform: translate3d(0, 100%, 0) translateZ(0);
   }
 }
 .base-page-transition-enter-to, .base-page-transition-leave {
