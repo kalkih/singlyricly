@@ -28,7 +28,7 @@
     border-radius: 0;
     width: 100%;
     height: 100vh;
-    transform: translateY(0) translateZ(0);
+    transform: translate3d(0, 0, 0) translateZ(0);
   }
 
   &__content {

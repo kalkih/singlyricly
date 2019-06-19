@@ -13,17 +13,18 @@ export default {}
     opacity .5s $easeInOutCubic;
 
   .base-page__content {
+    will-change: transform, opacity;
     transition:
       opacity .35s $easeInOutCubic,
       transform .35s $easeInOutCubic;
   }
   .base-page__bg {
+    will-change: transform;
     transition: transform .25s $easeInOutCubic;
   }
 }
 .base-page-transition-leave-active {
   .base-page__content {
-    transition-delay: 0s;
     transition:
       opacity .25s $easeInOutCubic,
       transform .25s $easeInOutCubic;
@@ -34,21 +35,17 @@ export default {}
 }
 .base-page-transition-enter,
 .base-page-transition-leave-to {
-  .base-page__content {
-    opacity: 0;
-    transform: translateY(2em);
-  }
   .base-page__bg {
-    transform: translateY(100vh) translateZ(0);
+    transform: translate3d(0, 100vh, 0) translateZ(0);
   }
 }
 .base-page-transition-enter-to, .base-page-transition-leave {
   .base-page__content {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0) translateZ(0);
   }
   .base-page__bg {
-    transform: translateY(0) translateZ(0);
+    transform: translate3d(0, 0, 0) translateZ(0);
   }
 }
 </style>
