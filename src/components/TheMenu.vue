@@ -59,7 +59,7 @@ export default {
     width: 3.6em;
     height: 3.6em;
     border-radius: 3.6em;
-    transform: scale(50) translateZ(0);
+    transform: scale3d(50, 50, 50) translateZ(0);
     z-index: -1;
 
     @media only screen and (min-width: 640px) {
@@ -83,6 +83,7 @@ export default {
     padding: 20px;
     height: 100%;
     touch-action: none;
+    transform: translateY(0) translateZ(0);
 
     @media only screen and (max-width: 320px) {
       font-size: .6em;
