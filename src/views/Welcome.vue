@@ -72,25 +72,15 @@ export default {
 
     .base-button {
       font-weight: 600;
-      font-size: 1.2em;
-      padding: 1em 1em;
+      font-size: 1em;
+      padding: 1.4em 1em;
       margin-bottom: 0px;
       margin-top: auto;
       width: 100%;
       text-align: center;
       text-transform: uppercase;
       height: auto;
-
-      &:hover {
-        span {
-          opacity: 1;
-        }
-      }
-      span {
-        transition: opacity .1s $easeInOutCubic;
-        opacity: .85;
-      }
-
+      letter-spacing: .075em;
     }
 
     @media only screen and (min-width: 640px) {
@@ -100,10 +90,10 @@ export default {
         font-size: 6em;
       }
       .base-button {
-        font-size: 1.6em;
+        font-size: 1.4em;
         margin-top: 10vh;
         width: auto;
-        padding: .6em 1.4em;
+        padding: 1em 2em;
       }
     }
   }
