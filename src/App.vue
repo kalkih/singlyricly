@@ -52,7 +52,6 @@ export default {
   user-select: none;
 }
 html {
-  transform: translate3d(0,0,0);
   background: linear-gradient(135deg, $accent-color 0%, $secondary-color 100%) !important;
   height: 100%;
   overflow: hidden;
@@ -61,6 +60,7 @@ html {
 }
 body {
   height: 100%;
+  overflow: hidden;
   padding: 0;
   margin: 0;
   color: #fff;
