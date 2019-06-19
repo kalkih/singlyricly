@@ -12,7 +12,7 @@
       </p>
     </template>
     <template v-else>
-      <router-link to="/sync">
+      <router-link to="/sync" tag="div">
         <base-button>Help sync these lyrics</base-button>
       </router-link>
       <p
@@ -202,15 +202,17 @@ export default {
   }
 
   .base-button {
-    font-size: .6em;
-    padding: .8em 1em;
+    font-size: .5em;
+    padding: 1.2em 2em;
     margin: 1em 0;
     height: auto;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .075em;
 
     @media only screen and (min-width: 640px) {
-      padding: .5em 1em;
-      font-size: .6em;
+      padding: 1em 2em;
+      font-size: .5em;
     }
   }
 
