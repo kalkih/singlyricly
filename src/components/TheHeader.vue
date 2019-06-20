@@ -83,9 +83,10 @@ export default {
 
   @media only screen and (min-width: 640px) {
     padding: 20px;
+
     .the-header__title {
-      font-size: 2.4em;
-      line-height: 1em;
+      font-size: 2.2em;
+      line-height: 1.4em;
     }
   }
 
