@@ -102,7 +102,7 @@ a {
 }
 
 .app__bg {
-  position: fixed;
+  position: absolute;
   height: 100%;
   width: 100%;
   background-size: cover;
@@ -110,8 +110,6 @@ a {
   background-attachment: fixed;
   background-repeat: no-repeat;
   opacity: .1;
-  mask-image: linear-gradient(transparent 0%, black 200px, black calc(100% - 200px), transparent 100%);
-  -webkit-mask-image: linear-gradient(transparent 0%, black 200px, black calc(100% - 200px), transparent 100%);
 }
 
 @keyframes bg {
