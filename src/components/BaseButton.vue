@@ -67,6 +67,7 @@ export default {
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
   transition: transform .05s ease-out;
+  transform: scale3d(1, 1, 1);
 
   svg {
     height: 1.2em;

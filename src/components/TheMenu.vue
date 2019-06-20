@@ -66,7 +66,6 @@ export default {
       bottom: unset;
       top: 0;
       right: 0;
-
       border-radius: 0;
       width: 100%;
       height: 100%;
@@ -93,20 +92,16 @@ export default {
       font-size: 1em;
     }
 
-    > * {
-      opacity: .8;
-      font-weight: 600;
-      transition: opacity .1s ease-out;
-
-      &:hover {
-        opacity: 1;
-      }
-    }
-
     > h1 {
       cursor: pointer;
       margin: .8em 0;
       -webkit-tap-highlight-color: transparent;
+      font-weight: 600;
+      transition: opacity .1s ease-out;
+
+      &:hover {
+        opacity: .75;
+      }
 
       &.--red {
         color: $red;

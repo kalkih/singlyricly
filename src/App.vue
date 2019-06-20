@@ -102,7 +102,6 @@ a {
 }
 
 .app__bg {
-  transform: translate3d(0,0,0);
   position: fixed;
   height: 100%;
   width: 100%;

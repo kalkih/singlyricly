@@ -14,13 +14,11 @@ export default {}
     background-color 0s ease-in .25s;
 
   .the-menu__content {
-    will-change: opacity, transform;
     transition:
       opacity .35s $easeInOutCubic,
       transform .35s $easeInOutCubic;
   }
   .the-menu__bg {
-    will-change: transform;
     transition: transform .35s $easeInOutCubic;
     @media only screen and (min-width: 640px) {
       transition: transform .25s $easeInOutCubic;

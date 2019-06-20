@@ -7,7 +7,7 @@
         v-for="(entry, index) in synced"
         :key="index"
         :line="index"
-        :class="{ active: activeLine === index}">
+        :class="{ 'active-line': activeLine === index}">
         {{ entry.line }}
       </p>
     </template>
@@ -19,10 +19,10 @@
         v-for="(line, index) in normal"
         :key="index"
         :line="index"
-        :class="{ '--accent': !line }">
+        :class="{ 'accent-line': !line }">
         {{ line ? line : '● ● ●' }}
       </p>
-      <p class="--accent">
+      <p class="accent-line">
         ( END )
       </p>
     </template>
@@ -188,18 +188,11 @@ export default {
   align-items: center;
   position: relative;
   touch-action: pan-y;
-  font-size: 1.25em;
+  font-size: 1em;
   text-align: center;
   mask-image: linear-gradient(transparent 70px, black 33%, black 66%, transparent 100%);
-
-  @media only screen and (max-height: 640px) {
-    mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
-  }
-
-  @media only screen and (min-width: 640px) {
-    padding: 0 1em;
-    font-size: 1.6em;
-  }
+  transform: translateZ(0);
+  will-change: scroll-position;
 
   .base-button {
     font-size: .5em;
@@ -220,12 +213,14 @@ export default {
     content: '';
     padding-top: 40vh;
   }
+
   &:after {
     content: '';
     padding-top: 50vh;
   }
 
   &.--unsynced {
+    will-change: auto;
     touch-action: pan-y;
     scroll-snap-type: y mandatory;
 
@@ -245,50 +240,61 @@ export default {
   }
 
   &.--static {
+    will-change: auto;
+
     p {
       display: none;
       opacity: 1;
+    }
 
-      &.active {
-        display: block;
-        position: absolute;
-        top: 50%;
-        transform:
-          translateY(-50%)
-          scale3d(1, 1, 1);
-      }
+    .active-line {
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform:
+        translateY(-50%)
+        scale3d(1, 1, 1)
+        translateZ(0);
     }
   }
 
   p {
-    transition: transform .1s ease-out;
-    word-break: break-word;
-    margin: 0;
-    padding: .4em 0;
-    transform: scale3d(.75, .75, .75);
-    max-width: 1920px;
     opacity: .5;
+    transition: transform .1s ease-out;
+    max-width: 1920px;
+    width: 75%;
+  }
 
-    &.--accent {
-      color: $accent-color;
-      opacity: .75;
+  .active-line {
+    opacity: 1;
+    transform: scale3d(1.25, 1.25, 1.25) translateZ(0);
+    transition: transform .1s ease-in;
+  }
+
+  .accent-line {
+    color: $accent-color;
+    opacity: .75;
+  }
+
+  @media only screen and (min-width: 640px) {
+    padding: 0 1em;
+    font-size: calc(1em + 1vw);
+
+    p {
+      padding: .4em 0;
+      width: 60%;
     }
 
-    &.active {
-      transform: scale3d(1, 1, 1);
-      opacity: 1;
-      will-change: transform;
-      transition: transform .1s ease-in;
+    .active-line {
+      transform: scale3d(1.45, 1.45, 1.45) translateZ(0);
     }
+  }
 
-    @media only screen and (min-width: 640px) {
-      transform: scale3d(.65, .65, .65);
-      font-size: calc(1em + 1vw);
-      padding: .5em 0;
-    }
-    @media only screen and (max-height: 640px) {
-      mask-image: linear-gradient(transparent 0%, black 10%, black 90%, transparent 100%);
-      padding: .2em 0;
+  @media only screen and (max-height: 640px) {
+    mask-image: linear-gradient(transparent 0%, black 25%, black 75%, transparent 100%);
+    font-size: calc(.75em + 1vw);
+    p {
+      padding: 0em 0;
     }
   }
 }

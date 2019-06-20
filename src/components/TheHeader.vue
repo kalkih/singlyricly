@@ -124,6 +124,7 @@ export default {
     pointer-events: auto;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
+    opacity: 1;
 
     &:hover {
       opacity: .75;
