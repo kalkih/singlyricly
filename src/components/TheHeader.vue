@@ -82,10 +82,10 @@ export default {
   touch-action: pan-y;
 
   @media only screen and (min-width: 640px) {
+    padding: 20px;
     .the-header__title {
       font-size: 2.4em;
       line-height: 1em;
-      padding: 20px;
     }
   }
 
