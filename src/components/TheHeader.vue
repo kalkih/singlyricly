@@ -131,6 +131,5 @@ export default {
       opacity: .75;
     }
   }
-
 }
 </style>
