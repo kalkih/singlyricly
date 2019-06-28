@@ -1,9 +1,19 @@
 <template>
   <div class="now-playing">
     <transition name="fade" mode="out-in">
-      <span v-bind:key="hasInfo" class="now-playing__text">
-        {{ hasInfo ? `${artist} - ${title}`  : placeholder }}
-      </span>
+      <div v-bind:key="hasInfo" class="now-playing__text">
+        <template v-if="hasInfo">
+          <span class="track">
+            {{ title }}
+          </span>
+          <span class="artist">
+            {{ artist }}
+          </span>
+        </template>
+        <span v-else class="placeholder">
+          {{ placeholder }}
+        </span>
+      </div>
     </transition>
     <transition name="swap-trans">
       <pause v-if="playing" @click="pause" key="playing"/>
@@ -66,21 +76,41 @@ export default {
   display: flex;
   height: 2.6em;
   align-items: center;
-  overflow: hidden;
   -webkit-tap-highlight-color: transparent;
   max-width: 2.6em;
   transition: max-width .25s ease-out, width .25s ease-out;
 
   &__text {
-    margin-left: 2.5em;
-    margin-right: .8em;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-flow: column;
+    font-size: .8em;
+    text-align: left;
+
+    margin-left: 3em;
+    margin-right: 1em;
     opacity: 0;
     transition: opacity .25s;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
-    height: 2.6em;
-    line-height: 2.6em;
+
+    > span {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .track {
+      font-size: 1em;
+    }
+    .artist {
+      opacity: .75;
+      font-size: .9em;
+    }
+    .placeholder {
+      font-size: 1.1em;
+    }
   }
 
   &__thumbnail {
@@ -105,10 +135,6 @@ export default {
       width: 1.2em;
       left: .7em;
     }
-  }
-
-  span:nth-child(2):before {
-    content: '-';
   }
 
   &:before {
