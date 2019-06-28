@@ -83,8 +83,8 @@ export default {
   }
 
   &.--pressed {
-    transform: scale3d(0.975, 0.975, 0.975);
-    opacity: .85;
+    transform: scale3d(0.9, 0.9, 0.9);
+    opacity: .75;
   }
 
   *:nth-child(2),
