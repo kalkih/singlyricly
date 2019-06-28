@@ -7,7 +7,7 @@
       <div class="delay-bar__delay" v-if="delay" key="has-delay">
         <transition :name="'fade-' + direction" mode="out-in">
           <span :key="delay">
-            {{ delay > 0 ? '+' : '' }}{{ delay }}
+            {{ delay > 0 ? '+' : '' }}{{ delayInSec }}
           </span>
         </transition>
         <span v-if="!hideTitle">
@@ -53,6 +53,9 @@ export default {
     ...mapState({
       delay: state => state.settings.delay,
     }),
+    delayInSec () {
+      return (this.delay / 1000).toFixed(1) + 's'
+    },
   },
   methods: {
     ...mapActions({
