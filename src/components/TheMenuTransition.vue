@@ -3,9 +3,11 @@
     <slot></slot>
   </transition>
 </template>
+
 <script>
 export default {}
 </script>
+
 <style lang="scss">
 .menu-transition-leave-active,
 .menu-transition-enter-active {
@@ -27,7 +29,7 @@ export default {}
 }
 .menu-transition-leave-active {
   transition:
-    opacity .5s $easeInOutCubic,
+    opacity .25s $easeInOutCubic,
     background-color 0s ease-in .15s;
 
   .the-menu__content {
@@ -36,7 +38,10 @@ export default {}
       transform .25s $easeInOutCubic;
   }
   .the-menu__bg {
-    transition: transform .25s $easeInOutCubic .1s;
+    transition: transform .25s $easeInOutCubic;
+    @media only screen and (min-width: 640px) {
+      transition: transform .35s $easeInOutCubic;
+    }
   }
 }
 .menu-transition-enter,
