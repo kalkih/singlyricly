@@ -27,7 +27,7 @@
             <base-button @click.native="exit">Return to app</base-button>
           </div>
           <div v-else-if="step === 5" key="three">
-            <h2>Processing your sync</h2>
+            <h2>Processing synced lyrics</h2>
             <div class="spinner">
               <div></div>
               <div></div>
