@@ -103,6 +103,7 @@ export default {
     justify-content: center;
     overflow: hidden;
     text-align: center;
+    animation: fade-in .5s ease-out;
 
     @media only screen and (min-width: 640px) {
       font-size: calc(2em + 1vw);
@@ -133,6 +134,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    animation: fade-in .5s ease-out;
 
     .next {
       text-align: center;
@@ -142,24 +144,6 @@ export default {
       margin: 0 10px;
       font-weight: 600;
     }
-  }
-  .line-trans-leave-active,
-  .line-trans-enter-active {
-    transition:
-      opacity .1s ease-out,
-      transform .1s ease-out;
-  }
-  .line-trans-enter {
-    opacity: 0 !important;
-    transform:
-      translateY(1em)
-      scale3d(.75,.75,.75);
-  }
-  .line-trans-leave-to {
-    opacity: 0 !important;
-    transform:
-      translateY(-1em)
-      scale3d(.75,.75,.75);
   }
 }
 </style>
