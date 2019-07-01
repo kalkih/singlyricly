@@ -83,6 +83,7 @@ export default {
     if (!this.track.id || this.hasLyrics) {
       this.$router.push('/')
     }
+    this.$nextTick(() => this.$refs.input.focus())
   },
 }
 </script>
