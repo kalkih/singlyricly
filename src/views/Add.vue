@@ -1,22 +1,45 @@
 <template>
   <div class="the-add">
     <the-header/>
-    <div class="the-add__lyrics">
-      <div
-        class="the-add__lyrics__input"
-        contenteditable="true"
-        ref="input"
-        @focus="focus"
-        @blur="blur">
-        Lyrics...
+    <transition name="swap-trans" mode="out-in">
+      <div v-if="step === 1" class="the-add__lyrics" key="lyrics">
+        <div>
+          <textarea
+            class="the-add__lyrics__input"
+            ref="input"
+            placeholder="Insert lyrics..."
+            spellcheck="false">
+          </textarea>
+        </div>
       </div>
-    </div>
+      <div v-else class="the-add__info" key="info">
+        <transition name="swap-trans" mode="out-in">
+          <div v-if="step === 2" key="two">
+            <h2>Processing lyrics...</h2>
+            <div class="spinner">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+          <div v-else-if="step === 3" key="three">
+            <h2>That's it, well done!</h2>
+            <base-button @click.native="exit">Return to app</base-button>
+          </div>
+          <div v-else key="res">
+            <sad/>
+            <h2>Oops! Something went wrong, please try again</h2>
+            <base-button @click.native="exit">Reload</base-button>
+          </div>
+        </transition>
+      </div>
+    </transition>
     <div class="the-add__buttons">
       <base-button circle @click.native="exit">
         <close/>
       </base-button>
-      <base-button @click.native="save">Save</base-button>
-      <base-button circle @click.native="reset">
+      <base-button v-if="step === 1" class="save" @click.native="save">Submit</base-button>
+      <base-button v-if="step !== 9" circle @click.native="reset">
         <reload/>
       </base-button>
     </div>
@@ -40,6 +63,7 @@ export default {
   data () {
     return {
       initial: true,
+      step: 1,
     }
   },
   computed: {
@@ -57,33 +81,31 @@ export default {
     ...mapActions({
       saveLyrics: 'lyrics/save',
     }),
-    focus () {
-      if (this.initial) {
-        this.initial = false
-        this.$refs.input.innerHTML = ''
-      }
-    },
-    blur () {
-      if (this.$refs.input.innerHTML === '') {
-        this.reset()
-      }
-    },
     exit () {
       this.$router.push('/')
     },
-    save () {
-      this.saveLyrics()
+    async save () {
+      console.log(this.$refs.input.value)
+      if (!this.$refs.input.value && this.step !== 1) return
+      this.step = 2
+      // const saved = await this.saveLyrics()
+      // if (saved) {
+      //   this.step = 3
+      // } else {
+      //   this.step = 9
+      // }
     },
     reset () {
-      this.$refs.input.innerHTML = 'Lyrics...'
-      this.initial = true
+      this.$refs.input.value = ''
+      this.step = 1
     },
   },
   created () {
     if (!this.track.id || this.hasLyrics) {
       this.$router.push('/')
+    } else {
+      this.$nextTick(() => this.$refs.input.focus())
     }
-    this.$nextTick(() => this.$refs.input.focus())
   },
 }
 </script>
@@ -93,36 +115,115 @@ export default {
   height: 100%;
 
   &__lyrics {
-    font-size: 2em;
-    font-weight: 600;
     padding: 80px 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    text-align: center;
     animation: fade-in .5s ease-out;
 
-    @media only screen and (min-width: 640px) {
-      font-size: calc(2em + 1vw);
+    > div {
+      height: calc(100% - 1em);
+      width: 100%;
+      background: transparent;
+      mask-image: linear-gradient(transparent, black 4em, black calc(100% - .25em), transparent 100%);
     }
 
     &__input {
-      mask-image: linear-gradient(transparent, black 10%, black 90%, transparent 100%);
+      font-size: 1.4em;
+      font-weight: 600;
+      color: $font-color;
+      background: transparent;
+      text-align: center;
+      display: block;
       z-index: 1;
-      word-break: break-all;
-      padding: 1em;
+      // word-break: break-all;
       width: 100%;
+      height: 100%;
       overflow: scroll;
       max-height: 100%;
       line-height: 1.5em;
-      opacity: .75;
+      opacity: .9;
+      resize: none;
+      outline: none;
+      border: 0;
+      padding: 25% 1em 1em 1em;
+      line-height: 2em;
+      overflow: auto;
+      letter-spacing: .05em;
+      font-family:
+        'Montserrat',
+        'Helvetica Neue',
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      @media only screen and (min-width: 640px) {
+        font-size: calc(1.2em + 1vw);
+      }
+
+      @media only screen and (max-height: 640px) {
+        font-size: 1.6em;
+      }
 
       &:focus {
         opacity: 1;
       }
+
+      &::placeholder {
+        opacity: .5;
+        color: $font-color;
+      }
+    }
+  }
+
+  &__info {
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.4em;
+    animation: fade-in .5s ease-out;
+
+    @media only screen and (min-width: 640px) {
+      font-size: calc(1em + 1vw);
+    }
+
+    > div {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+    }
+
+    h2 {
+      color: $accent-color;
+    }
+
+    p {
+      color: $font-color;
+      font-size: .8em;
+      margin: 0 0 1em 0;
+      line-height: 1.5em;
+    }
+
+    h2, h3 {
+      margin-top: 0;
+    }
+
+    svg {
+      height: 5em;
+      margin-bottom: 1em;
+    }
+
+    .base-button {
+      font-size: .8em;
+      color: $font-color;
+    }
+
+    .spinner {
+      font-size: 1.2em;
+      margin-top: 1em;
     }
   }
 
@@ -136,13 +237,14 @@ export default {
     align-items: center;
     animation: fade-in .5s ease-out;
 
-    .next {
-      text-align: center;
+    .save {
+      font-size: 1em;
+      padding: 1.2em 2.6em;
       height: auto;
-      min-height: 2.6em;
-      padding: .4em 1em;
+      font-weight: 700;
       margin: 0 10px;
-      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .15em;
     }
   }
 }
