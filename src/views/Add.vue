@@ -75,7 +75,7 @@ export default {
       this.saveLyrics()
     },
     reset () {
-      this.$refs.input.innerHTML = "Lyrics..."
+      this.$refs.input.innerHTML = 'Lyrics...'
       this.initial = true
     },
   },
