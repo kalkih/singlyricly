@@ -282,7 +282,7 @@ export default {
     }
 
     p {
-      line-height: 1em;
+      line-height: 1.25em;
       min-height: 1em;
       transform: scale3d(.75,.75,.75);
       opacity: .55;
@@ -304,11 +304,13 @@ export default {
 
     .next {
       text-align: center;
+      font-size: 1em;
+      padding: 1.2em 2.6em;
       height: auto;
-      min-height: 2.6em;
-      padding: .4em 1em;
+      font-weight: 700;
       margin: 0 10px;
-      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .15em;
     }
   }
   .line-trans-leave-active,
