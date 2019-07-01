@@ -107,10 +107,6 @@ export default {
       font-size: calc(2em + 1vw);
     }
 
-    @media only screen and (max-height: 640px) {
-      font-size: 1.4em;
-    }
-
     &__input {
       mask-image: linear-gradient(transparent, black 10%, black 90%, transparent 100%);
       z-index: 1;
