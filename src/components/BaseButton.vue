@@ -85,6 +85,10 @@ export default {
   &.--pressed {
     transform: scale3d(0.9, 0.9, 0.9);
     opacity: .75;
+
+    @media only screen and (min-width: 640px) {
+      transform: scale3d(0.95, 0.95, 0.95);
+    }
   }
 
   *:nth-child(2),
