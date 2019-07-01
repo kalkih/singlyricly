@@ -107,7 +107,7 @@ export default {
       height: auto;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: .075em;
+      letter-spacing: .15em;
       margin-top: 2em;
 
       @media only screen and (min-width: 640px) {
