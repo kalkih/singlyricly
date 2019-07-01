@@ -17,7 +17,7 @@ const getters = {
 
 const mutations = {
   setNormal (state, lyrics) {
-    if (lyrics) {
+    if (lyrics && !Array.isArray(lyrics)) {
       lyrics = lyrics.replace(/\r/g, '').split('\n')
       state.normal = lyrics
     } else {
@@ -49,6 +49,14 @@ const actions = {
     commit('setNormal', null)
     commit('setSynced', null)
     commit('setFound', false)
+  },
+  async saveLyrics ({ rootState }, obj) {
+    const normal = obj.lyrics.replace(/\r/g, '').split('\n')
+    return api.saveLyrics({
+      track: obj.track,
+      user: rootState.user,
+      normal,
+    })
   },
 }
 

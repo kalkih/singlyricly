@@ -38,8 +38,12 @@ const actions = {
     commit('setLyrics', lyrics)
   },
   async save ({ state, rootState }) {
-    const filtered = state.synced.filter(Boolean)
-    return api.saveLyrics(filtered, state.track, rootState.user)
+    const synced = state.synced.filter(Boolean)
+    return api.saveLyrics({
+      track: state.track,
+      user: rootState.user,
+      synced,
+    })
   },
   async push ({ commit }, line) {
     commit('push', line)

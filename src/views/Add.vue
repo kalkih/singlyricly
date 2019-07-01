@@ -51,6 +51,7 @@ import TheHeader from '@/components/TheHeader'
 import BaseButton from '@/components/BaseButton'
 import close from '@/assets/close.svg'
 import reload from '@/assets/reload.svg'
+import sad from '@/assets/sad.svg'
 import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -59,11 +60,13 @@ export default {
     BaseButton,
     close,
     reload,
+    sad,
   },
   data () {
     return {
       initial: true,
       step: 1,
+      cachedTrack: null,
     }
   },
   computed: {
@@ -79,21 +82,25 @@ export default {
   },
   methods: {
     ...mapActions({
-      saveLyrics: 'lyrics/save',
+      saveLyrics: 'lyrics/saveLyrics',
+      fetchLyrics: 'lyrics/fetchLyrics',
     }),
     exit () {
+      this.fetchLyrics(this.track)
       this.$router.push('/')
     },
     async save () {
-      console.log(this.$refs.input.value)
       if (!this.$refs.input.value && this.step !== 1) return
       this.step = 2
-      // const saved = await this.saveLyrics()
-      // if (saved) {
-      //   this.step = 3
-      // } else {
-      //   this.step = 9
-      // }
+      const saved = await this.saveLyrics({
+        lyrics: this.$refs.input.value,
+        track: this.cachedTrack,
+      })
+      if (saved) {
+        this.step = 3
+      } else {
+        this.step = 9
+      }
     },
     reset () {
       this.$refs.input.value = ''
@@ -104,6 +111,7 @@ export default {
     if (!this.track.id || this.hasLyrics) {
       this.$router.push('/')
     } else {
+      this.cachedTrack = this.track
       this.$nextTick(() => this.$refs.input.focus())
     }
   },
