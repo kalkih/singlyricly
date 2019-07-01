@@ -12,6 +12,7 @@ const getters = {
   getSynced: state => state.lyrics,
   hasNormal: state => (state.normal),
   hasSynced: state => (state.synced),
+  hasLyrics: state => (state.normal || state.synced),
 }
 
 const mutations = {

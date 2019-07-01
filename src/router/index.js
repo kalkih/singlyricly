@@ -32,6 +32,12 @@ const router = new Router({
       beforeEnter: isAuthenticated,
     },
     {
+      path: '/add',
+      name: 'add',
+      component: () => import('../views/Add.vue'),
+      beforeEnter: isAuthenticated,
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login,

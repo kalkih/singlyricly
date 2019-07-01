@@ -19,6 +19,9 @@
           <div class="not-found" v-else key="404">
             <sad/>
             <h2>Sorry but we couldn't find any lyrics for this track</h2>
+            <router-link to="/add" tag="div">
+              <base-button>Add lyrics</base-button>
+            </router-link>
           </div>
         </transition>
       </div>
@@ -28,7 +31,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import TheLyrics from './TheLyrics'
+import TheLyrics from '@/components/TheLyrics'
+import BaseButton from '@/components/BaseButton'
 import sad from '@/assets/sad.svg'
 import play from '@/assets/play.svg'
 
@@ -38,6 +42,7 @@ export default {
     sad,
     play,
     TheLyrics,
+    BaseButton,
   },
   computed: {
     ...mapState({
@@ -93,6 +98,22 @@ export default {
 
     @media only screen and (max-height: 640px) {
       font-size: 1.2em;
+    }
+
+    .base-button {
+      font-size: .5em;
+      padding: 1.2em 2em;
+      margin: 1em 0;
+      height: auto;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .075em;
+      margin-top: 2em;
+
+      @media only screen and (min-width: 640px) {
+        padding: 1em 2em;
+        font-size: .5em;
+      }
     }
 
     > div {
