@@ -1,5 +1,5 @@
 <template>
-  <div class="now-playing">
+  <div class="now-playing" :class="{active}">
     <transition name="fade" mode="out-in">
       <div v-bind:key="hasInfo" class="now-playing__text">
         <template v-if="hasInfo">
@@ -40,6 +40,7 @@ export default {
     ...mapState({
       track: state => state.playback.track,
       playing: state => state.playback.playing,
+      active: state => state.nowPlayingState,
     }),
     title () {
       return this.track.title
@@ -152,7 +153,8 @@ export default {
     border-radius: 2.6em;
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     max-width: calc(100vw - 20px - 1em);
     transition: max-width .15s ease-out;
     z-index: 99;

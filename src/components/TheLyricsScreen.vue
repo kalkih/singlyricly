@@ -1,5 +1,5 @@
 <template>
-  <div class="the-lyrics-screen">
+  <div class="the-lyrics-screen" v-touch="() => toggle()">
     <transition name="lyrics-trans" mode="out-in">
       <the-lyrics v-if="hasLyrics" :isSynced="hasSynced" key="lyrics"/>
       <div v-else class="the-lyrics-screen__info" key="info">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import TheLyrics from '@/components/TheLyrics'
 import BaseButton from '@/components/BaseButton'
 import sad from '@/assets/sad.svg'
@@ -60,6 +60,11 @@ export default {
     hasNormal () {
       return !!(this.normal)
     },
+  },
+  methods: {
+    ...mapActions({
+      toggle: 'toggleNowPlayingState',
+    }),
   },
 }
 </script>
