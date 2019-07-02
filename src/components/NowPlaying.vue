@@ -88,9 +88,8 @@ export default {
     flex-flow: column;
     font-size: .8em;
     text-align: left;
-
     margin-left: 3em;
-    margin-right: 1em;
+    margin-right: 1.2em;
     opacity: 0;
     transition: opacity .25s;
     overflow: hidden;
@@ -155,9 +154,8 @@ export default {
 
   &:hover,
   &.active {
-    max-width: calc(100vw - 20px - 1em);
+    max-width: calc( 100% - (40px + 60px + 10px));
     transition: max-width .15s ease-out;
-    z-index: 99;
 
     .now-playing__text {
       opacity: 1;
