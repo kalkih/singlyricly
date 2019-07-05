@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import BaseButton from './BaseButton'
 import easyScroll from 'easy-scroll'
 
@@ -53,6 +53,7 @@ export default {
       activeLine: -1,
       timer: null,
       baseDelay: -750,
+      fetchDelay: 500,
       lastUpdatedAt: 0,
       LastProgress: 0,
     }
@@ -88,6 +89,7 @@ export default {
   },
   watch: {
     synced () {
+      this.clear()
       if (this.hasSynced && this.loaded) {
         console.log('New lyrics, syncing...')
         this.$nextTick(() => this.sync)
@@ -110,6 +112,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      fetchPlayback: 'playback/fetchPlayback',
+    }),
     computeProgress () {
       return this.progress + (Date.now() - this.updatedAt) + (this.baseDelay + this.delay)
     },
@@ -132,8 +137,15 @@ export default {
       })
     },
     calculateNext (ms) {
+      if (this.activeLine >= this.length) {
+        return this.calculateFetch()
+      }
       const timer = ms || (this.times[this.activeLine + 1] - this.computeProgress())
       this.timer = setTimeout(this.tick, timer)
+    },
+    calculateFetch () {
+      const timer = this.duration - this.computeProgress() + this.fetchDelay
+      this.timer = setTimeout(this.fetchPlayback, timer)
     },
     tick () {
       if (this.hasSynced && this.activeLine < this.length) {
