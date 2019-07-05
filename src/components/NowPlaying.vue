@@ -142,7 +142,6 @@ export default {
       width: 1.2em;
       left: .7em;
     }
-    
   }
 
   &:before {
