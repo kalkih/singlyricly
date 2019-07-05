@@ -53,6 +53,8 @@ export default {
       activeLine: -1,
       timer: null,
       baseDelay: -750,
+      lastUpdatedAt: 0,
+      LastProgress: 0,
     }
   },
   computed: {
@@ -91,9 +93,14 @@ export default {
         this.$nextTick(() => this.sync)
       }
     },
-    progress () {
+    updatedAt (newVal, oldVal) {
+      this.lastUpdatedAt = oldVal
+    },
+    progress (newVal, oldVal) {
+      this.lastProgress = oldVal
       if (this.hasSynced) {
-        this.sync()
+        const diff = Math.abs((oldVal + this.updatedAt) - (newVal + this.lastUpdatedAt))
+        if (diff > 50) this.sync()
       }
     },
     delay () {
@@ -141,9 +148,9 @@ export default {
       }
     },
     sync () {
-      const progress = this.serverProgress
       this.clear()
 
+      const progress = this.serverProgress
       let line = this.times.findIndex(time => time > progress)
       line = line === -1
         ? this.length
