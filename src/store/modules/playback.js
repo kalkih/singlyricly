@@ -12,6 +12,7 @@ const getters = {
   getProgress: state => state.progress,
   getUpdatedAt: state => state.updatedAt,
   isPlaying: state => state.playing,
+  isIdle: state => !Object.keys(state.track).length,
   hasPlayback: state => !!(state.track.title && state.track.artist),
 }
 

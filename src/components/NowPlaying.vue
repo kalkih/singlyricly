@@ -16,20 +16,24 @@
       </div>
     </transition>
     <transition name="swap-trans">
-      <pause v-if="playing" @click="pause" key="playing"/>
+      <note v-if="idle" key="idle"/>
+      <pause v-else-if="playing" @click="pause" key="playing"/>
       <play v-else @click="play" key="paused"/>
     </transition>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import play from '@/assets/play.svg'
 import pause from '@/assets/pause.svg'
+import note from '@/assets/note.svg'
 
 export default {
   components: {
-    play, pause,
+    play,
+    pause,
+    note,
   },
   data () {
     return {
@@ -41,6 +45,9 @@ export default {
       track: state => state.playback.track,
       playing: state => state.playback.playing,
       active: state => state.nowPlayingState,
+    }),
+    ...mapGetters({
+      idle: 'playback/isIdle',
     }),
     title () {
       return this.track.title
@@ -131,10 +138,11 @@ export default {
       opacity: .75;
     }
 
-    &.svg-play, &.svg-pause {
+    &.svg-play, &.svg-pause, &.svg-note {
       width: 1.2em;
       left: .7em;
     }
+    
   }
 
   &:before {
