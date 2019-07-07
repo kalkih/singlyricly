@@ -6,7 +6,7 @@
       @click.native="toggleMenu">
       <span>{{ text }}</span>
       <transition name="swap-trans">
-        <close v-if="menu" key="open-menu"/>
+        <close v-if="menu || about" key="open-menu"/>
         <hamburger v-else key="closed-menu"/>
       </transition>
     </base-button>
@@ -35,7 +35,6 @@ export default {
   computed: {
     ...mapState({
       alias: state => state.user.alias,
-      menu: state => state.menu,
     }),
     title: () => process.env.VUE_APP_NAME,
     text () {
