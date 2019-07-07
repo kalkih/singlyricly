@@ -73,7 +73,7 @@ export default {
     .base-button {
       font-weight: 600;
       font-size: 1em;
-      padding: 1.4em 1em;
+      padding: 1.3em 1em;
       margin-bottom: 0px;
       margin-top: auto;
       width: 100%;
@@ -81,6 +81,8 @@ export default {
       text-transform: uppercase;
       height: auto;
       letter-spacing: .075em;
+      line-height: 1.5em;
+      border-radius: 360px;
     }
 
     @media only screen and (min-width: 640px) {
