@@ -1,20 +1,37 @@
 <template>
   <div class="welcome">
-    <h1>{{ name }}</h1>
-    <base-button @click.native="login()">
-      <span>Connect with Spotify</span>
+    <base-page-transition mode="out-in">
+      <the-about v-if="about" key="about"/>
+    </base-page-transition>
+    <base-button class="welcome__about__button" circle @click.native="toggleAbout()">
+      <transition name="swap-trans">
+        <close v-if="about" key="open"/>
+        <span v-else key="closed">?</span>
+      </transition>
     </base-button>
+    <div class="welcome__container">
+      <h1>{{ name }}</h1>
+      <base-button @click.native="login()">
+        <span>Connect with Spotify</span>
+      </base-button>
+    </div>
   </div>
 </template>
 
 <script>
 import BaseButton from '@/components/BaseButton'
+import TheAbout from '@/components/TheAbout'
+import BasePageTransition from '@/components/BasePageTransition'
+import close from '@/assets/close.svg'
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Welcome',
   components: {
     BaseButton,
+    TheAbout,
+    BasePageTransition,
+    close,
   },
   data () {
     return {
@@ -25,12 +42,14 @@ export default {
   computed: {
     ...mapState({
       url: state => state.auth.url,
+      about: state => state.about,
     }),
     name: () => process.env.VUE_APP_NAME,
   },
   methods: {
     ...mapActions({
       getAuthURL: 'auth/fetchAuthUrl',
+      toggleAbout: 'toggleAbout',
     }),
     async login () {
       if (this.url) {
@@ -53,7 +72,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .welcome {
+.welcome {
+  &__about__button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99;
+
+    > * {
+      fill: $font-color;
+      height: 1.2em;
+      position: absolute;
+    }
+
+    > span {
+      font-size: 1.2em;
+      font-weight: 700;
+    }
+  }
+  &__container {
     position: absolute;
     top: 25%;
     bottom: 0;
@@ -99,4 +136,5 @@ export default {
       }
     }
   }
+}
 </style>

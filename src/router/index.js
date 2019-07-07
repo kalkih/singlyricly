@@ -3,17 +3,16 @@ import Router from 'vue-router'
 import store from '@/store'
 import Login from '@/components/Login'
 import Main from '@/views/Main'
-import About from '@/views/About'
 import Welcome from '@/views/Welcome'
 
 Vue.use(Router)
 
-const isAuthenticated = (to, from, next) => {
+const isAuthenticated = (to, from, next, route) => {
   const isAuth = store.getters['auth/isAuthenticated']
   if (!isAuth) {
     next('/welcome')
   } else {
-    next()
+    route ? next(route) : next()
   }
 }
 
@@ -46,7 +45,10 @@ const router = new Router({
     {
       path: '/about',
       name: 'about',
-      component: About,
+      beforeEnter: (to, from, next) => {
+        store.dispatch('toggleAbout', true)
+        isAuthenticated(to, from, next, '/')
+      },
     },
     {
       path: '/welcome',
@@ -63,7 +65,6 @@ const router = new Router({
     },
     {
       path: '/404',
-      component: About,
     },
     { path: '*', redirect: '/404' },
   ],
