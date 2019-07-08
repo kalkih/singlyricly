@@ -13,6 +13,7 @@ module.exports = {
     themeColor: '#085078',
     msTileColor: '#085078',
     workboxPluginMode: 'InjectManifest',
+    navigateFallback: '/index.html',
     workboxOptions: {
       swSrc: './src/sw.js',
       swDest: 'service-worker.js',
