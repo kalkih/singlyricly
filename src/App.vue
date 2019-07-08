@@ -52,9 +52,9 @@ export default {
   user-select: none;
 }
 html {
-  background: linear-gradient(135deg, $accent-color 0%, $secondary-color 100%) !important;
+  background-color: $accent-color !important;
+  background-image: linear-gradient(135deg, $accent-color 0%, $secondary-color 100%) !important;
   height: 100%;
-  overflow: hidden;
   // animation: bg 15s ease infinite;
   // background-size: 400% 400%;
 }
