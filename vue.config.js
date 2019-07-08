@@ -12,6 +12,11 @@ module.exports = {
   pwa: {
     themeColor: '#085078',
     msTileColor: '#085078',
+    workboxPluginMode: 'InjectManifest',
+    workboxOptions: {
+      swSrc: './src/sw.js',
+      swDest: 'service-worker.js',
+    },
   },
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg')

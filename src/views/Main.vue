@@ -11,6 +11,7 @@
     <delay-bar v-if="synced" hideTitle/>
     <the-menu-toggle/>
     <now-playing/>
+    <update-toast/>
     <the-keys/>
   </div>
 </template>
@@ -24,6 +25,7 @@ import DelayBar from '@/components/DelayBar'
 import TheMenuToggle from '@/components/TheMenuToggle'
 import TheAbout from '@/components/TheAbout'
 import TheMenu from '@/components/TheMenu'
+import UpdateToast from '@/components/UpdateToast'
 import TheMenuTransition from '@/components/TheMenuTransition'
 import BasePageTransition from '@/components/BasePageTransition'
 import { mapState, mapActions, mapGetters } from 'vuex'
@@ -38,6 +40,7 @@ export default {
     TheMenuToggle,
     TheAbout,
     TheMenu,
+    UpdateToast,
     TheMenuTransition,
     BasePageTransition,
   },
@@ -129,6 +132,10 @@ export default {
     @media only screen and (min-width: 640px) {
       display: none;
     }
+  }
+  .update-toast {
+    position: fixed;
+    bottom: 0;
   }
 }
 </style>
