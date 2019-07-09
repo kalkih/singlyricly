@@ -66,7 +66,7 @@ export default {
   user-select: none;
   touch-action: none;
   -webkit-tap-highlight-color: transparent;
-  transition: transform .05s ease-out;
+  transition: transform .1s ease-out;
   transform: scale3d(1, 1, 1);
 
   svg {
