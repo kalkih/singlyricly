@@ -1,8 +1,10 @@
 <template>
   <div v-if="updateExists" class="update-toast" @click="refreshApp">
-    <base-button>
-      <span>New version available, click to refresh</span>
-    </base-button>
+    <div>
+      <base-button>
+        <span>New version available, click to refresh</span>
+      </base-button>
+    </div>
   </div>
 </template>
 
@@ -26,11 +28,11 @@ export default {
       this.updateExists = true
     },
     refreshApp () {
-      this.updateExists = false
-      if (!this.registration || !this.registration.waiting) return
+      if (!this.registration || !this.registration.waiting) {
+        this.updateExists = false
+        return
+      }
       this.registration.waiting.postMessage('skipWaiting')
-    },
-    close () {
       this.updateExists = false
     },
   },
@@ -51,7 +53,7 @@ export default {
 .update-toast {
   width: 100%;
   height: auto;
-  background: linear-gradient(0deg, $accent-color 0%, transparent 100%);
+  background: linear-gradient(0deg, lighten($accent-color, 5%) 0%, transparent 100%);
   padding: 30px;
   padding-top: 60px;
   display: flex;
@@ -59,16 +61,22 @@ export default {
   z-index: 99;
   animation: fade .25s ease-out;
 
+  > div {
+    animation: fade-in .25s ease-out .25s forwards;
+    opacity: 0;
+  }
+
   .base-button {
     font-size: .8em;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .1em;
-    display: inline-block;;
+    display: inline-block;
     height: auto;
     border-radius: 360px;
-    opacity: 0;
-    animation: fade-in .25s ease-out .25s forwards;
+    opacity: 1;
+    // color: $accent-color;
+    // box-shadow: 0px 0px 10px rgba(0,0,0,.5);
 
     &:before {
       opacity: 1;
