@@ -1,11 +1,11 @@
 <template>
-  <div class="the-menu">
+  <div class="the-menu" v-touch:swipe.bottom="() => toggle(false)">
     <div class="the-menu__bg"></div>
     <div class="the-menu__content">
       <div></div>
       <h1 @click="toggleAbout()">About</h1>
       <h1>Something</h1>
-      <h1>Something else</h1>
+      <h1>Report</h1>
       <h1 @click="logout" class="--red">Sign out</h1>
       <delay-bar hideTitle/>
     </div>
@@ -98,6 +98,8 @@ export default {
       -webkit-tap-highlight-color: transparent;
       font-weight: 600;
       transition: opacity .1s ease-out;
+      // letter-spacing: .075em;
+      // text-transform: uppercase;
 
       &:hover {
         opacity: .75;

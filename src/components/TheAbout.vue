@@ -1,5 +1,5 @@
 <template>
-  <base-page class="the-about">
+  <base-page class="the-about" v-touch:swipe.bottom="() => toggleAbout(false)">
     <div></div>
     <h1>What's this?</h1>
     <p>Song lyrics synchronized with your Spotify playback</p>
@@ -14,10 +14,16 @@
 
 <script>
 import BasePage from './BasePage'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
     BasePage,
+  },
+  methods: {
+    ...mapActions({
+      toggleAbout: 'toggleAbout',
+    }),
   },
 }
 </script>

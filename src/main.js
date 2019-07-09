@@ -5,7 +5,9 @@ import store from './store'
 import Vue2TouchEvents from 'vue2-touch-events'
 import './registerServiceWorker'
 
-Vue.use(Vue2TouchEvents)
+Vue.use(Vue2TouchEvents, {
+  swipeTolerance: 80,
+})
 Vue.config.productionTip = false
 Vue.prototype.$dev = process.env.NODE_ENV
 
