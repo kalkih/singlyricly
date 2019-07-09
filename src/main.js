@@ -7,6 +7,7 @@ import './registerServiceWorker'
 
 Vue.use(Vue2TouchEvents)
 Vue.config.productionTip = false
+Vue.prototype.$dev = process.env.NODE_ENV
 
 new Vue({
   router,

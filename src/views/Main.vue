@@ -11,7 +11,7 @@
     <delay-bar v-if="synced" hideTitle/>
     <the-menu-toggle/>
     <now-playing/>
-    <update-toast/>
+    <update-toast v-if="!$dev"/>
     <the-keys/>
   </div>
 </template>
