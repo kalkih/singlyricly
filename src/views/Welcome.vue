@@ -94,12 +94,13 @@ export default {
     position: absolute;
     top: 25%;
     bottom: 0;
-    width: calc(100% - 2em);
+    width: 100%;
+    padding: 1em;
     display: flex;
     align-items: center;
     flex-flow: column;
-    margin: 1em;
     animation: fade .15s ease-out;
+    overflow: hidden;
 
     h1 {
       font-family: 'Pacifico', cursive;

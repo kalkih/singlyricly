@@ -79,6 +79,7 @@ export default {
   z-index: 10;
   pointer-events: none;
   touch-action: pan-y;
+  overflow: hidden;
 
   @media only screen and (min-width: 640px) {
     padding: 20px;
