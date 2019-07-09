@@ -16,7 +16,6 @@ module.exports = {
     workboxOptions: {
       swSrc: './src/sw.js',
       swDest: 'service-worker.js',
-      navigateFallback: '/index.html',
     },
   },
   chainWebpack: (config) => {
