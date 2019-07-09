@@ -47,7 +47,7 @@ const actions = {
       commit('setAuthURL', url)
       return url
     } catch (e) {
-      console.log(e)
+      return null
     }
   },
 

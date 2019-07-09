@@ -11,8 +11,11 @@
     </base-button>
     <div class="welcome__container">
       <h1>{{ name }}</h1>
-      <base-button @click.native="login()">
-        <span>Connect with Spotify</span>
+      <base-button @click.native="login()" :class="{'--loading': loading}">
+        <span class="text">Connect with Spotify</span>
+        <div class="spinner-container" v-if="loading">
+          <div class="spinner-pulse"></div>
+        </div>
       </base-button>
     </div>
   </div>
@@ -35,6 +38,7 @@ export default {
   },
   data () {
     return {
+      loading: false,
       error: '',
       errorMessage: '',
     }
@@ -52,17 +56,25 @@ export default {
       toggleAbout: 'toggleAbout',
     }),
     async login () {
+      if (this.loading) return
+      this.loading = !(this.loading)
       if (this.url) {
-        window.location = this.url
+        this.redirect(this.url)
       } else {
         const url = await this.getAuthURL()
         if (url) {
-          window.location = url
+          this.redirect(url)
         } else {
           this.error = 3000
           this.errorMessage = 'Unable to contact Spotify'
+          this.loading = false
         }
       }
+    },
+    redirect (url) {
+      setTimeout(() => {
+        window.location = url
+      }, 250)
     },
   },
   created () {
@@ -111,16 +123,77 @@ export default {
     .base-button {
       font-weight: 600;
       font-size: 1em;
-      padding: 1.3em 1em;
+      height: auto;
+      min-height: 3.6em;
+      max-height: 6em;
       margin-bottom: 0px;
       margin-top: auto;
       width: 100%;
+      max-width: 100%;
       text-align: center;
       text-transform: uppercase;
-      height: auto;
       letter-spacing: .075em;
       line-height: 1.5em;
       border-radius: 360px;
+      white-space: normal;
+      transition:
+        transform .15s,
+        max-width .5s $easeInOutCubic,
+        max-height .25s $easeInOutCubic .25s;
+
+      > span {
+        padding: 1em 1em;
+        display: block;
+        height: auto;
+        transition: opacity .15s .35s;
+      }
+
+      &.--loading {
+        max-width: 3.6em;
+        max-height: 3.6em;
+        transition:
+          transform .15s,
+          max-width .5s $easeInOutCubic,
+          max-height .15s $easeInOutCubic 0s;
+
+        .text {
+          transition: opacity .15s;
+          opacity: 0;
+        }
+      }
+
+      .spinner-container {
+        animation: reveal-in .5s forwards .25s;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+      }
+      .spinner-pulse {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background-color: $font-color;
+        border-radius: 100%;
+        animation:
+          spinner-pulse 1s infinite ease-in-out;
+      }
+
+      @keyframes reveal-in {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+
+      @keyframes spinner-pulse {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1.0);
+          opacity: 0;
+        }
+      }
     }
 
     @media only screen and (min-width: 640px) {
@@ -132,8 +205,9 @@ export default {
       .base-button {
         font-size: 1.4em;
         margin-top: 10vh;
+        letter-spacing: .15em;
+        font-weight: 600;
         width: auto;
-        padding: 1em 2em;
       }
     }
   }
