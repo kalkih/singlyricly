@@ -5,7 +5,7 @@
     </base-page-transition>
     <base-button class="welcome__about__button" circle @click.native="toggleAbout()">
       <transition name="swap-trans">
-        <close v-if="about" key="open"/>
+        <div v-if="about"> <chevron key="open"/></div>
         <span v-else key="closed">?</span>
       </transition>
     </base-button>
@@ -25,7 +25,7 @@
 import BaseButton from '@/components/BaseButton'
 import TheAbout from '@/components/TheAbout'
 import BasePageTransition from '@/components/BasePageTransition'
-import close from '@/assets/close.svg'
+import chevron from '@/assets/chevron.svg'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -34,7 +34,7 @@ export default {
     BaseButton,
     TheAbout,
     BasePageTransition,
-    close,
+    chevron,
   },
   data () {
     return {
@@ -95,6 +95,16 @@ export default {
       fill: $font-color;
       height: 1.2em;
       position: absolute;
+    }
+
+    > div {
+      width: 1.2em;
+    }
+
+    svg {
+      fill: $font-color;
+      transform: rotate(-90deg);
+      margin-top: 2px;
     }
 
     > span {

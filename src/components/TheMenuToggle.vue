@@ -2,7 +2,9 @@
   <div class="the-menu-toggle">
     <base-button circle @click.native="toggleMenu">
       <transition name="swap-trans">
-        <chevron v-if="about" key="about"/>
+        <div v-if="about" key="about">
+          <chevron/>
+        </div>
         <close v-else-if="menu" key="open"/>
         <hamburger v-else key="closed"/>
       </transition>
@@ -36,10 +38,18 @@ export default {
 .the-menu-toggle {
 
   .base-button {
-    svg {
+    > * {
       fill: $font-color;
       height: 1.2em;
       position: absolute;
+    }
+    > div {
+      width: 1.2em;
+
+      svg {
+        fill: $font-color;
+        transform: rotate(-90deg);
+      }
     }
   }
 }
