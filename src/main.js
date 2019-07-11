@@ -9,7 +9,7 @@ Vue.use(Vue2TouchEvents, {
   swipeTolerance: 80,
 })
 Vue.config.productionTip = false
-Vue.prototype.$dev = process.env.NODE_ENV
+Vue.prototype.$dev = process.env.NODE_ENV === 'development'
 
 new Vue({
   router,
