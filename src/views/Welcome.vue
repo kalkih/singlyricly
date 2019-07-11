@@ -85,6 +85,32 @@ export default {
 
 <style lang="scss" scoped>
 .welcome {
+  height: 100%;
+
+  &:before {
+    position: fixed;
+    content: '';
+    background: url("/img/x.jpg") top center/cover;
+    height: 100%;
+    width: 100%;
+    opacity: .1;
+    animation: anim-bg 2.5s;
+
+    @keyframes anim-bg {
+      0% {
+        transform: scale(1.1);
+        opacity: 0;
+      }
+      50% {
+        opacity: .1;
+      }
+      100% {
+        opacity: .1;
+        transform: scale(1);
+      }
+    }
+  }
+
   &__about__button {
     position: fixed;
     top: 20px;
