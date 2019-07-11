@@ -200,6 +200,7 @@ export default {
   height: 100%;
   overflow-y: scroll;
   overflow-x: visible;
+  -webkit-overflow-scrolling: touch;
   width: 100%;
   padding: 0 10px;
   display: flex;
