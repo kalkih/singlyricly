@@ -85,12 +85,16 @@ export default {
       saveLyrics: 'lyrics/saveLyrics',
       fetchLyrics: 'lyrics/fetchLyrics',
     }),
+    isEmpty () {
+      return !(this.$refs.input.value) ||
+        this.$refs.input.value === ''
+    },
     exit () {
       this.fetchLyrics(this.track)
       this.$router.push('/')
     },
     async save () {
-      if (!this.$refs.input.value && this.step !== 1) return
+      if (this.isEmpty() || this.step !== 1) return
       this.step = 2
       const saved = await this.saveLyrics({
         lyrics: this.$refs.input.value,
@@ -112,7 +116,9 @@ export default {
       this.$router.push('/')
     } else {
       this.cachedTrack = this.track
-      this.$nextTick(() => this.$refs.input.focus())
+      this.$nextTick(() => {
+        this.$refs.input.focus()
+      })
     }
   },
 }
