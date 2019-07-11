@@ -54,7 +54,10 @@ export default {
 html {
   background-color: $accent-color !important;
   background-image: linear-gradient(135deg, $accent-color 0%, $secondary-color 100%) !important;
+  // background-image: linear-gradient(135deg, $accent-color 0%, lighten(adjust-color($accent-color, -100), 70%)) !important;
   height: 100%;
+  touch-action: none;
+  overflow: hidden;
   // animation: bg 15s ease infinite;
   // background-size: 400% 400%;
 }
@@ -71,6 +74,7 @@ body {
     Arial,
     sans-serif;
   touch-action: none;
+  -webkit-overflow-scrolling: touch;
 
   @media only screen and (max-height: 640px) {
     font-size: 12px;
