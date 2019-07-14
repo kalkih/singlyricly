@@ -100,6 +100,7 @@ export default {
     opacity: 0;
     transition: opacity .25s;
     overflow: hidden;
+    letter-spacing: .025em;
 
     > span {
       white-space: nowrap;
