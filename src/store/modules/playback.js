@@ -56,6 +56,7 @@ const actions = {
     } : {})
     commit('setProgress', res.progress_ms)
     commit('setPlaying', res.is_playing || false)
+    return res
   },
   async toggle ({ dispatch, state }) {
     if (state.playing) {

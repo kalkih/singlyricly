@@ -82,16 +82,18 @@ export default {
   data () {
     return {
       current: 1,
-      delay: 0,
-      baseDelay: -150,
-      startTime: null,
+      baseDelay: -650,
       step: 0,
       interval: null,
+      fetchInterval: null,
+      savedTrack: {},
     }
   },
   computed: {
     ...mapState({
       track: state => state.playback.track,
+      updatedAt: state => state.playback.updatedAt,
+      progress: state => state.playback.progress,
       unsynced: state => state.lyrics.normal,
       lyrics: state => state.sync.lyrics,
       uri: state => state.sync.track.uri,
@@ -102,6 +104,9 @@ export default {
     length () {
       return this.lyrics.length
     },
+    startTime () {
+      return this.updatedAt - (this.progress + this.baseDelay)
+    },
   },
   methods: {
     ...mapActions({
@@ -110,12 +115,10 @@ export default {
       saveSync: 'sync/save',
       push: 'sync/push',
       startPlayback: 'playback/playTrack',
+      fetchPlayback: 'playback/fetchPlayback',
       clearPlayback: 'playback/clear',
       clearLyrics: 'lyrics/clearLyrics',
     }),
-    progress () {
-      return Date.now() - this.startTime + this.delay + this.baseDelay
-    },
     keyEvent (ev) {
       const { keyCode } = ev
       if (keyCode === 32) {
@@ -128,7 +131,7 @@ export default {
       if (this.current >= this.length - 1 && this.step === 4) {
         this.step = 5
         window.removeEventListener('keydown', this.keyEvent)
-        const saved = await this.saveSync()
+        const saved = await this.saveSync(this.startTime)
         if (saved) {
           this.step = 6
         } else {
@@ -150,25 +153,32 @@ export default {
     },
     pushLine (num) {
       const line = {
-        milliseconds: this.progress(),
+        timestamp: Date.now(),
         line: this.lyrics[num] || '',
       }
       this.push(line)
     },
     async startSyncing () {
       try {
-        const { start, delay } = await this.startPlayback(this.uri)
+        await this.startPlayback(this.uri)
         this.step = 4
-        this.startTime = start
-        this.delay = delay
         window.addEventListener('keydown', this.keyEvent)
+        this.fetchInterval = setInterval(this.getPlayback, 1000)
       } catch (err) {
         this.step = 7
       }
     },
+    getPlayback () {
+      if (this.progress) {
+        clearInterval(this.fetchInterval)
+      } else {
+        this.fetchPlayback()
+      }
+    },
     async init () {
       this.step = 0
-      await this.initSync({ lyrics: this.unsynced, track: this.track })
+      await this.initSync({ lyrics: this.unsynced, track: this.savedTrack })
+      this.clearPlayback()
     },
     exit () {
       this.clearPlayback()
@@ -178,6 +188,7 @@ export default {
     },
     async reset () {
       clearInterval(this.interval)
+      clearInterval(this.fetchInterval)
       this.resetSync()
       this.current = 1
       this.init()
@@ -185,12 +196,14 @@ export default {
   },
   async created () {
     if (!this.track.uri || !this.unsynced || this.hasSynced) {
-      this.$router.push('/')
+      return this.$router.push('/')
     }
+    this.savedTrack = this.track
     this.init()
   },
   beforeDestroy () {
     clearInterval(this.interval)
+    clearInterval(this.fetchInterval)
     this.resetSync()
     window.removeEventListener('keydown', this.keyEvent)
   },

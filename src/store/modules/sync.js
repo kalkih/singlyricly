@@ -37,13 +37,22 @@ const actions = {
   async setLyrics ({ commit }, lyrics) {
     commit('setLyrics', lyrics)
   },
-  async save ({ state, rootState }) {
-    const synced = state.synced.filter(Boolean)
-    return api.saveLyrics({
-      track: state.track,
-      user: rootState.user,
-      synced,
-    })
+  async save ({ state, rootState }, startTime) {
+    try {
+      const synced = state.synced
+        .filter(Boolean)
+        .map(row => ({
+          line: row.line,
+          milliseconds: row.timestamp - startTime,
+        }))
+      return api.saveLyrics({
+        track: state.track,
+        user: rootState.user,
+        synced,
+      })
+    } catch (err) {
+      return null
+    }
   },
   async push ({ commit }, line) {
     commit('push', line)
