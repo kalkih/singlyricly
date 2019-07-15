@@ -52,7 +52,7 @@ export default {
       loaded: false,
       activeLine: -1,
       timer: null,
-      baseDelay: -750,
+      baseDelay: -250,
       fetchDelay: 500,
       lastUpdatedAt: 0,
       LastProgress: 0,
@@ -200,6 +200,8 @@ export default {
   height: 100%;
   overflow-y: scroll;
   overflow-x: visible;
+  z-index: 0 !important;
+  overflow: scroll !important;
   -webkit-overflow-scrolling: touch;
   width: 100%;
   padding: 0 10px;
