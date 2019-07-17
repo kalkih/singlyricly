@@ -32,11 +32,13 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import BaseButton from './BaseButton'
+import deviceDelay from '@/mixins/deviceDelay'
 import easyScroll from 'easy-scroll'
 
 export default {
   name: 'TheLyrics',
   components: { BaseButton },
+  mixins: [ deviceDelay ],
   props: {
     animate: {
       type: Boolean,
@@ -52,7 +54,6 @@ export default {
       loaded: false,
       activeLine: -1,
       timer: null,
-      baseDelay: -250,
       fetchDelay: 500,
       lastUpdatedAt: 0,
       LastProgress: 0,
