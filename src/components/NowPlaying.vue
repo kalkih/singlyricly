@@ -3,7 +3,7 @@
     <transition name="fade" mode="out-in">
       <div v-bind:key="hasInfo" class="now-playing__text">
         <template v-if="hasInfo">
-          <span class="track">
+          <span class="title">
             {{ title }}
           </span>
           <span class="artist">
@@ -109,12 +109,14 @@ export default {
       max-width: 100%;
     }
 
-    .track {
+    .title {
       font-size: 1em;
+      font-weight: 600;
     }
     .artist {
       opacity: .75;
       font-size: .9em;
+      font-weight: 400;
     }
     .placeholder {
       font-size: 1.1em;
