@@ -5,6 +5,7 @@ const initialState = () => ({
   progress: null,
   updatedAt: null,
   playing: false,
+  device: null,
 })
 
 const getters = {
@@ -33,6 +34,10 @@ const mutations = {
     state.playing = playing
   },
 
+  setDevice (state, device) {
+    state.device = device
+  },
+
   reset (state) {
     const initial = initialState()
     Object.keys(initial).forEach(key => { state[key] = initial[key] })
@@ -46,16 +51,18 @@ const actions = {
     const endTime = Date.now()
     const delay = (endTime - startTime) / 2
     commit('setUpdatedAt', endTime - delay)
-    commit('setTrack', res.item ? {
-      title: res.item.name,
-      artist: res.item.artists[0].name,
-      thumbnail: res.item.album.images[2] && res.item.album.images[2].url,
-      length: res.item.duration_ms,
-      uri: res.item.uri,
-      id: res.item.id,
+    const { item } = res
+    commit('setTrack', item ? {
+      title: item.name,
+      artist: item.artists[0].name,
+      thumbnail: item.album.images[2] && item.album.images[2].url,
+      length: item.duration_ms,
+      uri: item.uri,
+      id: item.id,
     } : {})
     commit('setProgress', res.progress_ms)
     commit('setPlaying', res.is_playing || false)
+    commit('setDevice', res.device ? res.device.type : null)
     return res
   },
   async toggle ({ dispatch, state }) {
