@@ -100,7 +100,7 @@ export default {
     flex-flow: column-reverse;
     align-items: center;
     justify-content: center;
-    width: 4.6em;
+    width: 4.5em;
     overflow: hidden;
     font-weight: inherit;
 
