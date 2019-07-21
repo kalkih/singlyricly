@@ -3,12 +3,10 @@
     <transition name="fade" mode="out-in">
       <div v-bind:key="hasInfo" class="now-playing__text">
         <template v-if="hasInfo">
-          <span class="title">
-            {{ title }}
-          </span>
-          <span class="artist">
+          <marquee class="title" :text="title" :paused="false"/>
+          <h2 class="artist">
             {{ artist }}
-          </span>
+          </h2>
         </template>
         <span v-else class="placeholder">
           {{ placeholder }}
@@ -25,12 +23,14 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
+import Marquee from './Marquee'
 import play from '@/assets/play.svg'
 import pause from '@/assets/pause.svg'
 import note from '@/assets/note.svg'
 
 export default {
   components: {
+    Marquee,
     play,
     pause,
     note,
@@ -93,30 +93,33 @@ export default {
     align-items: flex-start;
     justify-content: center;
     flex-flow: column;
-    font-size: .8em;
+    font-size: .6em;
     text-align: left;
-    margin-left: 3em;
-    margin-right: 1.2em;
+    margin-left: 4em;
+    margin-right: 1.6em;
     opacity: 0;
     transition: opacity .25s;
     overflow: hidden;
-    letter-spacing: .025em;
 
-    > span {
+    h2 {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
       max-width: 100%;
+      margin: 0;
+      padding: 0;
+      letter-spacing: .025em;
     }
-
     .title {
-      font-size: 1em;
+      font-size: 18px;
+      height: 20px;
       font-weight: 600;
+      margin-bottom: 2px;
     }
     .artist {
-      opacity: .75;
-      font-size: .9em;
-      font-weight: 400;
+      opacity: .8;
+      font-size: 16px;
+      font-weight: 500;
     }
     .placeholder {
       font-size: 1.1em;
@@ -162,10 +165,18 @@ export default {
     border-radius: 2.6em;
   }
 
+  .marquee {
+    animation-play-state: paused;
+  }
+
   &:hover,
   &.active {
     max-width: calc( 100% - (40px + 60px + 10px));
     transition: max-width .15s ease-out;
+
+    @media only screen and (min-width: 640px) {
+      max-width: 50vw;
+    }
 
     .now-playing__text {
       opacity: 1;
@@ -173,13 +184,18 @@ export default {
     &:before {
       opacity: .65;
     }
+    .marquee {
+      animation-play-state: running;
+    }
   }
-
   @media only screen and (min-width: 640px) {
     max-width: 50vw;
-
+    
     &__text {
       opacity: 1;
+    }
+    .marquee {
+      animation-play-state: running;
     }
   }
   .fade-leave-active,
