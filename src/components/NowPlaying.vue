@@ -102,10 +102,6 @@ export default {
     overflow: hidden;
 
     h2 {
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      max-width: 100%;
       margin: 0;
       padding: 0;
       letter-spacing: .025em;
@@ -115,11 +111,17 @@ export default {
       height: 20px;
       font-weight: 600;
       margin-bottom: 2px;
+      letter-spacing: .025em;
     }
     .artist {
       opacity: .8;
       font-size: 16px;
       font-weight: 500;
+      letter-spacing: .025em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
     }
     .placeholder {
       font-size: 1.1em;
