@@ -190,7 +190,10 @@ export default {
   }
   @media only screen and (min-width: 640px) {
     max-width: 50vw;
-    
+
+    &:before {
+      opacity: .65;
+    }
     &__text {
       opacity: 1;
     }
