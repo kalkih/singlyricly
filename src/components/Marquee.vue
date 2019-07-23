@@ -1,11 +1,12 @@
 <template>
   <div ref="element" class="marquee" :class="{'--overflow': overflow, '--paused': paused}">
+    <resize-observer @notify="resizeHandler" />
     <h2 ref="reference">{{ text }}</h2>
     <template v-if="overflow">
       <h2 :style="sharedStyle">
         {{ text }}
       </h2>
-      <h2 :style="{...sharedStyle, left: `${this.width + 32}px`}">
+      <h2 :style="{...sharedStyle, left: `${this.width + 28}px`}">
         {{ text }}
       </h2>
     </template>
@@ -43,7 +44,9 @@ export default {
   },
   methods: {
     checkOverflow () {
-      this.overflow = this.checkWidth() > this.checkAvail()
+      this.checkWidth()
+      this.checkAvail()
+      this.overflow = this.width > this.max && this.max
     },
     checkWidth () {
       this.width = this.$refs.reference ? this.$refs.reference.clientWidth : 0
@@ -57,7 +60,7 @@ export default {
       clearTimeout(this.resizeTimer)
       this.resizeTimer = setTimeout(() => {
         this.checkOverflow()
-      }, 100)
+      }, 150)
     },
   },
   watch: {
@@ -68,14 +71,6 @@ export default {
   mounted () {
     this.checkOverflow()
   },
-  created () {
-    window.addEventListener('resize', this.resizeHandler)
-  },
-  beforeDestroy () {
-    clearTimeout(this.resizeTimer)
-    window.removeEventListener('resize', this.resizeHandler)
-  },
-
 }
 </script>
 
@@ -86,18 +81,24 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   animation-play-state: running;
+  mask-image: linear-gradient(to right, transparent, black 4px, black calc(100% - 4px), transparent 100%);
 
   &.--overflow {
-    mask-image: linear-gradient(to right, transparent -2px, black 8px, black calc(100% - 8px), transparent 100%);
-
-    h2:nth-child(1) {
+    h2:nth-child(2) {
       visibility: hidden;
     }
   }
   &.--paused {
     animation-play-state: paused;
   }
-  & > * {
+  h2:nth-child(2) {
+    padding: 0 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  & > h2 {
     display: inline-block;
     margin: 0;
     padding: 0;
@@ -105,11 +106,11 @@ export default {
     font-weight: inherit;
     letter-spacing: inherit;
   }
-  h2:nth-child(1n+2) {
+  h2:nth-child(1n+3) {
     position: absolute;
     padding-right: 24px;
     top: 0;
-    left: 8px;
+    left: 4px;
     animation: 10s linear 0s infinite normal none moving;
     animation-play-state: inherit;
   }

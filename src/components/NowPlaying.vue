@@ -95,7 +95,7 @@ export default {
     flex-flow: column;
     font-size: .6em;
     text-align: left;
-    margin-left: 4em;
+    margin-left: 3.8em;
     margin-right: 1.6em;
     opacity: 0;
     transition: opacity .25s;
@@ -106,22 +106,24 @@ export default {
       padding: 0;
       letter-spacing: .025em;
     }
+    .title, .artist {
+      letter-spacing: .025em;
+    }
     .title {
       font-size: 18px;
       height: 20px;
       font-weight: 600;
       margin-bottom: 2px;
-      letter-spacing: .025em;
     }
     .artist {
       opacity: .8;
       font-size: 16px;
       font-weight: 500;
-      letter-spacing: .025em;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
       max-width: 100%;
+      padding-left: 4px;
     }
     .placeholder {
       font-size: 1.1em;
@@ -170,7 +172,6 @@ export default {
   .marquee {
     animation-play-state: paused;
   }
-
   &:hover,
   &.active {
     max-width: calc( 100% - (40px + 60px + 10px));
@@ -188,6 +189,11 @@ export default {
     }
     .marquee {
       animation-play-state: running;
+    }
+  }
+  &:hover {
+    &:before {
+      opacity: .75;
     }
   }
   @media only screen and (min-width: 640px) {
