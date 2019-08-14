@@ -5,11 +5,11 @@
     <p>Song lyrics synchronized with your Spotify playback</p>
     <h2>Contact</h2>
     <p>
-      <a href="mailto:contact@example.com">contact@example.com</a>
+      <a :href="`mailto:${contact}`">{{ contact }}</a>
     </p>
     <h2>Source</h2>
     <p>
-      <a class="github" :href="source">Github</a>
+      <a :href="source">Github</a>
     </p>
     <p class="--fine">All lyrics & artwork are property and copyright of their owners. All lyrics & artwork provided for educational purposes and personal use only</p>
     <div></div>
@@ -25,6 +25,7 @@ export default {
     BasePage,
   },
   computed: {
+    contact: () => process.env.VUE_APP_CONTACT,
     source: () => process.env.VUE_APP_SOURCE,
   },
   methods: {
