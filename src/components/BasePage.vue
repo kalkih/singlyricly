@@ -51,19 +51,35 @@
       font-size: 1em;
     }
 
-    > * {
-      opacity: .75;
-      font-weight: 600;
+    > p {
+      color: rgba(255,255,255,.75);
       transition: opacity .1s ease-out;
+      font-weight: 600;
     }
 
-    > h1 {
+    > h1, h2 {
       opacity: 1;
       margin: .8em 0 0 0;
       -webkit-tap-highlight-color: transparent;
+      font-weight: 600;
 
       &.--red {
         color: $red;
+      }
+    }
+
+    h2 {
+      font-size: 1.8em;
+    }
+
+    a {
+      color: #fff;
+      transition: opacity .1s;
+      padding: .6em 1em;
+      border-radius: 4em;
+
+      &:hover {
+        background: $accent-color;
       }
     }
 

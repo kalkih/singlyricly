@@ -1,11 +1,15 @@
 <template>
   <base-page class="the-about" v-touch:swipe.bottom="() => toggleAbout(false)">
     <div></div>
-    <h1>What's this?</h1>
+    <h2>What's this?</h2>
     <p>Song lyrics synchronized with your Spotify playback</p>
-    <h1>Contact</h1>
+    <h2>Contact</h2>
     <p>
       <a href="mailto:contact@example.com">contact@example.com</a>
+    </p>
+    <h2>Source</h2>
+    <p>
+      <a class="github" :href="source">Github</a>
     </p>
     <p class="--fine">All lyrics & artwork are property and copyright of their owners. All lyrics & artwork provided for educational purposes and personal use only</p>
     <div></div>
@@ -20,6 +24,9 @@ export default {
   components: {
     BasePage,
   },
+  computed: {
+    source: () => process.env.VUE_APP_SOURCE,
+  },
   methods: {
     ...mapActions({
       toggleAbout: 'toggleAbout',
@@ -29,5 +36,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
