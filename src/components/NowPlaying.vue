@@ -106,7 +106,7 @@ export default {
       padding: 0;
       letter-spacing: .025em;
     }
-    .title, .artist {
+    .title, .artist, .placeholder {
       letter-spacing: .025em;
     }
     .title {
@@ -126,7 +126,7 @@ export default {
       padding-left: 4px;
     }
     .placeholder {
-      font-size: 1.1em;
+      font-size: 1.2em;
     }
   }
 
