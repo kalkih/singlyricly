@@ -7,6 +7,9 @@ export default {
   setAbout (state, status) {
     state.about = status
   },
+  setPrivacyPolicy (state, status) {
+    state.privacyPolicy = status
+  },
   setNowPlayingState (state, status) {
     state.nowPlayingState = status
   },

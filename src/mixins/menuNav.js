@@ -1,31 +1,38 @@
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   computed: {
     ...mapState({
       menu: state => state.menu,
-      about: state => state.about,
     }),
+    ...mapGetters({
+      nestedNav: 'nestedNav',
+    }),
+    isMenuOpen () {
+      return this.menu || this.nestedNav
+    },
   },
   methods: {
     ...mapActions({
       toggleBase: 'toggleMenu',
+      closeSecondary: 'closeSecondary',
       toggleAbout: 'toggleAbout',
+      togglePrivacyPolicy: 'togglePrivacyPolicy',
     }),
     toggleMenu () {
-      if (this.about) {
-        this.toggleAbout(false)
+      if (this.nestedNav) {
+        this.closeSecondary()
       } else {
         this.toggleBase()
       }
     },
     closeMenu () {
       this.toggleBase(false)
-      this.toggleAbout(false)
+      this.closeSecondary()
     },
     backMenu () {
-      if (this.about) {
-        this.toggleAbout(false)
+      if (this.nestedNav) {
+        this.closeSecondary()
       } else {
         this.toggleBase(false)
       }

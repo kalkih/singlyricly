@@ -2,10 +2,10 @@
   <div class="the-menu-toggle">
     <base-button circle @click.native="toggleMenu">
       <transition name="swap-trans">
-        <div v-if="about" key="about">
+        <div v-if="nestedNav" key="nested">
           <chevron/>
         </div>
-        <close v-else-if="menu" key="open"/>
+        <close v-else-if="menu" key="base"/>
         <hamburger v-else key="closed"/>
       </transition>
     </base-button>
@@ -25,12 +25,6 @@ export default {
     BaseButton, hamburger, close, chevron,
   },
   mixins: [ menuNav ],
-  computed: {
-    ...mapState({
-      menu: state => state.menu,
-      about: state => state.about,
-    }),
-  },
 }
 </script>
 

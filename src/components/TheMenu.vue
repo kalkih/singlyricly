@@ -1,11 +1,10 @@
 <template>
-  <div class="the-menu" v-touch:swipe.bottom="() => toggle(false)">
+  <div class="the-menu" v-touch:swipe.bottom="() => toggleMenu()">
     <div class="the-menu__bg"></div>
     <div class="the-menu__content">
       <div></div>
       <h1 @click="toggleAbout()">About</h1>
-      <h1>Something</h1>
-      <h1>Report</h1>
+      <h1>Report Lyrics</h1>
       <h1 @click="logout" class="--red">Sign out</h1>
       <delay-bar hideTitle/>
     </div>
@@ -15,11 +14,13 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import DelayBar from '@/components/DelayBar'
+import menuNav from '@/mixins/menuNav'
 
 export default {
   components: {
     DelayBar,
   },
+  mixins: [ menuNav ],
   computed: {
     ...mapState({
       menu: state => state.menu,
@@ -27,8 +28,6 @@ export default {
   },
   methods: {
     ...mapActions({
-      toggle: 'toggleMenu',
-      toggleAbout: 'toggleAbout',
       resetState: 'reset',
     }),
     logout () {

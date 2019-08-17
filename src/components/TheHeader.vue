@@ -6,8 +6,11 @@
       @click.native="toggleMenu">
       <span>{{ text }}</span>
       <transition name="swap-trans">
-        <close v-if="menu || about" key="open-menu"/>
-        <hamburger v-else key="closed-menu"/>
+        <div v-if="nestedNav" key="nested">
+          <chevron/>
+        </div>
+        <close v-else-if="menu" key="base"/>
+        <hamburger v-else key="closed"/>
       </transition>
     </base-button>
   </div>
@@ -19,12 +22,14 @@ import BaseButton from './BaseButton'
 import menuNav from '@/mixins/menuNav'
 import close from '@/assets/close.svg'
 import hamburger from '@/assets/hamburger.svg'
+import chevron from '@/assets/chevron.svg'
 
 export default {
   components: {
     BaseButton,
     close,
     hamburger,
+    chevron,
   },
   mixins: [ menuNav ],
   data () {
@@ -107,11 +112,18 @@ export default {
     padding-left: .8em;
     pointer-events: auto;
 
-    svg {
+    > svg, > div {
       fill: $font-color;
       height: 1em;
       position: absolute;
       right: .8em;
+    }
+
+    .svg-chevron {
+      display: block;
+      transform: rotate(-90deg);
+      height: 1em;
+      fill: $font-color;
     }
   }
 
