@@ -1,11 +1,28 @@
 <template>
-  <div class="base-page">
+  <div class="base-page" :class="classList">
     <div class="base-page__bg"></div>
     <div class="base-page__content">
       <slot></slot>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    mask: {
+      type: Boolean,
+    },
+  },
+  computed: {
+    classList () {
+      return {
+        '--mask': this.mask,
+      }
+    },
+  },
+}
+</script>
 
 <style lang="scss" scoped>
 .base-page {
@@ -19,6 +36,12 @@
   justify-content: center;
   text-align: center;
   align-items: center;
+
+  &.--mask {
+    .base-page__content {
+      mask-image: linear-gradient(transparent, black 100px, black 100%);
+    }
+  }
 
   &__bg {
     background: darken($accent-color, 5%);

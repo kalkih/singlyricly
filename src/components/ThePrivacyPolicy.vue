@@ -1,5 +1,5 @@
 <template>
-  <base-page align="left" class="the-privacy-policy">
+  <base-page mask class="the-privacy-policy">
     <div class="padding"></div>
     <h1>Privacy Policy</h1>
     <p>Thank you for choosing to be part of our community at {{ appName }} ("company", "we", "us" or "our"). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at <a :href="`mailto:${contact}`">{{ contact }}</a>.</p>
