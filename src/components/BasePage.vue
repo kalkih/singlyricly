@@ -17,6 +17,8 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
+  text-align: center;
+  align-items: center;
 
   &__bg {
     background: darken($accent-color, 5%);
@@ -35,8 +37,8 @@
     font-size: .8em;
     display: flex;
     flex-flow: column;
-    align-items: center;
-    text-align: center;
+    align-items: inherit;
+    text-align: inherit;
     padding: 20px;
     height: 100%;
     width: 100%;
@@ -70,17 +72,6 @@
 
     h2 {
       font-size: 1.8em;
-    }
-
-    a {
-      color: #fff;
-      transition: opacity .1s;
-      padding: .6em 1em;
-      border-radius: 4em;
-
-      &:hover {
-        background: $accent-color;
-      }
     }
 
     .--fine {

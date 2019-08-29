@@ -37,4 +37,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+a {
+  color: #fff;
+  transition: opacity .1s;
+  padding: .6em 1em;
+  border-radius: 4em;
+
+  &:hover {
+    background: $accent-color;
+  }
+}
 </style>

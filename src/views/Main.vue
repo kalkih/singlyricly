@@ -6,6 +6,9 @@
     <base-page-transition mode="out-in">
       <the-about v-if="about" key="about"/>
     </base-page-transition>
+    <base-page-transition mode="out-in">
+      <the-privacy-policy v-if="privacy" key="privacy"/>
+    </base-page-transition>
     <the-header/>
     <the-lyrics-screen/>
     <delay-bar v-if="synced" hideTitle/>
@@ -24,6 +27,7 @@ import NowPlaying from '@/components/NowPlaying'
 import DelayBar from '@/components/DelayBar'
 import TheMenuToggle from '@/components/TheMenuToggle'
 import TheAbout from '@/components/TheAbout'
+import ThePrivacyPolicy from '@/components/ThePrivacyPolicy'
 import TheMenu from '@/components/TheMenu'
 import UpdateToast from '@/components/UpdateToast'
 import TheMenuTransition from '@/components/TheMenuTransition'
@@ -39,6 +43,7 @@ export default {
     DelayBar,
     TheMenuToggle,
     TheAbout,
+    ThePrivacyPolicy,
     TheMenu,
     UpdateToast,
     TheMenuTransition,
@@ -57,6 +62,7 @@ export default {
       user: state => state.user.name,
       menu: state => state.menu,
       about: state => state.about,
+      privacy: state => state.privacyPolicy,
     }),
     ...mapGetters({
       hasPlayback: 'playback/hasPlayback',
