@@ -8,16 +8,16 @@
     <p><strong>Please read this privacy policy carefully as it will help you make informed decisions about sharing your personal information with us.</strong></p>
     <h2>TABLE OF CONTENTS</h2>
     <ol>
-     <li><a href="#1">WHAT INFORMATION DO WE COLLECT?</a></li>
-     <li><a href="#2">HOW DO WE USE YOUR INFORMATION?</a></li>
-     <li><a href="#3">WILL YOUR INFORMATION BE SHARED WITH ANYONE?</a></li>
-     <li><a href="#4">HOW DO WE HANDLE YOUR SOCIAL LOGINS?</a></li>
-     <li><a href="#5">HOW LONG DO WE KEEP YOUR INFORMATION?</a></li>
-     <li><a href="#6">HOW DO WE KEEP YOUR INFORMATION SAFE?</a></li>
-     <li><a href="#7">DO WE COLLECT INFORMATION FROM MINORS?</a></li>
-     <li><a href="#8">WHAT ARE YOUR PRIVACY RIGHTS?</a></li>
-     <li><a href="#9">DO WE MAKE UPDATES TO THIS POLICY?</a></li>
-     <li><a href="#10">HOW CAN YOU CONTACT US ABOUT THIS POLICY?</a></li>
+      <li><a href="#1">WHAT INFORMATION DO WE COLLECT?</a></li>
+      <li><a href="#2">HOW DO WE USE YOUR INFORMATION?</a></li>
+      <li><a href="#3">WILL YOUR INFORMATION BE SHARED WITH ANYONE?</a></li>
+      <li><a href="#4">HOW DO WE HANDLE YOUR SOCIAL LOGINS?</a></li>
+      <li><a href="#5">HOW LONG DO WE KEEP YOUR INFORMATION?</a></li>
+      <li><a href="#6">HOW DO WE KEEP YOUR INFORMATION SAFE?</a></li>
+      <li><a href="#7">DO WE COLLECT INFORMATION FROM MINORS?</a></li>
+      <li><a href="#8">WHAT ARE YOUR PRIVACY RIGHTS?</a></li>
+      <li><a href="#9">DO WE MAKE UPDATES TO THIS POLICY?</a></li>
+      <li><a href="#10">HOW CAN YOU CONTACT US ABOUT THIS POLICY?</a></li>
     </ol>
     <h3 id="1">1. WHAT INFORMATION DO WE COLLECT?</h3>
     <h4>Personal information you disclose to us</h4>
@@ -91,6 +91,7 @@ export default {
 .the-privacy-policy {
   text-align: left;
   align-items: flex-start;
+
   .padding {
     margin-top: 75px !important;
   }
@@ -102,31 +103,33 @@ export default {
     }
   }
   h1, h2, h3, h4 {
-    margin: 1em 0 .4em 0;
+    margin: 1.4em 0 .8em 0;
   }
   h1 {
     align-self: center;
   }
   p {
     color: #fff;
-    text-align: justify;
+    text-align: justify !important;
     font-weight: 400;
     line-height: 1.5em;
     margin: .6em 0;
+    font-size: .95em;
   }
 
   ol, ul {
     margin: 0;
     width: 100%;
     padding-left: 2.5em;
+    letter-spacing: .025em;
   }
   li {
     margin: .6em 0;
     line-height: 1.5em;
   }
 
-  ol > li {
-    font-weight: 600;
+  ol > li, a {
+    font-weight: 700;
   }
 }
 </style>
