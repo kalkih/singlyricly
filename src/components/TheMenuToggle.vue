@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import BaseButton from './BaseButton'
 import menuNav from '@/mixins/menuNav'
 import close from '@/assets/close.svg'
