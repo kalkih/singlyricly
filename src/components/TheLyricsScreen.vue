@@ -12,6 +12,10 @@
             </div>
             <h2>We're getting your lyrics, stay tuned!</h2>
           </div>
+          <div v-else-if="errored" class="not-found" key="error">
+            <sad/>
+            <h2>{{ error.message }}</h2>
+          </div>
           <div v-else-if="!progress" class="not-available" key="none">
             <play/>
             <h2>Play something on Spotify and check back here</h2>
@@ -30,7 +34,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import TheLyrics from '@/components/TheLyrics'
 import BaseButton from '@/components/BaseButton'
 import sad from '@/assets/sad.svg'
@@ -50,6 +54,10 @@ export default {
       normal: state => state.lyrics.normal,
       progress: state => state.playback.progress,
       searching: state => state.lyrics.searching,
+      error: state => state.error,
+    }),
+    ...mapGetters({
+      errored: 'errored',
     }),
     hasLyrics () {
       return !!(this.synced || this.normal)

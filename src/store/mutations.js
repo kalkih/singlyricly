@@ -13,6 +13,15 @@ export default {
   setNowPlayingState (state, status) {
     state.nowPlayingState = status
   },
+  setError (state, error) {
+    state.error = {
+      code: error.code,
+      message: error.message,
+    }
+  },
+  resetError (state) {
+    state.error = {}
+  },
   reset (state) {
     const s = initialState()
     Object.keys(s).forEach(key => {

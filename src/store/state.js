@@ -3,4 +3,5 @@ export default () => ({
   about: false,
   privacyPolicy: false,
   nowPlayingState: false,
+  error: {},
 })

@@ -2,7 +2,7 @@ export default {
   toggleMenu ({ commit, state }, status) {
     commit('setMenu', status !== undefined ? status : !state.menu)
   },
-  closeSecondary ({ commit, state }) {
+  closeSecondary ({ commit }) {
     commit('setAbout', false)
     commit('setPrivacyPolicy', false)
   },
@@ -14,6 +14,12 @@ export default {
   },
   toggleNowPlayingState ({ commit, state }, status) {
     commit('setNowPlayingState', status !== undefined ? status : !state.nowPlayingState)
+  },
+  setError ({ commit }, error) {
+    commit('setError', error)
+  },
+  resetError ({ commit }) {
+    commit('resetError')
   },
   reset ({ commit }) {
     commit('reset')
