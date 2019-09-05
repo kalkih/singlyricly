@@ -4,17 +4,17 @@
       <the-lyrics v-if="hasLyrics" :isSynced="hasSynced" key="lyrics"/>
       <div v-else class="the-lyrics-screen__info" key="info">
         <transition name="lyrics-trans" mode="out-in">
-          <div v-if="searching" key="loading">
+          <div v-if="errored" class="not-found" key="error">
+            <sad/>
+            <h2>{{ error.message }}</h2>
+          </div>
+          <div v-else-if="searching" key="loading">
             <div class="spinner">
               <div></div>
               <div></div>
               <div></div>
             </div>
             <h2>We're getting your lyrics, stay tuned!</h2>
-          </div>
-          <div v-else-if="errored" class="not-found" key="error">
-            <sad/>
-            <h2>{{ error.message }}</h2>
           </div>
           <div v-else-if="!progress" class="not-available" key="none">
             <play/>
