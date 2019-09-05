@@ -1,28 +1,12 @@
 import axios from 'axios'
-import store from '@/store'
+import inter from '../interceptor'
+import defaultOpts from '../index'
 
-export default () => {
-  const instance = axios.create({
-    baseURL: process.env.VUE_APP_AUTH_API,
-    withCredentials: false,
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-  })
+const instance = axios.create({
+  baseURL: process.env.VUE_APP_AUTH_API,
+  ...defaultOpts,
+})
 
-  instance.interceptors.response.use(async response => {
-    store.dispatch('resetError')
-    return response
-  }, error => {
-    store.dispatch('setError', {
-      code: 999,
-      message: `Failed to connect to ${process.env.VUE_APP_NAME}, check your connection`,
-    })
-    return Promise.reject(error)
-  })
+instance.interceptors.response.use(inter)
 
-  return instance
-}
-
-// export default request
+export default instance

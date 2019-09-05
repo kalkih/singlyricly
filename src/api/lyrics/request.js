@@ -1,12 +1,12 @@
 import axios from 'axios'
+import inter from '../interceptor'
+import defaultOpts from '../index'
 
-const request = axios.create({
+const instance = axios.create({
   baseURL: process.env.VUE_APP_LYRICS_API,
-  withCredentials: false,
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-  },
+  ...defaultOpts,
 })
 
-export default request
+instance.interceptors.response.use(inter)
+
+export default instance
