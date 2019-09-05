@@ -1,5 +1,10 @@
 <template>
   <div class="welcome">
+    <transition name="fade">
+      <base-toast v-if="error" @click.native="reset()">
+        <span>{{ errorMessage }}</span>
+      </base-toast>
+    </transition>
     <base-page-transition mode="out-in">
       <the-about v-if="about" key="about"/>
     </base-page-transition>
@@ -23,6 +28,7 @@
 
 <script>
 import BaseButton from '@/components/BaseButton'
+import BaseToast from '@/components/BaseToast'
 import TheAbout from '@/components/TheAbout'
 import BasePageTransition from '@/components/BasePageTransition'
 import chevron from '@/assets/chevron.svg'
@@ -32,6 +38,7 @@ export default {
   name: 'Welcome',
   components: {
     BaseButton,
+    BaseToast,
     TheAbout,
     BasePageTransition,
     chevron,
@@ -53,6 +60,7 @@ export default {
   methods: {
     ...mapActions({
       getAuthURL: 'auth/fetchAuthUrl',
+      setAuthURL: 'auth/setAuthURL',
       toggleAbout: 'toggleAbout',
     }),
     async login () {
@@ -66,10 +74,14 @@ export default {
           this.redirect(url)
         } else {
           this.error = 3000
-          this.errorMessage = 'Unable to contact Spotify'
+          this.errorMessage = 'Unable to connect, check your internet connection'
           this.loading = false
         }
       }
+    },
+    reset () {
+      this.error = ''
+      this.errorMessage = ''
     },
     redirect (url) {
       setTimeout(() => {
@@ -78,7 +90,7 @@ export default {
     },
   },
   created () {
-    this.getAuthURL()
+    this.setAuthURL('')
   },
 }
 </script>
@@ -246,6 +258,11 @@ export default {
         width: auto;
       }
     }
+  }
+  .fade-leave-to {
+    transition: transform .25s, opacity .25s;
+    transform: translateY(-100px);
+    opacity: 0;
   }
 }
 </style>

@@ -35,7 +35,6 @@ const mutations = {
   },
   reset (state) {
     const initial = initialState()
-    console.log('resetting auth')
     Object.keys(initial).forEach(key => { state[key] = initial[key] })
   },
 }
@@ -73,7 +72,7 @@ const actions = {
   },
 
   setAuthURL ({ commit }, url) {
-    commit('setAccessToken', url)
+    commit('setAuthURL', url)
   },
 
   setAccessToken ({ commit }, token) {
