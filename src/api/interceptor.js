@@ -1,9 +1,9 @@
 import axios from 'axios'
 import store from '@/store'
 
-const interceptor = axios.interceptors.response.use(async response => {
+const interceptor = axios.interceptors.response.use(async res => {
   store.dispatch('resetError')
-  return response
+  return res
 }, error => {
   store.dispatch('setError', {
     code: 999,
