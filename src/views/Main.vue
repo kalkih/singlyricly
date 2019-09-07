@@ -11,9 +11,12 @@
     </base-page-transition>
     <the-header/>
     <the-lyrics-screen/>
-    <delay-bar v-if="synced" hideTitle/>
+    <div class="the-controls">
+      <now-playing/>
+      <delay-bar v-if="synced" hideTitle/>
+      <div class="spacer"/>
+    </div>
     <the-menu-toggle/>
-    <now-playing/>
     <update-toast v-if="!$dev"/>
     <the-keys/>
   </div>
@@ -110,33 +113,45 @@ export default {
 .main {
   height: 100%;
 
-  .now-playing {
-    position: fixed;
-    left: 20px;
-    bottom: 20px;
-    animation: fade-in .25s ease-out;
-  }
-  .delay-bar {
-    display: none;
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    animation: fade-in .25s ease-out;
-
-    @media only screen and (min-width: 640px) {
-      display: flex;
-    }
-  }
-  .the-menu-toggle {
+  > .the-menu-toggle {
     display: block;
     position: fixed;
-    right: 20px;
     bottom: 20px;
-    z-index: 9;
+    right: 20px;
+    z-index: 9999;
     animation: fade-in .25s ease-out;
 
     @media only screen and (min-width: 640px) {
       display: none;
+    }
+  }
+
+  .the-controls {
+    display: flex;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    justify-content: space-between;
+    width: calc(100% - 40px);
+
+    .delay-bar, .now-playing {
+      animation: fade-in .25s ease-out;
+    }
+    .delay-bar {
+      display: none;
+
+      @media only screen and (min-width: 640px) {
+        display: flex;
+      }
+    }
+    .spacer {
+      display: block;
+      width: 2.6em;
+
+      @media only screen and (min-width: 640px) {
+        display: none;
+      }
     }
   }
   .update-toast {

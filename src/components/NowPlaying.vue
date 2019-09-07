@@ -83,6 +83,7 @@ export default {
   font-weight: 500;
   display: flex;
   height: 2.6em;
+  min-width: 2.6em;
   align-items: center;
   -webkit-tap-highlight-color: transparent;
   max-width: 2.6em;
@@ -172,14 +173,38 @@ export default {
   .marquee {
     animation-play-state: paused;
   }
-  &:hover,
-  &.active {
-    max-width: calc( 100% - (40px + 60px + 10px));
-    transition: max-width .15s ease-out;
-
-    @media only screen and (min-width: 640px) {
+  @media only screen and (min-width: 640px) {
+    &:hover {
       max-width: 50vw;
+      max-width: calc(100% - (60px + 20px));
+      transition: max-width .15s ease-out;
+
+      .now-playing__text {
+        opacity: 1;
+      }
+      &:before {
+        opacity: .65;
+      }
+      .marquee {
+        animation-play-state: running;
+      }
     }
+
+    max-width: 50vw;
+    &:before {
+      opacity: .65;
+    }
+    &__text {
+      opacity: 1;
+    }
+    .marquee {
+      animation-play-state: running;
+    }
+  }
+  
+  &.active {
+    max-width: calc(100% - (60px + 20px));
+    transition: max-width .15s ease-out;
 
     .now-playing__text {
       opacity: 1;
@@ -194,19 +219,6 @@ export default {
   &:hover {
     &:before {
       opacity: .75;
-    }
-  }
-  @media only screen and (min-width: 640px) {
-    max-width: 50vw;
-
-    &:before {
-      opacity: .65;
-    }
-    &__text {
-      opacity: 1;
-    }
-    .marquee {
-      animation-play-state: running;
     }
   }
   .fade-leave-active,
