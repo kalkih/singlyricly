@@ -115,7 +115,6 @@ export default {
     scroll (newVal, oldVal) {
       if (newVal && newVal !== oldVal) {
         this.move()
-        this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
       }
     },
   },
@@ -125,6 +124,7 @@ export default {
       setScroll: 'lyrics/setScroll',
     }),
     handleScroll () {
+      this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
       this.setScroll(false)
     },
     computeProgress () {
