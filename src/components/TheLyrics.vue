@@ -34,6 +34,7 @@ import { mapState, mapActions } from 'vuex'
 import BaseButton from './BaseButton'
 import deviceDelay from '@/mixins/deviceDelay'
 import easyScroll from 'easy-scroll'
+import { setTimeout } from 'timers';
 
 export default {
   name: 'TheLyrics',
@@ -52,9 +53,11 @@ export default {
   data () {
     return {
       loaded: false,
+      hasFocus: true,
       activeLine: -1,
       timer: null,
       fetchDelay: 500,
+      scrollDuration: 200,
       lastUpdatedAt: 0,
       LastProgress: 0,
     }
@@ -114,7 +117,7 @@ export default {
       }
     },
     scroll (newVal, oldVal) {
-      if (newVal && newVal !== oldVal) {
+      if (newVal && newVal !== oldVal && this.loaded) {
         this.move()
       }
     },
@@ -124,9 +127,19 @@ export default {
       fetchPlayback: 'playback/fetchPlayback',
       setScroll: 'lyrics/setScroll',
     }),
-    handleScroll () {
-      this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
-      this.setScroll(false)
+    handleScroll (e) {
+      if (this.hasFocus) {
+        this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
+        this.setScroll(false)
+      }
+    },
+    handleBlur () {
+      this.hasFocus = false
+    },
+    handleFocus () {
+      setTimeout(() => {
+        this.hasFocus = true
+      }, this.scrollDuration + 100);
     },
     computeProgress () {
       return this.progress + (Date.now() - this.updatedAt) + (this.baseDelay + this.delay)
@@ -146,12 +159,12 @@ export default {
         scrollableDomEle: this.$refs.lyrics,
         direction: 'bottom',
         easingPreset: 'easeOutCubic',
-        duration: 200,
+        duration: this.scrollDuration,
         scrollAmount: top - center + (height / 3),
       })
       setTimeout(() => {
         this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
-      }, 250)
+      }, this.scrollDuration + 100)
     },
     calculateNext (ms) {
       if (this.activeLine >= this.length) {
@@ -206,10 +219,14 @@ export default {
     if (this.hasSynced) {
       this.sync()
     }
+    window.addEventListener('blur', this.handleBlur)
+    window.addEventListener('focus', this.handleFocus)
   },
   beforeDestroy () {
     this.clear()
     this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('blur', this.handleBlur)
+    window.removeEventListener('focus', this.handleFocus)
   },
 }
 </script>
