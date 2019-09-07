@@ -34,7 +34,6 @@ import { mapState, mapActions } from 'vuex'
 import BaseButton from './BaseButton'
 import deviceDelay from '@/mixins/deviceDelay'
 import easyScroll from 'easy-scroll'
-import { setTimeout } from 'timers';
 
 export default {
   name: 'TheLyrics',
@@ -139,7 +138,7 @@ export default {
     handleFocus () {
       setTimeout(() => {
         this.hasFocus = true
-      }, this.scrollDuration + 100);
+      }, this.scrollDuration + 100)
     },
     computeProgress () {
       return this.progress + (Date.now() - this.updatedAt) + (this.baseDelay + this.delay)
