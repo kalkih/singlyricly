@@ -53,6 +53,7 @@ export default {
     return {
       loaded: false,
       hasFocus: true,
+      scrollDebounce: false,
       activeLine: -1,
       timer: null,
       fetchDelay: 500,
@@ -117,6 +118,10 @@ export default {
     },
     scroll (newVal, oldVal) {
       if (newVal && newVal !== oldVal && this.loaded) {
+        this.scrollDebounce = true
+        setTimeout(() => {
+          this.scrollDebounce = false
+        }, this.scrollDuration + 100)
         this.move()
       }
     },
@@ -127,7 +132,7 @@ export default {
       setScroll: 'lyrics/setScroll',
     }),
     handleScroll (e) {
-      if (this.hasFocus) {
+      if (this.hasFocus && !this.scrollDebounce) {
         this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
         this.setScroll(false)
       }
