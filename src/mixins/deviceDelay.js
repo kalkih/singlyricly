@@ -8,13 +8,13 @@ export default {
     baseDelay () {
       switch (this.device) {
         case 'CastAudio':
-          return -250
+          return -50
         // case 'Computer':
         //   return -1500
         // case 'Smartphone':
         //   return -1500
         default:
-          return -1500
+          return -800
       }
     },
   },
