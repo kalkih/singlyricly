@@ -15,7 +15,7 @@
       <now-playing/>
       <transition name="switch-trans" mode="out-in">
         <base-button v-if="!scroll" :key="scroll" class="resume-button" @click.native="setScroll(true)">
-          RESUME
+          <span>RESUME</span>
         </base-button>
       </transition>
       <delay-bar v-if="synced" hideTitle/>
@@ -149,6 +149,7 @@ export default {
     }
     .delay-bar {
       display: none;
+      flex-shrink: 0;
 
       @media only screen and (min-width: 640px) {
         display: flex;

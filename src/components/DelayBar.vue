@@ -10,12 +10,12 @@
             {{ delay > 0 ? '+' : '' }}{{ delayInSec }}
           </span>
         </transition>
-        <span v-if="!hideTitle">
+        <span v-if="!hideTitle" class="delay-bar__delay__title">
           {{ title }}
         </span>
       </div>
       <div class="delay-bar__delay" v-else key="default">
-        <span>
+        <span class="delay-bar__delay__title">
           {{ title }}
         </span>
       </div>
@@ -81,11 +81,10 @@ export default {
   border-radius: 2.6em;
   overflow: hidden;
   display: flex;
-  font-weight: 600;
 
   &:before {
     content: '';
-    opacity: .5;
+    opacity: .65;
     position: absolute;
     z-index: -2;
     background: $accent-color;
@@ -95,26 +94,29 @@ export default {
   }
 
   &__delay {
-    font-size: 1.4em;
+    font-size: 1.2em;
     display: flex;
     flex-flow: column-reverse;
     align-items: center;
     justify-content: center;
-    width: 4.5em;
+    width: 5em;
     overflow: hidden;
-    font-weight: inherit;
+    font-weight: 700;
 
     span {
       &:nth-child(2) {
         font-size: .6em;
-        opacity: 1;
       }
-      opacity: .85;
       font-variant-numeric: tabular-nums;
       letter-spacing: .05em;
-      font-weight: inherit;
       font-size: 1em;
       color: white;
+    }
+
+    &__title {
+      text-transform: uppercase;
+      font-size: .8em !important;
+      letter-spacing: .15em !important;
     }
   }
   .swap-trans-leave-active,
