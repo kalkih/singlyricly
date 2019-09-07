@@ -13,6 +13,11 @@
     <the-lyrics-screen/>
     <div class="the-controls">
       <now-playing/>
+      <transition name="switch-trans" mode="out-in">
+        <base-button v-if="!scroll" :key="scroll" class="resume-button" @click.native="setScroll(true)">
+          RESUME
+        </base-button>
+      </transition>
       <delay-bar v-if="synced" hideTitle/>
       <div class="spacer"/>
     </div>
@@ -28,6 +33,7 @@ import TheLyricsScreen from '@/components/TheLyricsScreen'
 import TheKeys from '@/components/TheKeys'
 import NowPlaying from '@/components/NowPlaying'
 import DelayBar from '@/components/DelayBar'
+import BaseButton from '@/components/BaseButton'
 import TheMenuToggle from '@/components/TheMenuToggle'
 import TheAbout from '@/components/TheAbout'
 import ThePrivacyPolicy from '@/components/ThePrivacyPolicy'
@@ -44,6 +50,7 @@ export default {
     TheKeys,
     NowPlaying,
     DelayBar,
+    BaseButton,
     TheMenuToggle,
     TheAbout,
     ThePrivacyPolicy,
@@ -62,6 +69,7 @@ export default {
       track: state => state.playback.track,
       synced: state => state.lyrics.synced,
       normal: state => state.lyrics.normal,
+      scroll: state => state.lyrics.scroll,
       user: state => state.user.name,
       menu: state => state.menu,
       about: state => state.about,
@@ -77,6 +85,7 @@ export default {
       fetchPlayback: 'playback/fetchPlayback',
       fetchLyrics: 'lyrics/fetchLyrics',
       clearLyrics: 'lyrics/clearLyrics',
+      setScroll: 'lyrics/setScroll',
     }),
     comparePlayback (newVal, oldVal) {
       return (newVal.artist !== oldVal.artist ||
@@ -145,9 +154,27 @@ export default {
         display: flex;
       }
     }
+    .resume-button {
+      text-align: center;
+      font-size: 1em;
+      padding: 1.2em 2.6em;
+      height: auto;
+      font-weight: 700;
+      margin: 0 10px;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+
+      &.switch-trans-leave-active {
+        transition:
+          opacity .05s ease-out,
+          transform .05s ease-out;
+      }
+    }
     .spacer {
       display: block;
+      font-size: 1.4em;
       width: 2.6em;
+      min-width: 2.6em;
 
       @media only screen and (min-width: 640px) {
         display: none;

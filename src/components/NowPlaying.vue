@@ -1,5 +1,5 @@
 <template>
-  <div class="now-playing" :class="{active}">
+  <div class="now-playing" :class="{'active': active && scroll}">
     <transition name="fade" mode="out-in">
       <div v-bind:key="hasInfo" class="now-playing__text">
         <template v-if="hasInfo">
@@ -45,6 +45,7 @@ export default {
       track: state => state.playback.track,
       playing: state => state.playback.playing,
       active: state => state.nowPlayingState,
+      scroll: state => state.lyrics.scroll,
     }),
     ...mapGetters({
       idle: 'playback/isIdle',
@@ -201,7 +202,7 @@ export default {
       animation-play-state: running;
     }
   }
-  
+
   &.active {
     max-width: calc(100% - (60px + 20px));
     transition: max-width .15s ease-out;

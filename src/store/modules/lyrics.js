@@ -5,6 +5,7 @@ const state = {
   synced: null,
   found: true,
   searching: false,
+  scroll: true,
 }
 
 const getters = {
@@ -33,6 +34,9 @@ const mutations = {
   setSearching (state, status) {
     state.searching = status
   },
+  setScroll (state, status) {
+    state.scroll = status
+  },
 }
 
 const actions = {
@@ -57,6 +61,9 @@ const actions = {
       user: rootState.user,
       normal,
     })
+  },
+  setScroll ({ commit }, status) {
+    commit('setScroll', status)
   },
 }
 

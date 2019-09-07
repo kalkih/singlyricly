@@ -63,6 +63,7 @@ export default {
     ...mapState({
       synced: state => state.lyrics.synced,
       normal: state => state.lyrics.normal,
+      scroll: state => state.lyrics.scroll,
       progress: state => state.playback.progress,
       playing: state => state.playback.playing,
       updatedAt: state => state.playback.updatedAt,
@@ -111,17 +112,27 @@ export default {
         this.sync()
       }
     },
+    scroll (newVal, oldVal) {
+      if (newVal && newVal !== oldVal) {
+        this.move()
+        this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
+      }
+    },
   },
   methods: {
     ...mapActions({
       fetchPlayback: 'playback/fetchPlayback',
+      setScroll: 'lyrics/setScroll',
     }),
+    handleScroll () {
+      this.setScroll(false)
+    },
     computeProgress () {
       return this.progress + (Date.now() - this.updatedAt) + (this.baseDelay + this.delay)
     },
     next () {
       this.activeLine = this.activeLine + 1
-      this.move()
+      if (this.scroll) this.move()
     },
     move (line = this.activeLine) {
       const target = this.$refs.lyrics
@@ -129,6 +140,7 @@ export default {
       const height = target.offsetHeight
       const center = this.$refs.lyrics.offsetHeight / 2
       const top = target.getBoundingClientRect().top
+      this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
       easyScroll({
         scrollableDomEle: this.$refs.lyrics,
         direction: 'bottom',
@@ -136,6 +148,9 @@ export default {
         duration: 200,
         scrollAmount: top - center + (height / 3),
       })
+      setTimeout(() => {
+        this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
+      }, 250)
     },
     calculateNext (ms) {
       if (this.activeLine >= this.length) {
@@ -192,6 +207,7 @@ export default {
   },
   beforeDestroy () {
     this.clear()
+    this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
   },
 }
 </script>

@@ -1,10 +1,14 @@
 .swap-trans-leave-active,
-.swap-trans-enter-active {
+.swap-trans-enter-active,
+.switch-trans-leave-active,
+.switch-trans-enter-active {
   transition:
     opacity .15s ease-out,
     transform .15s ease-out;
 }
-.swap-trans-enter {
+.swap-trans-enter,
+.switch-trans-leave-to,
+.switch-trans-enter {
   opacity: 0 !important;
   transform: translateY(1em);
 }
@@ -12,7 +16,8 @@
   opacity: 0 !important;
   transform: translateY(-1em);
 }
-.swap-trans-enter-to, .swap-trans-leave {
+.swap-trans-enter-to, .swap-trans-leave,
+.switch-trans-enter-to, .switch-trans-leave {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0), scaleX(0);
 }
