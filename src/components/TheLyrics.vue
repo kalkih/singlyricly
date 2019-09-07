@@ -1,6 +1,6 @@
 <template>
   <div class="the-lyrics"
-    :class="{'--static': !animate, '--unsynced': !isSynced}"
+    :class="{'--static': !animate, '--unsynced': !isSynced, '--override': !scroll}"
     ref="lyrics">
     <template v-if="synced">
       <p
@@ -92,6 +92,7 @@ export default {
   watch: {
     synced () {
       this.clear()
+      this.setScroll(true)
       if (this.hasSynced && this.loaded) {
         console.log('New lyrics, syncing...')
         this.$nextTick(() => this.sync)
@@ -200,6 +201,7 @@ export default {
     },
   },
   mounted () {
+    this.setScroll(true)
     this.loaded = true
     if (this.hasSynced) {
       this.sync()
@@ -301,6 +303,15 @@ export default {
     transition: transform .1s ease-out;
     max-width: 1920px;
     width: 75%;
+  }
+
+  &.--override {
+    p {
+      opacity: .9;
+    }
+    .active-line {
+      opacity: 1;
+    }
   }
 
   .active-line {
