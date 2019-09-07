@@ -147,12 +147,18 @@ export default {
     .delay-bar, .now-playing {
       animation: fade-in .25s ease-out;
     }
+    .now-playing {
+      @media only screen and (min-width: 640px) {
+        margin-right: 10px;
+      }
+    }
     .delay-bar {
       display: none;
       flex-shrink: 0;
 
       @media only screen and (min-width: 640px) {
         display: flex;
+        margin-left: 10px;
       }
     }
     .resume-button {

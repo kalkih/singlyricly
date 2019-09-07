@@ -174,10 +174,28 @@ export default {
   .marquee {
     animation-play-state: paused;
   }
+  &.active {
+    max-width: calc(100% - (60px + 20px));
+    transition: max-width .15s ease-out;
+
+    .now-playing__text {
+      opacity: 1;
+    }
+    &:before {
+      opacity: .65;
+    }
+    .marquee {
+      animation-play-state: running;
+    }
+  }
   @media only screen and (min-width: 640px) {
-    &:hover {
+    max-width: 50vw;
+
+    &.active {
       max-width: 50vw;
-      max-width: calc(100% - (60px + 20px));
+    }
+    &:hover {
+      max-width: 100%;
       transition: max-width .15s ease-out;
 
       .now-playing__text {
@@ -190,28 +208,11 @@ export default {
         animation-play-state: running;
       }
     }
-
-    max-width: 50vw;
     &:before {
       opacity: .65;
     }
     &__text {
       opacity: 1;
-    }
-    .marquee {
-      animation-play-state: running;
-    }
-  }
-
-  &.active {
-    max-width: calc(100% - (60px + 20px));
-    transition: max-width .15s ease-out;
-
-    .now-playing__text {
-      opacity: 1;
-    }
-    &:before {
-      opacity: .65;
     }
     .marquee {
       animation-play-state: running;
