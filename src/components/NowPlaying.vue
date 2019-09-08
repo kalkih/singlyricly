@@ -98,7 +98,7 @@ export default {
     font-size: .6em;
     text-align: left;
     margin-left: 3.8em;
-    margin-right: 1.6em;
+    margin-right: 1.4em;
     opacity: 0;
     transition: opacity .25s;
     overflow: hidden;
@@ -112,14 +112,14 @@ export default {
       letter-spacing: .025em;
     }
     .title {
-      font-size: 18px;
-      height: 20px;
+      font-size: 1.34em;
+      height: 1.1em;
       font-weight: 600;
       margin-bottom: 2px;
     }
     .artist {
       opacity: .8;
-      font-size: 16px;
+      font-size: 1.2em;
       font-weight: 500;
       white-space: nowrap;
       text-overflow: ellipsis;
