@@ -109,6 +109,7 @@ export default {
     reset () {
       this.$refs.input.value = ''
       this.step = 1
+      this.$refs.input.focus()
     },
   },
   created () {
