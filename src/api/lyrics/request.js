@@ -1,5 +1,5 @@
 import axios from 'axios'
-import inter from '../interceptor'
+import intercept from '../interceptor'
 import defaultOpts from '../index'
 
 const instance = axios.create({
@@ -7,6 +7,6 @@ const instance = axios.create({
   ...defaultOpts,
 })
 
-instance.interceptors.response.use(inter)
+intercept(instance)
 
 export default instance
