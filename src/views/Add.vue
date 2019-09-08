@@ -7,7 +7,7 @@
           <textarea
             class="the-add__lyrics__input"
             ref="input"
-            placeholder="Insert lyrics..."
+            placeholder="...lyrics..."
             spellcheck="false">
           </textarea>
         </div>
