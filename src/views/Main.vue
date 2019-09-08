@@ -14,7 +14,7 @@
     <div class="the-controls">
       <now-playing/>
       <transition name="switch-trans" mode="out-in">
-        <base-button v-if="!scroll" :key="scroll" class="resume-button" @click.native="setScroll(true)">
+        <base-button v-if="!scroll && synced" :key="scroll" class="resume-button" @click.native="setScroll(true)">
           <span>RESUME</span>
         </base-button>
       </transition>
