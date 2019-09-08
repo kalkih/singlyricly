@@ -56,10 +56,13 @@ export default {
       scrollDebounce: false,
       activeLine: -1,
       timer: null,
+      scrollTimer: null,
       fetchDelay: 500,
       scrollDuration: 200,
+      scrollGrace: 100,
       lastUpdatedAt: 0,
-      LastProgress: 0,
+      lastProgress: 0,
+      lastScrollPos: 0,
     }
   },
   computed: {
@@ -133,8 +136,10 @@ export default {
     }),
     handleScroll (e) {
       if (this.hasFocus && !this.scrollDebounce) {
-        this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
-        this.setScroll(false)
+        if (Math.abs(e.target.scrollTop - this.lastScrollPos) > this.scrollGrace) {
+          this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
+          this.setScroll(false)
+        }
       }
     },
     handleBlur () {
@@ -166,7 +171,8 @@ export default {
         duration: this.scrollDuration,
         scrollAmount: top - center + (height / 3),
       })
-      setTimeout(() => {
+      this.scrollTimer = setTimeout(() => {
+        this.lastScrollPos = this.$refs.lyrics.scrollTop
         this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
       }, this.scrollDuration + 100)
     },
@@ -188,6 +194,7 @@ export default {
       }
     },
     clear () {
+      clearTimeout(this.scrollTimer)
       if (this.timer) {
         clearTimeout(this.timer)
         this.timer = null
