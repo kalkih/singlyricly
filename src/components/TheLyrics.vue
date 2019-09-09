@@ -139,6 +139,7 @@ export default {
         if (Math.abs(e.target.scrollTop - this.lastScrollPos) > this.scrollGrace) {
           this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
           this.setScroll(false)
+          window.navigator.vibrate(10)
         }
       }
     },
