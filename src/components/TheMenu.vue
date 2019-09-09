@@ -81,7 +81,6 @@ export default {
     text-align: center;
     padding: 20px;
     height: 100%;
-    overflow: scroll;
     touch-action: pan-y;
     transform: translateY(0) translateZ(0);
 
