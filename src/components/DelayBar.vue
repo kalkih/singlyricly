@@ -65,10 +65,15 @@ export default {
     add () {
       this.direction = 'left'
       this.addDelay(this.step)
+      this.feedback()
     },
     sub () {
       this.direction = 'right'
       this.subtractDelay(this.step)
+      this.feedback()
+    },
+    feedback () {
+      window.navigator.vibrate(10)
     },
   },
 }
