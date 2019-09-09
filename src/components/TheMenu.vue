@@ -1,5 +1,5 @@
 <template>
-  <div class="the-menu" v-touch:swipe.bottom="() => toggleMenu()">
+  <div class="the-menu" v-touch:swipe.bottom="handleSwipeDown">
     <div class="the-menu__bg"></div>
     <div class="the-menu__content">
       <div></div>
@@ -34,6 +34,10 @@ export default {
     logout () {
       this.resetState()
       this.$router.push('welcome')
+    },
+    handleSwipeDown () {
+      window.navigator.vibrate(10)
+      this.toggleMenu()
     },
   },
 }

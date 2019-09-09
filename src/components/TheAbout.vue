@@ -1,5 +1,5 @@
 <template>
-  <base-page class="the-about" v-touch:swipe.bottom="() => toggleAbout(false)">
+  <base-page class="the-about" v-touch:swipe.bottom="handleSwipeDown">
     <div></div>
     <h2>What's this?</h2>
     <p>Song lyrics synchronized with your Spotify playback</p>
@@ -32,6 +32,10 @@ export default {
     ...mapActions({
       toggleAbout: 'toggleAbout',
     }),
+    handleSwipeDown () {
+      window.navigator.vibrate(10)
+      this.toggleAbout(false)
+    },
   },
 }
 </script>
