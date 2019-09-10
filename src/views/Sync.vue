@@ -60,6 +60,8 @@
         <reload/>
       </base-button>
     </div>
+    <div class="the-sync__progress" v-if="step === 4" :style="progressStyle">
+    </div>
   </div>
 </template>
 
@@ -112,6 +114,14 @@ export default {
     },
     artist () {
       return this.savedTrack.artist
+    },
+    progress () {
+      return (this.current - 1) / this.length
+    },
+    progressStyle () {
+      return {
+        transform: `scaleX(${this.progress})`,
+      }
     },
   },
   methods: {
@@ -331,6 +341,15 @@ export default {
       text-transform: uppercase;
       letter-spacing: .15em;
     }
+  }
+  &__progress {
+    position: fixed;
+    bottom: 0;
+    height: 6px;
+    background-color: $accent-color;
+    width: 100%;
+    transition: transform .2s;
+    opacity: .65;
   }
   .line-trans-leave-active,
   .line-trans-enter-active {
