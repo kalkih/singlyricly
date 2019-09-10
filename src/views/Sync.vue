@@ -20,7 +20,7 @@
             <h3>{{ title }} - {{ artist }}</h3>
             <p>Syncing lyrics for a song is easy, just press the <span class="highlight">[ next line ]</span> button or <span class="highlight">[ spacebar ]</span> when you hear the beginning of each next line</p>
             <p>We will start the music when you're ready</p>
-            <base-button @click.native="startCountdown">I'm ready!</base-button>
+            <base-button @click.native="startCountdown">START SYNC</base-button>
           </div>
           <div v-else-if="step === 6" key="two">
             <h2>That's it, well done!</h2>
