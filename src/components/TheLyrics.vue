@@ -1,31 +1,34 @@
 <template>
-  <div class="the-lyrics"
-    :class="{'--static': !animate, '--unsynced': !isSynced, '--override': !scroll}"
-    ref="lyrics">
-    <template v-if="synced">
-      <p
-        v-for="(entry, index) in synced"
-        :key="index"
-        :line="index"
-        :class="{ 'active-line': activeLine === index}">
-        {{ entry.line }}
-      </p>
-    </template>
-    <template v-else>
-      <router-link to="/sync" tag="div">
-        <base-button>Help sync these lyrics</base-button>
-      </router-link>
-      <p
-        v-for="(line, index) in normal"
-        :key="index"
-        :line="index"
-        :class="{ 'accent-line': !line }">
-        {{ line ? line : '● ● ●' }}
-      </p>
-      <p class="accent-line">
-        ( END )
-      </p>
-    </template>
+  <div class="the-lyrics-wrapper">
+    <div class="the-lyrics"
+      :class="{'--static': !animate, '--unsynced': !isSynced, '--override': !scroll}"
+      ref="lyrics">
+      <template v-if="synced">
+        <p
+          v-for="(entry, index) in synced"
+          :key="index"
+          :line="index"
+          :class="{ 'active-line': activeLine === index}">
+          {{ entry.line }}
+        </p>
+      </template>
+      <template v-else>
+        <router-link to="/sync" tag="div">
+          <base-button>Help sync these lyrics</base-button>
+        </router-link>
+        <p
+          v-for="(line, index) in normal"
+          :key="index"
+          :line="index"
+          :class="{ 'accent-line': !line }">
+          {{ line ? line : '● ● ●' }}
+        </p>
+        <p class="accent-line">
+          ( END )
+        </p>
+      </template>
+    </div>
+    <div class="scroll-offset-bar" v-if="synced" :style="{'transform': `scaleX(${scrollOffset})`}"></div>
   </div>
 </template>
 
@@ -54,12 +57,16 @@ export default {
       loaded: false,
       hasFocus: true,
       scrollDebounce: false,
+      scrollOffset: 0,
       activeLine: -1,
       timer: null,
+      scrollListenerTimer: null,
       scrollTimer: null,
+      touchEndTimer: null,
+      isScrolling: false,
       fetchDelay: 500,
       scrollDuration: 200,
-      scrollGrace: 100,
+      scrollGrace: 150,
       lastUpdatedAt: 0,
       lastProgress: 0,
       lastScrollPos: 0,
@@ -135,10 +142,19 @@ export default {
       setScroll: 'lyrics/setScroll',
     }),
     handleScroll (e) {
+      // need to debounce touchend
+      clearTimeout(this.scrollTimer)
+      this.isScrolling = true
+      this.scrollTimer = setTimeout(() => {
+        this.isScrolling = false
+      }, 66)
       if (this.hasFocus && !this.scrollDebounce) {
-        if (Math.abs(e.target.scrollTop - this.lastScrollPos) > this.scrollGrace) {
+        const scrollOffset = Math.abs(e.target.scrollTop - this.lastScrollPos)
+        this.scrollOffset = Math.min(Math.max(scrollOffset / 15, 0), 10)
+        if (scrollOffset > this.scrollGrace) {
           this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
           this.setScroll(false)
+          this.scrollOffset = 0
           window.navigator.vibrate(10)
         }
       }
@@ -150,6 +166,21 @@ export default {
       setTimeout(() => {
         this.hasFocus = true
       }, this.scrollDuration + 100)
+    },
+    handleTouchend () {
+      clearInterval(this.touchEndTimer)
+      if (this.isScrolling) {
+        this.touchEndTimer = setInterval(() => {
+          if (!this.scroll) {
+            clearInterval(this.touchEndTimer)
+          } else if (!this.isScrolling) {
+            this.move()
+            clearInterval(this.touchEndTimer)
+          }
+        }, 50)
+      } else {
+        if (this.scroll) this.move()
+      }
     },
     computeProgress () {
       return this.progress + (Date.now() - this.updatedAt) + (this.baseDelay + this.delay)
@@ -165,6 +196,7 @@ export default {
       const center = this.$refs.lyrics.offsetHeight / 2
       const top = target.getBoundingClientRect().top
       this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
+      this.scrollOffset = 0
       easyScroll({
         scrollableDomEle: this.$refs.lyrics,
         direction: 'bottom',
@@ -172,7 +204,7 @@ export default {
         duration: this.scrollDuration,
         scrollAmount: top - center + (height / 3),
       })
-      this.scrollTimer = setTimeout(() => {
+      this.scrollListenerTimer = setTimeout(() => {
         this.lastScrollPos = this.$refs.lyrics.scrollTop
         this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
       }, this.scrollDuration + 100)
@@ -195,7 +227,7 @@ export default {
       }
     },
     clear () {
-      clearTimeout(this.scrollTimer)
+      clearTimeout(this.scrollListenerTimer)
       if (this.timer) {
         clearTimeout(this.timer)
         this.timer = null
@@ -233,17 +265,32 @@ export default {
     }
     window.addEventListener('blur', this.handleBlur)
     window.addEventListener('focus', this.handleFocus)
+    window.addEventListener('touchend', this.handleTouchend)
   },
   beforeDestroy () {
     this.clear()
     this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('blur', this.handleBlur)
     window.removeEventListener('focus', this.handleFocus)
+    window.removeEventListener('touchend', this.handleTouchend)
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.the-lyrics-wrapper {
+  height: 100%;
+}
+.scroll-offset-bar {
+  height: 6px;
+  background: $font-color;
+  position: fixed;
+  bottom: 0;
+  left: calc(50% - 5%);
+  width: 10%;
+  transition: transform .05s;
+  opacity: .9;
+}
 .the-lyrics {
   height: 100%;
   overflow-y: scroll;
