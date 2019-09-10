@@ -193,6 +193,7 @@ export default {
       if (this.scroll) this.move()
     },
     move (line = this.activeLine) {
+      if (this.activeLine === -1) return
       const target = this.$refs.lyrics
         .querySelector(`p[line="${line}"]`)
       const height = target.offsetHeight
@@ -269,7 +270,6 @@ export default {
     }
     window.addEventListener('blur', this.handleBlur)
     window.addEventListener('focus', this.handleFocus)
-    window.addEventListener('touchend', this.handleTouchend)
   },
   beforeDestroy () {
     this.clear()
