@@ -206,7 +206,6 @@ export default {
     }
     this.savedTrack = this.track
     this.init()
-    console.log(this.track)
   },
   beforeDestroy () {
     clearInterval(this.interval)
