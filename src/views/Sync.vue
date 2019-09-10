@@ -17,7 +17,7 @@
         <transition name="swap-trans" mode="out-in">
           <div v-if="step === 0" key="one">
             <h2>SYNC LYRICS</h2>
-            <h3>{{ track.title }} - {{ track.artist }}</h3>
+            <h3>{{ title }} - {{ artist }}</h3>
             <p>Syncing lyrics for a song is easy, just press the <span class="highlight">[ next line ]</span> button or <span class="highlight">[ spacebar ]</span> when you hear the beginning of each next line</p>
             <p>We will start the music when you're ready</p>
             <base-button @click.native="startCountdown">I'm ready!</base-button>
@@ -106,6 +106,12 @@ export default {
     },
     startTime () {
       return this.updatedAt - (this.progress + this.baseDelay)
+    },
+    title () {
+      return this.savedTrack.title
+    },
+    artist () {
+      return this.savedTrack.artist
     },
   },
   methods: {
@@ -200,6 +206,7 @@ export default {
     }
     this.savedTrack = this.track
     this.init()
+    console.log(this.track)
   },
   beforeDestroy () {
     clearInterval(this.interval)
