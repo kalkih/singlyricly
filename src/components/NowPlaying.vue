@@ -1,5 +1,5 @@
 <template>
-  <div class="now-playing" :class="{'active': active && scroll}">
+  <div class="now-playing" :class="{'active': this.expanded}">
     <transition name="fade" mode="out-in">
       <div v-bind:key="hasInfo" class="now-playing__text">
         <template v-if="hasInfo">
@@ -22,11 +22,12 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
 import Marquee from './Marquee'
 import play from '@/assets/play.svg'
 import pause from '@/assets/pause.svg'
 import note from '@/assets/note.svg'
+import scrollHelper from '@/mixins/scrollHelper'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -35,6 +36,7 @@ export default {
     pause,
     note,
   },
+  mixins: [ scrollHelper ],
   data () {
     return {
       placeholder: 'Nothing playing',
@@ -45,7 +47,6 @@ export default {
       track: state => state.playback.track,
       playing: state => state.playback.playing,
       active: state => state.nowPlayingState,
-      scroll: state => state.lyrics.scroll,
     }),
     ...mapGetters({
       idle: 'playback/isIdle',
@@ -61,6 +62,9 @@ export default {
     },
     hasInfo () {
       return this.track.title || this.track.artist
+    },
+    expanded () {
+      return this.active && this.scroll && this.delayedScrollStatus
     },
   },
   methods: {

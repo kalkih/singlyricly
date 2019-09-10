@@ -14,7 +14,7 @@
     <div class="the-controls">
       <now-playing/>
       <transition name="switch-trans" mode="out-in">
-        <base-button v-if="!scroll && synced" :key="scroll" class="resume-button" @click.native="setScroll(true)">
+        <base-button v-if="scrollOverride" :key="delayedScrollStatus" class="resume-button" @click.native="setScroll(true)">
           <span>RESUME</span>
         </base-button>
       </transition>
@@ -41,6 +41,7 @@ import TheMenu from '@/components/TheMenu'
 import UpdateToast from '@/components/UpdateToast'
 import TheMenuTransition from '@/components/TheMenuTransition'
 import BasePageTransition from '@/components/BasePageTransition'
+import scrollHelper from '@/mixins/scrollHelper'
 import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -59,6 +60,7 @@ export default {
     TheMenuTransition,
     BasePageTransition,
   },
+  mixins: [ scrollHelper ],
   data () {
     return {
       interval: null,
@@ -69,7 +71,6 @@ export default {
       track: state => state.playback.track,
       synced: state => state.lyrics.synced,
       normal: state => state.lyrics.normal,
-      scroll: state => state.lyrics.scroll,
       user: state => state.user.name,
       menu: state => state.menu,
       about: state => state.about,
@@ -78,6 +79,9 @@ export default {
     ...mapGetters({
       hasPlayback: 'playback/hasPlayback',
     }),
+    scrollOverride () {
+      return this.synced && !this.delayedScrollStatus && !this.scroll
+    },
   },
   methods: {
     ...mapActions({
@@ -170,12 +174,6 @@ export default {
       margin: 0 10px;
       text-transform: uppercase;
       letter-spacing: .15em;
-
-      &.switch-trans-leave-active {
-        transition:
-          opacity .05s ease-out,
-          transform .05s ease-out;
-      }
     }
     .spacer {
       display: block;
