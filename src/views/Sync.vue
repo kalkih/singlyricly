@@ -277,8 +277,13 @@ export default {
     }
 
     .base-button {
-      font-size: .8em;
-      color: $font-color;
+      font-size: .7em;
+      padding: 1.2em 2.6em;
+      height: auto;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      margin: 1em 0;
     }
 
     .highlight {
