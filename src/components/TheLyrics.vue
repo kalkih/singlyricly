@@ -109,6 +109,9 @@ export default {
       if (this.hasSynced && this.loaded) {
         console.log('New lyrics, syncing...')
         this.$nextTick(() => this.sync)
+        window.addEventListener('touchend', this.handleTouchend)
+      } else {
+        window.removeEventListener('touchend', this.handleTouchend)
       }
     },
     updatedAt (newVal, oldVal) {
@@ -262,6 +265,7 @@ export default {
     this.loaded = true
     if (this.hasSynced) {
       this.sync()
+      window.addEventListener('touchend', this.handleTouchend)
     }
     window.addEventListener('blur', this.handleBlur)
     window.addEventListener('focus', this.handleFocus)
