@@ -1,5 +1,10 @@
 <template>
-  <div class="now-playing" :class="{'active': this.expanded}">
+  <div class="now-playing"
+    :class="classList"
+    @click="togglePlayback"
+    v-touch:start="down"
+    v-touch:end="reset"
+    @mouseleave="reset">
     <transition name="fade" mode="out-in">
       <div v-bind:key="hasInfo" class="now-playing__text">
         <template v-if="hasInfo">
@@ -15,8 +20,8 @@
     </transition>
     <transition name="swap-trans">
       <note v-if="idle" key="idle"/>
-      <pause v-else-if="playing" @click="pause" key="playing"/>
-      <play v-else @click="play" key="paused"/>
+      <pause v-else-if="playing" key="playing"/>
+      <play v-else key="paused"/>
     </transition>
   </div>
 </template>
@@ -40,6 +45,7 @@ export default {
   data () {
     return {
       placeholder: 'Nothing playing',
+      pressed: false,
     }
   },
   computed: {
@@ -66,12 +72,23 @@ export default {
     expanded () {
       return this.active && this.scroll && this.delayedScrollStatus
     },
+    classList () {
+      return {
+        '--active': this.expanded,
+        '--pressed': this.pressed,
+      }
+    },
   },
   methods: {
     ...mapActions({
-      play: 'playback/play',
-      pause: 'playback/pause',
+      togglePlayback: 'playback/toggle',
     }),
+    down () {
+      this.pressed = true
+    },
+    reset () {
+      this.pressed = false
+    },
   },
 }
 </script>
@@ -93,6 +110,15 @@ export default {
   -webkit-tap-highlight-color: transparent;
   max-width: 2.6em;
   transition: max-width .25s ease-out, width .25s ease-out;
+
+  &.--pressed {
+    transform: scale3d(0.9, 0.9, 0.9);
+    opacity: .75;
+
+    @media only screen and (min-width: 640px) {
+      transform: scale3d(0.95, 0.95, 0.95);
+    }
+  }
 
   &__text {
     display: flex;
@@ -178,7 +204,7 @@ export default {
   .marquee {
     animation-play-state: paused;
   }
-  &.active {
+  &.--active {
     max-width: calc(100% - (60px + 20px));
     transition: max-width .15s ease-out;
 
@@ -195,7 +221,7 @@ export default {
   @media only screen and (min-width: 640px) {
     max-width: 50vw;
 
-    &.active {
+    &.--active {
       max-width: 50vw;
     }
     &:hover {
