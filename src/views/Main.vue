@@ -147,6 +147,11 @@ export default {
     right: 20px;
     justify-content: space-between;
     width: calc(100% - 40px);
+    pointer-events: none;
+
+    > * {
+      pointer-events: auto;
+    }
 
     .delay-bar, .now-playing {
       animation: fade-in .25s ease-out;
