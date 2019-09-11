@@ -66,7 +66,7 @@ export default {
       isScrolling: false,
       fetchDelay: 500,
       scrollDuration: 200,
-      scrollGrace: 150,
+      scrollThreshold: 150,
       lastUpdatedAt: 0,
       lastProgress: 0,
       lastScrollPos: 0,
@@ -154,7 +154,7 @@ export default {
       if (this.hasFocus && !this.scrollDebounce) {
         const scrollOffset = Math.abs(e.target.scrollTop - this.lastScrollPos)
         this.scrollOffset = Math.min(Math.max(scrollOffset / 15, 0), 10)
-        if (scrollOffset > this.scrollGrace) {
+        if (scrollOffset > this.scrollThreshold) {
           this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
           this.setScroll(false)
           this.scrollOffset = 0
