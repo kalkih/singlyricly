@@ -7,6 +7,7 @@
           <div v-if="errored" class="not-found" key="error">
             <sad/>
             <h2>{{ error.message }}</h2>
+            <base-button @click.native="refresh">REFRESH</base-button>
           </div>
           <div v-else-if="searching" key="loading">
             <div class="spinner">
@@ -73,6 +74,9 @@ export default {
     ...mapActions({
       toggle: 'toggleNowPlayingState',
     }),
+    refresh () {
+      window.location.reload()
+    },
   },
 }
 </script>
