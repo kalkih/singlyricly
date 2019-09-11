@@ -14,7 +14,7 @@
       </template>
       <template v-else>
         <router-link to="/sync" tag="div">
-          <base-button>Help sync these lyrics</base-button>
+          <base-button>Help sync lyrics</base-button>
         </router-link>
         <p
           v-for="(line, index) in normal"
