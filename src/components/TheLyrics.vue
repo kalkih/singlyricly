@@ -316,12 +316,12 @@ export default {
 
   .base-button {
     font-size: .5em;
-    padding: 1.2em 2em;
     margin: 1em 0;
+    padding: 1.4em 2.6em;
     height: auto;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .075em;
+    letter-spacing: .15em;
 
     @media only screen and (min-width: 640px) {
       padding: 1em 2em;
