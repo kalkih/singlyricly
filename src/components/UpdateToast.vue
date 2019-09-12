@@ -58,7 +58,7 @@ export default {
   padding-top: 60px;
   display: flex;
   justify-content: center;
-  z-index: 99;
+  z-index: 10;
   animation: fade .25s ease-out;
 
   > div {

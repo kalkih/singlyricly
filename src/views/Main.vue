@@ -131,7 +131,7 @@ export default {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 9999;
+    z-index: 9;
     animation: fade-in .25s ease-out;
 
     @media only screen and (min-width: 640px) {
