@@ -193,7 +193,7 @@ export default {
       if (this.scroll) this.move()
     },
     move (line = this.activeLine) {
-      if (this.activeLine === -1) return
+      if (line === -1) return
       const target = this.$refs.lyrics
         .querySelector(`p[line="${line}"]`)
       const height = target.offsetHeight
