@@ -284,6 +284,7 @@ export default {
 <style lang="scss" scoped>
 .the-lyrics-wrapper {
   height: 100%;
+  width: 100%;
 }
 .scroll-offset-bar {
   height: 6px;
