@@ -91,6 +91,8 @@ export default {
 .the-privacy-policy {
   text-align: left;
   align-items: flex-start;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
 
   .padding {
     margin-top: 75px !important;
