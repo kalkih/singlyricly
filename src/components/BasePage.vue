@@ -1,7 +1,7 @@
 <template>
-  <div class="base-page" :class="classList">
+  <div class="base-page" :class="classList" v-touch:swipe.bottom="handleSwipeDown">
     <div class="base-page__bg"></div>
-    <div class="base-page__content">
+    <div class="base-page__content" ref="content">
       <slot></slot>
     </div>
   </div>
@@ -18,6 +18,14 @@ export default {
     classList () {
       return {
         '--mask': this.mask,
+      }
+    },
+  },
+  methods: {
+    handleSwipeDown () {
+      if (this.$refs.content.scrollTop === 0) {
+        window.navigator.vibrate(10)
+        this.$emit('swipe-down');
       }
     },
   },
