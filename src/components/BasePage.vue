@@ -35,7 +35,7 @@ export default {
     styleList () {
       return {
         'transform': `translateY(${this.touchOffset}px)`,
-        'transition': `transform ${this.touchOffset === 0 ? .25 : 0}s`
+        'transition': `transform ${this.touchOffset === 0 ? 0.25 : 0}s`,
       }
     },
   },
