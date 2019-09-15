@@ -25,7 +25,7 @@ export default {
     handleSwipeDown () {
       if (this.$refs.content.scrollTop === 0) {
         window.navigator.vibrate(10)
-        this.$emit('swipe-down');
+        this.$emit('swipe-down')
       }
     },
   },
