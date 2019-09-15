@@ -1,5 +1,9 @@
 <template>
-  <div class="base-page" :class="classList" v-touch:swipe.bottom="handleSwipeDown">
+  <div class="base-page" :class="classList"
+    v-touch:moving="movingHandler"
+    v-touch:moved="movedHandler"
+    v-touch:end="endHandler"
+    :style="styleList">
     <div class="base-page__bg"></div>
     <div class="base-page__content" ref="content">
       <slot></slot>
@@ -14,19 +18,48 @@ export default {
       type: Boolean,
     },
   },
+  data () {
+    return {
+      touchStart: 0,
+      touchOffset: 0,
+      touchVelocity: 0,
+      lastTouch: null,
+    }
+  },
   computed: {
     classList () {
       return {
         '--mask': this.mask,
       }
     },
+    styleList () {
+      return {
+        'transform': `translateY(${this.touchOffset}px)`,
+        'transition': `transform ${this.touchOffset === 0 ? .25 : 0}s`
+      }
+    },
   },
   methods: {
-    handleSwipeDown () {
-      if (this.$refs.content.scrollTop === 0) {
-        window.navigator.vibrate(10)
+    movedHandler (e) {
+      this.touchStart = e.touches[0].pageY
+    },
+    movingHandler (e) {
+      const offset = e.touches[0].pageY - this.touchStart
+      const time = Date.now()
+      if (this.lastTouch) {
+        const timeDiff = time - this.lastTouch
+        this.velocity = (offset - this.touchOffset) / timeDiff
+      }
+      this.lastTouch = time
+      this.touchOffset = offset > 0 ? offset : 0
+    },
+    endHandler () {
+      if (this.touchOffset > 150 || this.velocity > 2.5) {
         this.$emit('swipe-down')
       }
+      this.touchStart = 0
+      this.touchOffset = 0
+      this.lastTouch = null
     },
   },
 }
@@ -44,6 +77,7 @@ export default {
   justify-content: center;
   text-align: center;
   align-items: center;
+  transition: transform .1s;
 
   &.--mask {
     .base-page__content {

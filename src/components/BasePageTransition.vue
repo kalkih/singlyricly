@@ -10,7 +10,7 @@ export default {}
 .base-page-transition-leave-active,
 .base-page-transition-enter-active {
   transition:
-    opacity .5s $easeInOutCubic;
+    opacity .5s $easeInOutCubic !important;
 
   .base-page__content {
     will-change: transform, opacity;
