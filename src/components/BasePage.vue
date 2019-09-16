@@ -29,6 +29,9 @@ export default {
     }
   },
   computed: {
+    scrollPos () {
+      return this.$refs.content.scrollTop
+    },
     classList () {
       return {
         '--mask': this.mask,
@@ -46,6 +49,7 @@ export default {
       this.touchStart = e.touches[0].pageY
     },
     movingHandler (e) {
+      if (this.$refs.content.scrollTop !== 0) return
       const offset = e.touches[0].pageY - this.touchStart
       const time = Date.now()
       if (this.lastTouch) {
