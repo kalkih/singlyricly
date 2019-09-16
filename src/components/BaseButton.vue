@@ -98,7 +98,7 @@ export default {
 
   &:before {
     content: '';
-    opacity: .5;
+    opacity: .6;
     position: absolute;
     z-index: -2;
     background: $accent-color;
