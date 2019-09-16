@@ -78,6 +78,11 @@ export default {
       window.location.reload()
     },
   },
+  mounted () {
+    setTimeout(() => {
+      this.toggle(true)
+    }, 750)
+  },
 }
 </script>
 
