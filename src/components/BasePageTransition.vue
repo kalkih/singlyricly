@@ -12,6 +12,11 @@ export default {}
   transition:
     opacity .5s $easeInOutCubic !important;
 
+
+  .base-page__backdrop {
+    will-change: opacity;
+    transition: opacity .35s $easeInOutCubic;
+  }
   .base-page__content {
     will-change: transform, opacity;
     transition:
@@ -35,6 +40,9 @@ export default {}
 }
 .base-page-transition-enter,
 .base-page-transition-leave-to {
+  .base-page__backdrop {
+    opacity: 0;
+  }
   .base-page__content {
     opacity: 0;
     transform: translateY(2em);
