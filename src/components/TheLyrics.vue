@@ -170,7 +170,7 @@ export default {
         this.hasFocus = true
       }, this.scrollDuration + 100)
     },
-    handleTouchend () {
+    handleTouchend (e) {
       clearInterval(this.touchEndTimer)
       if (this.isScrolling) {
         this.touchEndTimer = setInterval(() => {
@@ -182,7 +182,9 @@ export default {
           }
         }, 50)
       } else {
-        if (this.scroll) this.move()
+        if (this.scroll && this.$refs.lyrics.scrollTop !== this.lastScrollPos) {
+          if (this.scroll) this.move()
+        }
       }
     },
     computeProgress () {
