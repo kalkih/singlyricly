@@ -109,9 +109,9 @@ export default {
       if (this.hasSynced && this.loaded) {
         console.log('New lyrics, syncing...')
         this.$nextTick(() => this.sync)
-        window.addEventListener('touchend', this.handleTouchend)
+        this.$refs.lyrics.addEventListener('touchend', this.handleTouchend)
       } else {
-        window.removeEventListener('touchend', this.handleTouchend)
+        this.$refs.lyrics.removeEventListener('touchend', this.handleTouchend)
       }
     },
     updatedAt (newVal, oldVal) {
@@ -266,7 +266,7 @@ export default {
     this.loaded = true
     if (this.hasSynced) {
       this.sync()
-      window.addEventListener('touchend', this.handleTouchend)
+      this.$refs.lyrics.addEventListener('touchend', this.handleTouchend)
     }
     window.addEventListener('blur', this.handleBlur)
     window.addEventListener('focus', this.handleFocus)
@@ -276,7 +276,7 @@ export default {
     this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('blur', this.handleBlur)
     window.removeEventListener('focus', this.handleFocus)
-    window.removeEventListener('touchend', this.handleTouchend)
+    this.$refs.lyrics.removeEventListener('touchend', this.handleTouchend)
   },
 }
 </script>
