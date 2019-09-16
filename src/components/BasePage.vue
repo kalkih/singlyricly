@@ -53,7 +53,7 @@ export default {
         this.velocity = (offset - this.touchOffset) / timeDiff
       }
       this.lastTouch = time
-      this.touchOffset = offset > 0 ? offset : 0
+      this.touchOffset = offset > 5 ? offset : 0
     },
     endHandler () {
       if (this.touchOffset > 150 || this.velocity > 2.5) {
