@@ -12,7 +12,6 @@ export default {}
   transition:
     opacity .5s $easeInOutCubic !important;
 
-
   .base-page__backdrop {
     will-change: opacity;
     transition: opacity .35s $easeInOutCubic;

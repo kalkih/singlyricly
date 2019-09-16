@@ -1,8 +1,8 @@
 <template>
   <div class="main">
-    <the-menu-transition mode="out-in">
+    <base-page-transition mode="out-in">
       <the-menu v-if="menu" key="menu"/>
-    </the-menu-transition>
+    </base-page-transition>
     <base-page-transition mode="out-in">
       <the-about v-if="about" key="about"/>
     </base-page-transition>
@@ -39,7 +39,6 @@ import TheAbout from '@/components/TheAbout'
 import ThePrivacyPolicy from '@/components/ThePrivacyPolicy'
 import TheMenu from '@/components/TheMenu'
 import UpdateToast from '@/components/UpdateToast'
-import TheMenuTransition from '@/components/TheMenuTransition'
 import BasePageTransition from '@/components/BasePageTransition'
 import scrollHelper from '@/mixins/scrollHelper'
 import { mapState, mapActions, mapGetters } from 'vuex'
@@ -57,7 +56,6 @@ export default {
     ThePrivacyPolicy,
     TheMenu,
     UpdateToast,
-    TheMenuTransition,
     BasePageTransition,
   },
   mixins: [ scrollHelper ],
