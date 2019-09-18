@@ -79,6 +79,9 @@ export default {
   z-index: 8;
   opacity: 1;
   transition: transform .1s;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 
   &.--mask {
     .base-page__content {
@@ -89,11 +92,8 @@ export default {
   &__container {
     height: 100%;
     width: 100%;
-    display: flex;
     flex-flow: column;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
+    display: flex;
   }
 
   &__backdrop {
