@@ -44,6 +44,8 @@ export default {
     text-transform: uppercase;
     letter-spacing: .15em;
     margin-top: 2em;
+    max-width: 300px;
+    width: 100%;
   }
 }
 </style>
