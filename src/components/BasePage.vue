@@ -43,9 +43,11 @@ export default {
   },
   methods: {
     startHandler (e) {
+      e.stopPropagation()
       this.touchStart = e.touches[0].pageY
     },
     moveHandler (e) {
+      e.stopPropagation()
       if (this.$refs.content.scrollTop !== 0) return
       const offset = e.touches[0].pageY - this.touchStart
       const time = Date.now()
@@ -56,7 +58,8 @@ export default {
       this.lastTouch = time
       this.touchOffset = offset > 5 ? offset : 0
     },
-    endHandler () {
+    endHandler (e) {
+      e.stopPropagation()
       if (this.touchOffset > 150 || this.velocity > 2.5) {
         this.$emit('swipe-down')
       }
@@ -83,6 +86,7 @@ export default {
   position: fixed;
   height: 100%;
   width: 100%;
+  top: 0;
   z-index: 8;
   opacity: 1;
   transition: transform .1s;
@@ -102,6 +106,7 @@ export default {
     flex-flow: column;
     display: flex;
     align-items: inherit;
+    position: relative;
   }
 
   &__backdrop {
