@@ -1,8 +1,5 @@
 <template>
-  <div class="base-page" :class="classList"
-    v-touch:moving="movingHandler"
-    v-touch:moved="movedHandler"
-    v-touch:end="endHandler">
+  <div class="base-page" :class="classList" ref="page">
     <div class="base-page__backdrop"></div>
     <div class="base-page__container" :style="styleList">
       <div class="base-page__bg"></div>
@@ -45,10 +42,10 @@ export default {
     },
   },
   methods: {
-    movedHandler (e) {
+    startHandler (e) {
       this.touchStart = e.touches[0].pageY
     },
-    movingHandler (e) {
+    moveHandler (e) {
       if (this.$refs.content.scrollTop !== 0) return
       const offset = e.touches[0].pageY - this.touchStart
       const time = Date.now()
@@ -68,6 +65,16 @@ export default {
       this.lastTouch = null
     },
   },
+  mounted () {
+    this.$refs.page.addEventListener('touchstart', this.startHandler)
+    this.$refs.page.addEventListener('touchmove', this.moveHandler)
+    this.$refs.page.addEventListener('touchend', this.endHandler)
+  },
+  beforeDestroy () {
+    this.$refs.page.removeEventListener('touchstart', this.startHandler)
+    this.$refs.page.removeEventListener('touchmove', this.moveHandler)
+    this.$refs.page.removeEventListener('touchend', this.endHandler)
+  }
 }
 </script>
 
