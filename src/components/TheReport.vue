@@ -2,13 +2,23 @@
   <base-page class="the-report" @swipe-down="toggle(false)">
     <div></div>
     <h1 class="title">report lyrics</h1>
-    <base-button>wrong lyrics</base-button>
-    <base-button>Out of sync</base-button>
+    <base-button @click.native="report">Wrong lyrics</base-button>
+    <base-button @click.native="report">Out of sync</base-button>
+    <base-page-transition mode="out-in">
+      <base-page class="nested" v-if="step === 2" @swipe-down="closeNested()">
+        <div></div>
+        <h1 class="title">Thank you, that's it!</h1>
+        <base-button>Correct lyrics</base-button>
+        <base-button @click.native="exit">Return to app</base-button>
+        <div></div>
+      </base-page>
+    </base-page-transition>
     <div></div>
   </base-page>
 </template>
 
 <script>
+import BasePageTransition from './BasePageTransition'
 import BasePage from './BasePage'
 import BaseButton from './BaseButton'
 import { mapActions } from 'vuex'
@@ -16,12 +26,27 @@ import { mapActions } from 'vuex'
 export default {
   components: {
     BasePage,
+    BasePageTransition,
     BaseButton,
+  },
+  data () {
+    return {
+      step: 0,
+    }
   },
   methods: {
     ...mapActions({
       toggle: 'toggleReport',
+      toggleMenu: 'toggleMenu',
+      closeNested: 'closeSecondary',
     }),
+    report () {
+      this.step = 2
+    },
+    exit () {
+      this.closeNested(false)
+      this.toggleMenu(false)
+    },
   },
 }
 </script>
@@ -46,6 +71,9 @@ export default {
     margin-top: 2em;
     max-width: 300px;
     width: 100%;
+  }
+  .nested {
+    font-size: 1.2em;
   }
 }
 </style>
