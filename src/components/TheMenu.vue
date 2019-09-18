@@ -2,7 +2,7 @@
   <base-page class="the-menu" @swipe-down="toggleMenu(false)">
     <div class="spacer"></div>
     <h1 @click="toggleAbout()">About</h1>
-    <h1>Report Lyrics</h1>
+    <h1 @click="toggleReport()">Report lyrics</h1>
     <h1 @click="togglePrivacyPolicy()">Privacy Policy</h1>
     <h1 @click="logout" class="--red">Sign out</h1>
     <delay-bar hideTitle/>

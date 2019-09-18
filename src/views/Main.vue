@@ -9,6 +9,9 @@
     <base-page-transition mode="out-in">
       <the-privacy-policy v-if="privacy" key="privacy"/>
     </base-page-transition>
+    <base-page-transition mode="out-in">
+      <the-report v-if="report" key="privacy"/>
+    </base-page-transition>
     <the-header/>
     <the-lyrics-screen/>
     <div class="the-controls">
@@ -37,6 +40,7 @@ import BaseButton from '@/components/BaseButton'
 import TheMenuToggle from '@/components/TheMenuToggle'
 import TheAbout from '@/components/TheAbout'
 import ThePrivacyPolicy from '@/components/ThePrivacyPolicy'
+import TheReport from '@/components/TheReport'
 import TheMenu from '@/components/TheMenu'
 import UpdateToast from '@/components/UpdateToast'
 import BasePageTransition from '@/components/BasePageTransition'
@@ -54,6 +58,7 @@ export default {
     TheMenuToggle,
     TheAbout,
     ThePrivacyPolicy,
+    TheReport,
     TheMenu,
     UpdateToast,
     BasePageTransition,
@@ -73,6 +78,7 @@ export default {
       menu: state => state.menu,
       about: state => state.about,
       privacy: state => state.privacyPolicy,
+      report: state => state.report,
     }),
     ...mapGetters({
       hasPlayback: 'playback/hasPlayback',

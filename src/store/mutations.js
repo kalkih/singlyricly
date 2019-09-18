@@ -10,6 +10,9 @@ export default {
   setPrivacyPolicy (state, status) {
     state.privacyPolicy = status
   },
+  setReport (state, status) {
+    state.report = status
+  },
   setNowPlayingState (state, status) {
     state.nowPlayingState = status
   },

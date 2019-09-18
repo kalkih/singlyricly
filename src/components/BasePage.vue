@@ -94,6 +94,7 @@ export default {
     width: 100%;
     flex-flow: column;
     display: flex;
+    align-items: inherit;
   }
 
   &__backdrop {

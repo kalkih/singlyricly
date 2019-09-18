@@ -18,6 +18,7 @@ export default {
       closeSecondary: 'closeSecondary',
       toggleAbout: 'toggleAbout',
       togglePrivacyPolicy: 'togglePrivacyPolicy',
+      toggleReport: 'toggleReport',
     }),
     toggleMenu () {
       if (this.nestedNav) {
