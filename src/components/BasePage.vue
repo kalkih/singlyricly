@@ -74,7 +74,7 @@ export default {
     this.$refs.page.removeEventListener('touchstart', this.startHandler)
     this.$refs.page.removeEventListener('touchmove', this.moveHandler)
     this.$refs.page.removeEventListener('touchend', this.endHandler)
-  }
+  },
 }
 </script>
 
