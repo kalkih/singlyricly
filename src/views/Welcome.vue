@@ -169,7 +169,6 @@ export default {
     }
 
     .base-button {
-      font-weight: 600;
       font-size: 1em;
       height: auto;
       min-height: 3.6em;
@@ -177,10 +176,11 @@ export default {
       margin-bottom: 0px;
       margin-top: auto;
       width: 100%;
+      height: 4.6em;
       max-width: 100%;
       text-align: center;
       text-transform: uppercase;
-      letter-spacing: .075em;
+      letter-spacing: .125em;
       line-height: 1.5em;
       border-radius: 360px;
       white-space: normal;
@@ -197,8 +197,8 @@ export default {
       }
 
       &.--loading {
-        max-width: 3.6em;
-        max-height: 3.6em;
+        max-width: 4.6em;
+        max-height: 4.6em;
         transition:
           transform .15s,
           max-width .5s $easeInOutCubic,
@@ -254,8 +254,13 @@ export default {
         font-size: 1.4em;
         margin-top: 10vh;
         letter-spacing: .15em;
-        font-weight: 600;
         width: auto;
+        height: 4em;
+        padding: 1.2em 1.6em;
+
+        &.--loading {
+          max-width: 4em;
+        }
       }
     }
   }
