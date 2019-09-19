@@ -45,10 +45,12 @@ const actions = {
           line: row.line,
           milliseconds: row.timestamp - startTime,
         }))
+      const normal = state.lyrics.slice(2)
       return api.saveLyrics({
         track: state.track,
         user: rootState.user,
         synced,
+        normal,
       })
     } catch (err) {
       return null
