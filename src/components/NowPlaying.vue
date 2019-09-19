@@ -156,6 +156,7 @@ export default {
       overflow: hidden;
       max-width: 100%;
       padding-left: 4px;
+      padding-right: 04px;
     }
     .placeholder {
       font-size: 1.2em;
