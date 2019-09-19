@@ -52,7 +52,7 @@ export default {
     ...mapGetters({
       lyrics: 'lyrics/hasNormal',
       synced: 'lyrics/hasSynced',
-    })
+    }),
   },
   methods: {
     ...mapActions({

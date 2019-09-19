@@ -24,7 +24,7 @@ export default {
   computed: {
     ...mapState({
       menu: state => state.menu,
-      lyrics: state => state.lyrics.found
+      lyrics: state => state.lyrics.found,
     }),
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
       if (this.lyrics) {
         this.toggleReport()
       }
-    }
+    },
   },
 }
 </script>
