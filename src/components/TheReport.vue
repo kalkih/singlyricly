@@ -2,13 +2,13 @@
   <base-page class="the-report" @swipe-down="toggle(false)">
     <div></div>
     <h1 class="title">report lyrics</h1>
-    <base-button @click.native="report">Wrong lyrics</base-button>
-    <base-button @click.native="report">Out of sync</base-button>
+    <base-button @click.native="report(LYRICS)">Wrong lyrics</base-button>
+    <base-button @click.native="report(SYNC)">Out of sync</base-button>
     <base-page-transition mode="out-in">
-      <base-page class="nested" v-if="step === 2" @swipe-down="closeNested()">
+      <base-page class="nested" v-if="step === STEP.COMPLETE" @swipe-down="closeNested()">
         <div></div>
         <h1 class="title">Thank you, that's it!</h1>
-        <base-button>Correct lyrics</base-button>
+        <base-button @click.native="correct">{{ ACTION_TEXT[type]}}</base-button>
         <base-button @click.native="exit">Return to app</base-button>
         <div></div>
       </base-page>
@@ -21,7 +21,7 @@
 import BasePageTransition from './BasePageTransition'
 import BasePage from './BasePage'
 import BaseButton from './BaseButton'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   components: {
@@ -32,7 +32,23 @@ export default {
   data () {
     return {
       step: 0,
+      type: 0,
+      LYRICS: 0,
+      SYNC: 1,
+      STEP: {
+        INITIAL: 0,
+        COMPLETE: 1,
+      },
+      ACTION_TEXT: [
+        'edit lyrics',
+        'resync lyrics',
+      ],
     }
+  },
+  computed: {
+    ...mapState({
+      track: state => state.playback.track,
+    }),
   },
   methods: {
     ...mapActions({
@@ -40,12 +56,21 @@ export default {
       toggleMenu: 'toggleMenu',
       closeNested: 'closeSecondary',
     }),
-    report () {
-      this.step = 2
+    report (type) {
+      this.step = this.STEP.COMPLETE
+      this.type = type
     },
     exit () {
       this.closeNested(false)
       this.toggleMenu(false)
+    },
+    correct () {
+      this.exit()
+      if (this.type === this.LYRICS) {
+        this.$router.push('/add')
+      } else {
+        this.$router.push('/sync')
+      }
     },
   },
 }
@@ -57,7 +82,7 @@ export default {
   font-size: 1em;
 
   .title {
-    margin: 0 0 2em 0;
+    margin: 0 0 1em 0;
     font-weight: 700;
     letter-spacing: .075em;
   }
