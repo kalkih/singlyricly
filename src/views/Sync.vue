@@ -71,7 +71,7 @@ import BaseButton from '@/components/BaseButton'
 import sad from '@/assets/sad.svg'
 import close from '@/assets/close.svg'
 import reload from '@/assets/reload.svg'
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -99,9 +99,6 @@ export default {
       unsynced: state => state.lyrics.normal,
       lyrics: state => state.sync.lyrics,
       uri: state => state.sync.track.uri,
-    }),
-    ...mapGetters({
-      hasSynced: 'lyrics/hasSynced',
     }),
     length () {
       return this.lyrics.length
@@ -211,7 +208,7 @@ export default {
     },
   },
   async created () {
-    if (!this.track.uri || !this.unsynced || this.hasSynced) {
+    if (!this.track.uri || !this.unsynced) {
       return this.$router.push('/')
     }
     this.savedTrack = this.track

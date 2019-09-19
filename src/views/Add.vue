@@ -52,7 +52,7 @@ import BaseButton from '@/components/BaseButton'
 import close from '@/assets/close.svg'
 import reload from '@/assets/reload.svg'
 import sad from '@/assets/sad.svg'
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -72,9 +72,6 @@ export default {
   computed: {
     ...mapState({
       track: state => state.playback.track,
-    }),
-    ...mapGetters({
-      hasLyrics: 'lyrics/hasLyrics',
     }),
     length () {
       return this.lyrics.length
@@ -113,7 +110,7 @@ export default {
     },
   },
   created () {
-    if (!this.track.id || this.hasLyrics) {
+    if (!this.track.id) {
       this.$router.push('/')
     } else {
       this.cachedTrack = this.track
