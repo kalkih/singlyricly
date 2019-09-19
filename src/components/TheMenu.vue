@@ -57,7 +57,7 @@ export default {
     min-height: 60px;
 
     @media only screen and (min-width: 640px) {
-      height: 10vh;
+      height: 20vh;
     }
     @media only screen and (max-height: 640px) {
       height: 20vh;
