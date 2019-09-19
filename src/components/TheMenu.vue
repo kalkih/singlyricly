@@ -1,8 +1,8 @@
 <template>
   <base-page class="the-menu" @swipe-down="toggleMenu(false)">
     <div class="spacer"></div>
-    <h1 @click="toggleAbout()">About</h1>
     <h1 @click="report()" :class="{'--disabled': !lyrics}">Report lyrics</h1>
+    <h1 @click="toggleAbout()">About Us</h1>
     <h1 @click="togglePrivacyPolicy()">Privacy Policy</h1>
     <base-button @click.native="logout()">Sign out</base-button>
     <delay-bar hideTitle/>
@@ -76,6 +76,7 @@ export default {
     -webkit-tap-highlight-color: transparent;
     font-weight: 600;
     transition: opacity .1s ease-out;
+    // text-transform: lowercase;
 
     &:hover {
       opacity: .75;
