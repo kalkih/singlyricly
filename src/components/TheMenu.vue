@@ -4,7 +4,7 @@
     <h1 @click="toggleAbout()">About</h1>
     <h1 @click="report()" :class="{'--disabled': !lyrics}">Report lyrics</h1>
     <h1 @click="togglePrivacyPolicy()">Privacy Policy</h1>
-    <h1 @click="logout" class="--red">Sign out</h1>
+    <base-button @click.native="logout()">Sign out</base-button>
     <delay-bar hideTitle/>
   </base-page>
 </template>
@@ -12,12 +12,14 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import BasePage from './BasePage'
+import BaseButton from './BaseButton'
 import DelayBar from '@/components/DelayBar'
 import menuNav from '@/mixins/menuNav'
 
 export default {
   components: {
     BasePage,
+    BaseButton,
     DelayBar,
   },
   mixins: [ menuNav ],
@@ -50,8 +52,12 @@ export default {
   .spacer {
     margin-bottom: auto;
     margin-top: 0;
-    height: 20vh;
+    height: 25vh;
     width: 100%;
+
+    @media only screen and (min-width: 640px) {
+      height: 10vh;
+    }
   }
 
   /deep/ .base-page__bg {
@@ -88,6 +94,24 @@ export default {
     }
   }
 
+  .base-button {
+    font-size: 1.1em;
+    padding: 1.2em 3em;
+    height: auto;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    margin-top: 3.8em;
+
+    @media only screen and (min-width: 640px) {
+      margin-top: 1.2em;
+    }
+
+    &:before {
+      background: $red;
+    }
+  }
+
   .delay-bar {
     font-size: 1.2em;
     margin-top: auto;
@@ -95,17 +119,6 @@ export default {
     overflow: visible;
     justify-content: center;
     width: auto;
-  }
-
-  > div:first-child {
-    margin-bottom: auto;
-    margin-top: 0;
-    height: 20vh;
-    width: 100%;
-
-    @media only screen and (min-width: 640px) {
-      height: 60px;
-    }
   }
 }
 </style>
