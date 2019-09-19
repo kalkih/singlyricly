@@ -72,10 +72,8 @@ export default {
   computed: {
     ...mapState({
       track: state => state.playback.track,
+      normal: state => state.lyrics.normal,
     }),
-    length () {
-      return this.lyrics.length
-    },
   },
   methods: {
     ...mapActions({
@@ -115,6 +113,9 @@ export default {
     } else {
       this.cachedTrack = this.track
       this.$nextTick(() => {
+        if (this.normal) {
+          this.$refs.input.value = this.normal.join('\n')
+        }
         this.$refs.input.focus()
       })
     }
