@@ -52,11 +52,15 @@ export default {
   .spacer {
     margin-bottom: auto;
     margin-top: 0;
-    height: 25vh;
+    height: 30vh;
     width: 100%;
+    min-height: 60px;
 
     @media only screen and (min-width: 640px) {
       height: 10vh;
+    }
+    @media only screen and (max-height: 640px) {
+      height: 20vh;
     }
   }
 
@@ -87,10 +91,10 @@ export default {
     }
     &.--disabled {
       cursor: default;
-      opacity: .5;
+      opacity: .25;
 
       &:hover {
-        opacity: .5;
+        opacity: .25;
       }
     }
   }
@@ -98,10 +102,11 @@ export default {
   .base-button {
     font-size: 1.1em;
     padding: 1.2em 3em;
-    margin-top: 3.8em;
+    margin: auto;
+    min-height: 3em;
 
     @media only screen and (min-width: 640px) {
-      margin-top: 1.2em;
+      margin-top: 1.8em;
     }
 
     &:before {
@@ -111,7 +116,7 @@ export default {
 
   .delay-bar {
     font-size: 1.2em;
-    margin-top: auto;
+    margin-top: 0;
     margin-bottom: .05em;
     overflow: visible;
     justify-content: center;
