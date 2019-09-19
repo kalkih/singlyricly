@@ -2,8 +2,8 @@
   <base-page class="the-report" @swipe-down="toggle(false)">
     <div></div>
     <h1 class="title">report lyrics</h1>
-    <base-button @click.native="report(LYRICS)">Wrong lyrics</base-button>
-    <base-button @click.native="report(SYNC)">Out of sync</base-button>
+    <base-button v-if="lyrics" @click.native="report(LYRICS)">Wrong lyrics</base-button>
+    <base-button v-if="synced" @click.native="report(SYNC)">Out of sync</base-button>
     <base-page-transition mode="out-in">
       <base-page class="nested" v-if="step === STEP.COMPLETE" @swipe-down="closeNested()">
         <div></div>
@@ -21,7 +21,7 @@
 import BasePageTransition from './BasePageTransition'
 import BasePage from './BasePage'
 import BaseButton from './BaseButton'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -49,6 +49,10 @@ export default {
     ...mapState({
       track: state => state.playback.track,
     }),
+    ...mapGetters({
+      lyrics: 'lyrics/hasNormal',
+      synced: 'lyrics/hasSynced',
+    })
   },
   methods: {
     ...mapActions({
