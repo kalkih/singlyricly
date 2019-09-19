@@ -71,6 +71,7 @@ import BaseButton from '@/components/BaseButton'
 import sad from '@/assets/sad.svg'
 import close from '@/assets/close.svg'
 import reload from '@/assets/reload.svg'
+import deviceDelay from '@/mixins/deviceDelay'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -81,10 +82,11 @@ export default {
     close,
     reload,
   },
+  mixins: [ deviceDelay ],
   data () {
     return {
       current: 1,
-      baseDelay: -650,
+      graceDelay: -600,
       step: 0,
       interval: null,
       fetchInterval: null,
@@ -104,7 +106,7 @@ export default {
       return this.lyrics.length
     },
     startTime () {
-      return this.updatedAt - (this.progress + this.baseDelay)
+      return this.updatedAt - (this.progress + this.baseDelay + this.graceDelay)
     },
     title () {
       return this.savedTrack.title
@@ -112,12 +114,12 @@ export default {
     artist () {
       return this.savedTrack.artist
     },
-    progress () {
+    percent () {
       return (this.current - 1) / this.length
     },
     progressStyle () {
       return {
-        transform: `scaleX(${this.progress})`,
+        transform: `scaleX(${this.percent})`,
       }
     },
   },
