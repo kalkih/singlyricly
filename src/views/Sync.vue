@@ -275,11 +275,6 @@ export default {
 
     .base-button {
       font-size: .7em;
-      padding: 1.2em 2.6em;
-      height: auto;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .15em;
       margin: 1em 0;
     }
 
@@ -334,14 +329,9 @@ export default {
     align-items: center;
 
     .next {
-      text-align: center;
       font-size: 1em;
       padding: 1.2em 2.6em;
-      height: auto;
-      font-weight: 700;
       margin: 0 10px;
-      text-transform: uppercase;
-      letter-spacing: .15em;
     }
   }
   &__progress {

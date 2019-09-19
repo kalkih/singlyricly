@@ -175,14 +175,8 @@ export default {
       }
     }
     .resume-button {
-      text-align: center;
       font-size: 1em;
       padding: 1.2em 2.6em;
-      height: auto;
-      font-weight: 700;
-      margin: 0 10px;
-      text-transform: uppercase;
-      letter-spacing: .15em;
     }
     .spacer {
       display: block;

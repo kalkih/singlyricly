@@ -55,13 +55,16 @@ export default {
   flex-flow: row;
   align-items: center;
   justify-content: center;
-  font-size: 1.4em;
-  border-radius: 2.6em;
-  height: 2.6em;
+  height: auto;
   min-width: 2.6em;
-  padding: 0 1.2em;
+  padding: 1.2em 2em;
+  border-radius: 2.6em;
   overflow: hidden;
-  font-weight: 500;
+  font-size: 1.4em;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: .15em;
   cursor: pointer;
   user-select: none;
   touch-action: none;
@@ -77,6 +80,7 @@ export default {
   &.--circle {
     padding: 0;
     max-width: 2.6em;
+    height: 2.6em;
     svg {
       font-size: 1em;
     }

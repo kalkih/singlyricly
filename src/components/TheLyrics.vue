@@ -321,15 +321,6 @@ export default {
     font-size: .5em;
     margin: 1em 0;
     padding: 1.4em 2.6em;
-    height: auto;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .15em;
-
-    @media only screen and (min-width: 640px) {
-      padding: 1em 2em;
-      font-size: .5em;
-    }
   }
 
   &:before {

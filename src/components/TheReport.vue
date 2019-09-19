@@ -92,11 +92,6 @@ export default {
   }
   .base-button {
     font-size: 1.2em;
-    padding: 1.2em 2em;
-    height: auto;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .15em;
     margin-top: 2em;
     max-width: 300px;
     width: 100%;

@@ -107,10 +107,14 @@ export default {
 
   &__settings {
     display: none;
-    animation: fade-in-top .25s ease-out;
+    height: 2.6em;
     padding-right: 2.4em;
     padding-left: .8em;
+    font-weight: 600;
+    letter-spacing: initial;
+    text-transform: initial;
     pointer-events: auto;
+    animation: fade-in-top .25s ease-out;
 
     > svg, > div {
       fill: $font-color;
