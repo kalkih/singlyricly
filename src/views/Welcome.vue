@@ -10,7 +10,7 @@
     </base-page-transition>
     <base-button class="welcome__about__button" circle @click.native="toggleAbout()">
       <transition name="swap-trans">
-        <div v-if="about"> <chevron key="open"/></div>
+        <div v-if="about"><chevron key="open"/></div>
         <span v-else key="closed">?</span>
       </transition>
     </base-button>
@@ -142,12 +142,12 @@ export default {
     svg {
       fill: $font-color;
       transform: rotate(-90deg);
-      margin-top: 2px;
     }
 
     > span {
       font-size: 1.2em;
       font-weight: 700;
+      margin-left: 0.075em;
     }
   }
   &__container {
