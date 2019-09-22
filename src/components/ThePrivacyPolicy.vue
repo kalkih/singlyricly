@@ -100,6 +100,11 @@ export default {
   overflow-y: scroll;
   overscroll-behavior: contain;
 
+  /deep/ .base-page__content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
   .padding {
     margin-top: 75px !important;
   }

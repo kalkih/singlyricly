@@ -137,7 +137,6 @@ export default {
     touch-action: pan-y;
     z-index: 10;
     overflow-y: scroll;
-    max-width: 1200px;
     align-self: center;
 
     @media only screen and (max-width: 320px) {
