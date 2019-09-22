@@ -43,13 +43,12 @@ export default {
     },
   },
   methods: {
-    startHandler (e) {
-      e.stopPropagation()
-      this.touchStart = e.touches[0].pageY
-    },
     moveHandler (e) {
       e.stopPropagation()
       if (this.$refs.content.scrollTop !== 0) return
+      if (!this.touchStart) {
+        this.touchStart = e.touches[0].pageY
+      }
       if (this.touchOffset > 0) {
         e.preventDefault()
       }
@@ -73,12 +72,10 @@ export default {
     },
   },
   mounted () {
-    this.$refs.page.addEventListener('touchstart', this.startHandler)
     this.$refs.page.addEventListener('touchmove', this.moveHandler)
     this.$refs.page.addEventListener('touchend', this.endHandler)
   },
   beforeDestroy () {
-    this.$refs.page.removeEventListener('touchstart', this.startHandler)
     this.$refs.page.removeEventListener('touchmove', this.moveHandler)
     this.$refs.page.removeEventListener('touchend', this.endHandler)
   },
