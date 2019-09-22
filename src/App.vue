@@ -58,6 +58,7 @@ html {
   height: 100%;
   touch-action: none;
   overflow: hidden;
+  overscroll-behavior-y: none;
   // animation: bg 15s ease infinite;
   // background-size: 400% 400%;
 }
