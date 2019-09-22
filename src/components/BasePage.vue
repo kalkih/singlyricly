@@ -23,6 +23,7 @@ export default {
       touchOffset: 0,
       touchVelocity: 0,
       lastTouch: null,
+      touchThreshold: 5,
     }
   },
   computed: {
@@ -49,6 +50,9 @@ export default {
     moveHandler (e) {
       e.stopPropagation()
       if (this.$refs.content.scrollTop !== 0) return
+      if (this.touchOffset > 0) {
+        e.preventDefault()
+      }
       const offset = e.touches[0].pageY - this.touchStart
       const time = Date.now()
       if (this.lastTouch) {
@@ -56,7 +60,7 @@ export default {
         this.velocity = (offset - this.touchOffset) / timeDiff
       }
       this.lastTouch = time
-      this.touchOffset = offset > 5 ? offset : 0
+      this.touchOffset = offset > this.touchThreshold ? offset : 0
     },
     endHandler (e) {
       e.stopPropagation()
@@ -93,6 +97,8 @@ export default {
   justify-content: center;
   text-align: center;
   align-items: center;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
 
   &.--mask {
     .base-page__content {
