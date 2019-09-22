@@ -2,8 +2,12 @@
   <base-page class="the-report" @swipe-down="toggle(false)">
     <div></div>
     <h1 class="title">report lyrics</h1>
-    <base-button v-if="lyrics" @click.native="report(LYRICS)">Wrong lyrics</base-button>
-    <base-button v-if="synced" @click.native="report(SYNC)">Out of sync</base-button>
+    <transition name="swap-trans" mode="out-in">
+      <base-button v-if="lyrics" @click.native="report(LYRICS)">Wrong lyrics</base-button>
+    </transition>
+    <transition name="swap-trans" mode="out-in">
+      <base-button v-if="synced" @click.native="report(SYNC)">Out of sync</base-button>
+    </transition>
     <base-page-transition mode="out-in">
       <base-page class="nested" v-if="step === STEP.COMPLETE" @swipe-down="closeNested()">
         <div></div>
