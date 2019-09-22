@@ -60,7 +60,7 @@ export default {
     },
     endHandler (e) {
       e.stopPropagation()
-      if (this.touchOffset > 150 || this.velocity > 2.5) {
+      if ((this.touchOffset > 150 || this.velocity > 2.5) && this.velocity > -0.05) {
         this.$emit('swipe-down')
       }
       this.touchStart = 0
