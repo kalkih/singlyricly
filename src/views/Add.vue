@@ -7,7 +7,7 @@
           <textarea
             class="the-add__lyrics__input"
             ref="input"
-            placeholder="...lyrics..."
+            :placeholder="placeholder"
             spellcheck="false">
           </textarea>
         </div>
@@ -74,6 +74,15 @@ export default {
       track: state => state.playback.track,
       normal: state => state.lyrics.normal,
     }),
+    artist () {
+      return this.cachedTrack.artist
+    },
+    title () {
+      return this.cachedTrack.title
+    },
+    placeholder () {
+      return `Add lyrics... \n ${this.title} - ${this.artist}`
+    },
   },
   methods: {
     ...mapActions({
@@ -128,7 +137,7 @@ export default {
   height: 100%;
 
   &__lyrics {
-    padding: 80px 0;
+    padding: 60px 0 6em 0;
     width: 100%;
     height: 100%;
     animation: fade-in .5s ease-out;
