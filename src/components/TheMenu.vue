@@ -1,6 +1,19 @@
 <template>
   <base-page class="the-menu" @swipe-down="toggleMenu(false)">
     <div class="spacer"></div>
+    <transition name="swap-trans" mode="out-in">
+      <div class="contribute-buttons" v-if="!fetching && playback" :key="fetching">
+        <base-button @click.native="add()">
+          <span>{{ lyricsButtonText }}</span>
+          <span>lyrics</span>
+        </base-button>
+        <base-button @click.native="sync()" :class="{'--disabled': !lyrics}">
+          <span>{{ syncedButtonText }}</span>
+          <span>sync</span>
+        </base-button>
+      </div>
+      <div v-else class="contribute-buttons" key="default"></div>
+    </transition>
     <h1 @click="report()" :class="{'--disabled': !lyrics}">Report lyrics</h1>
     <h1 @click="toggleAbout()">About Us</h1>
     <h1 @click="togglePrivacyPolicy()">Privacy Policy</h1>
@@ -10,7 +23,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 import BasePage from './BasePage'
 import BaseButton from './BaseButton'
 import DelayBar from '@/components/DelayBar'
@@ -23,11 +36,30 @@ export default {
     DelayBar,
   },
   mixins: [ menuNav ],
+  data () {
+    return {
+      BUTTON_TEXT: {
+        ADD: 'Add',
+        IMPROVE: 'Improve',
+      },
+    }
+  },
   computed: {
     ...mapState({
       menu: state => state.menu,
-      lyrics: state => state.lyrics.found,
+      fetching: state => state.lyrics.searching,
     }),
+    ...mapGetters({
+      lyrics: 'lyrics/hasNormal',
+      synced: 'lyrics/hasSynced',
+      playback: 'playback/hasPlayback',
+    }),
+    lyricsButtonText () {
+      return this.lyrics ? this.BUTTON_TEXT['IMPROVE'] : this.BUTTON_TEXT['ADD']
+    },
+    syncedButtonText () {
+      return this.synced ? this.BUTTON_TEXT['IMPROVE'] : this.BUTTON_TEXT['ADD']
+    },
   },
   methods: {
     ...mapActions({
@@ -42,12 +74,28 @@ export default {
         this.toggleReport()
       }
     },
+    sync () {
+      this.$router.push('sync')
+    },
+    add () {
+      this.$router.push('add')
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .the-menu {
+
+  /deep/ .base-page__bg {
+    background: $accent-color !important;
+  }
+
+  /deep/ .base-page__content {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+  }
 
   .spacer {
     margin-bottom: auto;
@@ -64,14 +112,41 @@ export default {
     }
   }
 
-  /deep/ .base-page__bg {
-    background: $accent-color !important;
-  }
-
-  /deep/ .base-page__content {
+  .contribute-buttons {
     display: flex;
-    align-items: center;
-    flex-flow: column;
+    align-items: space-between;
+    margin-bottom: 1.6em;
+    max-width: 500px;
+    width: 100%;
+    min-height: 6em;
+
+    > :nth-child(1) {
+      margin-right: 1em;
+    }
+
+    > :nth-child(2) {
+      margin-left: 1em;
+    }
+
+    .base-button {
+      font-size: 1em;
+      display: flex;
+      flex-flow: column;
+      width: auto;
+
+      &:before {
+        background: lighten($accent-color, 10%);
+      }
+
+      > :nth-child(2) {
+        margin: .15em 0 0 0;
+      }
+      &.--disabled {
+        cursor: default;
+        pointer-events: none;
+        opacity: .25;
+      }
+    }
   }
 
   h1 {
@@ -90,12 +165,9 @@ export default {
       color: $red;
     }
     &.--disabled {
-      cursor: default;
       opacity: .25;
-
-      &:hover {
-        opacity: .25;
-      }
+      cursor: default;
+      pointer-events: none;
     }
   }
 
