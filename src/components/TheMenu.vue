@@ -75,9 +75,11 @@ export default {
       }
     },
     sync () {
+      this.closeMenu()
       this.$router.push('sync')
     },
     add () {
+      this.closeMenu()
       this.$router.push('add')
     },
   },
