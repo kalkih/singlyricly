@@ -91,6 +91,7 @@ export default {
       interval: null,
       fetchInterval: null,
       savedTrack: {},
+      initiated: false,
     }
   },
   computed: {
@@ -174,6 +175,7 @@ export default {
       this.push(line)
     },
     async startSyncing () {
+      this.initiated = true
       try {
         await this.startPlayback(this.uri)
         this.step = 4
@@ -198,7 +200,9 @@ export default {
     exit () {
       this.clearPlayback()
       this.clearLyrics()
-      this.startPlayback(this.uri)
+      if (this.initiated) {
+        this.startPlayback(this.uri)
+      }
       this.$router.push('/')
     },
     async reset () {
