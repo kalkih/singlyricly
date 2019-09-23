@@ -97,12 +97,10 @@ export default {
 .the-privacy-policy {
   text-align: left;
   align-items: flex-start;
-  overflow-y: scroll;
   overscroll-behavior: contain;
 
   /deep/ .base-page__content {
     max-width: 1200px;
-    margin: 0 auto;
   }
 
   .padding {

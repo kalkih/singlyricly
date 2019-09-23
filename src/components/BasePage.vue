@@ -94,7 +94,7 @@ export default {
   justify-content: center;
   text-align: center;
   align-items: center;
-  overflow-y: scroll;
+  overflow: hidden;
   overscroll-behavior: contain;
 
   &.--mask {
@@ -139,7 +139,7 @@ export default {
     width: 100%;
     touch-action: pan-y;
     z-index: 10;
-    overflow-y: scroll;
+    overflow-y: auto;
     align-self: center;
 
     @media only screen and (max-width: 320px) {
