@@ -1,10 +1,7 @@
 <template>
   <div class="base-button"
     :class="classList"
-    v-touch:start="down"
-    v-touch:end="reset"
-    @mouseleave="reset"
-    >
+    v-on="handlers">
     <span v-if="text">{{ text }}</span>
     <span v-if="icon">{{ icon }}</span>
     <slot></slot>
@@ -25,8 +22,16 @@ export default {
     },
   },
   data () {
+    const vm = this
     return {
       pressed: false,
+      handlers: {
+        mousedown: vm.down,
+        mouseup: vm.reset,
+        touchstart: vm.down,
+        touchend: vm.reset,
+        mouseleave: vm.reset,
+      },
     }
   },
   methods: {

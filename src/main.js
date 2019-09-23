@@ -2,14 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Vue2TouchEvents from 'vue2-touch-events'
 import VueResize from 'vue-resize'
 import 'vue-resize/dist/vue-resize.css'
 import './registerServiceWorker'
 
-Vue.use(Vue2TouchEvents, {
-  swipeTolerance: 80,
-})
 Vue.use(VueResize)
 Vue.config.productionTip = false
 Vue.prototype.$dev = process.env.NODE_ENV === 'development'

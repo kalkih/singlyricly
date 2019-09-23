@@ -1,10 +1,7 @@
 <template>
   <div class="now-playing"
     :class="classList"
-    @click="togglePlayback"
-    v-touch:start="down"
-    v-touch:end="reset"
-    @mouseleave="reset">
+    v-on="handlers">
     <transition name="fade" mode="out-in">
       <div v-bind:key="hasInfo" class="now-playing__text">
         <template v-if="hasInfo">
@@ -43,9 +40,18 @@ export default {
   },
   mixins: [ scrollHelper ],
   data () {
+    const vm = this
     return {
       placeholder: 'Nothing playing',
       pressed: false,
+      handlers: {
+        mousedown: vm.down,
+        mouseup: vm.reset,
+        touchstart: vm.down,
+        touchend: vm.reset,
+        mouseleave: vm.reset,
+        click: vm.toggle,
+      },
     }
   },
   computed: {
@@ -81,7 +87,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      togglePlayback: 'playback/toggle',
+      toggle: 'playback/toggle',
     }),
     down () {
       this.pressed = true
@@ -109,7 +115,7 @@ export default {
   align-items: center;
   -webkit-tap-highlight-color: transparent;
   max-width: 2.6em;
-  transition: max-width .25s ease-out, width .25s ease-out;
+  transition: max-width .25s ease-out, width .25s ease-out, transform .1s ease-out;
 
   &.--pressed {
     transform: scale3d(0.9, 0.9, 0.9);

@@ -1,5 +1,5 @@
 <template>
-  <div class="the-lyrics-screen" v-touch="() => toggle()">
+  <div class="the-lyrics-screen" @click="() => toggle()">
     <transition name="lyrics-trans" mode="out-in">
       <the-lyrics v-if="hasLyrics" :isSynced="hasSynced" key="lyrics"/>
       <div v-else class="the-lyrics-screen__info" key="info">
