@@ -72,22 +72,14 @@ const actions = {
       await dispatch('play')
     }
   },
-  async play ({ dispatch }) {
-    await api.play()
+  async play ({ dispatch }, uri = undefined) {
+    await api.play(uri)
     setTimeout(() => dispatch('fetchPlayback'), 250)
   },
   async pause ({ dispatch, commit }) {
     await api.pause()
     commit('setPlaying', false)
     setTimeout(() => dispatch('fetchPlayback'), 250)
-  },
-  async playTrack ({ dispatch }, uri) {
-    const startTime = Date.now()
-    await api.playTrack(uri)
-    const endTime = Date.now()
-    const delay = (endTime - startTime) / 2
-    setTimeout(() => dispatch('fetchPlayback'), 250)
-    return { start: endTime, delay }
   },
   async clear ({ commit }) {
     commit('reset')

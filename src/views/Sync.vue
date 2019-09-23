@@ -130,7 +130,7 @@ export default {
       resetSync: 'sync/reset',
       saveSync: 'sync/save',
       push: 'sync/push',
-      startPlayback: 'playback/playTrack',
+      startPlayback: 'playback/play',
       fetchPlayback: 'playback/fetchPlayback',
       clearPlayback: 'playback/clear',
       clearLyrics: 'lyrics/clearLyrics',

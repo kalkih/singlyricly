@@ -6,6 +6,7 @@ const TTL_MARGIN = 300000
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_SPOTIFY_API,
+  validateStatus: false,
 })
 
 instance.interceptors.request.use(async (config) => {
