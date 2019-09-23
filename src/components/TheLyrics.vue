@@ -212,7 +212,7 @@ export default {
         direction: 'bottom',
         easingPreset: 'easeOutCubic',
         duration: this.scrollDuration,
-        scrollAmount: top - center + (height / 3),
+        scrollAmount: top - center + (height / 2),
         onAnimationCompleteCallback: this.addScrollListener,
       })
     },
