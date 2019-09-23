@@ -144,6 +144,10 @@ export default {
       fetchPlayback: 'playback/fetchPlayback',
       setScroll: 'lyrics/setScroll',
     }),
+    addScrollListener () {
+      this.lastScrollPos = this.$refs.lyrics.scrollTop
+      this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
+    },
     handleScroll (e) {
       // need to debounce touchend
       clearTimeout(this.scrollTimer)
@@ -209,11 +213,8 @@ export default {
         easingPreset: 'easeOutCubic',
         duration: this.scrollDuration,
         scrollAmount: top - center + (height / 3),
+        onAnimationCompleteCallback: this.addScrollListener,
       })
-      this.scrollListenerTimer = setTimeout(() => {
-        this.lastScrollPos = this.$refs.lyrics.scrollTop
-        this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
-      }, this.scrollDuration + 100)
     },
     calculateNext (ms) {
       if (this.activeLine >= this.length) {
