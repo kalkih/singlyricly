@@ -23,7 +23,10 @@ export default {
       touchOffset: 0,
       touchVelocity: 0,
       lastTouch: null,
-      touchThreshold: 5,
+      START_THRESHOLD: 5,
+      END_THRESHOLD: 150,
+      VEL_THRESHOLD: 2.5,
+      VEL_NEG_THRESHOLD: -0.05,
     }
   },
   computed: {
@@ -59,16 +62,21 @@ export default {
         this.velocity = (offset - this.touchOffset) / timeDiff
       }
       this.lastTouch = time
-      this.touchOffset = offset > this.touchThreshold ? offset : 0
+      this.touchOffset = offset > this.START_THRESHOLD ? offset : 0
     },
     endHandler (e) {
       e.stopPropagation()
-      if ((this.touchOffset > 150 || this.velocity > 2.5) && this.velocity > -0.05) {
+      if (this.isThresholdMet) {
         this.$emit('swipe-down')
       }
       this.touchStart = 0
       this.touchOffset = 0
       this.lastTouch = null
+    },
+    isThresholdMet () {
+      return (this.touchOffset > this.END_THRESHOLD ||
+        this.velocity > this.VEL_THRESHOLD) &&
+        this.velocity > this.VEL_NEG_THRESHOLD
     },
   },
   mounted () {
