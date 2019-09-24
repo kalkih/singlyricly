@@ -38,10 +38,8 @@ export default {
   },
   created () {
     document.addEventListener('swUpdated', this.showRefreshUI, { once: true })
-
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (this.refreshing) return
-
       this.refreshing = true
       window.location.reload()
     })
@@ -54,8 +52,7 @@ export default {
   width: 100%;
   height: auto;
   background: linear-gradient(0deg, lighten($accent-color, 5%) 0%, transparent 100%);
-  padding: 30px;
-  padding-top: 60px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   z-index: 10;
@@ -68,22 +65,19 @@ export default {
 
   .base-button {
     font-size: .8em;
-    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: .1em;
-    display: inline-block;
-    height: auto;
+    letter-spacing: .075em;
     border-radius: 360px;
-    opacity: 1;
-    // color: $accent-color;
-    // box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+    color: $accent-color;
+    box-shadow: 0px 0px 2em rgba(0,0,0,.5);
 
     &:before {
       opacity: 1;
+      background: $font-color;
     }
     &:hover {
       &:before {
-        opacity: .75;
+        opacity: .85;
       }
     }
 
