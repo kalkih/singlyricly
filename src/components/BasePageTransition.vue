@@ -7,6 +7,8 @@
 export default {}
 </script>
 <style lang="scss">
+$long: .3s;
+$short: .2s;
 .base-page-transition-leave-active,
 .base-page-transition-enter-active {
   transition:
@@ -14,27 +16,27 @@ export default {}
 
   .base-page__backdrop {
     will-change: opacity;
-    transition: opacity .35s $easeInOutCubic;
+    transition: opacity $long $easeInOutCubic;
   }
   .base-page__content {
     will-change: transform, opacity;
     transition:
-      opacity .35s $easeInOutCubic,
-      transform .35s $easeInOutCubic;
+      opacity $long $easeInOutCubic calc(#{$short} / 4),
+      transform $long $easeInOutCubic calc(#{$short} / 4);
   }
   .base-page__bg {
     will-change: transform;
-    transition: transform .25s $easeInOutCubic;
+    transition: transform $short $easeInOutCubic;
   }
 }
 .base-page-transition-leave-active {
   .base-page__content {
     transition:
-      opacity .25s $easeInOutCubic,
-      transform .25s $easeInOutCubic;
+      opacity $long $easeInOutCubic 0s,
+      transform $long $easeInOutCubic 0s;
   }
   .base-page__bg {
-    transition: transform .25s $easeInOutCubic .1s;
+    transition: transform $short $easeInOutCubic calc(#{$short} / 2);
   }
 }
 .base-page-transition-enter,
