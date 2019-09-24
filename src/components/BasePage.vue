@@ -24,7 +24,7 @@ export default {
       touchVelocity: 0,
       lastTouch: null,
       START_THRESHOLD: 5,
-      END_THRESHOLD: 150,
+      END_THRESHOLD: 100,
       VEL_THRESHOLD: 2.5,
       VEL_NEG_THRESHOLD: -0.05,
     }
