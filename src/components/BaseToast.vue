@@ -33,9 +33,8 @@ export default {
 .base-toast {
   width: 100%;
   height: auto;
-  background: linear-gradient(180deg, lighten($accent-color, 5%) 0%, transparent 100%);
-  padding: 30px;
-  padding-top: 20px;
+  background: linear-gradient(180deg, $accent-color 0%, transparent 100%);
+  padding: 20px;
   display: flex;
   justify-content: center;
   z-index: 2000;
@@ -51,29 +50,23 @@ export default {
   .base-button {
     max-width: 640px;
     font-size: .7em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    display: block;
+    letter-spacing: .075em;
     width: calc(100vw - 40px);
-    height: auto;
     border-radius: 360px;
-    opacity: 1;
     color: $accent-color;
-    background: #fff;
-    box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+    box-shadow: 0px 0px 2em rgba(0,0,0,.5);
 
     @media only screen and (min-width: 640px) {
       font-size: .8em;
     }
 
     &:before {
-      opacity: .75;
+      opacity: 1;
       background: #fff;
     }
     &:hover {
       &:before {
-        opacity: .75;
+        opacity: .85;
       }
     }
 
