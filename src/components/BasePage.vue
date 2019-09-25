@@ -66,7 +66,7 @@ export default {
     },
     endHandler (e) {
       e.stopPropagation()
-      if (this.isThresholdMet) {
+      if (this.isThresholdMet()) {
         this.$emit('swipe-down')
       }
       this.touchStart = 0
