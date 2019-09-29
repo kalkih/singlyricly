@@ -145,11 +145,11 @@ export default {
       setScroll: 'lyrics/setScroll',
     }),
     addScrollListener () {
+      this.scrollOffset = 0
       this.lastScrollPos = this.$refs.lyrics.scrollTop
       this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
     },
     handleScroll (e) {
-      // need to debounce touchend
       clearTimeout(this.scrollTimer)
       this.isScrolling = true
       this.scrollTimer = setTimeout(() => {
