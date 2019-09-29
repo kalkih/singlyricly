@@ -291,13 +291,13 @@ export default {
 }
 .scroll-offset-bar {
   height: 6px;
-  background: $font-color;
+  background: $accent-color;
   position: fixed;
   bottom: 0;
   left: calc(50% - 5%);
   width: 10%;
   transition: transform .05s;
-  opacity: .9;
+  opacity: .65;
 }
 .the-lyrics {
   height: 100%;
