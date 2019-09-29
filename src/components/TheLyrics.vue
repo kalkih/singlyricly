@@ -174,6 +174,13 @@ export default {
         this.hasFocus = true
       }, this.scrollDuration + 100)
     },
+    handleRotate () {
+      this.hasFocus = false
+      setTimeout(() => {
+        if (this.hasSynced) this.move()
+        this.hasFocus = true
+      }, 50)
+    },
     handleTouchend (e) {
       clearInterval(this.touchEndTimer)
       if (this.isScrolling) {
@@ -198,7 +205,7 @@ export default {
       this.activeLine = this.activeLine + 1
       if (this.scroll) this.move()
     },
-    move (line = this.activeLine) {
+    move (line = this.activeLine, duration = this.scrollDuration) {
       if (line === -1) return
       const target = this.$refs.lyrics
         .querySelector(`p[line="${line}"]`)
@@ -211,7 +218,7 @@ export default {
         scrollableDomEle: this.$refs.lyrics,
         direction: 'bottom',
         easingPreset: 'easeOutCubic',
-        duration: this.scrollDuration,
+        duration,
         scrollAmount: top - center + (height / 2),
         onAnimationCompleteCallback: this.addScrollListener,
       })
@@ -273,12 +280,14 @@ export default {
     }
     window.addEventListener('blur', this.handleBlur)
     window.addEventListener('focus', this.handleFocus)
+    window.addEventListener('orientationchange', this.handleRotate)
   },
   beforeDestroy () {
     this.clear()
     this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
     window.removeEventListener('blur', this.handleBlur)
     window.removeEventListener('focus', this.handleFocus)
+    window.removeEventListener('orientationchange', this.handleRotate)
     this.$refs.lyrics.removeEventListener('touchend', this.handleTouchend)
   },
 }
