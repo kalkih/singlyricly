@@ -166,6 +166,11 @@ export default {
     }
     .placeholder {
       font-size: 1.2em;
+      font-weight: 600;
+      margin-bottom: 2px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
     }
   }
 
