@@ -310,18 +310,19 @@ export default {
 }
 .the-lyrics {
   height: 100%;
+  overflow: scroll;
   overflow-y: scroll;
   overflow-x: visible;
-  z-index: 0 !important;
-  overflow: scroll !important;
+  z-index: 0;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
   width: 100%;
   padding: 0 10px;
   display: flex;
   flex-flow: column;
   align-items: center;
   position: relative;
-  touch-action: pan-y;
   font-size: 1em;
   text-align: center;
   mask-image: linear-gradient(transparent 70px, black 33%, black 66%, transparent 100%);
