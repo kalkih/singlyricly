@@ -146,6 +146,7 @@ export default {
     }
     .title, .artist, .placeholder {
       letter-spacing: .025em;
+      white-space: nowrap;
     }
     .title {
       font-size: 1.34em;
@@ -157,7 +158,6 @@ export default {
       opacity: .8;
       font-size: 1.2em;
       font-weight: 500;
-      white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
       max-width: 100%;
