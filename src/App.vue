@@ -101,6 +101,26 @@ a {
 #app {
   height: 100%;
 
+  @media only screen and (max-width: 640px) {
+    &:after,
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 100px;
+      pointer-events: none;
+    }
+    &:after {
+      top: 0;
+      background: linear-gradient(180deg, $accent-color 0%, transparent 100%);
+    }
+    &:before {
+      bottom: 0;
+      background: linear-gradient(0, rgba($accent-color, .5) 0, transparent 100%);
+    }
+  }
+
   main {
     height: 100%;
   }
