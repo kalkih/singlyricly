@@ -4,6 +4,7 @@ const initialState = () => ({
   id: '',
   name: '',
   alias: '',
+  acceptance: false,
 })
 
 const getters = {
@@ -20,6 +21,9 @@ const mutations = {
   setAlias (state, alias) {
     state.alias = alias
   },
+  setAcceptance (state, status) {
+    state.acceptance = status
+  },
   reset (state) {
     const initial = initialState()
     Object.keys(initial).forEach(key => { state[key] = initial[key] })
@@ -32,6 +36,9 @@ const actions = {
     commit('setId', user.id)
     commit('setName', user.display_name)
     commit('setAlias', user.display_name.split(' ')[0])
+  },
+  setAcceptance ({ commit }, status) {
+    commit('setAcceptance', status)
   },
 }
 
