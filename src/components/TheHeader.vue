@@ -2,6 +2,7 @@
   <div class="the-header" :class="{ '--home': home }">
     <h1 class="the-header__title" @click="reset">{{ title }}</h1>
     <base-button
+      v-if="acceptance || nestedNav"
       class="the-header__settings"
       @click.native="toggleMenu">
       <span>{{ text }}</span>
@@ -40,6 +41,7 @@ export default {
   computed: {
     ...mapState({
       alias: state => state.user.alias,
+      acceptance: state => state.user.acceptance,
     }),
     title: () => process.env.VUE_APP_NAME,
     text () {

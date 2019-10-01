@@ -1,6 +1,9 @@
 <template>
   <div class="main">
     <base-page-transition mode="out-in">
+      <the-acceptance v-if="!acceptance" key="acceptance"/>
+    </base-page-transition>
+    <base-page-transition mode="out-in">
       <the-menu v-if="menu" key="menu"/>
     </base-page-transition>
     <base-page-transition mode="out-in">
@@ -10,7 +13,7 @@
       <the-privacy-policy v-if="privacy" key="privacy"/>
     </base-page-transition>
     <base-page-transition mode="out-in">
-      <the-report v-if="report" key="privacy"/>
+      <the-report v-if="report" key="report"/>
     </base-page-transition>
     <the-header/>
     <the-lyrics-screen/>
@@ -24,7 +27,7 @@
       <delay-bar v-if="synced" hideTitle/>
       <div class="spacer"/>
     </div>
-    <the-menu-toggle/>
+    <the-menu-toggle v-if="acceptance || privacy"/>
     <update-toast v-if="!$dev"/>
     <the-keys/>
   </div>
@@ -42,6 +45,7 @@ import TheAbout from '@/components/TheAbout'
 import ThePrivacyPolicy from '@/components/ThePrivacyPolicy'
 import TheReport from '@/components/TheReport'
 import TheMenu from '@/components/TheMenu'
+import TheAcceptance from '@/components/TheAcceptance'
 import UpdateToast from '@/components/UpdateToast'
 import BasePageTransition from '@/components/BasePageTransition'
 import scrollHelper from '@/mixins/scrollHelper'
@@ -60,6 +64,7 @@ export default {
     ThePrivacyPolicy,
     TheReport,
     TheMenu,
+    TheAcceptance,
     UpdateToast,
     BasePageTransition,
   },
@@ -79,6 +84,7 @@ export default {
       about: state => state.about,
       privacy: state => state.privacyPolicy,
       report: state => state.report,
+      acceptance: state => state.user.acceptance,
     }),
     ...mapGetters({
       hasPlayback: 'playback/hasPlayback',
