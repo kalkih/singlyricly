@@ -152,7 +152,7 @@ export default {
     &__input {
       font-size: 1.4em;
       font-weight: 600;
-      color: $font-color;
+      color: var(--font-color);
       background: transparent;
       text-align: center;
       display: block;
@@ -192,7 +192,7 @@ export default {
 
       &::placeholder {
         opacity: .5;
-        color: $font-color;
+        color: var(--font-color);
       }
     }
   }
@@ -219,11 +219,11 @@ export default {
     }
 
     h2 {
-      color: $accent-color;
+      color: var(--font-color);
     }
 
     p {
-      color: $font-color;
+      color: var(--font-color);
       font-size: .8em;
       margin: 0 0 1em 0;
       line-height: 1.5em;
@@ -240,7 +240,7 @@ export default {
 
     .base-button {
       font-size: .8em;
-      color: $font-color;
+      color: var(--font-color);
     }
 
     .spinner {

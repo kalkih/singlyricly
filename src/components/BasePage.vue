@@ -121,7 +121,7 @@ export default {
   }
 
   &__backdrop {
-    background: black;
+    background: var(--theme-color);
     opacity: .25;
     position: fixed;
     width: 100%;
@@ -129,7 +129,7 @@ export default {
   }
 
   &__bg {
-    background: darken($accent-color, 5%);
+    background: var(--bg-nested-color);
     position: absolute;
     width: 100%;
     height: 100%;

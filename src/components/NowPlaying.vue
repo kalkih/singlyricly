@@ -116,6 +116,7 @@ export default {
   -webkit-tap-highlight-color: transparent;
   max-width: 2.6em;
   transition: max-width .25s ease-out, width .25s ease-out, transform .1s ease-out;
+  color: var(--button-text-color);
 
   &.--pressed {
     transform: scale3d(0.9, 0.9, 0.9);
@@ -186,7 +187,7 @@ export default {
     left: .47em;
     top: .4em;
     height: 1.7em;
-    fill: $font-color;
+    fill: var(--button-text-color);
 
     &:hover {
       opacity: .75;
@@ -200,10 +201,10 @@ export default {
 
   &:before {
     content: '';
-    opacity: .5;
+    opacity: var(--button-opacity);
     position: absolute;
     z-index: -2;
-    background: $accent-color;
+    background: var(--button-color);
     height: 100%;
     width: 100%;
     top: 0;
@@ -223,9 +224,6 @@ export default {
     .now-playing__text {
       opacity: 1;
     }
-    &:before {
-      opacity: .65;
-    }
     .marquee {
       animation-play-state: running;
     }
@@ -236,6 +234,9 @@ export default {
     &.--active {
       max-width: 50vw;
     }
+    &:before {
+      opacity: var(--button-opacity);
+    }
     &:hover {
       max-width: 100%;
       transition: max-width .15s ease-out;
@@ -244,25 +245,17 @@ export default {
         opacity: 1;
       }
       &:before {
-        opacity: .65;
+        opacity: var(--button-hover-opacity);
       }
       .marquee {
         animation-play-state: running;
       }
-    }
-    &:before {
-      opacity: .65;
     }
     &__text {
       opacity: 1;
     }
     .marquee {
       animation-play-state: running;
-    }
-  }
-  &:hover {
-    &:before {
-      opacity: .75;
     }
   }
   .fade-leave-active,

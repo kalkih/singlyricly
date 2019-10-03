@@ -300,13 +300,13 @@ export default {
 }
 .scroll-offset-bar {
   height: 6px;
-  background: $accent-color;
+  background: var(--font-color);
   position: fixed;
   bottom: 0;
   left: calc(50% - 5%);
   width: 10%;
   transition: transform .05s;
-  opacity: .65;
+  border-radius: 1px;
 }
 .the-lyrics {
   height: 100%;
@@ -384,7 +384,7 @@ export default {
   }
 
   p {
-    opacity: .5;
+    opacity: .65;
     transition: transform .1s ease-out;
     max-width: 1920px;
     width: 75%;
@@ -406,7 +406,7 @@ export default {
   }
 
   .accent-line {
-    color: $accent-color;
+    color: var(--theme-color);
     opacity: .75;
   }
 

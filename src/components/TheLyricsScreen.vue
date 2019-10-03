@@ -136,13 +136,11 @@ export default {
 
     svg {
       height: 4em;
-      fill: $accent-color;
       margin-bottom: 1em;
     }
 
     h2 {
       font-size: 1em;
-      color: $accent-color;
       opacity: .75;
       margin: 0;
     }

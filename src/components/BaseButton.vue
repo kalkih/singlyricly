@@ -20,6 +20,12 @@ export default {
     circle: {
       type: Boolean,
     },
+    transparent: {
+      type: Boolean,
+    },
+    accent: {
+      type: Boolean,
+    },
   },
   data () {
     const vm = this
@@ -47,6 +53,8 @@ export default {
       return {
         '--circle': this.circle,
         '--pressed': this.pressed,
+        '--transparent': this.transparent,
+        '--accent': this.accent,
       }
     },
   },
@@ -65,6 +73,7 @@ export default {
   padding: 1.2em 2em;
   border-radius: 2.6em;
   overflow: hidden;
+  color: var(--button-text-color);
   font-size: 1.4em;
   font-weight: 700;
   text-transform: uppercase;
@@ -79,7 +88,7 @@ export default {
 
   svg {
     height: 1.2em;
-    fill: $font-color;
+    fill: var(--button-text-color);
   }
 
   &.--circle {
@@ -88,6 +97,18 @@ export default {
     height: 2.6em;
     svg {
       font-size: 1em;
+    }
+  }
+
+  &.--transparent {
+    &:before {
+      display: none;
+    }
+  }
+
+  &.--accent {
+    &:before {
+      background: var(--theme-color);
     }
   }
 
@@ -107,10 +128,10 @@ export default {
 
   &:before {
     content: '';
-    opacity: .6;
+    opacity: var(--button-opacity);
     position: absolute;
     z-index: -2;
-    background: $accent-color;
+    background: var(--button-color);
     height: 100%;
     width: 100%;
     left: 0;
@@ -122,7 +143,7 @@ export default {
 
   &:hover {
     &:before {
-      opacity: .75;
+      opacity: var(--button-hover-opacity);
     }
   }
 }

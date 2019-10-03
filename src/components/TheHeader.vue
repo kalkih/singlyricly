@@ -119,7 +119,7 @@ export default {
     animation: fade-in-top .25s ease-out;
 
     > svg, > div {
-      fill: $font-color;
+      fill: var(--button-text-color);
       height: 1em;
       position: absolute;
       right: .8em;
@@ -129,7 +129,7 @@ export default {
       display: block;
       transform: rotate(-90deg);
       height: 1em;
-      fill: $font-color;
+      fill: var(--button-text-color);
     }
   }
 

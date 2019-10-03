@@ -1,6 +1,14 @@
-$font-color: #fff;
-$accent-color: #085078;
-$secondary-color: #85D8CE;
+html {
+  --font-color: #fff;
+  --bg-color: black;
+  --bg-nested-color: black;
+  --default-color: #f0932b;
+  --theme-color: #f0932b;
+  --button-color: #fff;
+  --button-text-color:  black;
+  --button-opacity: 1;
+  --button-hover-opacity: .85;
+}
 
 $red: #F56F48;
 

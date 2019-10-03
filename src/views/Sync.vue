@@ -260,11 +260,10 @@ export default {
     }
 
     h2 {
-      color: $accent-color;
+      color: var(--theme-color);
     }
 
     p {
-      color: $font-color;
       font-size: .8em;
       margin: 0 0 1em 0;
       line-height: 1.5em;
@@ -285,8 +284,8 @@ export default {
     }
 
     .highlight {
-      color: $accent-color;
-      font-weight: 600;
+      color: var(--theme-color);
+      font-weight: 700;
       line-break: none;
       white-space: nowrap;
     }
@@ -344,10 +343,10 @@ export default {
     position: fixed;
     bottom: 0;
     height: 6px;
-    background-color: $accent-color;
+    background-color: var(--font-color);
     width: 100%;
     transition: transform .2s;
-    opacity: .65;
+    opacity: .85;
   }
   .line-trans-leave-active,
   .line-trans-enter-active {
