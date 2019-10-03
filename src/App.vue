@@ -57,7 +57,7 @@ export default {
   methods: {
     setThemeMeta (color) {
       document.querySelector('meta[name="theme-color"]').setAttribute('content', color)
-    }
+    },
   },
   watch: {
     async thumbnail (newVal, oldVal) {
