@@ -384,7 +384,7 @@ export default {
   }
 
   p {
-    opacity: .65;
+    opacity: .75;
     transition: transform .1s ease-out;
     max-width: 1920px;
     width: 75%;
