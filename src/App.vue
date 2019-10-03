@@ -61,7 +61,7 @@ export default {
         let v = new Vibrant(newVal)
         const palette = await v.getPalette()
         this.themeColor = palette.Vibrant.hex
-        this.themeColorLight = palette.LightVibrant.hex
+        this.themeColorLight = palette.Vibrant.hex
         document.querySelector('meta[name="theme-color"]').setAttribute('content', palette.DarkVibrant.hex)
       }
     },
@@ -124,17 +124,15 @@ a {
 #app {
   height: 100%;
 
-  @media only screen and (max-width: 640px) {
-    &:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 100px;
-      background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, transparent 100%);
-      pointer-events: none;
-    }
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100px;
+    background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, transparent 100%);
+    pointer-events: none;
   }
 
   main {
@@ -146,7 +144,7 @@ a {
 .app__bg {
   position: fixed;
   z-index: -2;
-  opacity: .8;
+  opacity: .85;
   height: 100%;
   width: 100%;
 

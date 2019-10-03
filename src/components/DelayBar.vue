@@ -89,8 +89,7 @@ export default {
   color: var(--button-text-color);
 
   svg {
-    fill: inherit;
-
+    fill: inherit !important;
     &:hover {
       opacity: .75;
     }

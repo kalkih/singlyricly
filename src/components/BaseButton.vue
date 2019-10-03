@@ -101,14 +101,35 @@ export default {
   }
 
   &.--transparent {
+    color: var(--font-color);
+
+    &:hover {
+      &:before {
+        opacity: .15;
+      }
+    }
+    svg {
+      fill: var(--font-color);
+    }
+
     &:before {
-      display: none;
+      opacity: 0;
     }
   }
 
   &.--accent {
+    color: var(--font-color);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
+
+    &:hover {
+      &:before {
+        opacity: .75;
+      }
+    }
+
     &:before {
       background: var(--theme-color);
+      opacity: .65;
     }
   }
 

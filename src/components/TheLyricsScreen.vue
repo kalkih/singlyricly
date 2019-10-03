@@ -24,9 +24,7 @@
           <div class="not-found" v-else key="404">
             <sad/>
             <h2>Sorry but we couldn't find any lyrics for this track</h2>
-            <router-link to="/add" tag="div">
-              <base-button>Add lyrics</base-button>
-            </router-link>
+            <base-button accent @click.native="add">Add lyrics</base-button>
           </div>
         </transition>
       </div>
@@ -77,6 +75,9 @@ export default {
     refresh () {
       window.location.reload()
     },
+    add () {
+      this.$router.push('add')
+    },
   },
   mounted () {
     setTimeout(() => {
@@ -124,7 +125,7 @@ export default {
 
     .base-button {
       font-size: .5em;
-      margin: 2em 0 1em 0;
+      margin: 2.6em 0 1em 0;
       padding: 1.4em 2.6em;
     }
 
@@ -135,13 +136,14 @@ export default {
     }
 
     svg {
+      opacity: .85;
       height: 4em;
       margin-bottom: 1em;
     }
 
     h2 {
       font-size: 1em;
-      opacity: .75;
+      opacity: .85;
       margin: 0;
     }
 

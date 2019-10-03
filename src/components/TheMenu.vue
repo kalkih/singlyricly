@@ -180,8 +180,8 @@ export default {
     }
 
     &.--red {
+      color: var(--font-color);
       &:before {
-        background: $red;
         background: var(--theme-color);
       }
     }

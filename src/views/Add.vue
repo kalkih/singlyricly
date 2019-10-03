@@ -35,11 +35,11 @@
       </div>
     </transition>
     <div class="the-add__buttons">
-      <base-button circle @click.native="exit">
+      <base-button circle transparent @click.native="exit">
         <close/>
       </base-button>
       <base-button v-if="step === 1" class="save" @click.native="save">Submit</base-button>
-      <base-button v-if="step !== 9" circle @click.native="reset">
+      <base-button v-if="step !== 9" circle transparent @click.native="reset">
         <reload/>
       </base-button>
     </div>
