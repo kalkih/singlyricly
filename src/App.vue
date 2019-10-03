@@ -54,15 +54,19 @@ export default {
       }
     },
   },
+  methods: {
+    setThemeMeta (color) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', color)
+    }
+  },
   watch: {
     async thumbnail (newVal, oldVal) {
       this.alt = +!this.alt
       if (newVal && oldVal !== newVal) {
-        let v = new Vibrant(newVal)
-        const palette = await v.getPalette()
+        let palette = await Vibrant.from(newVal).getPalette()
         this.themeColor = palette.Vibrant.hex
         this.themeColorLight = palette.Vibrant.hex
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', palette.DarkVibrant.hex)
+        this.setThemeMeta(palette.DarkVibrant.hex)
       }
     },
   },
