@@ -55,23 +55,17 @@ export default {
     },
   },
   watch: {
-    // thumbnail () {
-    //   this.alt = +!this.alt
-    // },
     async thumbnail (newVal, oldVal) {
       this.alt = +!this.alt
       if (newVal && oldVal !== newVal) {
         let v = new Vibrant(newVal)
         const palette = await v.getPalette()
-        console.log(palette)
         this.themeColor = palette.Vibrant.hex
         this.themeColorLight = palette.LightVibrant.hex
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', palette.DarkVibrant.hex)
       }
     },
   },
-  // created () {
-  //   this.themeColor = 'var(--theme-color)';
-  // },
 }
 </script>
 
