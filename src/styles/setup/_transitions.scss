@@ -21,3 +21,12 @@
   opacity: 1;
   transform: translateY(0), scaleX(0);
 }
+
+.fade-bg-leave-active,
+.fade-bg-enter-active {
+  transition: opacity 2.5s $easeInOutCubic;
+}
+.fade-bg-enter,
+.fade-bg-leave-to {
+  opacity: 0 !important;
+}

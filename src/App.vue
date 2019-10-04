@@ -144,7 +144,7 @@ a {
 
   main {
     height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,.25) 100%) !important;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,.25) 100%);
   }
 }
 
@@ -163,14 +163,5 @@ a {
     background-attachment: fixed;
     background-repeat: no-repeat;
   }
-}
-
-.fade-bg-leave-active,
-.fade-bg-enter-active {
-  transition: opacity 2.5s $easeInOutCubic;
-}
-.fade-bg-enter,
-.fade-bg-leave-to {
-  opacity: 0 !important;
 }
 </style>

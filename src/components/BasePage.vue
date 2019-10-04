@@ -221,5 +221,10 @@ export default {
       width: 100%;
     }
   }
+
+  .fade-bg-leave-active,
+  .fade-bg-enter-active {
+    transition: opacity .5s $easeInOutCubic;
+  }
 }
 </style>
