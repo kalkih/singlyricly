@@ -36,7 +36,6 @@ export default {
     ...mapState({
       thumbnail: state => state.playback.track.thumbnail,
       themeColor: state => state.theme.normal,
-      themeColorDark: state => state.theme.dark,
     }),
     themeStyle () {
       return {
@@ -57,7 +56,11 @@ export default {
   methods: {
     ...mapActions({
       setTheme: 'theme/setAll',
+      setThemeMeta: 'theme/setMeta',
     }),
+    setThemeMeta (hex) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', hex)
+    },
   },
   watch: {
     async thumbnail (newVal, oldVal) {
@@ -65,6 +68,7 @@ export default {
       if (newVal && oldVal !== newVal) {
         let p = await Vibrant.from(newVal).getPalette()
         this.setTheme(p.Vibrant.hsl)
+        this.setThemeMeta(p.Vibrant.hex)
       }
     },
   },

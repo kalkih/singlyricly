@@ -11,7 +11,6 @@ const mutations = {
     state.light = getHsl(color, -25)
   },
   setDark (state, color) {
-    document.querySelector('meta[name="theme-color"]').setAttribute('content', color)
     state.dark = getHsl(color, 40)
   },
   set (state, color) {
