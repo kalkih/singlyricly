@@ -116,7 +116,7 @@ export default {
       return this.savedTrack.artist
     },
     percent () {
-      return (this.current - 1) / this.length
+      return (this.current) / this.length
     },
     progressStyle () {
       return {
