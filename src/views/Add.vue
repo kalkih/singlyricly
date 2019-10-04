@@ -240,7 +240,7 @@ export default {
 
     .base-button {
       font-size: .8em;
-      color: var(--font-color);
+      margin: 1em 0;
     }
 
     .spinner {
