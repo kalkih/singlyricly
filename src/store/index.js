@@ -11,6 +11,7 @@ import user from './modules/user'
 import settings from './modules/settings'
 import lyrics from './modules/lyrics'
 import sync from './modules/sync'
+import theme from './modules/theme'
 
 Vue.use(Vuex)
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     playback,
     lyrics,
     sync,
+    theme,
   },
   plugins: [
     createPersistedState({
