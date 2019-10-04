@@ -17,7 +17,7 @@
     <h1 @click="report()" :class="{'--disabled': !lyrics}">Report lyrics</h1>
     <h1 @click="toggleAbout()">About Us</h1>
     <h1 @click="togglePrivacyPolicy()">Privacy Policy</h1>
-    <base-button class="--red" @click.native="logout()">Sign out</base-button>
+    <base-button class="--red" accent @click.native="logout()">Sign out</base-button>
     <delay-bar hideTitle/>
   </base-page>
 </template>
@@ -162,6 +162,7 @@ export default {
     &.--red {
       color: $red;
     }
+
     &.--disabled {
       opacity: .25;
       cursor: default;
@@ -177,13 +178,6 @@ export default {
 
     @media only screen and (min-width: 640px) {
       margin-top: 1.8em;
-    }
-
-    &.--red {
-      color: var(--font-color);
-      &:before {
-        background: var(--theme-color);
-      }
     }
   }
 
