@@ -99,10 +99,6 @@ export default {
     margin-top: 2em;
     max-width: 300px;
     width: 100%;
-
-    &:before {
-      background: lighten($accent-color, 5%);
-    }
   }
   .nested {
     font-size: 1.2em;

@@ -17,7 +17,7 @@
     <h1 @click="report()" :class="{'--disabled': !lyrics}">Report lyrics</h1>
     <h1 @click="toggleAbout()">About Us</h1>
     <h1 @click="togglePrivacyPolicy()">Privacy Policy</h1>
-    <base-button @click.native="logout()">Sign out</base-button>
+    <base-button class="--red" accent @click.native="logout()">Sign out</base-button>
     <delay-bar hideTitle/>
   </base-page>
 </template>
@@ -90,7 +90,9 @@ export default {
 .the-menu {
 
   /deep/ .base-page__bg {
-    background: $accent-color !important;
+    > div {
+      opacity: .75;
+    }
   }
 
   /deep/ .base-page__content {
@@ -136,10 +138,6 @@ export default {
       flex-flow: column;
       width: auto;
 
-      &:before {
-        background: lighten($accent-color, 10%);
-      }
-
       > :nth-child(2) {
         margin: .15em 0 0 0;
       }
@@ -166,6 +164,7 @@ export default {
     &.--red {
       color: $red;
     }
+
     &.--disabled {
       opacity: .25;
       cursor: default;
@@ -182,10 +181,6 @@ export default {
     @media only screen and (min-width: 640px) {
       margin-top: 1.8em;
     }
-
-    &:before {
-      background: $red;
-    }
   }
 
   .delay-bar {
@@ -195,6 +190,12 @@ export default {
     overflow: visible;
     justify-content: center;
     width: auto;
+    color: var(--font-color);
+    fill: var(--font-color);
+
+    &:before {
+      background: transparent;
+    }
   }
 }
 </style>

@@ -32,7 +32,7 @@ export default {
 
   .base-button {
     > * {
-      fill: $font-color;
+      fill: var(--button-text-color);
       height: 1.2em;
       position: absolute;
     }
@@ -40,7 +40,7 @@ export default {
       width: 1.2em;
 
       svg {
-        fill: $font-color;
+        fill: var(--button-text-color);
         transform: rotate(-90deg);
       }
     }

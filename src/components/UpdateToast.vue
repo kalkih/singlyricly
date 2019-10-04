@@ -51,7 +51,7 @@ export default {
 .update-toast {
   width: 100%;
   height: auto;
-  background: linear-gradient(0deg, lighten($accent-color, 5%) 0%, transparent 100%);
+  background: linear-gradient(0deg, var(--bg-color) 0%, transparent 100%);
   padding: 20px;
   display: flex;
   justify-content: center;
@@ -68,18 +68,7 @@ export default {
     text-transform: uppercase;
     letter-spacing: .075em;
     border-radius: 360px;
-    color: $accent-color;
     box-shadow: 0px 0px 2em rgba(0,0,0,.5);
-
-    &:before {
-      opacity: 1;
-      background: $font-color;
-    }
-    &:hover {
-      &:before {
-        opacity: .85;
-      }
-    }
 
     > span {
       display: block;

@@ -4,7 +4,7 @@
     <h1 class="title">Just one last boring thing...</h1>
     <p>"I've read and accept the <span class="bold" @click="togglePrivacyPolicy">Privacy Policy</span>."</p>
     <base-button @click.native="accept()">Yes</base-button>
-    <base-button class="--red" @click.native="decline()">Sign out</base-button>
+    <base-button accent @click.native="decline()">Sign out</base-button>
     <div></div>
   </base-page>
 </template>
@@ -62,16 +62,6 @@ export default {
     margin-top: 2em;
     max-width: 300px;
     width: 100%;
-
-    &:before {
-      background: lighten($accent-color, 5%);
-    }
-
-    &.--red {
-      &:before {
-        background: grey;
-      }
-    }
   }
   .bold {
     font-weight: 700;

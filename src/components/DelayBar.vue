@@ -1,6 +1,6 @@
 <template>
   <div class="delay-bar">
-    <base-button circle @click.native="sub">
+    <base-button circle transparent @click.native="sub">
       <minus/>
     </base-button>
     <transition name="swap-trans" mode="out-in">
@@ -20,7 +20,7 @@
         </span>
       </div>
     </transition>
-    <base-button circle @click.native="add">
+    <base-button circle transparent @click.native="add">
       <plus/>
     </base-button>
   </div>
@@ -86,13 +86,21 @@ export default {
   border-radius: 2.6em;
   overflow: hidden;
   display: flex;
+  color: var(--button-text-color);
+
+  svg {
+    fill: inherit !important;
+    &:hover {
+      opacity: .75;
+    }
+  }
 
   &:before {
     content: '';
-    opacity: .65;
+    opacity: var(--button-opacity);
     position: absolute;
     z-index: -2;
-    background: $accent-color;
+    background: var(--button-color);
     height: 100%;
     width: 100%;
     transition: opacity .15s;
@@ -115,7 +123,6 @@ export default {
       font-variant-numeric: tabular-nums;
       letter-spacing: .05em;
       font-size: 1em;
-      color: white;
     }
 
     &__title {

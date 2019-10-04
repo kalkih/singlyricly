@@ -1,10 +1,17 @@
 <template>
-  <div id="app">
+  <div id="app" :style="themeStyle">
     <transition name="fade-bg">
       <div v-if="thumbnail"
-        class="app__bg"
-        :style="styleObject"
+        class="app__bg app__bg--image"
+        :style="bgImageStyle"
         :key="alt">
+      </div>
+    </transition>
+    <transition name="fade-bg">
+      <div
+        class="app__bg"
+        :style="bgStyle"
+        :key="themeColor">
       </div>
     </transition>
     <main>
@@ -14,7 +21,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import * as Vibrant from 'node-vibrant'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -27,16 +35,41 @@ export default {
   computed: {
     ...mapState({
       thumbnail: state => state.playback.track.thumbnail,
+      themeColor: state => state.theme.normal,
     }),
-    styleObject () {
+    themeStyle () {
+      return {
+        '--theme-color': this.themeColor,
+      }
+    },
+    bgStyle () {
+      return {
+        background: this.themeColor,
+      }
+    },
+    bgImageStyle () {
       return {
         backgroundImage: `url(${this.thumbnail})`,
       }
     },
   },
+  methods: {
+    ...mapActions({
+      setTheme: 'theme/setAll',
+      setThemeMeta: 'theme/setMeta',
+    }),
+    setThemeMeta (hex) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', hex)
+    },
+  },
   watch: {
-    thumbnail () {
+    async thumbnail (newVal, oldVal) {
       this.alt = +!this.alt
+      if (newVal && oldVal !== newVal) {
+        let p = await Vibrant.from(newVal).getPalette()
+        this.setTheme(p.Vibrant.hsl)
+        this.setThemeMeta(p.Vibrant.hex)
+      }
     },
   },
 }
@@ -52,15 +85,11 @@ export default {
   user-select: none;
 }
 html {
-  background-color: $accent-color !important;
-  background-image: linear-gradient(135deg, $accent-color 0%, $secondary-color 100%) !important;
-  // background-image: linear-gradient(135deg, $accent-color 0%, lighten(adjust-color($accent-color, -100), 70%)) !important;
+  background: var(--bg-color);
   height: 100%;
   touch-action: none;
   overflow: hidden;
   overscroll-behavior-y: none;
-  // animation: bg 15s ease infinite;
-  // background-size: 400% 400%;
 }
 body {
   height: 100%;
@@ -82,11 +111,11 @@ body {
   }
 }
 svg {
-  fill: $accent-color;
+  fill: var(--font-color);
 }
 .svg-sad {
-  fill: $accent-color;
-  stroke: $accent-color;
+  fill: var(--font-color);;
+  stroke: var(--font-color);;
 }
 
 a {
@@ -101,40 +130,47 @@ a {
 #app {
   height: 100%;
 
-  @media only screen and (max-width: 640px) {
-    &:after,
-    &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 100px;
-      pointer-events: none;
-    }
-    &:after {
-      top: 0;
-      background: linear-gradient(180deg, $accent-color 0%, transparent 100%);
-    }
-    &:before {
-      bottom: 0;
-      background: linear-gradient(0, rgba($accent-color, .5) 0, transparent 100%);
-    }
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100px;
+    background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, transparent 100%);
+    pointer-events: none;
   }
 
   main {
     height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,.25) 100%) !important;
   }
 }
 
 .app__bg {
-  position: absolute;
+  position: fixed;
+  z-index: -2;
+  opacity: .85;
   height: 100%;
   width: 100%;
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  opacity: .1;
+
+  // $blur: 5px;
+  // height: calc(100% + $blur * 2);
+  // width: calc(100% + $blur * 2);
+  // top: $blur;
+  // left: $blur;
+
+  &--image {
+    opacity: 1;
+    z-index: -3;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    // filter: gray;
+    // filter: grayscale(100%);
+    // filter: blur($blur);
+  }
 }
 
 @keyframes bg {
@@ -153,13 +189,11 @@ a {
 .fade-bg-enter-active {
   transition: opacity 2.5s $easeInOutCubic;
 }
-.fade-bg-enter {
-  opacity: 0 !important;
-}
+.fade-bg-enter,
 .fade-bg-leave-to {
   opacity: 0 !important;
 }
-.fade-bg-enter-to, .fade-bg-leave {
-  opacity: .1;
-}
+// .fade-bg-enter-to, .fade-bg-leave {
+//   opacity: .85;
+// }
 </style>

@@ -44,7 +44,7 @@ a {
   border-radius: 4em;
 
   &:hover {
-    background: $accent-color;
+    background: var(--theme-color);
   }
 }
 </style>

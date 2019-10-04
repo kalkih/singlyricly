@@ -28,7 +28,7 @@
         </p>
       </template>
     </div>
-    <div class="scroll-offset-bar" v-if="synced" :style="{'transform': `scaleX(${scrollOffset})`}"></div>
+    <div class="scroll-offset-bar" v-if="synced" :class="{'--anim': !this.scroll}" :style="{'transform': `scaleX(${scrollOffset})`}"></div>
   </div>
 </template>
 
@@ -300,13 +300,19 @@ export default {
 }
 .scroll-offset-bar {
   height: 6px;
-  background: $accent-color;
+  background: var(--font-color);
   position: fixed;
   bottom: 0;
   left: calc(50% - 5%);
   width: 10%;
   transition: transform .05s;
-  opacity: .65;
+  border-radius: 1px;
+  opacity: 1;
+
+  &.--anim {
+    transition: transform 0s;
+    opacity: 0;
+  }
 }
 .the-lyrics {
   height: 100%;
@@ -384,7 +390,7 @@ export default {
   }
 
   p {
-    opacity: .5;
+    opacity: .75;
     transition: transform .1s ease-out;
     max-width: 1920px;
     width: 75%;
@@ -406,7 +412,7 @@ export default {
   }
 
   .accent-line {
-    color: $accent-color;
+    color: var(--theme-color);
     opacity: .75;
   }
 

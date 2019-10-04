@@ -2,7 +2,11 @@
   <div class="base-page" :class="classList" ref="page">
     <div class="base-page__backdrop"></div>
     <div class="base-page__container" :style="styleList">
-      <div class="base-page__bg"></div>
+      <div class="base-page__bg">
+        <transition name="fade-bg">
+          <div :key="themeColorDark" :style="dynamicStyle"></div>
+        </transition>
+      </div>
       <div class="base-page__content" ref="content">
         <slot></slot>
       </div>
@@ -11,6 +15,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     mask: {
@@ -30,6 +36,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      themeColorDark: state => state.theme.dark,
+    }),
     scrollPos () {
       return this.$refs.content.scrollTop
     },
@@ -42,6 +51,11 @@ export default {
       return {
         'transform': `translateY(${this.touchOffset}px)`,
         'transition': `transform ${this.touchOffset === 0 ? 0.25 : 0}s`,
+      }
+    },
+    dynamicStyle () {
+      return {
+        'background': this.themeColorDark,
       }
     },
   },
@@ -121,7 +135,7 @@ export default {
   }
 
   &__backdrop {
-    background: black;
+    background: var(--bg-color);
     opacity: .25;
     position: fixed;
     width: 100%;
@@ -129,11 +143,17 @@ export default {
   }
 
   &__bg {
-    background: darken($accent-color, 5%);
+    background: var(--bg-nested-color);
     position: absolute;
     width: 100%;
     height: 100%;
     transform: translate3d(0, 0, 0) translateZ(0);
+
+    > div {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
   }
 
   &__content {

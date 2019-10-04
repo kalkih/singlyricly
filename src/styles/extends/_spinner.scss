@@ -4,13 +4,13 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
-  opacity: .75;
+  opacity: 1;
 
   div {
     width: 0.8em;
     height: 0.8em;
     border-radius: 50%;
-    background-color: $accent-color;
+    background-color: var(--font-color);
     transform: translateY(-100%);
     animation: spinner-wave 0.8s ease-in-out alternate infinite;
   }

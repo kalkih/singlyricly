@@ -102,10 +102,11 @@ export default {
   &:before {
     position: fixed;
     content: '';
-    background: url("/img/x.jpg") top center/cover;
+    background: url("/img/x-2.jpg") top center/cover;
     height: 100%;
     width: 100%;
-    opacity: .1;
+    opacity: 1;
+    z-index: -3;
     animation: anim-bg 2.5s;
 
     @keyframes anim-bg {
@@ -114,10 +115,10 @@ export default {
         opacity: 0;
       }
       50% {
-        opacity: .1;
+        opacity: 1;
       }
       100% {
-        opacity: .1;
+        opacity: 1;
         transform: scale(1);
       }
     }
@@ -130,7 +131,7 @@ export default {
     z-index: 99;
 
     > * {
-      fill: $font-color;
+      fill: var(--button-text-color);
       height: 1.2em;
       position: absolute;
     }
@@ -140,7 +141,7 @@ export default {
     }
 
     svg {
-      fill: $font-color;
+      fill: var(--button-text-color);
       transform: rotate(-90deg);
     }
 
@@ -222,7 +223,7 @@ export default {
         width: 100%;
         height: 100%;
         margin: 0;
-        background-color: $font-color;
+        background-color: var(--button-text-color);
         border-radius: 100%;
         animation:
           spinner-pulse 1s infinite ease-in-out;

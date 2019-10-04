@@ -10,8 +10,8 @@ module.exports = {
     },
   },
   pwa: {
-    themeColor: '#085078',
-    msTileColor: '#085078',
+    themeColor: '#f0932b',
+    msTileColor: '#000',
     workboxPluginMode: 'InjectManifest',
     workboxOptions: {
       swSrc: './src/sw.js',
@@ -20,6 +20,13 @@ module.exports = {
   },
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg')
+    const compile = config.module.rule('compile')
+
+    compile
+      .test(/\.worker\.js$/)
+      .use('worker-loader')
+      .loader('worker-loader')
+
     svgRule.uses.clear()
     svgRule
       .use('vue-svg-loader')
