@@ -129,6 +129,7 @@ a {
 
 #app {
   height: 100%;
+  animation: fade-in .5s ease;
 
   &:after {
     content: '';
