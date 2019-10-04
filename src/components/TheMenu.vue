@@ -90,7 +90,9 @@ export default {
 .the-menu {
 
   /deep/ .base-page__bg {
-    background: var(--bg-color);
+    > div {
+      opacity: .75;
+    }
   }
 
   /deep/ .base-page__content {
