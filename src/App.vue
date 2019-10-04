@@ -154,12 +154,6 @@ a {
   height: 100%;
   width: 100%;
 
-  // $blur: 5px;
-  // height: calc(100% + $blur * 2);
-  // width: calc(100% + $blur * 2);
-  // top: $blur;
-  // left: $blur;
-
   &--image {
     opacity: 1;
     z-index: -3;
@@ -167,21 +161,6 @@ a {
     background-position: center center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    // filter: gray;
-    // filter: grayscale(100%);
-    // filter: blur($blur);
-  }
-}
-
-@keyframes bg {
-  0% {
-    background-position: 0% 50%
-  }
-  50% {
-    background-position: 100% 50%
-  }
-  100% {
-    background-position: 0% 50%
   }
 }
 
@@ -193,7 +172,4 @@ a {
 .fade-bg-leave-to {
   opacity: 0 !important;
 }
-// .fade-bg-enter-to, .fade-bg-leave {
-//   opacity: .85;
-// }
 </style>
