@@ -60,8 +60,12 @@
         <reload/>
       </base-button>
     </div>
-    <div class="the-sync__progress" v-if="step === 4" :style="progressStyle">
-    </div>
+    <template v-if="step === 4">
+      <div class="the-sync__progress" :style="progressStyle"></div>
+      <span class="the-sync__status">
+        {{ current - 1 }} / {{ length - 2 }}
+      </span>
+    </template>
   </div>
 </template>
 
@@ -347,6 +351,18 @@ export default {
     width: 100%;
     transition: transform .2s;
     opacity: var(--button-opacity);
+  }
+  &__status {
+    position: fixed;
+    width: 100%;
+    bottom: calc(40px + 3.4em);
+    font-weight: 700;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+
+    @media only screen and (max-height: 500px) {
+      display: none;
+    }
   }
   .line-trans-leave-active,
   .line-trans-enter-active {
