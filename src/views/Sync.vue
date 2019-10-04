@@ -16,15 +16,15 @@
       <div v-else class="the-sync__info" key="info">
         <transition name="swap-trans" mode="out-in">
           <div v-if="step === 0" key="one">
-            <h2>SYNC LYRICS</h2>
+            <h2 class="accent">SYNC LYRICS</h2>
             <h3>{{ title }} <span class="highlight">-</span> {{ artist }}</h3>
-            <p>Syncing lyrics for a song is easy, just press the <span class="highlight">[ next line ]</span> button or <span class="highlight">[ spacebar ]</span> when you hear the beginning of each next line</p>
+            <p>Syncing lyrics for a song is easy, just press the <span class="highlight">[ next line ]</span> button or <span class="highlight">[ spacebar ]</span> every time you hear the beginning of a line</p>
             <p>We will start the music when you're ready</p>
             <base-button @click.native="startCountdown">START SYNC</base-button>
           </div>
           <div v-else-if="step === 6" key="two">
             <h2>That's it, well done!</h2>
-            <base-button @click.native="exit">Return to app</base-button>
+            <base-button accent @click.native="exit">Return to app</base-button>
           </div>
           <div v-else-if="step === 5" key="three">
             <h2>Processing synced lyrics</h2>
@@ -259,10 +259,6 @@ export default {
       margin: 0;
     }
 
-    h2 {
-      color: var(--theme-color);
-    }
-
     p {
       font-size: .8em;
       margin: 0 0 1em 0;
@@ -280,7 +276,11 @@ export default {
 
     .base-button {
       font-size: .7em;
-      margin: 1em 0;
+      margin-top: 1em;
+    }
+
+    .accent {
+      color: var(--theme-color);
     }
 
     .highlight {
@@ -343,10 +343,10 @@ export default {
     position: fixed;
     bottom: 0;
     height: 6px;
-    background-color: var(--font-color);
+    background-color: var(--button-color);
     width: 100%;
     transition: transform .2s;
-    opacity: .85;
+    opacity: var(--button-opacity);
   }
   .line-trans-leave-active,
   .line-trans-enter-active {

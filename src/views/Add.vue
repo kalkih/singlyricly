@@ -24,7 +24,7 @@
           </div>
           <div v-else-if="step === 3" key="three">
             <h2>That's it, well done!</h2>
-            <base-button @click.native="exit">Return to app</base-button>
+            <base-button accent @click.native="exit">Return to app</base-button>
           </div>
           <div v-else key="res">
             <sad/>
@@ -218,10 +218,6 @@ export default {
       align-items: center;
     }
 
-    h2 {
-      color: var(--font-color);
-    }
-
     p {
       color: var(--font-color);
       font-size: .8em;
@@ -239,10 +235,9 @@ export default {
     }
 
     .base-button {
-      font-size: .8em;
-      margin: 1em 0;
+      font-size: .7em;
+      margin-top: 1em;
     }
-
     .spinner {
       font-size: 1.2em;
       margin-top: 1em;
