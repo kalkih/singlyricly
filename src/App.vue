@@ -22,7 +22,7 @@
 
 <script>
 import * as Vibrant from 'node-vibrant'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -30,17 +30,17 @@ export default {
   data () {
     return {
       alt: 1,
-      themeColor: 'var(--default-color)',
-      themeColorLight: '',
     }
   },
   computed: {
     ...mapState({
       thumbnail: state => state.playback.track.thumbnail,
+      themeColor: state => state.theme.normal,
+      themeColorDark: state => state.theme.dark,
     }),
     themeStyle () {
       return {
-        '--theme-color': this.themeColorLight,
+        '--theme-color': this.themeColor,
       }
     },
     bgStyle () {
@@ -55,18 +55,16 @@ export default {
     },
   },
   methods: {
-    setThemeMeta (color) {
-      document.querySelector('meta[name="theme-color"]').setAttribute('content', color)
-    },
+    ...mapActions({
+      setTheme: 'theme/setAll',
+    }),
   },
   watch: {
     async thumbnail (newVal, oldVal) {
       this.alt = +!this.alt
       if (newVal && oldVal !== newVal) {
-        let palette = await Vibrant.from(newVal).getPalette()
-        this.themeColor = palette.Vibrant.hex
-        this.themeColorLight = palette.Vibrant.hex
-        this.setThemeMeta(palette.DarkVibrant.hex)
+        let p = await Vibrant.from(newVal).getPalette()
+        this.setTheme(p.Vibrant.hsl)
       }
     },
   },
