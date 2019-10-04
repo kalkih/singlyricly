@@ -28,7 +28,7 @@
         </p>
       </template>
     </div>
-    <div class="scroll-offset-bar" v-if="synced" :style="{'transform': `scaleX(${scrollOffset})`}"></div>
+    <div class="scroll-offset-bar" v-if="synced" :class="{'--anim': !this.scroll}" :style="{'transform': `scaleX(${scrollOffset})`}"></div>
   </div>
 </template>
 
@@ -307,6 +307,12 @@ export default {
   width: 10%;
   transition: transform .05s;
   border-radius: 1px;
+  opacity: 1;
+
+  &.--anim {
+    transition: transform 0s;
+    opacity: 0;
+  }
 }
 .the-lyrics {
   height: 100%;
