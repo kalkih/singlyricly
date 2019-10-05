@@ -63,10 +63,7 @@ const router = new Router({
       //   }
       // },
     },
-    {
-      path: '/404',
-    },
-    { path: '*', redirect: '/404' },
+    { path: '*', redirect: '/' },
   ],
 })
 
