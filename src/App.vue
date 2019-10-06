@@ -78,56 +78,6 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:500,600,700');
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  box-sizing: border-box;
-  user-select: none;
-}
-html {
-  background: var(--bg-color);
-  height: 100%;
-  touch-action: none;
-  overflow: hidden;
-  overscroll-behavior-y: none;
-  background: none !important;
-}
-body {
-  height: 100%;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  color: #fff;
-  font-family:
-    'Montserrat',
-    'Helvetica Neue',
-    Helvetica,
-    Arial,
-    sans-serif;
-  touch-action: none;
-  -webkit-overflow-scrolling: touch;
-  background: black;
-
-  @media only screen and (max-height: 640px) {
-    font-size: 12px;
-  }
-}
-svg {
-  fill: var(--font-color);
-}
-.svg-sad {
-  fill: var(--font-color);;
-  stroke: var(--font-color);;
-}
-
-a {
-  color: #fff;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.spinner {
-  @extend %spinner;
-}
 
 #app {
   height: 100%;
