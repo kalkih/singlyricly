@@ -12,31 +12,31 @@ $short: .2s;
 .base-page-transition-leave-active,
 .base-page-transition-enter-active {
   transition:
-    opacity .5s $easeInOutCubic !important;
+    opacity .5s var(--ease-io-cubic) !important;
 
   .base-page__backdrop {
     will-change: opacity;
-    transition: opacity $long $easeInOutCubic;
+    transition: opacity $long var(--ease-io-cubic);
   }
   .base-page__content {
     will-change: transform, opacity;
     transition:
-      opacity $long $easeInOutCubic calc(#{$short} / 4),
-      transform $long $easeInOutCubic calc(#{$short} / 4);
+      opacity $long var(--ease-io-cubic) calc(#{$short} / 4),
+      transform $long var(--ease-io-cubic) calc(#{$short} / 4);
   }
   .base-page__bg {
     will-change: transform;
-    transition: transform $short $easeInOutCubic;
+    transition: transform $short var(--ease-io-cubic);
   }
 }
 .base-page-transition-leave-active {
   .base-page__content {
     transition:
-      opacity $long $easeInOutCubic 0s,
-      transform $long $easeInOutCubic 0s;
+      opacity $long var(--ease-io-cubic) 0s,
+      transform $long var(--ease-io-cubic) 0s;
   }
   .base-page__bg {
-    transition: transform $short $easeInOutCubic calc(#{$short} / 2);
+    transition: transform $short var(--ease-io-cubic) calc(#{$short} / 2);
   }
 }
 .base-page-transition-enter,

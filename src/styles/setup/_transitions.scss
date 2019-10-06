@@ -24,7 +24,7 @@
 
 .fade-bg-leave-active,
 .fade-bg-enter-active {
-  transition: opacity 2.5s $easeInOutCubic;
+  transition: opacity 2.5s var(--ease-io-cubic);
 }
 .fade-bg-enter,
 .fade-bg-leave-to {

@@ -187,8 +187,8 @@ export default {
       white-space: normal;
       transition:
         transform .15s,
-        max-width .5s $easeInOutCubic,
-        max-height .25s $easeInOutCubic .25s;
+        max-width .5s var(--ease-io-cubic),
+        max-height .25s var(--ease-io-cubic) .25s;
 
       > span {
         padding: 1em 1em;
@@ -202,8 +202,8 @@ export default {
         max-height: 4.6em;
         transition:
           transform .15s,
-          max-width .5s $easeInOutCubic,
-          max-height .15s $easeInOutCubic 0s;
+          max-width .5s var(--ease-io-cubic),
+          max-height .15s var(--ease-io-cubic) 0s;
 
         .text {
           transition: opacity .15s;

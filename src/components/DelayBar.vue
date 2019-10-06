@@ -134,16 +134,16 @@ export default {
   .swap-trans-leave-active,
   .swap-trans-enter-active {
     transition:
-      opacity .1s $easeInOutCubic,
-      transform .1s $easeInOutCubic;
+      opacity .1s var(--ease-io-cubic),
+      transform .1s var(--ease-io-cubic);
   }
   .fade-left-leave-active,
   .fade-left-enter-active,
   .fade-right-leave-active,
   .fade-right-enter-active {
     transition:
-      opacity .075s $easeInOutCubic,
-      transform .075s $easeInOutCubic;
+      opacity .075s var(--ease-io-cubic),
+      transform .075s var(--ease-io-cubic);
   }
   .fade-left-enter,
   .fade-right-leave-to {

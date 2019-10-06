@@ -9,8 +9,6 @@ html {
   --button-text-color:  black;
   --button-opacity: 1;
   --button-hover-opacity: .85;
+  --color-red: #F56F48;
+  --ease-io-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-
-$red: #F56F48;
-
-$easeInOutCubic: cubic-bezier(0.645, 0.045, 0.355, 1);

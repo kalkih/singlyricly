@@ -71,8 +71,8 @@ export default {
   .fade-leave-active,
   .fade-enter-active {
     transition:
-      opacity .15s $easeInOutCubic,
-      transform .15s $easeInOutCubic;
+      opacity .15s var(--ease-io-cubic),
+      transform .15s var(--ease-io-cubic);
   }
   .fade-enter {
     opacity: 0 !important;

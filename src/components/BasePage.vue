@@ -190,7 +190,7 @@ export default {
       font-weight: 600;
 
       &.--red {
-        color: $red;
+        color: var(--color-red);
       }
     }
 
@@ -224,7 +224,7 @@ export default {
 
   .fade-bg-leave-active,
   .fade-bg-enter-active {
-    transition: opacity .5s $easeInOutCubic;
+    transition: opacity .5s var(--ease-io-cubic);
   }
 }
 </style>

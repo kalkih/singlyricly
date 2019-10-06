@@ -162,7 +162,7 @@ export default {
     }
 
     &.--red {
-      color: $red;
+      color: var(--color-red);
     }
 
     &.--disabled {

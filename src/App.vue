@@ -79,6 +79,8 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:500,600,700');
 
+@import './styles/_includes';
+
 #app {
   height: 100%;
   animation: fade-in .5s ease;
