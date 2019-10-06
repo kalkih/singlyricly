@@ -90,6 +90,7 @@ html {
   touch-action: none;
   overflow: hidden;
   overscroll-behavior-y: none;
+  background: none !important;
 }
 body {
   height: 100%;
@@ -105,6 +106,7 @@ body {
     sans-serif;
   touch-action: none;
   -webkit-overflow-scrolling: touch;
+  background: black;
 
   @media only screen and (max-height: 640px) {
     font-size: 12px;
