@@ -89,13 +89,13 @@ export default {
 <style lang="scss" scoped>
 .the-menu {
 
-  /deep/ .base-page__bg {
+  >>> .base-page__bg {
     > div {
       opacity: .75;
     }
   }
 
-  /deep/ .base-page__content {
+  >>> .base-page__content {
     display: flex;
     align-items: center;
     flex-flow: column;

@@ -99,7 +99,7 @@ export default {
   align-items: flex-start;
   overscroll-behavior: contain;
 
-  /deep/ .base-page__content {
+  >>> .base-page__content {
     max-width: 1200px;
   }
 
