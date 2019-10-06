@@ -102,6 +102,10 @@ export default {
   }
   .nested {
     font-size: 1.2em;
+
+    @media only screen and (min-width: 640px) {
+      font-size: 1em;
+    }
   }
 }
 </style>
