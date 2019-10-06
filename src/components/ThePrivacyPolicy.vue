@@ -101,6 +101,7 @@ export default {
 
   ::v-deep .base-page__content {
     max-width: 1200px;
+    scroll-behavior: smooth;
   }
 
   .padding {
