@@ -36,10 +36,12 @@ export default {
     ...mapState({
       thumbnail: state => state.playback.track.thumbnail,
       themeColor: state => state.theme.normal,
+      themeColorDark: state => state.theme.dark,
     }),
     themeStyle () {
       return {
         '--theme-color': this.themeColor,
+        '--theme-color-dark': this.themeColorDark,
       }
     },
     bgStyle () {
