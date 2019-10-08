@@ -17,7 +17,7 @@
     </base-page-transition>
     <the-header/>
     <the-lyrics-screen/>
-    <div class="the-controls">
+    <div class="the-controls" :class="{'--center': !delayedScrollStatus}">
       <now-playing/>
       <transition name="switch-trans" mode="out-in">
         <base-button v-if="scrollOverride" :key="delayedScrollStatus" class="resume-button" @click.native="setScroll(true)">
@@ -163,6 +163,17 @@ export default {
 
     @media only screen and (min-width: 640px) {
       fill: var(--font-color);
+
+      &.--center {
+        .delay-bar,
+        .now-playing {
+          flex: 1;
+        }
+
+        .delay-bar {
+          justify-content: flex-end;
+        }
+      }
 
       .delay-bar,
       .now-playing {
