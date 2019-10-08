@@ -15,11 +15,13 @@
         </span>
       </div>
     </transition>
-    <transition name="swap-trans">
-      <note v-if="idle" key="idle"/>
-      <pause v-else-if="playing" key="playing" class="pause"/>
-      <play v-else key="paused"/>
-    </transition>
+    <div class="icon">
+      <transition name="swap-trans">
+        <note v-if="idle" key="idle"/>
+        <pause v-else-if="playing" key="playing"/>
+        <play v-else key="paused"/>
+      </transition>
+    </div>
     <transition name="swap-trans">
       <div v-if="thumbnail" class="thumbnail" :key="this.thumbnail">
         <img :src="this.thumbnail"/>
@@ -88,6 +90,7 @@ export default {
         '--active': this.expanded,
         '--pressed': this.pressed,
         '--idle': this.idle,
+        '--playing': this.playing,
       }
     },
   },
@@ -185,6 +188,10 @@ export default {
     display: none;
   }
 
+  .icon {
+    transition: opacity .25s ease;
+  }
+
   svg {
     position: absolute;
     left: .47em;
@@ -244,15 +251,17 @@ export default {
       }
     }
 
+    &.--playing {
+      .icon {
+        opacity: 0;
+      }
+    }
+
     &:before {
       opacity: var(--button-opacity);
     }
     .now-playing__text {
       margin-left: 5.4em;
-    }
-    .pause {
-      opacity: 0;
-      transition: opacity .25s ease;
     }
     .marquee {
       --right-fade: 20px;
@@ -292,7 +301,7 @@ export default {
       .now-playing__text {
         opacity: .85;
       }
-      .pause {
+      .icon {
         opacity: 1;
       }
       .thumbnail {
