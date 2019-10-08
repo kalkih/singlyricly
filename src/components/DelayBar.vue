@@ -100,10 +100,10 @@ export default {
     opacity: var(--button-opacity);
     position: absolute;
     z-index: -2;
-    background: var(--button-color);
     height: 100%;
     width: 100%;
     transition: opacity .15s;
+    background: inherit;
   }
 
   &__delay {

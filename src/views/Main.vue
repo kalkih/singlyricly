@@ -161,17 +161,27 @@ export default {
     width: calc(100% - 40px);
     pointer-events: none;
 
+    @media only screen and (min-width: 640px) {
+      fill: var(--font-color);
+
+      .delay-bar,
+      .now-playing {
+        --button-text-color: var(--font-color);
+      }
+
+      .now-playing {
+        --button-color: none;
+        margin-right: 10px;
+        overflow: visible;
+      }
+    }
+
     > * {
       pointer-events: auto;
     }
 
     .delay-bar, .now-playing {
       animation: fade-in .25s ease-out;
-    }
-    .now-playing {
-      @media only screen and (min-width: 640px) {
-        margin-right: 10px;
-      }
     }
     .delay-bar {
       display: none;
@@ -185,6 +195,7 @@ export default {
     .resume-button {
       font-size: 1em;
       padding: 1.2em 2.6em;
+      margin: 0 10px;
     }
     .spacer {
       display: block;

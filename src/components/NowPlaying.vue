@@ -17,8 +17,13 @@
     </transition>
     <transition name="swap-trans">
       <note v-if="idle" key="idle"/>
-      <pause v-else-if="playing" key="playing"/>
+      <pause v-else-if="playing" key="playing" class="pause"/>
       <play v-else key="paused"/>
+    </transition>
+    <transition name="swap-trans">
+      <div v-if="thumbnail" class="thumbnail" :key="this.thumbnail">
+        <img :src="this.thumbnail"/>
+      </div>
     </transition>
   </div>
 </template>
@@ -82,6 +87,7 @@ export default {
       return {
         '--active': this.expanded,
         '--pressed': this.pressed,
+        '--idle': this.idle,
       }
     },
   },
@@ -175,11 +181,8 @@ export default {
     }
   }
 
-  &__thumbnail {
-    position: absolute;
-    left: 0;
-    width: 2.6em;
-    border-radius: 2.6em;
+  .thumbnail {
+    display: none;
   }
 
   svg {
@@ -229,20 +232,76 @@ export default {
     }
   }
   @media only screen and (min-width: 640px) {
-    max-width: 50vw;
+    max-width: 100%;
 
     &.--active {
-      max-width: 50vw;
+      max-width: 100%;
     }
+
+    &.--idle {
+      .now-playing__text {
+        margin-left: 4.4em;
+      }
+    }
+
     &:before {
       opacity: var(--button-opacity);
     }
+    .now-playing__text {
+      margin-left: 5.4em;
+    }
+    .pause {
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+    .title {
+      padding-right: 16px;
+    }
+    .marquee {
+      --right-fade: 20px;
+    }
+    .thumbnail {
+      display: block;
+      position: absolute;
+      left: 0;
+      width: 2.6em;
+      height: 2.6em;
+      border-radius: 2.6em;
+      border: 3px solid var(--font-color);
+      z-index: -1;
+      overflow: hidden;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      &:before {
+        content: '';
+        background: #000;
+        opacity: .25;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        transition: opacity .25s ease;
+      }
+    }
     &:hover {
-      max-width: 100%;
       transition: max-width .15s ease-out;
 
       .now-playing__text {
+        opacity: .85;
+      }
+      .pause {
         opacity: 1;
+      }
+      .thumbnail {
+        &:before {
+          opacity: .5;
+        }
       }
       &:before {
         opacity: var(--button-hover-opacity);
