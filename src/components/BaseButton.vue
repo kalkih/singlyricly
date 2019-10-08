@@ -105,11 +105,15 @@ export default {
 
     &:hover {
       &:before {
-        opacity: .15;
+        opacity: .05;
       }
     }
     svg {
       fill: var(--font-color);
+
+      &:hover {
+        opacity: 1;
+      }
     }
 
     &:before {
@@ -157,7 +161,7 @@ export default {
     width: 100%;
     left: 0;
     right: 0;
-    transition: opacity .1s;
+    transition: opacity .15s;
     border-radius: 2.6em;
     transform: translateZ(0);
   }
