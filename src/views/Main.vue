@@ -133,6 +133,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/setup/_transitions';
+
 .main {
   height: 100%;
 
