@@ -76,12 +76,14 @@ export default {
 
 <style lang="scss" scoped>
 .marquee {
+  --left-fade: 4px;
+  --right-fade: 4px;
   position: relative;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   animation-play-state: running;
-  mask-image: linear-gradient(to right, transparent, black 4px, black calc(100% - 4px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent, black var(--left-fade), black calc(100% - var(--right-fade)), transparent 100%);
 
   &.--overflow {
     h2:nth-child(2) {
