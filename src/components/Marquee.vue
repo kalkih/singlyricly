@@ -83,9 +83,10 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   animation-play-state: running;
-  mask-image: linear-gradient(to right, transparent, black var(--left-fade), black calc(100% - var(--right-fade)), transparent 100%);
 
   &.--overflow {
+    mask-image: linear-gradient(to right, transparent, black var(--left-fade), black calc(100% - var(--right-fade)), transparent 100%);
+
     h2:nth-child(2) {
       visibility: hidden;
     }

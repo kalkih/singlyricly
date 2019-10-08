@@ -254,9 +254,6 @@ export default {
       opacity: 0;
       transition: opacity .25s ease;
     }
-    .title {
-      padding-right: 16px;
-    }
     .marquee {
       --right-fade: 20px;
     }
