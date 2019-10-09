@@ -58,9 +58,9 @@ export default {
   methods: {
     ...mapActions({
       setTheme: 'theme/setAll',
-      setThemeMeta: 'theme/setMeta',
+      setMetaTheme: 'theme/setMeta',
     }),
-    setThemeMeta (hex) {
+    setMetaTheme (hex) {
       document.querySelector('meta[name="theme-color"]').setAttribute('content', hex)
     },
   },
@@ -70,7 +70,7 @@ export default {
       if (newVal && oldVal !== newVal) {
         let p = await Vibrant.from(newVal).getPalette()
         this.setTheme(p.Vibrant.hsl)
-        this.setThemeMeta(p.Vibrant.hex)
+        this.setMetaTheme(p.Vibrant.hex)
       }
     },
   },
