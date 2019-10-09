@@ -9,9 +9,10 @@ const APP_NAME = process.env.VUE_APP_NAME
 
 Vue.use(Router)
 
-const isAuthenticated = (to, from, next, route) => {
-  const isAuth = store.getters['auth/isAuthenticated']
-  if (!isAuth) {
+const isAuth = () => store.getters['auth/isAuthenticated']
+
+const authGuard = (to, from, next, route) => {
+  if (!isAuth()) {
     next('/welcome')
   } else {
     route ? next(route) : next()
@@ -25,20 +26,20 @@ const router = new Router({
       path: '/',
       name: 'main',
       component: Main,
-      beforeEnter: isAuthenticated,
+      beforeEnter: authGuard,
     },
     {
       path: '/sync',
       name: 'sync',
       component: () => import('../views/Sync.vue'),
-      beforeEnter: isAuthenticated,
+      beforeEnter: authGuard,
       meta: { title: 'Sync Lyrics' },
     },
     {
       path: '/add',
       name: 'add',
       component: () => import('../views/Add.vue'),
-      beforeEnter: isAuthenticated,
+      beforeEnter: authGuard,
       meta: { title: 'Add Lyrics' },
     },
     {
@@ -51,7 +52,7 @@ const router = new Router({
       name: 'about',
       beforeEnter: (to, from, next) => {
         store.dispatch('toggleAbout', true)
-        isAuthenticated(to, from, next, '/')
+        authGuard(to, from, next, '/')
       },
       meta: { title: 'About' },
     },
@@ -59,14 +60,9 @@ const router = new Router({
       path: '/welcome',
       name: 'welcome',
       component: Welcome,
-      // beforeEnter: (to, from, next) => {
-      //   const isAuth = store.getters['auth/isAuthenticated']
-      //   if (isAuth) {
-      //     next('/')
-      //   } else {
-      //     next()
-      //   }
-      // },
+      beforeEnter: (to, from, next) => {
+        isAuth() ? next('/') : next()
+      },
       meta: { title: 'Welcome' },
     },
     { path: '*', redirect: '/' },
