@@ -8,9 +8,12 @@
     <base-page-transition mode="out-in">
       <the-about v-if="about" key="about"/>
     </base-page-transition>
-    <base-button class="welcome__about__button" circle @click.native="toggleAbout()">
+    <base-page-transition mode="out-in">
+      <the-privacy-policy v-if="privacy" key="privacy"/>
+    </base-page-transition>
+    <base-button class="welcome__button" circle @click.native="toggle()">
       <transition name="swap-trans">
-        <div v-if="about"><chevron key="open"/></div>
+        <div v-if="about || privacy"><chevron key="open"/></div>
         <span v-else key="closed">?</span>
       </transition>
     </base-button>
@@ -30,6 +33,7 @@
 import BaseButton from '@/components/BaseButton'
 import BaseToast from '@/components/BaseToast'
 import TheAbout from '@/components/TheAbout'
+import ThePrivacyPolicy from '@/components/ThePrivacyPolicy'
 import BasePageTransition from '@/components/BasePageTransition'
 import chevron from '@/assets/chevron.svg'
 import { mapState, mapActions } from 'vuex'
@@ -40,6 +44,7 @@ export default {
     BaseButton,
     BaseToast,
     TheAbout,
+    ThePrivacyPolicy,
     BasePageTransition,
     chevron,
   },
@@ -54,6 +59,7 @@ export default {
     ...mapState({
       url: state => state.auth.url,
       about: state => state.about,
+      privacy: state => state.privacyPolicy,
     }),
     name: () => process.env.VUE_APP_NAME,
   },
@@ -61,8 +67,16 @@ export default {
     ...mapActions({
       getAuthURL: 'auth/fetchAuthUrl',
       setAuthURL: 'auth/setAuthURL',
+      toggleMenu: 'closeSecondary',
       toggleAbout: 'toggleAbout',
     }),
+    toggle () {
+      if (this.about || this.privacy) {
+        this.toggleMenu()
+      } else {
+        this.toggleAbout(true)
+      }
+    },
     async login () {
       if (this.loading) return
       this.loading = !(this.loading)
@@ -124,7 +138,7 @@ export default {
     }
   }
 
-  &__about__button {
+  &__button {
     position: fixed;
     top: 20px;
     right: 20px;

@@ -57,6 +57,15 @@ const router = new Router({
       meta: { title: 'About' },
     },
     {
+      path: '/privacy-policy',
+      name: 'privacy-policy',
+      beforeEnter: (to, from, next) => {
+        store.dispatch('togglePrivacyPolicy', true)
+        authGuard(to, from, next, '/')
+      },
+      meta: { title: 'Privacy Policy' },
+    },
+    {
       path: '/welcome',
       name: 'welcome',
       component: Welcome,
