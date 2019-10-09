@@ -5,6 +5,8 @@ import Login from '@/components/Login'
 import Main from '@/views/Main'
 import Welcome from '@/views/Welcome'
 
+const APP_NAME = process.env.VUE_APP_NAME
+
 Vue.use(Router)
 
 const isAuthenticated = (to, from, next, route) => {
@@ -30,12 +32,14 @@ const router = new Router({
       name: 'sync',
       component: () => import('../views/Sync.vue'),
       beforeEnter: isAuthenticated,
+      meta: { title: 'Sync Lyrics' },
     },
     {
       path: '/add',
       name: 'add',
       component: () => import('../views/Add.vue'),
       beforeEnter: isAuthenticated,
+      meta: { title: 'Add Lyrics' },
     },
     {
       path: '/login',
@@ -49,6 +53,7 @@ const router = new Router({
         store.dispatch('toggleAbout', true)
         isAuthenticated(to, from, next, '/')
       },
+      meta: { title: 'About' },
     },
     {
       path: '/welcome',
@@ -62,9 +67,17 @@ const router = new Router({
       //     next()
       //   }
       // },
+      meta: { title: 'Welcome' },
     },
     { path: '*', redirect: '/' },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title
+    ? `${to.meta.title} - ${APP_NAME}`
+    : APP_NAME
+  next()
 })
 
 export default router
