@@ -105,6 +105,9 @@ export default {
       return (newVal.artist !== oldVal.artist ||
         newVal.title !== oldVal.title)
     },
+    setMetaTitle (title = undefined) {
+      document.title = `${title ? `${title + ' - '}` : ''} ${process.env.VUE_APP_NAME}`
+    },
   },
   watch: {
     track (newVal, oldVal) {
@@ -112,8 +115,11 @@ export default {
         if (this.comparePlayback(newVal, oldVal)) {
           this.clearLyrics()
           if (this.hasPlayback) {
-            this.fetchLyrics(newVal)
             console.log('Fetching lyrics...')
+            this.fetchLyrics(newVal)
+            this.setMetaTitle(`${newVal.title} - ${newVal.artist}`)
+          } else {
+            this.setMetaTitle()
           }
         }
       }
