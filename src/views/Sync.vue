@@ -90,12 +90,12 @@ export default {
   data () {
     return {
       current: 1,
-      graceDelay: -600,
       step: 0,
       interval: null,
       fetchInterval: null,
       savedTrack: {},
       initiated: false,
+      HUMAN_DELAY: -600,
     }
   },
   computed: {
@@ -111,7 +111,7 @@ export default {
       return this.lyrics.length
     },
     startTime () {
-      return this.updatedAt - (this.progress + this.baseDelay + this.graceDelay)
+      return this.updatedAt - (this.progress + this.baseDelay + this.HUMAN_DELAY)
     },
     title () {
       return this.savedTrack.title
@@ -367,8 +367,8 @@ export default {
   .line-trans-leave-active,
   .line-trans-enter-active {
     transition:
-      opacity .1s ease-out,
-      transform .1s ease-out;
+      opacity .075s ease-out,
+      transform .075s ease-out;
   }
   .line-trans-enter {
     opacity: 0 !important;
