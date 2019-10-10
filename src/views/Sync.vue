@@ -2,16 +2,23 @@
   <div class="the-sync">
     <the-header/>
     <transition name="swap-trans" mode="out-in">
-      <div v-if="step === 4" class="the-sync__lyrics" ref="lyrics" key="lyrics">
-        <transition name="line-trans" mode="out-in">
-          <p :key="current"> {{ lyrics[current - 1] }}</p>
-        </transition>
-        <transition name="line-trans" mode="out-in">
-          <p :key="current" class="active"> {{ lyrics[current] }}</p>
-        </transition>
-        <transition name="line-trans" mode="out-in">
-          <p :key="current">{{ lyrics[current + 1] }}</p>
-        </transition>
+      <div v-if="step === 4" class="the-sync__lines" ref="lyrics" key="lyrics">
+        <div class="container current">
+          <p class="title accent">[ CURRENT LINE ]</p>
+          <transition name="line-trans" mode="out-in" v-on:enter="resizeText">
+            <div class="line" :key="current">
+              <p> {{ lyrics[current] }}</p>
+            </div>
+          </transition>
+        </div>
+        <div class="container next">
+          <p class="title accent">[ NEXT LINE ]</p>
+          <transition name="line-trans" mode="out-in" v-on:enter="resizeText">
+            <div class="line" :key="current">
+              <p> {{ lyrics[current + 1] }}</p>
+            </div>
+          </transition>
+        </div>
       </div>
       <div v-else class="the-sync__info" key="info">
         <transition name="swap-trans" mode="out-in">
@@ -216,6 +223,15 @@ export default {
       this.current = 1
       this.init()
     },
+    resizeText (el) {
+      const resizeText = () => {
+        const old = parseInt(getComputedStyle(el).getPropertyValue('font-size').slice(0, -2))
+        el.style.fontSize = old - 1 + 'px'
+      }
+      while (el.scrollHeight > el.offsetHeight) {
+        resizeText()
+      }
+    },
   },
   async created () {
     if (!this.track.uri || !this.unsynced) {
@@ -282,11 +298,7 @@ export default {
       font-size: .7em;
       margin-top: 1em;
     }
-
-    .accent {
-      color: var(--theme-color-light);
-    }
-
+    
     .highlight {
       color: var(--theme-color-light);
       font-weight: 700;
@@ -300,7 +312,12 @@ export default {
     }
   }
 
-  &__lyrics {
+  .accent {
+    color: var(--theme-color-light);
+    opacity: 1;
+  }
+
+  &__lines {
     height: 100%;
     display: flex;
     align-items: center;
@@ -309,23 +326,46 @@ export default {
     font-size: 2em;
     font-weight: 600;
     text-align: center;
-    margin: 0 1em;
+    padding: 0 20px;
+    padding-top: calc(60px + 10vh);
+    padding-bottom: calc(60px + 10vh);
     overflow: hidden;
 
     @media only screen and (min-width: 640px) {
       font-size: calc(2em + 1vw);
     }
 
-    p {
-      line-height: 1.25em;
-      min-height: 1em;
-      transform: scale3d(.75,.75,.75);
-      opacity: .55;
+    .container {
+      display: flex;
+      flex-flow: column;
+      flex: 1 1 0px;
+      max-height: 300px;
+      overflow: hidden;
+      width: 100%;
+      padding: 10px 0;
     }
 
-    .active {
-      transform: scale3d(1,1,1);
-      opacity: 1;
+    .line {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .title {
+      font-size: .8em;
+      padding-bottom: 2vh;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    p {
+      display: block;
+      line-height: 1.25em;
+      padding: 0;
+      margin: 0;
     }
   }
   &__buttons {
@@ -364,23 +404,28 @@ export default {
       display: none;
     }
   }
-  .line-trans-leave-active,
+  $dur: .1s;
+  .line-trans-leave-active {
+    transition:
+      opacity $dur ease-out,
+      transform $dur ease-out;
+  }
   .line-trans-enter-active {
     transition:
-      opacity .075s ease-out,
-      transform .075s ease-out;
+      opacity calc(#{$dur} * 1) ease-out,
+      transform $dur ease-out;
   }
   .line-trans-enter {
     opacity: 0 !important;
     transform:
-      translateY(1em)
+      translateY(5vh)
       scale3d(.75,.75,.75);
   }
   .line-trans-leave-to {
     opacity: 0 !important;
-    transform:
-      translateY(-1em)
-      scale3d(.75,.75,.75);
+    // transform:
+    //   translateY(-10vh)
+    //   scale3d(.75,.75,.75);
   }
 }
 </style>
