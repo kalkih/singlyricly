@@ -4,6 +4,9 @@
       :class="{'--static': !animate, '--unsynced': !isSynced, '--override': !scroll}"
       ref="lyrics">
       <template v-if="synced">
+        <p class="accent-line" :line="-1" :class="{ 'active-line': activeLine === -1}">
+          {{ TEXT_INTRO }}
+        </p>
         <p
           v-for="(entry, index) in synced"
           :key="index"
@@ -21,10 +24,10 @@
           :key="index"
           :line="index"
           :class="{ 'accent-line': !line }">
-          {{ line ? line : '● ● ●' }}
+          {{ line ? line : TEXT_EMPTY }}
         </p>
         <p class="accent-line">
-          ( END )
+          {{ TEXT_OUTRO }}
         </p>
       </template>
     </div>
@@ -58,7 +61,7 @@ export default {
       hasFocus: true,
       scrollDebounce: false,
       scrollOffset: 0,
-      activeLine: -1,
+      activeLine: -2,
       timer: null,
       scrollListenerTimer: null,
       scrollTimer: null,
@@ -70,6 +73,9 @@ export default {
       lastUpdatedAt: 0,
       lastProgress: 0,
       lastScrollPos: 0,
+      TEXT_INTRO: '[ INTRO ]',
+      TEXT_OUTRO: '[ END ]',
+      TEXT_EMPTY: '● ● ●',
     }
   },
   computed: {
@@ -206,7 +212,7 @@ export default {
       if (this.scroll) this.move()
     },
     move (line = this.activeLine, duration = this.scrollDuration) {
-      if (line === -1) return
+      if (line === -2) return
       const target = this.$refs.lyrics
         .querySelector(`p[line="${line}"]`)
       const height = target.offsetHeight
@@ -251,18 +257,12 @@ export default {
       this.clear()
 
       const progress = this.serverProgress
-      let line = this.times.findIndex(time => time > progress)
-      line = line === -1
-        ? this.length
-        : line - 1
+      let line = this.times.findIndex(time => time > progress) - 1
+      line = line === -2 ? this.length : line
 
       if (line <= this.length) {
         if (line !== this.activeLine) {
-          if (line === -1) {
-            this.move(0)
-          } else {
-            this.move(line)
-          }
+          line === -1 ? this.move(0) : this.move(line)
         }
         this.activeLine = line
         if (this.playing) {
