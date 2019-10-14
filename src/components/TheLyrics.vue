@@ -1,7 +1,7 @@
 <template>
   <div class="the-lyrics-wrapper">
-    <div class="the-lyrics"
-      :class="{'--static': !animate, '--unsynced': !isSynced, '--override': !scroll}"
+    <div class="the-lyrics" id="lyrics"
+      :class="{'--static': !animate, '--unsynced': !isSynced, '--override': !autoSync}"
       ref="lyrics">
       <template v-if="synced">
         <p class="accent-line" :line="-1" :class="{ 'active-line': activeLine === -1}">
@@ -31,7 +31,7 @@
         </p>
       </template>
     </div>
-    <div class="scroll-offset-bar" v-if="synced" :class="{'--anim': !this.scroll}" :style="{'transform': `scaleX(${scrollOffset})`}"></div>
+    <div class="scroll-offset-bar" v-if="synced" :class="{'--anim': !autoSync}" :style="{'transform': `scaleX(${scrollOffset})`}"></div>
   </div>
 </template>
 
@@ -39,7 +39,7 @@
 import { mapState, mapActions } from 'vuex'
 import BaseButton from './BaseButton'
 import deviceDelay from '@/mixins/deviceDelay'
-import easyScroll from 'easy-scroll'
+import SweetScroll from 'sweet-scroll'
 
 export default {
   name: 'TheLyrics',
@@ -58,21 +58,20 @@ export default {
   data () {
     return {
       loaded: false,
+      scroller: null,
       hasFocus: true,
-      scrollDebounce: false,
-      scrollOffset: 0,
       activeLine: -2,
       timer: null,
-      scrollListenerTimer: null,
       scrollTimer: null,
       touchEndTimer: null,
+      scrollOffset: 0,
       isScrolling: false,
-      fetchDelay: 500,
-      scrollDuration: 200,
-      scrollThreshold: 150,
       lastUpdatedAt: 0,
       lastProgress: 0,
       lastScrollPos: 0,
+      FETCH_DELAY: 500,
+      SCROLL_DURATION: 200,
+      SCROLL_THRES: 150,
       TEXT_INTRO: '[ INTRO ]',
       TEXT_OUTRO: '[ END ]',
       TEXT_EMPTY: '● ● ●',
@@ -82,7 +81,7 @@ export default {
     ...mapState({
       synced: state => state.lyrics.synced,
       normal: state => state.lyrics.normal,
-      scroll: state => state.lyrics.scroll,
+      autoSync: state => state.lyrics.scroll,
       progress: state => state.playback.progress,
       playing: state => state.playback.playing,
       updatedAt: state => state.playback.updatedAt,
@@ -111,7 +110,7 @@ export default {
   watch: {
     synced () {
       this.clear()
-      this.setScroll(true)
+      this.setAutoSync(true)
       if (this.hasSynced && this.loaded) {
         console.log('New lyrics, syncing...')
         this.$nextTick(() => this.sync)
@@ -135,12 +134,8 @@ export default {
         this.sync()
       }
     },
-    scroll (newVal, oldVal) {
+    autoSync (newVal, oldVal) {
       if (newVal && newVal !== oldVal && this.loaded) {
-        this.scrollDebounce = true
-        setTimeout(() => {
-          this.scrollDebounce = false
-        }, this.scrollDuration + 100)
         this.move()
       }
     },
@@ -148,12 +143,27 @@ export default {
   methods: {
     ...mapActions({
       fetchPlayback: 'playback/fetchPlayback',
-      setScroll: 'lyrics/setScroll',
+      setAutoSync: 'lyrics/setScroll',
     }),
-    addScrollListener () {
+    addScrollListener (setScrollPos = true) {
       this.scrollOffset = 0
       this.lastScrollPos = this.$refs.lyrics.scrollTop
       this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
+    },
+    removeScrollListener () {
+      this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
+    },
+    initScroller () {
+      this.scroller = new SweetScroll(
+        {
+          duration: this.SCROLL_DURATION,
+          easing: 'easeOutCubic',
+          before: this.removeScrollListener,
+          complete: this.addScrollListener,
+          cancellable: false,
+        },
+        this.$refs.lyrics,
+      )
     },
     handleScroll (e) {
       clearTimeout(this.scrollTimer)
@@ -161,12 +171,12 @@ export default {
       this.scrollTimer = setTimeout(() => {
         this.isScrolling = false
       }, 66)
-      if (this.hasFocus && !this.scrollDebounce) {
+      if (this.hasFocus) {
         const scrollOffset = Math.abs(e.target.scrollTop - this.lastScrollPos)
         this.scrollOffset = Math.min(Math.max(scrollOffset / 15, 0), 10)
-        if (scrollOffset > this.scrollThreshold) {
-          this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
-          this.setScroll(false)
+        if (scrollOffset > this.SCROLL_THRES) {
+          this.removeScrollListener()
+          this.setAutoSync(false)
           this.scrollOffset = 0
           window.navigator.vibrate(10)
         }
@@ -178,7 +188,7 @@ export default {
     handleFocus () {
       setTimeout(() => {
         this.hasFocus = true
-      }, this.scrollDuration + 100)
+      }, this.SCROLL_DURATION + 100)
     },
     handleRotate () {
       this.hasFocus = false
@@ -191,7 +201,7 @@ export default {
       clearInterval(this.touchEndTimer)
       if (this.isScrolling) {
         this.touchEndTimer = setInterval(() => {
-          if (!this.scroll) {
+          if (!this.autoSync) {
             clearInterval(this.touchEndTimer)
           } else if (!this.isScrolling) {
             this.move()
@@ -199,8 +209,8 @@ export default {
           }
         }, 50)
       } else {
-        if (this.scroll && this.$refs.lyrics.scrollTop !== this.lastScrollPos) {
-          if (this.scroll) this.move()
+        if (this.autoSync && this.$refs.lyrics.scrollTop !== this.lastScrollPos) {
+          this.move()
         }
       }
     },
@@ -209,36 +219,27 @@ export default {
     },
     next () {
       this.activeLine = this.activeLine + 1
-      if (this.scroll) this.move()
+      if (this.autoSync) this.move()
     },
-    move (line = this.activeLine, duration = this.scrollDuration) {
+    move (line = this.activeLine, duration = this.SCROLL_DURATION) {
       if (line === -2) return
       const target = this.$refs.lyrics
         .querySelector(`p[line="${line}"]`)
-      const height = target.offsetHeight
-      const center = this.$refs.lyrics.offsetHeight / 2
-      const top = target.getBoundingClientRect().top
-      this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
-      this.scrollOffset = 0
-      easyScroll({
-        scrollableDomEle: this.$refs.lyrics,
-        direction: 'bottom',
-        easingPreset: 'easeOutCubic',
-        duration,
-        scrollAmount: top - center + (height / 2),
-        onAnimationCompleteCallback: this.addScrollListener,
+      const offset = (this.$refs.lyrics.offsetHeight - target.offsetHeight) / 2
+      this.scroller.toElement(target, {
+        offset: -offset,
       })
     },
-    calculateNext (ms) {
+    calculateNext (delay) {
       if (this.activeLine >= this.length) {
         return this.calculateFetch()
       }
-      const timer = ms || (this.times[this.activeLine + 1] - this.computeProgress())
-      this.timer = setTimeout(this.tick, timer)
+      const ms = delay || (this.times[this.activeLine + 1] - this.computeProgress())
+      this.timer = setTimeout(this.tick, ms)
     },
     calculateFetch () {
-      const timer = this.duration - this.computeProgress() + this.fetchDelay
-      this.timer = setTimeout(this.fetchPlayback, timer)
+      const ms = this.duration - this.computeProgress() + this.FETCH_DELAY
+      this.timer = setTimeout(this.fetchPlayback, ms)
     },
     tick () {
       if (this.hasSynced && this.activeLine < this.length) {
@@ -247,7 +248,6 @@ export default {
       }
     },
     clear () {
-      clearTimeout(this.scrollListenerTimer)
       if (this.timer) {
         clearTimeout(this.timer)
         this.timer = null
@@ -272,7 +272,8 @@ export default {
     },
   },
   mounted () {
-    this.setScroll(true)
+    this.setAutoSync(true)
+    this.initScroller()
     this.loaded = true
     if (this.hasSynced) {
       this.sync()
@@ -285,10 +286,10 @@ export default {
   beforeDestroy () {
     this.clear()
     this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
+    this.$refs.lyrics.removeEventListener('touchend', this.handleTouchend)
     window.removeEventListener('blur', this.handleBlur)
     window.removeEventListener('focus', this.handleFocus)
     window.removeEventListener('orientationchange', this.handleRotate)
-    this.$refs.lyrics.removeEventListener('touchend', this.handleTouchend)
   },
 }
 </script>
