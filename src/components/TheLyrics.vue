@@ -154,16 +154,13 @@ export default {
       this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
     },
     initScroller () {
-      this.scroller = new SweetScroll(
-        {
-          duration: this.SCROLL_DURATION,
-          easing: 'easeOutCubic',
-          before: this.removeScrollListener,
-          complete: this.addScrollListener,
-          cancellable: false,
-        },
-        this.$refs.lyrics,
-      )
+      this.scroller = new SweetScroll({
+        duration: this.SCROLL_DURATION,
+        easing: 'easeOutCubic',
+        before: this.removeScrollListener,
+        complete: this.addScrollListener,
+        cancellable: false,
+      }, this.$refs.lyrics)
     },
     handleScroll (e) {
       clearTimeout(this.scrollTimer)
@@ -285,7 +282,7 @@ export default {
   },
   beforeDestroy () {
     this.clear()
-    this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
+    this.removeScrollListener()
     this.$refs.lyrics.removeEventListener('touchend', this.handleTouchend)
     window.removeEventListener('blur', this.handleBlur)
     window.removeEventListener('focus', this.handleFocus)
