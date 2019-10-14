@@ -23,13 +23,11 @@ instance.interceptors.request.use(async (config) => {
 })
 
 instance.interceptors.response.use(async res => {
-  return res
-}, error => {
-  if (error.response.status === 401) {
-    console.log('refresh token')
+  if (res.status === 401) {
+    console.log('Token invalid, refreshing')
     store.dispatch('auth/refreshToken')
-    return error.response
   }
+  return res
 })
 
 export default instance

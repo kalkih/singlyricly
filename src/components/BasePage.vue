@@ -1,10 +1,10 @@
 <template>
   <div class="base-page" :class="classList" ref="page">
     <div class="base-page__backdrop"></div>
-    <div class="base-page__container" :style="styleList">
+    <div class="base-page__container" :style="containerStyle">
       <div class="base-page__bg">
         <transition name="fade-bg">
-          <div :key="themeColorDark" :style="dynamicStyle"></div>
+          <div :key="themeColorDark" :style="bgStyle"></div>
         </transition>
       </div>
       <div class="base-page__content" ref="content">
@@ -29,8 +29,7 @@ export default {
       touchOffset: 0,
       touchVelocity: 0,
       lastTouch: null,
-      START_THRESHOLD: 5,
-      END_THRESHOLD: 100,
+      SWIPE_THRESHOLD: 100,
       VEL_THRESHOLD: 2.5,
       VEL_NEG_THRESHOLD: -0.05,
     }
@@ -47,13 +46,13 @@ export default {
         '--mask': this.mask,
       }
     },
-    styleList () {
+    containerStyle () {
       return {
         'transform': `translateY(${this.touchOffset}px)`,
         'transition': `transform ${this.touchOffset === 0 ? 0.25 : 0}s`,
       }
     },
-    dynamicStyle () {
+    bgStyle () {
       return {
         'background': this.themeColorDark,
       }
@@ -63,11 +62,9 @@ export default {
     moveHandler (e) {
       e.stopPropagation()
       if (this.$refs.content.scrollTop !== 0) return
+      if (this.touchOffset > 0) e.preventDefault()
       if (!this.touchStart) {
         this.touchStart = e.touches[0].pageY
-      }
-      if (this.touchOffset > 0) {
-        e.preventDefault()
       }
       const offset = e.touches[0].pageY - this.touchStart
       const time = Date.now()
@@ -76,7 +73,7 @@ export default {
         this.velocity = (offset - this.touchOffset) / timeDiff
       }
       this.lastTouch = time
-      this.touchOffset = offset > this.START_THRESHOLD ? offset : 0
+      this.touchOffset = offset
     },
     endHandler (e) {
       e.stopPropagation()
@@ -88,7 +85,7 @@ export default {
       this.lastTouch = null
     },
     isThresholdMet () {
-      return (this.touchOffset > this.END_THRESHOLD ||
+      return (this.touchOffset > this.SWIPE_THRESHOLD ||
         this.velocity > this.VEL_THRESHOLD) &&
         this.velocity > this.VEL_NEG_THRESHOLD
     },
@@ -146,7 +143,7 @@ export default {
     background: var(--bg-nested-color);
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 200%;
     transform: translate3d(0, 0, 0) translateZ(0);
 
     > div {

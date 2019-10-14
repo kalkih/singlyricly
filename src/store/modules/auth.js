@@ -59,6 +59,7 @@ const actions = {
           commit('setTtl', res.expires_in)
           dispatch('setExpiryTime')
         }
+        // TODO logout?
         return res.access_token
       }
     } catch (e) {
