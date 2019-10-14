@@ -187,7 +187,6 @@ export default {
     font-size: 1.2em;
     margin-top: 0;
     margin-bottom: .05em;
-    overflow: visible;
     justify-content: center;
     width: auto;
     color: var(--font-color);
