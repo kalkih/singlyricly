@@ -2,3 +2,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[context.branch-deploy]
+  command = 'export VUE_APP_SUBDOMAIN=$BRANCH && echo $VUE_APP_SUBDOMAIN && npm run build'
