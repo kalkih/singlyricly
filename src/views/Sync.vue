@@ -5,7 +5,7 @@
       <div v-if="step === 4" class="the-sync__lines" ref="lyrics" key="lyrics">
         <div class="container current">
           <p class="title accent">[ CURRENT LINE ]</p>
-          <transition name="line-trans" mode="out-in" v-on:enter="resizeText">
+          <transition name="swap-trans" mode="out-in" v-on:enter="resizeText">
             <div class="line" :key="current">
               <p> {{ lyrics[current] }}</p>
             </div>
@@ -13,8 +13,8 @@
         </div>
         <div class="container next">
           <p class="title accent">[ NEXT LINE ]</p>
-          <transition name="line-trans" mode="out-in" v-on:enter="resizeText">
-            <div class="line" :key="current">
+          <transition name="swap-trans" mode="out-in" v-on:enter="resizeText">
+            <div class="line --extend" :key="current">
               <p> {{ lyrics[current + 1] }}</p>
             </div>
           </transition>
@@ -404,28 +404,14 @@ export default {
       display: none;
     }
   }
-  $dur: .1s;
-  .line-trans-leave-active {
+  .swap-trans-leave-active,
+  .swap-trans-enter-active {
     transition:
-      opacity $dur ease-out,
-      transform $dur ease-out;
-  }
-  .line-trans-enter-active {
-    transition:
-      opacity calc(#{$dur} * 1) ease-out,
-      transform $dur ease-out;
-  }
-  .line-trans-enter {
-    opacity: 0 !important;
-    transform:
-      translateY(5vh)
-      scale3d(.75,.75,.75);
-  }
-  .line-trans-leave-to {
-    opacity: 0 !important;
-    // transform:
-    //   translateY(-10vh)
-    //   scale3d(.75,.75,.75);
+      opacity .1s ease-out,
+      transform .1s ease-out;
+    &.--extend {
+      transition-delay: .025s;
+    }
   }
 }
 </style>
