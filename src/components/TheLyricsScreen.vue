@@ -18,7 +18,7 @@
             <h2>We're getting your lyrics, stay tuned!</h2>
           </div>
           <div v-else-if="!progress" class="not-available" key="none">
-            <play/>
+            <play class="anim-in"/>
             <h2>Play something on Spotify and check back here</h2>
           </div>
           <div class="not-found" v-else key="404">
@@ -151,6 +151,25 @@ export default {
       font-size: .8em;
       margin-bottom: 3em;
     }
+  }
+
+    
+    
+  @keyframes scale-up {
+    0% {
+      opacity: 0;
+      transform: scale(.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .anim-in {
+    animation-name: scale-up;
+    animation-duration: .5s;
+    transform-origin: bottom;
+    animation-timing-function: cubic-bezier(0.500, 0.250, 0.225, 1.395);
   }
 
   .lyrics-trans-leave-active {
