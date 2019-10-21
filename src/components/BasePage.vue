@@ -73,7 +73,7 @@ export default {
         this.velocity = (offset - this.touchOffset) / timeDiff
       }
       this.lastTouch = time
-      this.touchOffset = offset
+      this.touchOffset = offset > 0 ? offset : offset / 3
     },
     endHandler (e) {
       e.stopPropagation()
