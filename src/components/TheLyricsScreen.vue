@@ -153,8 +153,6 @@ export default {
     }
   }
 
-    
-    
   @keyframes scale-up {
     0% {
       opacity: 0;
