@@ -1,13 +1,13 @@
 <template>
   <div id="app" :style="themeStyle">
-    <transition name="fade-bg">
+    <transition name="fade-bg--img">
       <div v-if="thumbnail"
         class="app__bg app__bg--image"
         :style="bgImageStyle"
         :key="alt">
       </div>
     </transition>
-    <transition name="fade-bg">
+    <transition name="fade-bg" mode="in-out">
       <div
         class="app__bg"
         :style="bgStyle"

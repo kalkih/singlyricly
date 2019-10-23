@@ -2,7 +2,7 @@ import getHsl from '@/utils/color'
 
 const initialState = () => ({
   light: 'var(--default-color)',
-  dark: 'var(--theme-color-dark)',
+  dark: 'var(--default-dark-color)',
   normal: 'var(--default-color)',
 })
 

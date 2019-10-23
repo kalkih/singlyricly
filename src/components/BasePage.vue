@@ -3,7 +3,7 @@
     <div class="base-page__backdrop"></div>
     <div class="base-page__container" :style="containerStyle">
       <div class="base-page__bg">
-        <transition name="fade-bg">
+        <transition name="fade-bg" mode="in-out">
           <div :key="themeColorDark" :style="bgStyle"></div>
         </transition>
       </div>
