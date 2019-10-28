@@ -122,7 +122,7 @@ export default {
     margin-bottom: 1.6em;
     max-width: 500px;
     width: 100%;
-    min-height: 6em;
+    min-height: 7em;
 
     > :nth-child(1) {
       margin-right: 1em;
