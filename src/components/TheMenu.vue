@@ -3,11 +3,11 @@
     <div class="spacer"></div>
     <transition name="swap-trans" mode="out-in">
       <div class="contribute-buttons" v-if="!fetching && playback" :key="fetching">
-        <base-button @click.native="add()">
+        <base-button accent @click.native="add()">
           <span>{{ lyricsButtonText }}</span>
           <span>lyrics</span>
         </base-button>
-        <base-button @click.native="sync()" :class="{'--disabled': !lyrics}">
+        <base-button accent @click.native="sync()" :class="{'--disabled': !lyrics}">
           <span>{{ syncedButtonText }}</span>
           <span>sync</span>
         </base-button>
