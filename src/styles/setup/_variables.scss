@@ -2,8 +2,9 @@ html {
   --font-color: #fff;
   --bg-color: black;
   --bg-nested-color: black;
-  --default-color: #5352ed;
-  --theme-color: #f0932b;
+  --default-color: hsl(240, 60%, 50%);
+  --theme-color: hsl(240, 60%, 50%);
+  --theme-color-alpha: hsla(240, 60%, 50%, .65);
   --theme-color-dark: hsl(240, 30%, 15%);
   --default-dark-color: hsl(240, 30%, 15%);
   --button-color: #fff;

@@ -410,7 +410,7 @@ export default {
   }
 
   .accent-line {
-    color: var(--theme-color);
+    color: var(--theme-color-light);
     opacity: .75;
   }
 

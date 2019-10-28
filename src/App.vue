@@ -11,7 +11,7 @@
       <div
         class="app__bg"
         :style="bgStyle"
-        :key="themeColor">
+        :key="alt">
       </div>
     </transition>
     <main>
@@ -35,19 +35,22 @@ export default {
   computed: {
     ...mapState({
       thumbnail: state => state.playback.track.thumbnail,
+      themeHead: state => state.theme.head,
       themeColor: state => state.theme.normal,
       themeColorDark: state => state.theme.dark,
+      themeColorLight: state => state.theme.light,
     }),
     themeStyle () {
       return {
-        '--theme-color': this.themeColor,
-        '--theme-color-dark': this.themeColorDark,
+        '--theme-color': this.themeColor ? this.themeColor.hsl() : '',
+        '--theme-color-dark': this.themeColorDark ? this.themeColorDark.hsl() : '',
+        '--theme-color-light': this.themeColorLight ? this.themeColorLight.hsl() : '',
       }
     },
     bgStyle () {
-      return {
-        background: this.themeColor,
-      }
+      return this.themeColor ? {
+        backgroundImage: `linear-gradient(${this.themeColor.hsla(0.65)}, #0d0d0d 85%)`,
+      } : {}
     },
     bgImageStyle () {
       return {
@@ -70,7 +73,12 @@ export default {
       if (newVal && oldVal !== newVal) {
         let p = await Vibrant.from(newVal).getPalette()
         this.setTheme(p.Vibrant.hsl)
-        this.setMetaTheme(p.Vibrant.hex)
+      }
+    },
+    async themeHead (newVal, oldVal) {
+      this.alt = +!this.alt
+      if (newVal && oldVal !== newVal) {
+        this.setMetaTheme(newVal)
       }
     },
   },
@@ -94,30 +102,30 @@ export default {
     right: 0;
     top: 0;
     height: 100px;
-    background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, transparent 100%);
     pointer-events: none;
   }
 
   main {
     height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,.25) 100%);
   }
 }
 
 .app__bg {
   position: fixed;
   z-index: -2;
-  opacity: .85;
   height: 100%;
   width: 100%;
+  opacity: 1;
+  background-image: linear-gradient(var(--theme-color-alpha), #0d0d0d 85%);
 
   &--image {
-    opacity: 1;
+    opacity: .25;
     z-index: -3;
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    background-image: none;
   }
 }
 </style>

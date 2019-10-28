@@ -1,20 +1,28 @@
-import getHsl from '@/utils/color'
+import Color from '@/utils/colorClass'
 
 const initialState = () => ({
-  light: 'var(--default-color)',
-  dark: 'var(--default-dark-color)',
-  normal: 'var(--default-color)',
+  light: '',
+  dark: '',
+  normal: '',
+  head: '#252688',
 })
 
 const mutations = {
-  setLight (state, color) {
-    state.light = getHsl(color, -25)
+  setLight (state, arr) {
+    const color = new Color(...arr, { vibrant: true })
+    state.light = color.lighten(50)
   },
-  setDark (state, color) {
-    state.dark = getHsl(color, 40)
+  setDark (state, arr) {
+    const color = new Color(...arr, { vibrant: true })
+    state.dark = color.darken(100).desaturate(25)
   },
-  set (state, color) {
-    state.normal = getHsl(color)
+  set (state, arr) {
+    const color = new Color(...arr, { vibrant: true })
+    state.normal = color
+  },
+  setHead (state, arr) {
+    const color = new Color(...arr, { vibrant: true })
+    state.head = color.darken(20).hex()
   },
   reset (state) {
     const initial = initialState()
@@ -36,6 +44,7 @@ const actions = {
     commit('setLight', color)
     commit('set', color)
     commit('setDark', color)
+    commit('setHead', color)
   },
 }
 

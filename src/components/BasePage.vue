@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     ...mapState({
-      themeColorDark: state => state.theme.dark,
+      themeColorDark: state => state.theme.dark ? state.theme.dark.hsl() : 'var(--theme-color-dark)',
     }),
     scrollPos () {
       return this.$refs.content.scrollTop
@@ -221,7 +221,7 @@ export default {
 
   .fade-bg-leave-active,
   .fade-bg-enter-active {
-    transition: opacity .5s var(--ease-io-cubic);
+    transition: opacity .25 linear;
   }
 }
 </style>
