@@ -284,11 +284,11 @@ export default {
     }
 
     .accent {
-      color: var(--theme-color);
+      color: var(--theme-color-light);
     }
 
     .highlight {
-      color: var(--theme-color);
+      color: var(--theme-color-light);
       font-weight: 700;
       line-break: none;
       white-space: nowrap;
