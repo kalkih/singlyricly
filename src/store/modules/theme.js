@@ -22,7 +22,7 @@ const mutations = {
   },
   setHead (state, arr) {
     const color = new Color(...arr, { vibrant: true })
-    state.head = color.darken(20).hex()
+    state.head = color.darken(25).desaturate(20).hex()
   },
   reset (state) {
     const initial = initialState()
