@@ -49,7 +49,7 @@ export default {
     },
     bgStyle () {
       return this.themeColor ? {
-        backgroundImage: `linear-gradient(${this.themeColor.hsla(0.65)}, #0d0d0d 85%)`,
+        backgroundImage: `linear-gradient(${this.themeColor.hsla(0.65)}, #0d0d0d 95%)`,
       } : {}
     },
     bgImageStyle () {
