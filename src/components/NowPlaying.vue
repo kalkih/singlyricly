@@ -222,7 +222,7 @@ export default {
     left: .47em;
     top: .4em;
     height: 1.7em;
-    
+
     &:hover {
       opacity: .75;
     }
