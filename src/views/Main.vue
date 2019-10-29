@@ -151,6 +151,7 @@ export default {
     right: 20px;
     z-index: 9;
     animation: fade-in .25s ease-out;
+    --font-color: rgba(255,255,255,.95);
 
     @media only screen and (min-width: 640px) {
       display: none;
@@ -166,32 +167,7 @@ export default {
     justify-content: space-between;
     width: calc(100% - 40px);
     pointer-events: none;
-
-    @media only screen and (min-width: 640px) {
-      fill: var(--font-color);
-
-      &.--center {
-        .delay-bar,
-        .now-playing {
-          flex: 1;
-        }
-
-        .delay-bar {
-          justify-content: flex-end;
-        }
-      }
-
-      .delay-bar,
-      .now-playing {
-        --button-text-color: var(--font-color);
-      }
-
-      .now-playing {
-        --button-color: none;
-        margin-right: 10px;
-        overflow: visible;
-      }
-    }
+    fill: var(--font-color);
 
     > * {
       pointer-events: auto;
@@ -199,15 +175,22 @@ export default {
 
     .delay-bar, .now-playing {
       animation: fade-in .25s ease-out;
+      --font-color: rgba(255,255,255,.95);
+      --button-text-color: var(--font-color);
     }
     .delay-bar {
       display: none;
       flex-shrink: 0;
+      margin-left: 10px;
 
       @media only screen and (min-width: 640px) {
         display: flex;
-        margin-left: 10px;
       }
+    }
+    .now-playing {
+      --button-color: none;
+      margin-right: 10px;
+      overflow: visible;
     }
     .resume-button {
       font-size: 1em;

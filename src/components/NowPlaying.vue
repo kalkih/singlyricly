@@ -17,7 +17,7 @@
     </transition>
     <div class="icon">
       <transition name="swap-trans">
-        <note v-if="idle" key="idle"/>
+        <note v-if="idle" key="idle" class="note"/>
         <pause v-else-if="playing" key="playing"/>
         <play v-else key="paused"/>
       </transition>
@@ -144,6 +144,7 @@ export default {
     font-size: .6em;
     text-align: left;
     margin-left: 3.8em;
+    margin-left: 5.4em;
     margin-right: 1.4em;
     opacity: 0;
     transition: opacity .25s;
@@ -157,35 +158,59 @@ export default {
     .title, .artist, .placeholder {
       letter-spacing: .025em;
       white-space: nowrap;
+      font-weight: 600;
     }
     .title {
       font-size: 1.34em;
       height: 1.1em;
-      font-weight: 600;
       margin-bottom: 2px;
+    }
+    .artist,
+    .placeholder {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
+      font-size: 1.2em;
     }
     .artist {
       opacity: .8;
-      font-size: 1.2em;
       font-weight: 500;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      max-width: 100%;
       padding-left: 4px;
-      padding-right: 04px;
+      padding-right: 4px;
     }
     .placeholder {
-      font-size: 1.2em;
-      font-weight: 600;
       margin-bottom: 2px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      max-width: 100%;
     }
   }
 
   .thumbnail {
-    display: none;
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 2.6em;
+    height: 2.6em;
+    border-radius: 2.6em;
+    border: 3px solid var(--font-color);
+    z-index: -1;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &:before {
+      content: '';
+      background: #000;
+      opacity: .25;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      transition: opacity .25s ease;
+    }
   }
 
   .icon {
@@ -197,8 +222,7 @@ export default {
     left: .47em;
     top: .4em;
     height: 1.7em;
-    fill: var(--button-text-color);
-
+    
     &:hover {
       opacity: .75;
     }
@@ -209,24 +233,10 @@ export default {
     }
   }
 
-  &:before {
-    content: '';
-    opacity: var(--button-opacity);
-    position: absolute;
-    z-index: -2;
-    background: var(--button-color);
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    transition: opacity .15s;
-    transform: translateZ(0);
-    border-radius: 2.6em;
-  }
-
   .marquee {
     animation-play-state: paused;
   }
+
   &.--active {
     max-width: calc(100% - (60px + 20px));
     transition: max-width .15s ease-out;
@@ -238,6 +248,13 @@ export default {
       animation-play-state: running;
     }
   }
+
+  &.--idle {
+    .now-playing__text {
+      margin-left: 4.4em;
+    }
+  }
+
   @media only screen and (min-width: 640px) {
     max-width: 100%;
 
@@ -245,59 +262,17 @@ export default {
       max-width: 100%;
     }
 
-    &.--idle {
-      .now-playing__text {
-        margin-left: 4.4em;
-      }
-    }
-
     &.--playing {
       .icon {
         opacity: 0;
       }
     }
-
-    &:before {
-      opacity: var(--button-opacity);
-    }
-    .now-playing__text {
-      margin-left: 5.4em;
-    }
     .marquee {
       --right-fade: 20px;
-    }
-    .thumbnail {
-      display: block;
-      position: absolute;
-      left: 0;
-      width: 2.6em;
-      height: 2.6em;
-      border-radius: 2.6em;
-      border: 3px solid var(--font-color);
-      z-index: -1;
-      overflow: hidden;
-
-      img {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-
-      &:before {
-        content: '';
-        background: #000;
-        opacity: .25;
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        transition: opacity .25s ease;
-      }
+      animation-play-state: running;
     }
     &:hover {
       transition: max-width .15s ease-out;
-
       .now-playing__text {
         opacity: .85;
       }
@@ -309,18 +284,9 @@ export default {
           opacity: .5;
         }
       }
-      &:before {
-        opacity: var(--button-hover-opacity);
-      }
       .marquee {
         animation-play-state: running;
       }
-    }
-    &__text {
-      opacity: 1;
-    }
-    .marquee {
-      animation-play-state: running;
     }
   }
   .fade-leave-active,
