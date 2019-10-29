@@ -202,7 +202,7 @@ export default {
 
     &:before {
       content: '';
-      background: #000;
+      background: var(--theme-color-dark);
       opacity: .25;
       position: absolute;
       left: 0;
