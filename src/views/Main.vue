@@ -207,6 +207,18 @@ export default {
         display: none;
       }
     }
+
+    @media only screen and (min-width: 640px) {
+      &.--center {
+        .delay-bar,
+        .now-playing {
+          flex: 1;
+        }
+        .delay-bar {
+          justify-content: flex-end;
+        }
+      }
+    }
   }
   .update-toast {
     position: fixed;
