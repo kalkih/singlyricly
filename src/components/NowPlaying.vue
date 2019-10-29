@@ -143,9 +143,7 @@ export default {
     flex-flow: column;
     font-size: .6em;
     text-align: left;
-    margin-left: 3.8em;
     margin-left: 5.4em;
-    margin-right: 1.4em;
     opacity: 0;
     transition: opacity .25s;
     overflow: hidden;
@@ -235,6 +233,7 @@ export default {
 
   .marquee {
     animation-play-state: paused;
+    --right-fade: 20px;
   }
 
   &.--active {
@@ -268,7 +267,6 @@ export default {
       }
     }
     .marquee {
-      --right-fade: 20px;
       animation-play-state: running;
     }
     &:hover {
