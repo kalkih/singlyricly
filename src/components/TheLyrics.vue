@@ -329,7 +329,7 @@ export default {
   position: relative;
   font-size: 1em;
   text-align: center;
-  mask-image: linear-gradient(transparent 70px, black 33%, black 66%, transparent calc(100% - 70px));
+  mask-image: linear-gradient(transparent, rgba(0,0,0,.1) 70px, black 25%, black 66%, rgba(0,0,0,.1) calc(100% - 140px), transparent);
   transform: translateZ(0) translate3d(0,0,0);
 
   .base-button {
