@@ -2,14 +2,14 @@
   <div ref="element" class="marquee" :class="{'--overflow': overflow, '--paused': paused}">
     <resize-observer @notify="resizeHandler" />
     <h2 ref="reference">{{ text }}</h2>
-    <template v-if="overflow">
+    <div v-if="overflow" class="overflow">
       <h2 :style="sharedStyle">
         {{ text }}
       </h2>
       <h2 :style="{...sharedStyle, left: `${this.width + 28}px`}">
         {{ text }}
       </h2>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -29,8 +29,9 @@ export default {
       overflow: true,
       width: 0,
       max: 0,
-      speed: 0.035,
+      DUR_MULTIPLIER: 0.035,
       resizeTimer: null,
+      DEBOUNCE_DELAY: 50,
     }
   },
   computed: {
@@ -38,7 +39,7 @@ export default {
       const width = this.width + 24
       return {
         'width': `${width}px`,
-        'animation-duration': `${(width) * this.speed}s`,
+        'animation-duration': `${(width) * this.DUR_MULTIPLIER}s`,
       }
     },
   },
@@ -60,7 +61,7 @@ export default {
       clearTimeout(this.resizeTimer)
       this.resizeTimer = setTimeout(() => {
         this.checkOverflow()
-      }, 150)
+      }, this.DEBOUNCE_DELAY)
     },
   },
   watch: {
@@ -85,23 +86,15 @@ export default {
   animation-play-state: running;
 
   &.--overflow {
-    mask-image: linear-gradient(to right, transparent, black var(--left-fade), black calc(100% - var(--right-fade)), transparent 100%);
-
-    h2:nth-child(2) {
-      visibility: hidden;
+    & > h2 {
+      opacity: 0;
+      transition: opacity .15s linear .05s;
     }
   }
   &.--paused {
     animation-play-state: paused;
   }
-  h2:nth-child(2) {
-    padding: 0 4px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  & > h2 {
+  h2 {
     display: inline-block;
     margin: 0;
     padding: 0;
@@ -109,23 +102,41 @@ export default {
     font-weight: inherit;
     letter-spacing: inherit;
   }
-  h2:nth-child(1n+3) {
+  & > h2 {
+    padding: 0 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity .25s;
+  }
+  .overflow {
     position: absolute;
     padding-right: 24px;
+    width: 100%;
     top: 0;
-    left: 4px;
-    animation: 10s linear 0s infinite normal none moving;
-    animation-play-state: inherit;
+    right: 0;
+    height: 1.4em;
+    mask-image: linear-gradient(to right, transparent, black var(--left-fade), black calc(100% - var(--right-fade)), transparent 100%);
+    animation: .15s fade linear;
+
+    h2 {
+      left: 4px;
+      position: absolute;
+      animation: 10s linear 0s infinite normal none moving;
+      animation-play-state: inherit;
+    }
   }
   @keyframes moving {
     0% {
-      transform:translateX(0%);
+      transform: translateX(0%);
     }
     15% {
-      transform:translateX(0%);
+      transform: translateX(0%);
     }
     100% {
-      transform:translateX(-100%);
+      transform: translateX(-100%);
     }
   }
 }
