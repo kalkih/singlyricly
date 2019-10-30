@@ -269,6 +269,9 @@ export default {
     .marquee {
       animation-play-state: running;
     }
+    .now-playing__text {
+      opacity: 1;
+    }
     &:hover {
       transition: max-width .15s ease-out;
       .now-playing__text {
