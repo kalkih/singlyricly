@@ -5,10 +5,8 @@
     <transition name="fade" mode="out-in">
       <div v-bind:key="hasInfo" class="now-playing__text">
         <template v-if="hasInfo">
-          <marquee class="title" :text="title" :paused="false"/>
-          <h2 class="artist">
-            {{ artist }}
-          </h2>
+          <marquee class="title" :text="title"/>
+          <marquee class="artist" :text="artist"/>
         </template>
         <span v-else class="placeholder">
           {{ placeholder }}
@@ -173,8 +171,6 @@ export default {
     .artist {
       opacity: .8;
       font-weight: 500;
-      padding-left: 4px;
-      padding-right: 4px;
     }
     .placeholder {
       margin-bottom: 2px;
