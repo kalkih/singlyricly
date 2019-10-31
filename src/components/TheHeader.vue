@@ -2,6 +2,7 @@
   <div class="the-header" :class="{ '--home': home }">
     <h1 class="the-header__title" @click="reset">{{ title }}</h1>
     <base-button
+      transparent
       v-if="acceptance || nestedNav"
       class="the-header__settings"
       @click.native="toggleMenu">
@@ -110,7 +111,7 @@ export default {
   &__settings {
     display: none;
     height: 2.6em;
-    padding-right: 2.4em;
+    padding-right: 2.3em;
     padding-left: .8em;
     font-weight: 600;
     letter-spacing: initial;
@@ -119,7 +120,6 @@ export default {
     animation: fade-in-top .25s ease-out;
 
     > svg, > div {
-      fill: var(--button-text-color);
       height: 1em;
       position: absolute;
       right: .8em;
@@ -129,7 +129,6 @@ export default {
       display: block;
       transform: rotate(-90deg);
       height: 1em;
-      fill: var(--button-text-color);
     }
   }
 
