@@ -298,7 +298,7 @@ export default {
       font-size: .7em;
       margin-top: 1em;
     }
-    
+
     .highlight {
       color: var(--theme-color-light);
       font-weight: 700;
