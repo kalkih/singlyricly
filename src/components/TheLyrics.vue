@@ -31,7 +31,7 @@
         </p>
       </template>
     </div>
-    <div class="scroll-offset-bar" v-if="synced" :class="{'--anim': !autoSync}" :style="{'transform': `scaleX(${scrollOffset})`}"></div>
+    <div class="scroll-offset-bar" v-if="synced" :class="{'--anim': !autoSync}" :style="{ '--offset': scrollOffset }"></div>
   </div>
 </template>
 
@@ -297,19 +297,53 @@ export default {
   width: 100%;
 }
 .scroll-offset-bar {
-  height: 6px;
-  background: var(--font-color);
+  height: 3px;
   position: fixed;
   bottom: 0;
-  left: calc(50% - 5%);
-  width: 10%;
-  transition: transform .05s;
-  border-radius: 1px;
+  width: 100%;
   opacity: 1;
+  transition: unset;
+  --offset: 0;
 
   &.--anim {
-    transition: transform 0s;
-    opacity: 0;
+    &:after,
+    &:before {
+      background: var(--font-color);
+      animation: 1s override forwards;
+      transition: unset;
+      opacity: 0;
+    }
+  }
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+    width: 10%;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    background: var(--font-color);
+    opacity: calc((var(--offset) / 10 - .5) + .5);
+    transition: transform .05s;
+    transform: scaleX(calc(var(--offset) / 2));
+    transform-origin: left bottom;
+  }
+
+  &:after {
+    left: unset;
+    right: 0;
+    transform-origin: right bottom;
+  }
+
+  @keyframes override {
+    0% {
+      opacity: .25;
+      transform: scaleX(10);
+    }
+    50% {
+      transform: scaleX(10) scaleY(500);
+      opacity: 0;
+    }
   }
 }
 .the-lyrics {
