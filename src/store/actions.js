@@ -30,5 +30,6 @@ export default {
     commit('auth/reset')
     commit('user/reset')
     commit('settings/reset')
+    commit('theme/reset')
   },
 }
