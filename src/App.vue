@@ -1,19 +1,22 @@
 <template>
   <div id="app" :style="themeStyle">
-    <transition name="fade-bg--img">
+    <transition name="fade-bg--img" mode="in-out">
       <div v-if="thumbnail"
         class="app__bg app__bg--image"
         :style="bgImageStyle"
-        :key="alt">
+        :key="thumbnail">
       </div>
     </transition>
-    <transition name="fade-bg" mode="in-out">
+    <transition name="fade-bg">
       <div
         class="app__bg"
         :style="bgStyle"
-        :key="alt">
+        :key="thumbnail">
       </div>
     </transition>
+    <div
+      class="app__bg app__bg--fade" :class="{'--dark': thumbnail}">
+    </div>
     <main>
       <router-view/>
     </main>
@@ -49,7 +52,7 @@ export default {
     },
     bgStyle () {
       return this.themeColor ? {
-        backgroundImage: `linear-gradient(${this.themeColor.hsla(0.65)}, #0d0d0d 95%)`,
+        background: this.themeColor.hsl() || 'var(--theme-color)',
       } : {}
     },
     bgImageStyle () {
@@ -115,17 +118,24 @@ export default {
   z-index: -2;
   height: 100%;
   width: 100%;
-  opacity: 1;
-  background-image: linear-gradient(var(--theme-color-alpha), #0d0d0d 85%);
+  opacity: .75;
 
+  &--fade {
+    opacity: .5;
+    transition: opacity .5s;
+    background-image: linear-gradient(to top, #0d0d0d, transparent 125%);
+
+    &.--dark {
+      opacity: 1;
+    }
+  }
   &--image {
-    opacity: .25;
     z-index: -3;
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-image: none;
+    filter: grayscale(100%);
   }
 }
 </style>

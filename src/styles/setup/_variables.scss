@@ -2,11 +2,13 @@ html {
   --font-color: #fff;
   --bg-color: black;
   --bg-nested-color: black;
-  --default-color: hsl(240, 60%, 50%);
-  --theme-color: hsl(240, 60%, 50%);
-  --theme-color-alpha: hsla(240, 60%, 50%, .65);
-  --theme-color-dark: hsl(240, 30%, 15%);
-  --default-dark-color: hsl(240, 30%, 15%);
+  --default-color: hsl(260, 100%, 44%);
+  --theme-color: hsl(260, 100%, 44%);
+  --theme-color--shade: hsl(272, 76%, 53%);
+  --theme-color-alpha: hsla(260, 100%, 44%, .65);
+  --default-dark-color: hsl(260, 100%, 15%);
+  --theme-color-dark: hsl(260, 100%, 15%);
+  --theme-color-light: hsl(260, 100%, 80%);
   --button-color: #fff;
   --button-text-color:  black;
   --button-opacity: 1;

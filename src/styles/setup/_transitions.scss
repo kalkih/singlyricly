@@ -24,11 +24,11 @@
 
 .fade-bg--img-leave-active,
 .fade-bg--img-enter-active {
-  transition: opacity 1s var(--ease-io-cubic);
+  transition: opacity 2s;
 }
 .fade-bg-leave-active,
 .fade-bg-enter-active {
-  transition: opacity .5s var(--ease-io-cubic);
+  transition: opacity 1s;
 }
 .fade-bg--img-enter,
 .fade-bg--img-leave-to,

@@ -4,7 +4,7 @@ const initialState = () => ({
   light: '',
   dark: '',
   normal: '',
-  head: '#252688',
+  head: '#4a00e0',
 })
 
 const mutations = {
