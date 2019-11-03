@@ -112,28 +112,36 @@ export default {
 <style lang="scss" scoped>
 .welcome {
   height: 100%;
-
+  &:after {
+    position: fixed;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background: var(--theme-color);
+    background-image: linear-gradient(to top, var(--theme-color), var(--theme-color--shade));
+    opacity: .60;
+    z-index: -1;
+  }
   &:before {
     position: fixed;
     content: '';
     background: url("/img/x-2.jpg") top center/cover;
     height: 100%;
     width: 100%;
-    opacity: 1;
-    z-index: -3;
-    animation: anim-bg 2.5s;
+    opacity: .75;
+    animation: anim-bg 2.5s forwards;
+    z-index: -1;
 
     @keyframes anim-bg {
       0% {
-        transform: scale(1.1);
+        transform: scale(1);
         opacity: 0;
       }
       50% {
-        opacity: 1;
+        opacity: .75;
       }
       100% {
-        opacity: 1;
-        transform: scale(1);
+        transform: scale(1.1);
       }
     }
   }
@@ -143,9 +151,10 @@ export default {
     top: 20px;
     right: 20px;
     z-index: 99;
+    color: rgba(0,0,0,0.65);
 
     > * {
-      fill: var(--button-text-color);
+      fill: rgba(0,0,0,0.65);
       height: 1.2em;
       position: absolute;
     }
@@ -155,7 +164,7 @@ export default {
     }
 
     svg {
-      fill: var(--button-text-color);
+      fill: rgba(0,0,0,0.65);
       transform: rotate(-90deg);
     }
 
@@ -184,6 +193,7 @@ export default {
     }
 
     .base-button {
+      color: rgba(0,0,0,0.65);
       font-size: 1em;
       height: auto;
       min-height: 3.6em;
@@ -237,10 +247,9 @@ export default {
         width: 100%;
         height: 100%;
         margin: 0;
-        background-color: var(--button-text-color);
+        background-color: var(--theme-color);
         border-radius: 100%;
-        animation:
-          spinner-pulse 1s infinite ease-in-out;
+        animation: spinner-pulse 1s infinite ease-in-out;
       }
 
       @keyframes reveal-in {
