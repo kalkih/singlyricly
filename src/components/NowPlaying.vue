@@ -157,9 +157,9 @@ export default {
       font-weight: 600;
     }
     .title {
-      font-size: 1.34em;
-      height: 1.1em;
-      margin-bottom: 2px;
+      font-size: 1.5em;
+      height: 1.2em;
+      margin-bottom: 0.2em;
     }
     .artist,
     .placeholder {
@@ -171,6 +171,7 @@ export default {
     .artist {
       opacity: .8;
       font-weight: 500;
+      height: 1.2em;
     }
     .placeholder {
       margin-bottom: 2px;
