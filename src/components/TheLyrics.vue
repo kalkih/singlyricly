@@ -305,6 +305,10 @@ export default {
   transition: unset;
   --offset: 0;
 
+  @media only screen and (min-width: 640px) {
+    --anim-height: 40;
+  }
+
   &.--anim {
     &:after,
     &:before {
@@ -341,7 +345,7 @@ export default {
       transform: scaleX(10);
     }
     50% {
-      transform: scaleX(10) scaleY(500);
+      transform: scaleX(10) scaleY(var(--anim-height, 500));
       opacity: 0;
     }
   }
