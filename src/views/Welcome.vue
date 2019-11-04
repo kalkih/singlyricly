@@ -11,10 +11,12 @@
     <base-page-transition mode="out-in">
       <the-privacy-policy v-if="privacy" key="privacy"/>
     </base-page-transition>
-    <base-button class="welcome__button" circle @click.native="toggle()">
+    <base-button class="welcome__button" circle transparent @click.native="toggle()">
       <transition name="swap-trans">
-        <div v-if="about || privacy"><chevron key="open"/></div>
-        <span v-else key="closed">?</span>
+        <div v-if="about || privacy">
+          <chevron key="open"/>
+        </div>
+        <dots v-else key="closed"/>
       </transition>
     </base-button>
     <div class="welcome__container">
@@ -36,6 +38,7 @@ import TheAbout from '@/components/TheAbout'
 import ThePrivacyPolicy from '@/components/ThePrivacyPolicy'
 import BasePageTransition from '@/components/BasePageTransition'
 import chevron from '@/assets/chevron.svg'
+import dots from '@/assets/dots.svg'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -47,6 +50,7 @@ export default {
     ThePrivacyPolicy,
     BasePageTransition,
     chevron,
+    dots,
   },
   data () {
     return {
@@ -113,13 +117,13 @@ export default {
 .welcome {
   height: 100%;
   &:after {
-    position: fixed;
     content: '';
+    position: fixed;
     height: 100%;
     width: 100%;
     background: var(--theme-color);
     background-image: linear-gradient(to top, var(--theme-color), var(--theme-color--shade));
-    opacity: .60;
+    opacity: .6;
     z-index: -1;
   }
   &:before {
@@ -151,27 +155,17 @@ export default {
     top: 20px;
     right: 20px;
     z-index: 99;
-    color: rgba(0,0,0,0.65);
-
-    > * {
-      fill: rgba(0,0,0,0.65);
-      height: 1.2em;
-      position: absolute;
-    }
 
     > div {
       width: 1.2em;
+      height: 1.2em;
+      position: absolute;
     }
-
-    svg {
-      fill: rgba(0,0,0,0.65);
+    .svg-dots {
+      height: 1.4em;
+    }
+    .svg-chevron {
       transform: rotate(-90deg);
-    }
-
-    > span {
-      font-size: 1.2em;
-      font-weight: 700;
-      margin-left: 0.075em;
     }
   }
   &__container {
@@ -211,8 +205,8 @@ export default {
       white-space: normal;
       transition:
         transform .15s,
-        max-width .5s var(--ease-io-cubic),
-        max-height .25s var(--ease-io-cubic) .25s;
+        max-width .5s ease,
+        max-height .25s ease .25s;
 
       > span {
         padding: 1em 1em;
@@ -226,11 +220,11 @@ export default {
         max-height: 4.6em;
         transition:
           transform .15s,
-          max-width .5s var(--ease-io-cubic),
-          max-height .15s var(--ease-io-cubic) 0s;
+          max-width .5s ease,
+          max-height .15s ease 0s;
 
         .text {
-          transition: opacity .15s;
+          transition: opacity .1s;
           opacity: 0;
         }
       }
