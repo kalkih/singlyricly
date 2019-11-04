@@ -31,20 +31,27 @@ export default {
     const vm = this
     return {
       pressed: false,
+      active: false,
       handlers: {
         mousedown: vm.down,
         mouseup: vm.reset,
         touchstart: vm.down,
         touchend: vm.reset,
         mouseleave: vm.reset,
+        mouseover: vm.hover,
       },
     }
   },
   methods: {
-    down (ev) {
+    hover () {
+      this.active = true
+    },
+    down () {
+      this.active = true
       this.pressed = true
     },
-    reset (ev) {
+    reset () {
+      this.active = false
       this.pressed = false
     },
   },
@@ -53,6 +60,7 @@ export default {
       return {
         '--circle': this.circle,
         '--pressed': this.pressed,
+        '--hover': this.active,
         '--transparent': this.transparent,
         '--accent': this.accent,
       }
@@ -103,7 +111,7 @@ export default {
   &.--transparent {
     color: var(--font-color);
 
-    &:hover {
+    &.--hover {
       &:before {
         opacity: .05;
       }
@@ -125,7 +133,7 @@ export default {
     color: var(--font-color);
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
 
-    &:hover {
+    &.--hover {
       &:before {
         opacity: .75;
       }
@@ -166,7 +174,7 @@ export default {
     transform: translateZ(0);
   }
 
-  &:hover {
+  &.--hover {
     &:before {
       opacity: var(--button-hover-opacity);
     }
