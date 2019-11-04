@@ -137,6 +137,8 @@ export default {
       display: flex;
       flex-flow: column;
       width: auto;
+      height: 4.6em;
+      overflow: visible;
 
       > :nth-child(2) {
         margin: .15em 0 0 0;
@@ -177,6 +179,8 @@ export default {
     padding: 1.2em 3em;
     margin: auto;
     min-height: 3em;
+    margin-top: 1.8em;
+    margin-bottom: 1.8em;
 
     @media only screen and (min-width: 640px) {
       margin-top: 1.8em;
@@ -185,12 +189,15 @@ export default {
 
   .delay-bar {
     font-size: 1.2em;
-    margin-top: 0;
-    margin-bottom: .05em;
     justify-content: center;
+    align-items: center;
     width: auto;
+    height: 3.9em;
     color: var(--font-color);
     fill: var(--font-color);
+    display: flex;
+    margin-top: 1.6em !important;
+    overflow: visible;
 
     &:before {
       background: transparent;
