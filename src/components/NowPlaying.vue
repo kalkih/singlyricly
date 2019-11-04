@@ -290,8 +290,8 @@ export default {
   .fade-leave-active,
   .fade-enter-active {
     transition:
-      opacity .15s var(--ease-io-cubic),
-      transform .15s var(--ease-io-cubic);
+      opacity .15s linear,
+      transform .15s linear;
   }
   .fade-enter {
     opacity: 0 !important;

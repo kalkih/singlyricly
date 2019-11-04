@@ -12,11 +12,11 @@ $short: .2s;
 .base-page-transition-leave-active,
 .base-page-transition-enter-active {
   transition:
-    opacity .5s var(--ease-io-cubic) !important;
+    opacity .5s linear !important;
 
   .base-page__backdrop {
     will-change: opacity;
-    transition: opacity $long var(--ease-io-cubic);
+    transition: opacity $long linear;
   }
   .base-page__content {
     will-change: transform, opacity;
