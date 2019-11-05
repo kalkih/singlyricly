@@ -61,7 +61,7 @@
       </base-button>
     </div>
     <template v-if="step === 4">
-      <div class="the-sync__progress" :style="progressStyle"></div>
+      <the-scroll-override-bar :offset="this.percent"/>
       <span class="the-sync__status">
         {{ current - 1 }} / {{ length - 2 }}
       </span>
@@ -72,6 +72,7 @@
 <script>
 import TheHeader from '@/components/TheHeader'
 import BaseButton from '@/components/BaseButton'
+import TheScrollOverrideBar from '@/components/TheScrollOverrideBar'
 import sad from '@/assets/sad.svg'
 import close from '@/assets/close.svg'
 import reload from '@/assets/reload.svg'
@@ -82,6 +83,7 @@ export default {
   components: {
     TheHeader,
     BaseButton,
+    TheScrollOverrideBar,
     sad,
     close,
     reload,
@@ -120,12 +122,7 @@ export default {
       return this.savedTrack.artist
     },
     percent () {
-      return (this.current) / this.length
-    },
-    progressStyle () {
-      return {
-        transform: `scaleX(${this.percent})`,
-      }
+      return (this.current / this.length) * 10
     },
   },
   methods: {
@@ -342,15 +339,6 @@ export default {
       padding: 1.2em 2.6em;
       margin: 0 10px;
     }
-  }
-  &__progress {
-    position: fixed;
-    bottom: 0;
-    height: 6px;
-    background-color: var(--button-color);
-    width: 100%;
-    transition: transform .2s;
-    opacity: var(--button-opacity);
   }
   &__status {
     position: fixed;
