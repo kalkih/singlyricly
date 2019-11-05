@@ -49,6 +49,8 @@ export default {
     return {
       placeholder: 'Nothing playing',
       pressed: false,
+      interact: false,
+      interactTimer: null,
       handlers: {
         mousedown: vm.down,
         mouseup: vm.reset,
@@ -86,6 +88,7 @@ export default {
     classList () {
       return {
         '--active': this.expanded,
+        '--interact': this.interact,
         '--pressed': this.pressed,
         '--idle': this.idle,
         '--playing': this.playing,
@@ -98,9 +101,29 @@ export default {
     }),
     down () {
       this.pressed = true
+      this.interactDebouncer()
     },
     reset () {
       this.pressed = false
+    },
+    interactDebouncer () {
+      clearTimeout(this.interactTimer)
+      this.interact = true
+      this.interactTimer = setTimeout(() => {
+        this.interact = false
+      }, 2000)
+    },
+  },
+  watch: {
+    active (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.interactDebouncer()
+      }
+    },
+    playing (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.interactDebouncer()
+      }
     },
   },
 }
@@ -141,7 +164,7 @@ export default {
     flex-flow: column;
     font-size: .6em;
     text-align: left;
-    margin-left: 5.4em;
+    margin-left: 5.3em;
     opacity: 0;
     transition: opacity .25s;
     overflow: hidden;
@@ -210,6 +233,7 @@ export default {
 
   .icon {
     transition: opacity .25s ease;
+    opacity: 1;
   }
 
   svg {
@@ -245,9 +269,34 @@ export default {
     }
   }
 
+  &.--playing {
+    .icon {
+      opacity: 0;
+    }
+    .thumbnail {
+      &:before {
+        opacity: 0;
+      }
+    }
+  }
+
   &.--idle {
+    .icon {
+      opacity: 1;
+    }
     .now-playing__text {
       margin-left: 4.4em;
+    }
+  }
+
+  &.--interact {
+    .icon {
+      opacity: 1;
+    }
+    .thumbnail {
+      &:before {
+        opacity: .25;
+      }
     }
   }
 
@@ -257,16 +306,11 @@ export default {
     &.--active {
       max-width: 100%;
     }
-
-    &.--playing {
-      .icon {
-        opacity: 0;
-      }
-    }
     .marquee {
       animation-play-state: running;
     }
-    .now-playing__text {
+    .now-playing__text,
+    .icon {
       opacity: 1;
     }
     &:hover {
@@ -279,7 +323,7 @@ export default {
       }
       .thumbnail {
         &:before {
-          opacity: .5;
+          opacity: .25;
         }
       }
       .marquee {
