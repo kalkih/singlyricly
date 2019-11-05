@@ -15,7 +15,8 @@
       </div>
     </transition>
     <div
-      class="app__bg app__bg--fade" :class="{'--dark': thumbnail}">
+      class="app__bg app__bg--fade"
+      :class="{'--dark': thumbnail}">
     </div>
     <main>
       <router-view/>
@@ -121,7 +122,7 @@ export default {
   opacity: .75;
 
   &--fade {
-    opacity: .5;
+    opacity: .75;
     transition: opacity .5s;
     background-image: linear-gradient(to top, #0d0d0d, transparent 125%);
 
