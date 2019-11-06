@@ -1,0 +1,7 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : {
+    "namespace": "android_app",
+    "package_name": "me.kvrl.singlyricly",
+    "sha256_cert_fingerprints": ["00:8A:F8:04:0E:33:B5:06:3C:3D:57:8F:D9:4C:3F:36:1B:FE:E2:74:1D:3F:7B:24:AB:5C:89:7A:54:2E:5F:20"] }
+}]
