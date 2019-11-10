@@ -33,7 +33,7 @@ export default {
 .base-toast {
   width: 100%;
   height: auto;
-  background: linear-gradient(180deg, var(--bg-color) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, transparent 100%);
   padding: 20px;
   display: flex;
   justify-content: center;

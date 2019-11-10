@@ -51,7 +51,7 @@ export default {
 .update-toast {
   width: 100%;
   height: auto;
-  background: linear-gradient(0deg, var(--bg-color) 0%, transparent 100%);
+  background: linear-gradient(0deg, rgba(0,0,0,.75) 0%, transparent 100%);
   padding: 20px;
   display: flex;
   justify-content: center;
