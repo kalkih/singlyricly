@@ -8,7 +8,7 @@ module.exports = {
     },
   },
   pwa: {
-    themeColor: '#4a00e0',
+    themeColor: '#7725C1',
     msTileColor: '#4a00e0',
     workboxPluginMode: 'InjectManifest',
     workboxOptions: {
