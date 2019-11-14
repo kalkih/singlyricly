@@ -1,6 +1,6 @@
 <template>
   <div class="the-lyrics-wrapper">
-    <div v-longtouch:100="handleLongTouch" class="the-lyrics" id="lyrics"
+    <div v-longtouch="handleLongTouch" class="the-lyrics" id="lyrics"
       :class="{'--static': !animate, '--unsynced': !isSynced, '--override': !autoSync}"
       ref="lyrics">
       <template v-if="synced">

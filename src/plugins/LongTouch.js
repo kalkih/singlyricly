@@ -3,34 +3,34 @@ const LongTouch = {
     function handleTouchStart (ev) {
       let $this = this.$$longtouch
       $this.cancelled = false
-      $this.touchStart = ev.timeStamp
-    }
-    function handleTouchEnd (ev) {
-      let $this = this.$$longtouch
-      if (!$this.cancelled && ev.timeStamp - $this.touchStart > $this.length) {
+      $this.timer = setTimeout(() => {
         const { binding } = $this
         if (typeof binding.value === 'function') {
           binding.value(ev)
         }
-      }
+      }, $this.length)
     }
     function reset (ev) {
-      this.$$longtouch.cancelled = true
+      let $this = this.$$longtouch
+      if ($this.timer) {
+        clearTimeout($this.timer)
+        $this.timer = null
+      }
     }
     Vue.directive('longtouch', {
       bind (el, binding) {
         el.$$longtouch = {
           binding,
-          length: Number(binding.arg) || 350,
+          length: Number(binding.arg) || 500,
         }
         el.addEventListener('touchstart', handleTouchStart)
-        el.addEventListener('touchend', handleTouchEnd)
+        el.addEventListener('touchend', reset)
         el.addEventListener('touchmove', reset, { passive: true })
         el.addEventListener('touchcancel', reset)
       },
       unbind (el) {
         el.removeEventListener('touchstart', handleTouchStart)
-        el.removeEventListener('touchend', handleTouchEnd)
+        el.removeEventListener('touchend', reset)
         el.removeEventListener('touchmove', reset)
         el.removeEventListener('touchcancel', reset)
       },
