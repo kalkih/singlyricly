@@ -1,6 +1,6 @@
 <template>
   <div class="the-lyrics-wrapper">
-    <div class="the-lyrics" id="lyrics"
+    <div v-longtouch:100="handleLongTouch" class="the-lyrics" id="lyrics"
       :class="{'--static': !animate, '--unsynced': !isSynced, '--override': !autoSync}"
       ref="lyrics">
       <template v-if="synced">
@@ -32,6 +32,7 @@
       </template>
     </div>
     <the-scroll-override-bar v-if="synced" :offset="scrollOffset" :active="autoSync"/>
+    <input ref="copy" type="text"/>
   </div>
 </template>
 
@@ -180,6 +181,15 @@ export default {
         }
       }
     },
+    handleLongTouch () {
+      if (!this.synced || !this.synced[this.activeLine]) return
+      const input = this.$refs.copy
+      input.value = this.synced[this.activeLine].line
+      input.select()
+      document.execCommand('copy')
+      window.getSelection().removeAllRanges()
+      window.navigator.vibrate(10)
+    },
     handleBlur () {
       this.hasFocus = false
     },
@@ -296,6 +306,12 @@ export default {
 .the-lyrics-wrapper {
   height: 100%;
   width: 100%;
+
+  input {
+    position: fixed;
+    left: -9999px;
+    z-index: -990;
+  }
 }
 .the-lyrics {
   height: 100%;
