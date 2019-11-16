@@ -209,7 +209,7 @@ export default {
         max-height .25s ease .25s;
 
       > span {
-        padding: 1em 1em;
+        padding: 1em 0;
         display: block;
         height: auto;
         transition: opacity .15s .35s;
