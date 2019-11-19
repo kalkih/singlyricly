@@ -2,7 +2,7 @@
   <base-page class="the-about" @swipe-down="toggle(false)">
     <div></div>
     <h2>What's this?</h2>
-    <p>Song lyrics synchronized with your Spotify playback</p>
+    <p>Singlyricly is a community based app which allow users to see real time song lyrics synchronized with their Spotify playback. Real time lyrics are accessible regardless of playback device, play music through Sonos, Chromecast or Spotify Connect, and the lyrics will always show up in the app as long as there's a connected Spotify account.</p>
     <h2>Contact</h2>
     <p>
       <a :href="`mailto:${contact}`">{{ contact }}</a>
