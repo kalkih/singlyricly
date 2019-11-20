@@ -3,14 +3,14 @@
   <img width="256" src="https://user-images.githubusercontent.com/457678/69186194-5e73f600-0b18-11ea-8d71-f4be4c674932.png">
   </a>
 </p>
+<p align="center">
+  <img width="600" src="https://user-images.githubusercontent.com/457678/69185653-7434eb80-0b17-11ea-8c54-e1b9723c5944.png">
+</p>
 
 <p align="center">
   Singlyricly is a community based app which allow users to see real time song lyrics synchronized with their Spotify playback. Real time lyrics are accessible regardless of playback device, play music through Sonos, Chromecast or Spotify Connect, and the lyrics will always show up in the app as long as there's a connected Spotify account.
 </p>
 
-<p align="center">
-  <img width="600" src="https://user-images.githubusercontent.com/457678/69185653-7434eb80-0b17-11ea-8c54-e1b9723c5944.png">
-</p>
 
 # Singlyricly - [https://singlyricly.com/](https://singlyricly.com/)
 
