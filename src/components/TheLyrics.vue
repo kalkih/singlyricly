@@ -68,6 +68,7 @@ export default {
       touchEndTimer: null,
       scrollOffset: 0,
       isScrolling: false,
+      isTouching: false,
       lastUpdatedAt: 0,
       lastProgress: 0,
       lastScrollPos: 0,
@@ -154,6 +155,7 @@ export default {
     },
     removeScrollListener () {
       this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
+      this.isTouching = false
     },
     initScroller () {
       this.scroller = new SweetScroll({
@@ -205,7 +207,11 @@ export default {
         this.hasFocus = true
       }, 50)
     },
+    handleTouchStart (e) {
+      this.isTouching = true
+    },
     handleTouchend (e) {
+      this.isTouching = false
       clearInterval(this.touchEndTimer)
       if (this.isScrolling) {
         this.touchEndTimer = setInterval(() => {
@@ -227,7 +233,7 @@ export default {
     },
     next () {
       this.activeLine = this.activeLine + 1
-      if (this.autoSync) this.move()
+      if (this.autoSync && !this.isTouching) this.move()
     },
     move (line = this.activeLine, duration = this.SCROLL_DURATION) {
       if (line === -2) return
@@ -285,6 +291,7 @@ export default {
     this.loaded = true
     if (this.hasSynced) {
       this.sync()
+      this.$refs.lyrics.addEventListener('touchstart', this.handleTouchStart)
       this.$refs.lyrics.addEventListener('touchend', this.handleTouchend)
     }
     window.addEventListener('blur', this.handleBlur)
@@ -295,6 +302,7 @@ export default {
     this.clear()
     this.removeScrollListener()
     this.$refs.lyrics.removeEventListener('touchend', this.handleTouchend)
+    this.$refs.lyrics.removeEventListener('touchstart', this.handleTouchStart)
     window.removeEventListener('blur', this.handleBlur)
     window.removeEventListener('focus', this.handleFocus)
     window.removeEventListener('orientationchange', this.handleRotate)
