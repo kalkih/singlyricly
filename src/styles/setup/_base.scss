@@ -5,16 +5,22 @@
   user-select: none;
 }
 html {
+  position: fixed;
   height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   touch-action: none;
   overflow: hidden;
   overscroll-behavior-y: none;
 }
 body {
+  position: fixed;
   height: 100%;
-  overflow: hidden;
+  width: 100%;
   padding: 0;
   margin: 0;
+  overflow: hidden;
   color: #fff;
   font-family:
     'Montserrat',
