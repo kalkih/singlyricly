@@ -70,6 +70,9 @@ export default {
     setMetaTheme (hex) {
       document.querySelector('meta[name="theme-color"]').setAttribute('content', hex)
     },
+    setBodyTheme (hex) {
+      document.body.style.backgroundColor = hex
+    },
   },
   watch: {
     async thumbnail (newVal, oldVal) {
@@ -83,6 +86,7 @@ export default {
       this.alt = +!this.alt
       if (newVal && oldVal !== newVal) {
         this.setMetaTheme(newVal)
+        this.setBodyTheme(newVal)
       }
     },
   },
