@@ -341,6 +341,10 @@ export default {
   mask-image: linear-gradient(transparent, rgba(0,0,0,.1) 70px, black 25%, black 66%, rgba(0,0,0,.1) calc(100% - 140px), transparent);
   transform: translateZ(0) translate3d(0,0,0);
 
+  p {
+    touch-action: none;
+  }
+
   .base-button {
     font-size: .5em;
     margin: 1em 0;
