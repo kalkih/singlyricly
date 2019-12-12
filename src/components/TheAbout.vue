@@ -47,4 +47,7 @@ a {
     background: rgba(255,255,255,.25);
   }
 }
+p {
+  max-width: 1200px;
+}
 </style>
