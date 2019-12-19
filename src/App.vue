@@ -94,9 +94,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Pacifico');
-@import url('https://fonts.googleapis.com/css?family=Montserrat:500,600,700');
-
 @import './styles/_includes';
 
 #app {
