@@ -90,6 +90,9 @@ export default {
       }
     },
   },
+  created () {
+    this.setMetaTheme(this.themeHead)
+  },
 }
 </script>
 
