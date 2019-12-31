@@ -342,7 +342,7 @@ export default {
   transform: translateZ(0) translate3d(0,0,0);
 
   p {
-    touch-action: none;
+    touch-action: pan-y;
   }
 
   .base-button {
