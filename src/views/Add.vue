@@ -87,14 +87,16 @@ export default {
   methods: {
     ...mapActions({
       saveLyrics: 'lyrics/saveLyrics',
-      fetchLyrics: 'lyrics/fetchLyrics',
+      clearPlayback: 'playback/clear',
+      clearLyrics: 'lyrics/clearLyrics',
     }),
     isEmpty () {
       return !(this.$refs.input.value) ||
         this.$refs.input.value === ''
     },
     exit () {
-      this.fetchLyrics(this.track)
+      this.clearPlayback()
+      this.clearLyrics()
       this.$router.push('/')
     },
     async save () {
