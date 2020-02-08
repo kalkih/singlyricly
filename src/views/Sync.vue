@@ -149,11 +149,7 @@ export default {
         this.step = 5
         window.removeEventListener('keydown', this.keyEvent)
         const saved = await this.saveSync(this.startTime)
-        if (saved) {
-          this.step = 6
-        } else {
-          this.step = 7
-        }
+        this.step = saved ? 6 : 7
       }
     },
     startCountdown () {
