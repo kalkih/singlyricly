@@ -4,31 +4,28 @@
       :class="{'--static': !animate, '--unsynced': !isSynced, '--override': !autoSync}"
       ref="lyrics">
       <template v-if="synced">
-        <p class="accent-line" :line="-1" :class="{ 'active-line': activeLine === -1}">
-          {{ TEXT_INTRO }}
-        </p>
-        <p
-          v-for="(entry, index) in synced"
+        <base-lyrics-row class="accent-line" :index="-1" :text="TEXT_INTRO" :position="0" :active="activeLine === -1"/>
+        <base-lyrics-row
+          v-for="({ line, milliseconds }, index) in synced"
           :key="index"
-          :line="index"
-          :class="{ 'active-line': activeLine === index}">
-          {{ entry.line }}
-        </p>
+          :index="index"
+          :text="line"
+          :position="milliseconds"
+          :active="activeLine === index">
+        </base-lyrics-row>
       </template>
       <template v-else>
         <router-link to="/sync" tag="div">
           <base-button>Help sync lyrics</base-button>
         </router-link>
-        <p
-          v-for="(line, index) in normal"
+        <base-lyrics-row
+          v-for="({ line }, index) in normal"
           :key="index"
-          :line="index"
-          :class="{ 'accent-line': !line }">
-          {{ line ? line : TEXT_EMPTY }}
-        </p>
-        <p class="accent-line">
-          {{ TEXT_OUTRO }}
-        </p>
+          :index="index"
+          :text="line ? line : TEXT_EMPTY"
+          :class="{ 'accent-line': !line }"
+        />
+        <base-lyrics-row :text="TEXT_OUTRO" class="accent-line"/>
       </template>
     </div>
     <the-scroll-override-bar v-if="synced" :offset="scrollOffset" :active="autoSync"/>
@@ -40,12 +37,13 @@
 import { mapState, mapActions } from 'vuex'
 import BaseButton from './BaseButton'
 import TheScrollOverrideBar from './TheScrollOverrideBar'
+import BaseLyricsRow from './BaseLyricsRow'
 import deviceDelay from '@/mixins/deviceDelay'
 import SweetScroll from 'sweet-scroll'
 
 export default {
   name: 'TheLyrics',
-  components: { BaseButton, TheScrollOverrideBar },
+  components: { BaseButton, TheScrollOverrideBar, BaseLyricsRow },
   mixins: [ deviceDelay ],
   props: {
     animate: {
@@ -77,7 +75,6 @@ export default {
       SCROLL_THRES: 150,
       TEXT_INTRO: '[ INTRO ]',
       TEXT_OUTRO: '[ END ]',
-      TEXT_EMPTY: '● ● ●',
     }
   },
   computed: {
