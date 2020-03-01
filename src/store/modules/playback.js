@@ -81,6 +81,10 @@ const actions = {
     commit('setPlaying', false)
     setTimeout(() => dispatch('fetchPlayback'), 250)
   },
+  async seek ({ dispatch }, position = 0) {
+    await api.seek(position)
+    setTimeout(() => dispatch('fetchPlayback'), 250)
+  },
   async clear ({ commit }) {
     commit('reset')
   },
