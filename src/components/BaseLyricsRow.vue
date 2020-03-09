@@ -1,5 +1,10 @@
 <template>
-  <p class="base-lyrics-row" :line="index" :class="classList" :seek="supportsSeek" @click="handleClick">
+  <p
+    class="base-lyrics-row"
+    :line="index"
+    :class="classList"
+    :seek="supportsSeek"
+    @click.prevent="handleClick">
     {{ text }}
   </p>
 </template>
@@ -42,8 +47,8 @@ export default {
     }),
     handleClick () {
       if (this.supportsSeek) {
-        this.seek(this.position.toFixed())
-        setTimeout(() => this.setAutoSync(true), 750)
+        this.seek(this.position)
+        this.setAutoSync(true)
       }
     },
   },

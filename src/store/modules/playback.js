@@ -6,6 +6,7 @@ const initialState = () => ({
   updatedAt: null,
   playing: false,
   device: null,
+  debouncePlayback: false,
 })
 
 const getters = {
@@ -38,6 +39,10 @@ const mutations = {
     state.device = device
   },
 
+  setDebouncePlayback (state, status) {
+    state.debouncePlayback = status !== undefined ? status : !state.debouncePlayback
+  },
+
   reset (state) {
     const initial = initialState()
     Object.keys(initial).forEach(key => { state[key] = initial[key] })
@@ -45,7 +50,8 @@ const mutations = {
 }
 
 const actions = {
-  async fetchPlayback ({ commit }) {
+  async fetchPlayback ({ commit, state }) {
+    if (state.debouncePlayback) return {}
     const startTime = Date.now()
     const res = await api.fetchPlayback()
     const endTime = Date.now()
@@ -81,9 +87,13 @@ const actions = {
     commit('setPlaying', false)
     setTimeout(() => dispatch('fetchPlayback'), 250)
   },
-  async seek ({ dispatch }, position = 0) {
-    await api.seek(position)
-    setTimeout(() => dispatch('fetchPlayback'), 250)
+  async seek ({ commit }, position = 0) {
+    commit('setDebouncePlayback', true)
+    commit('setUpdatedAt', new Date().getTime())
+    commit('setProgress', position)
+    const res = await api.seek(position)
+    commit('setDebouncePlayback', false)
+    return res
   },
   async clear ({ commit }) {
     commit('reset')

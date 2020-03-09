@@ -23,6 +23,6 @@ export default {
     const res = await request.put('/me/player/seek', null, {
       params: { position_ms: position.toFixed() },
     })
-    return res.status === 200 ? res.data : {}
+    return res.status === 200
   },
 }
