@@ -1,5 +1,5 @@
 <template>
-  <div class="welcome">
+  <div class="welcome" :class="{'--loading': loading, '--loaded': loaded }">
     <transition name="fade">
       <base-toast v-if="error" @click.native="reset()">
         <span>{{ errorMessage }}</span>
@@ -55,6 +55,7 @@ export default {
   data () {
     return {
       loading: false,
+      loaded: false,
       error: '',
       errorMessage: '',
     }
@@ -110,6 +111,11 @@ export default {
   created () {
     this.setAuthURL('')
   },
+  mounted () {
+    setTimeout(() => {
+      this.loaded = true
+    }, 250)
+  },
 }
 </script>
 
@@ -133,20 +139,20 @@ export default {
     height: 100%;
     width: 100%;
     opacity: .75;
-    animation: anim-bg 2.5s forwards;
     z-index: -1;
+    transform: scale(1);
+    transition: transform 2.5s;
+  }
 
-    @keyframes anim-bg {
-      0% {
-        transform: scale(1);
-        opacity: 0;
-      }
-      50% {
-        opacity: .75;
-      }
-      100% {
-        transform: scale(1.1);
-      }
+  &.--loaded {
+    &:before {
+      transform: scale(1.1);
+    }
+  }
+
+  &.--loading {
+    &:before {
+      transform: scale(1.35);
     }
   }
 
@@ -208,6 +214,10 @@ export default {
         max-width .5s ease,
         max-height .25s ease .25s;
 
+      &:before {
+        transition: opacity .15s;
+      }
+
       > span {
         padding: 1em 0;
         display: block;
@@ -222,6 +232,11 @@ export default {
           transform .15s,
           max-width .5s ease,
           max-height .15s ease 0s;
+
+        &:before {
+          opacity: .2;
+          transition: opacity .5s .25s;
+        }
 
         .text {
           transition: opacity .1s;
@@ -241,7 +256,7 @@ export default {
         width: 100%;
         height: 100%;
         margin: 0;
-        background-color: var(--theme-color);
+        background-color: var(--font-color);
         border-radius: 100%;
         animation: spinner-pulse 1s infinite ease-in-out;
       }
