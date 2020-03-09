@@ -21,7 +21,7 @@ export default {
   },
   async seek (position = 0) {
     const res = await request.put('/me/player/seek', null, {
-      params: { position_ms: position.toFixed() },
+      params: { position_ms: Number(position).toFixed() },
     })
     return res.status === 200
   },

@@ -47,7 +47,7 @@ export default {
     }),
     handleClick () {
       if (this.supportsSeek) {
-        this.seek(this.position)
+        this.seek(Number(this.position))
         this.setAutoSync(true)
       }
     },
