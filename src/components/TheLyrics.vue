@@ -19,10 +19,10 @@
           <base-button>Help sync lyrics</base-button>
         </router-link>
         <base-lyrics-row
-          v-for="({ line }, index) in normal"
+          v-for="(line , index) in normal"
           :key="index"
           :index="index"
-          :text="line ? line : TEXT_EMPTY"
+          :text="line || TEXT_EMPTY"
           :class="{ 'accent-line': !line }"
         />
         <base-lyrics-row :text="TEXT_OUTRO" class="accent-line"/>
@@ -75,6 +75,7 @@ export default {
       SCROLL_THRES: 150,
       TEXT_INTRO: '[ INTRO ]',
       TEXT_OUTRO: '[ END ]',
+      TEXT_EMPTY: '● ● ●',
     }
   },
   computed: {
