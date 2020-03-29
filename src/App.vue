@@ -53,7 +53,7 @@ export default {
     },
     bgStyle () {
       return this.themeColor ? {
-        background: this.themeColor.hsl() || 'var(--theme-color)',
+        'background-image': 'linear-gradient(158deg, #6BEAD8 0%, #8E2DE2 100%)' || '#4DFCE0' || '#FEA8FF' || this.themeColor.hsl() || 'var(--theme-color)',
       } : {}
     },
     bgImageStyle () {
@@ -128,10 +128,10 @@ export default {
   &--fade {
     opacity: .75;
     transition: opacity .5s;
-    background-image: linear-gradient(to top, #0d0d0d, transparent 125%);
+    background-image: linear-gradient(to top, #0d0d0d, transparent 85%);
 
     &.--dark {
-      opacity: 1;
+      opacity: 0.9;
     }
   }
   &--image {
