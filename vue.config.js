@@ -1,3 +1,7 @@
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
+const path = require('path')
+
 module.exports = {
   publicPath: process.env.BASE_URL,
   css: {
@@ -19,6 +23,22 @@ module.exports = {
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg')
     const compile = config.module.rule('compile')
+
+    if (process.env.NODE_ENV === 'production') {
+      config
+        .plugin('prerender-spa-plugin')
+        .use(PrerenderSPAPlugin, [
+          {
+            staticDir: path.join(__dirname, 'dist'),
+            indexPath: path.join(__dirname, 'dist/index.html'),
+            routes: ['/'],
+            renderer: new Renderer({
+              headless: false,
+              renderAfterTime: 1000,
+            }),
+          },
+        ])
+    }
 
     compile
       .test(/\.worker\.js$/)

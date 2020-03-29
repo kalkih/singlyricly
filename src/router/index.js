@@ -4,6 +4,7 @@ import store from '@/store'
 import Login from '@/components/Login'
 import Main from '@/views/Main'
 import Welcome from '@/views/Welcome'
+import Landing from '@/views/Landing'
 
 const APP_NAME = process.env.VUE_APP_NAME
 
@@ -13,7 +14,7 @@ const isAuth = () => store.getters['auth/isAuthenticated']
 
 const authGuard = (to, from, next, route) => {
   if (!isAuth()) {
-    next('/welcome')
+    next('/app/welcome')
   } else {
     route ? next(route) : next()
   }
@@ -22,6 +23,11 @@ const authGuard = (to, from, next, route) => {
 const router = new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/',
+      name: 'landing',
+      component: Landing,
+    },
     {
       path: '/app',
       name: 'app',
