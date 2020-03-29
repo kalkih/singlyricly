@@ -31,9 +31,9 @@ export default {
       this.setTtl(expires_in)
       this.setExpiryTime()
       this.fetchUser()
-      this.$router.push('/')
+      this.$router.push({ name: 'app' })
     } else {
-      this.$router.push('/welcome')
+      this.$router.push({ name: 'welcome' })
     }
   },
 }

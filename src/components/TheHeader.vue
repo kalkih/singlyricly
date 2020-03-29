@@ -56,7 +56,7 @@ export default {
   methods: {
     reset () {
       this.closeMenu()
-      this.$router.push('/')
+      this.$router.push({ name: 'app' })
     },
   },
   watch: {

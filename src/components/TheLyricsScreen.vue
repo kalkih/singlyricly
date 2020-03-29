@@ -76,7 +76,7 @@ export default {
       window.location.reload()
     },
     add () {
-      this.$router.push('add')
+      this.$router.push({ name: 'add' })
     },
   },
   mounted () {

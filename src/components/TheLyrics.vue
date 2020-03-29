@@ -15,7 +15,7 @@
         </base-lyrics-row>
       </template>
       <template v-else>
-        <router-link to="/sync" tag="div">
+        <router-link :to="{ name: 'sync' }" tag="div">
           <base-button>Help sync lyrics</base-button>
         </router-link>
         <base-lyrics-row

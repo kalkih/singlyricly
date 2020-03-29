@@ -23,41 +23,41 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      name: 'main',
+      path: '/app',
+      name: 'app',
       component: Main,
       beforeEnter: authGuard,
     },
     {
-      path: '/sync',
+      path: '/app/sync',
       name: 'sync',
       component: () => import('../views/Sync.vue'),
       beforeEnter: authGuard,
       meta: { title: 'Sync Lyrics' },
     },
     {
-      path: '/add',
+      path: '/app/add',
       name: 'add',
       component: () => import('../views/Add.vue'),
       beforeEnter: authGuard,
       meta: { title: 'Add Lyrics' },
     },
     {
-      path: '/login',
+      path: '/app/login',
       name: 'login',
       component: Login,
     },
     {
-      path: '/about',
+      path: '/app/about',
       name: 'about',
       beforeEnter: (to, from, next) => {
         store.dispatch('toggleAbout', true)
-        authGuard(to, from, next, '/')
+        authGuard(to, from, next, '/app')
       },
       meta: { title: 'About' },
     },
     {
-      path: '/privacy-policy',
+      path: '/app/privacy-policy',
       name: 'privacy-policy',
       beforeEnter: (to, from, next) => {
         store.dispatch('togglePrivacyPolicy', true)
@@ -66,11 +66,11 @@ const router = new Router({
       meta: { title: 'Privacy Policy' },
     },
     {
-      path: '/welcome',
+      path: '/app/welcome',
       name: 'welcome',
       component: Welcome,
       beforeEnter: (to, from, next) => {
-        isAuth() ? next('/') : next()
+        isAuth() ? next('/app') : next()
       },
       meta: { title: 'Welcome' },
     },

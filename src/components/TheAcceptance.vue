@@ -35,7 +35,7 @@ export default {
     },
     decline () {
       this.resetState()
-      this.$router.push('welcome')
+      this.$router.push({ name: 'welcome' })
     },
   },
 }

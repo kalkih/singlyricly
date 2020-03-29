@@ -97,7 +97,7 @@ export default {
     exit () {
       this.clearPlayback()
       this.clearLyrics()
-      this.$router.push('/')
+      this.$router.push({ name: 'app' })
     },
     async save () {
       if (this.isEmpty() || this.step !== 1) return
@@ -120,7 +120,7 @@ export default {
   },
   created () {
     if (!this.track.id) {
-      this.$router.push('/')
+      this.$router.push({ name: 'app' })
     } else {
       this.cachedTrack = this.track
       this.$nextTick(() => {

@@ -75,9 +75,9 @@ export default {
     correct () {
       this.exit()
       if (this.type === this.LYRICS) {
-        this.$router.push('/add')
+        this.$router.push({ name: 'add' })
       } else {
-        this.$router.push('/sync')
+        this.$router.push({ name: 'sync' })
       }
     },
   },

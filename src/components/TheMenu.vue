@@ -67,7 +67,7 @@ export default {
     }),
     logout () {
       this.resetState()
-      this.$router.push('welcome')
+      this.$router.push({ name: 'welcome' })
     },
     report () {
       if (this.lyrics) {
@@ -76,11 +76,11 @@ export default {
     },
     sync () {
       this.closeMenu()
-      this.$router.push('sync')
+      this.$router.push({ name: 'sync' })
     },
     add () {
       this.closeMenu()
-      this.$router.push('add')
+      this.$router.push({ name: 'add' })
     },
   },
 }

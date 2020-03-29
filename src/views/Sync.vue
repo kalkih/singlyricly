@@ -200,7 +200,7 @@ export default {
       if (this.initiated) {
         this.startPlayback(this.uri)
       }
-      this.$router.push('/')
+      this.$router.push({ name: 'app' })
     },
     async reset () {
       clearInterval(this.interval)
@@ -212,7 +212,7 @@ export default {
   },
   async created () {
     if (!this.track.uri || !this.unsynced) {
-      return this.$router.push('/')
+      return this.$router.push({ name: 'app' })
     }
     this.savedTrack = this.track
     this.init()
