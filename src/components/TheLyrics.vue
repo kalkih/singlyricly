@@ -10,7 +10,7 @@
           :key="index"
           :index="index"
           :text="line"
-          :position="milliseconds"
+          :position="Number(milliseconds)"
           :active="activeLine === index">
         </base-lyrics-row>
       </template>
@@ -30,20 +30,22 @@
     </div>
     <the-scroll-override-bar v-if="synced" :offset="scrollOffset" :active="autoSync"/>
     <input ref="copy" type="text"/>
+    <the-progress-bar v-if="hasSynced && duration && currentProgress" ref="progress" :progress="currentProgress" :duration="duration" :hide="scrollOffset" />
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import SweetScroll from 'sweet-scroll'
+import deviceDelay from '@/mixins/deviceDelay'
 import BaseButton from './BaseButton'
 import TheScrollOverrideBar from './TheScrollOverrideBar'
 import BaseLyricsRow from './BaseLyricsRow'
-import deviceDelay from '@/mixins/deviceDelay'
-import SweetScroll from 'sweet-scroll'
+import TheProgressBar from './TheProgressBar'
 
 export default {
   name: 'TheLyrics',
-  components: { BaseButton, TheScrollOverrideBar, BaseLyricsRow },
+  components: { BaseButton, TheScrollOverrideBar, BaseLyricsRow, TheProgressBar },
   mixins: [ deviceDelay ],
   props: {
     animate: {
@@ -73,6 +75,7 @@ export default {
       FETCH_DELAY: 500,
       SCROLL_DURATION: 200,
       SCROLL_THRES: 150,
+      currentProgress: 0,
       TEXT_INTRO: '[ INTRO ]',
       TEXT_OUTRO: '[ END ]',
       TEXT_EMPTY: '● ● ●',
@@ -123,12 +126,18 @@ export default {
     updatedAt (newVal, oldVal) {
       this.lastUpdatedAt = oldVal
     },
-    progress (newVal, oldVal) {
-      this.lastProgress = oldVal
-      if (this.hasSynced) {
+    progress: {
+      immediate: true,
+      handler (newVal, oldVal) {
+        this.lastProgress = oldVal
+        this.currentProgress = newVal
+
         const diff = Math.abs((oldVal + this.updatedAt) - (newVal + this.lastUpdatedAt))
-        if (diff > 50) this.sync()
-      }
+        if (diff > 50) {
+          this.$refs.progress.reset(newVal)
+          this.hasSynced && this.sync()
+        }
+      },
     },
     delay () {
       if (this.hasSynced) {
