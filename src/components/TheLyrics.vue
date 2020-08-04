@@ -10,8 +10,8 @@
           :key="index"
           :index="index"
           :text="line"
-          :position="Number(milliseconds)"
-          :active="activeLine === index">
+          :active="activeLine === index"
+          @click.prevent.native="handleRowTouch(milliseconds)">
         </base-lyrics-row>
       </template>
       <template v-else>
@@ -35,7 +35,7 @@
       ref="progress"
       :progress="currentProgress"
       :duration="duration"
-      :hide="scrollOffset || !playing"
+      :hide="!!(scrollOffset || !playing)"
       :updatedAt="updatedAt"
       @seeking="(position) => this.seekProgress = position"
     />
@@ -163,6 +163,7 @@ export default {
   },
   methods: {
     ...mapActions({
+      seek: 'playback/seek',
       fetchPlayback: 'playback/fetchPlayback',
       setAutoSync: 'lyrics/setScroll',
     }),
@@ -199,6 +200,12 @@ export default {
           this.scrollOffset = 0
           window.navigator.vibrate(10)
         }
+      }
+    },
+    handleRowTouch (position) {
+      if (!this.autoSync && position >= 0) {
+        this.seek(Number(position))
+        this.setAutoSync(true)
       }
     },
     handleLongTouch () {
@@ -428,6 +435,8 @@ export default {
   &.--override {
     p {
       opacity: .9;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
     .active-line {
       opacity: 1;
