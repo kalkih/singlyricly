@@ -6,8 +6,8 @@
 </template>
 
 <script>
-
 import { mapActions } from 'vuex'
+import throttle from 'lodash.throttle'
 
 export default {
   name: 'TheProgressBar',
@@ -24,6 +24,7 @@ export default {
       type: Number,
       default: 0,
     },
+    updatedAt: null,
   },
   data () {
     const vm = this
@@ -53,29 +54,37 @@ export default {
       seek: 'playback/seek',
       setAutoSync: 'lyrics/setScroll',
     }),
-    reset (progress) {
+    reset (progress = this.computeProgress()) {
       this.transition = 0
-      this.position = ((progress || this.progress) / this.duration) * 100
+      this.position = (progress / this.duration) * 100
 
       setTimeout(() => {
-        this.transition = this.duration - (progress || this.progress)
+        this.transition = this.duration - progress
         this.position = 100
       }, 60)
     },
-
+    computeProgress () {
+      return this.progress + (Date.now() - this.updatedAt)
+    },
+    throttledEmit (position) {
+      this.$emit('seeking', position)
+    },
+    setSeekPosition (position) {
+      this.seekProgress = position && (position / this.duration) * 100
+      this.emitSeek(position)
+    },
     initSeek (e) {
       const x = e.offsetX || e.touches[0].pageX
       this.seekWidth = window.innerWidth
-      this.seekProgress = this.calcProgress(x)
+      this.setSeekPosition(this.calcProgress(x))
       window.addEventListener('touchmove', this.moveSeek)
       window.addEventListener('mousemove', this.moveSeek)
     },
-
     resetSeek () {
       if (this.seekProgress) {
         this.reset()
       }
-      this.seekProgress = null
+      this.setSeekPosition(null)
       window.removeEventListener('touchmove', this.moveSeek)
       window.removeEventListener('mousemove', this.moveSeek)
     },
@@ -83,24 +92,22 @@ export default {
     moveSeek (e) {
       e.preventDefault()
       const x = e.offsetX || e.touches[0].pageX
-      this.seekProgress = this.calcProgress(x)
+      this.setSeekPosition(this.calcProgress(x))
     },
-
     handleSeek (e) {
       this.resetSeek()
       const x = e.offsetX || e.changedTouches[0].pageX
-      const position = this.calcProgress(x) / 100 * this.duration
-      this.seek(position)
+      this.seek(this.calcProgress(x))
       this.setAutoSync(true)
     },
-
     calcProgress (x) {
-      const pos = (x / this.seekWidth) * 100
+      const pos = (x / this.seekWidth) * this.duration
       return pos
     },
   },
   created () {
     this.reset()
+    this.emitSeek = throttle(this.throttledEmit, 75)
   },
 }
 </script>
