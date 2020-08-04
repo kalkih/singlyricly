@@ -35,7 +35,7 @@
       ref="progress"
       :progress="currentProgress"
       :duration="duration"
-      :hide="scrollOffset"
+      :hide="scrollOffset || !playing"
       :updatedAt="updatedAt"
       @seeking="(position) => this.seekProgress = position"
     />
