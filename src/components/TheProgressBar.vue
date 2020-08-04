@@ -132,6 +132,7 @@ export default {
 
   &.--seek {
     transform: scaleY(2);
+
     .progress {
       transition: none !important;
     }
@@ -142,21 +143,19 @@ export default {
   position: absolute;
   width: 100%;
   bottom: 0;
-  background-image: linear-gradient(#fff, #fff);
+  background-image: linear-gradient(var(--theme-color), var(--theme-color));
   background-repeat: no-repeat;
   background-size: 0% 100%;
   transition-property: background-size;
   transition-timing-function: linear;
 
-  &:before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    width: 100vw;
-    height: 100%;
-    left: 0;
-    background: white;
-    opacity: 0;
-  }
+  // &:before {
+  //   content: '';
+  //   position: absolute;
+  //   z-index: -1;
+  //   width: 100vw;
+  //   height: 100%;
+  //   left: 0;
+  // }
 }
 </style>
