@@ -1,10 +1,14 @@
 <template>
-  <div class="the-progress-bar" :class="{ '--hide': hide }">
+  <div class="the-progress-bar" :class="{ '--hide': hide, '--seek': this.seekProgress }"
+    v-on="handlers">
     <div class="progress" :style="styleObject"></div>
   </div>
 </template>
 
 <script>
+
+import { mapActions } from 'vuex'
+
 export default {
   name: 'TheProgressBar',
   props: {
@@ -22,20 +26,33 @@ export default {
     },
   },
   data () {
+    const vm = this
     return {
       transition: 0,
       position: 0,
+      seekProgress: null,
+      handlers: {
+        touchstart: vm.initSeek,
+        mousedown: vm.initSeek,
+        touchend: vm.handleSeek,
+        mouseup: vm.handleSeek,
+        mouseleave: vm.resetSeek,
+      },
     }
   },
   computed: {
     styleObject () {
       return {
         'transitionDuration': `${this.transition}ms`,
-        'backgroundSize': `${this.position}% 100%`,
+        'backgroundSize': `${this.seekProgress || this.position}% 100%`,
       }
     },
   },
   methods: {
+    ...mapActions({
+      seek: 'playback/seek',
+      setAutoSync: 'lyrics/setScroll',
+    }),
     reset (progress) {
       this.transition = 0
       this.position = ((progress || this.progress) / this.duration) * 100
@@ -44,6 +61,42 @@ export default {
         this.transition = this.duration - (progress || this.progress)
         this.position = 100
       }, 60)
+    },
+
+    initSeek (e) {
+      const x = e.offsetX || e.touches[0].pageX
+      this.seekWidth = window.innerWidth
+      this.seekProgress = this.calcProgress(x)
+      window.addEventListener('touchmove', this.moveSeek)
+      window.addEventListener('mousemove', this.moveSeek)
+    },
+
+    resetSeek () {
+      if (this.seekProgress) {
+        this.reset()
+      }
+      this.seekProgress = null
+      window.removeEventListener('touchmove', this.moveSeek)
+      window.removeEventListener('mousemove', this.moveSeek)
+    },
+
+    moveSeek (e) {
+      e.preventDefault()
+      const x = e.offsetX || e.touches[0].pageX
+      this.seekProgress = this.calcProgress(x)
+    },
+
+    handleSeek (e) {
+      this.resetSeek()
+      const x = e.offsetX || e.changedTouches[0].pageX
+      const position = this.calcProgress(x) / 100 * this.duration
+      this.seek(position)
+      this.setAutoSync(true)
+    },
+
+    calcProgress (x) {
+      const pos = (x / this.seekWidth) * 100
+      return pos
     },
   },
   created () {
@@ -64,14 +117,17 @@ export default {
   transition: transform .2s var(--ease-io-cubic), opacity .35s;
   opacity: 1;
 
-  &:hover {
-    transform: scaleY(2);
-  }
-
   &.--hide {
     opacity: 0;
     pointer-events: none;
     transition: transform .2s var(--ease-io-cubic), opacity .15s;
+  }
+
+  &.--seek {
+    transform: scaleY(2);
+    .progress {
+      transition: none !important;
+    }
   }
 }
 .progress {
