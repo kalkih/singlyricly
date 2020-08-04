@@ -118,7 +118,7 @@ export default {
   bottom: 0;
   z-index: 200;
   width: 100%;
-  height: 10px;
+  height: 20px;
   cursor: pointer;
   transform-origin: bottom;
   transition: transform .2s var(--ease-io-cubic), opacity .35s;
@@ -132,7 +132,7 @@ export default {
   }
 
   &.--seek {
-    transform: scaleY(2);
+    transform: scaleY(3);
 
     .progress {
       transition: none !important;
