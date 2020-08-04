@@ -123,6 +123,7 @@ export default {
   transform-origin: bottom;
   transition: transform .2s var(--ease-io-cubic), opacity .35s;
   opacity: 1;
+  -webkit-tap-highlight-color: transparent;
 
   &.--hide {
     opacity: 0;
