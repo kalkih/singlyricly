@@ -30,7 +30,15 @@
     </div>
     <the-scroll-override-bar v-if="synced" :offset="scrollOffset" :active="autoSync"/>
     <input ref="copy" type="text"/>
-    <the-progress-bar v-if="hasSynced && duration && currentProgress" ref="progress" :progress="currentProgress" :duration="duration" :hide="scrollOffset" />
+    <the-progress-bar
+      v-if="hasSynced && duration && currentProgress"
+      ref="progress"
+      :progress="currentProgress"
+      :duration="duration"
+      :hide="scrollOffset"
+      :updatedAt="updatedAt"
+      @seeking="(position) => this.seekProgress = position"
+    />
   </div>
 </template>
 
@@ -76,6 +84,7 @@ export default {
       SCROLL_DURATION: 200,
       SCROLL_THRES: 150,
       currentProgress: 0,
+      seekProgress: 0,
       TEXT_INTRO: '[ INTRO ]',
       TEXT_OUTRO: '[ END ]',
       TEXT_EMPTY: '● ● ●',
@@ -86,7 +95,9 @@ export default {
       synced: state => state.lyrics.synced,
       normal: state => state.lyrics.normal,
       autoSync: state => state.lyrics.scroll,
-      progress: state => state.playback.progress,
+      progress (state) {
+        return this.seekProgress || state.playback.progress
+      },
       playing: state => state.playback.playing,
       updatedAt: state => state.playback.updatedAt,
       duration: state => state.playback.track.length,
