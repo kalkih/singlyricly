@@ -1,8 +1,15 @@
 <template>
-  <div
-    class="the-scroll-override-bar"
-    :class="classList"
-    :style="styleList">
+  <div>
+    <div
+      class="the-scroll-override-bar"
+      :class="classList"
+      :style="styleList">
+    </div>
+    <!-- <div
+      class="the-scroll-override-bar --second"
+      :class="classList"
+      :style="styleList">
+    </div> -->
   </div>
 </template>
 
@@ -64,11 +71,19 @@ export default {
     bottom: 0;
     top: 0;
     left: 0;
-    background: var(--font-color);
-    opacity: calc((var(--offset) / 10 - .5) + .5);
+    background-color: var(--font-color);
+    opacity: calc((var(--offset) / 10 - .25) + .5);
     transition: transform .05s;
     transform: scaleX(calc(var(--offset) / 2));
     transform-origin: left bottom;
+  }
+
+  &.--accent {
+    &:after,
+    &:before {
+      background-color: var(--theme-color);
+      opacity: calc((var(--offset) / 10 - .5) + .5);
+    }
   }
 
   &:after {
