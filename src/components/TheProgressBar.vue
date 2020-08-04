@@ -21,8 +21,8 @@ export default {
       default: 0,
     },
     hide: {
-      type: Number,
-      default: 0,
+      type: Boolean,
+      default: false,
     },
     updatedAt: null,
   },
