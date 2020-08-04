@@ -31,7 +31,7 @@
     <the-scroll-override-bar v-if="synced" :offset="scrollOffset" :active="autoSync"/>
     <input ref="copy" type="text"/>
     <the-progress-bar
-      v-if="hasSynced && duration && currentProgress"
+      v-if="duration && currentProgress"
       ref="progress"
       :progress="currentProgress"
       :duration="duration"
@@ -145,7 +145,7 @@ export default {
 
         const diff = Math.abs((oldVal + this.updatedAt) - (newVal + this.lastUpdatedAt))
         if (diff > 50) {
-          this.$refs.progress.reset(newVal)
+          this.$refs.progress && this.$refs.progress.reset(newVal)
           this.hasSynced && this.sync()
         }
       },
