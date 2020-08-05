@@ -20,7 +20,7 @@ const authGuard = (to, from, next, route) => {
 }
 
 const router = new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     {
       path: '/',
