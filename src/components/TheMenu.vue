@@ -18,22 +18,25 @@
     <h1 @click="toggleAbout()">About Us</h1>
     <h1 @click="togglePrivacyPolicy()">Privacy Policy</h1>
     <base-button class="--red" accent @click.native="logout()">Sign out</base-button>
+    <wake-lock-toggle />
     <delay-bar hideTitle/>
   </base-page>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
+import menuNav from '@/mixins/menuNav'
 import BasePage from './BasePage'
 import BaseButton from './BaseButton'
 import DelayBar from '@/components/DelayBar'
-import menuNav from '@/mixins/menuNav'
+import WakeLockToggle from '@/components/WakeLockToggle'
 
 export default {
   components: {
     BasePage,
     BaseButton,
     DelayBar,
+    WakeLockToggle,
   },
   mixins: [ menuNav ],
   data () {
@@ -196,7 +199,7 @@ export default {
     color: var(--font-color);
     fill: var(--font-color);
     display: flex;
-    margin-top: 1.6em !important;
+    margin-top: 1.2em !important;
     overflow: visible;
 
     &:before {

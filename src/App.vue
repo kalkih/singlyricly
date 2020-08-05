@@ -66,6 +66,7 @@ export default {
     ...mapActions({
       setTheme: 'theme/setAll',
       setMetaTheme: 'theme/setMeta',
+      initKeepAwake: 'settings/initKeepAwake',
     }),
     setMetaTheme (hex) {
       document.querySelector('meta[name="theme-color"]').setAttribute('content', hex)
@@ -92,6 +93,7 @@ export default {
   },
   created () {
     this.setMetaTheme(this.themeHead)
+    this.initKeepAwake()
   },
 }
 </script>
