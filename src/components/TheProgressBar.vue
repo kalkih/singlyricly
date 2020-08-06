@@ -77,7 +77,7 @@ export default {
       const x = e.offsetX || e.touches[0].pageX
       this.seekWidth = window.innerWidth
       this.setSeekPosition(this.calcProgress(x))
-      window.addEventListener('touchmove', this.moveSeek)
+      window.addEventListener('touchmove', this.moveSeek, true)
       window.addEventListener('mousemove', this.moveSeek)
     },
     resetSeek () {
@@ -85,12 +85,12 @@ export default {
         this.reset()
       }
       this.setSeekPosition(null)
-      window.removeEventListener('touchmove', this.moveSeek)
+      window.removeEventListener('touchmove', this.moveSeek, true)
       window.removeEventListener('mousemove', this.moveSeek)
     },
-
     moveSeek (e) {
       e.preventDefault()
+      e.stopPropagation()
       const x = e.offsetX || e.touches[0].pageX
       this.setSeekPosition(this.calcProgress(x))
     },
