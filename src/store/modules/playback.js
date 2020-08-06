@@ -87,6 +87,14 @@ const actions = {
     commit('setPlaying', false)
     setTimeout(() => dispatch('fetchPlayback'), 250)
   },
+  async next ({ dispatch }) {
+    await api.next()
+    setTimeout(() => dispatch('fetchPlayback'), 250)
+  },
+  async previous ({ dispatch }) {
+    await api.previous()
+    setTimeout(() => dispatch('fetchPlayback'), 250)
+  },
   async seek ({ commit }, position = 0) {
     commit('setDebouncePlayback', true)
     commit('setUpdatedAt', new Date().getTime())

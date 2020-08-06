@@ -19,6 +19,14 @@ export default {
     const res = await request.put('/me/player/pause')
     return res.status === 200 ? res.data : {}
   },
+  async next () {
+    const res = await request.post('/me/player/next')
+    return res.status === 204 ? res.data : {}
+  },
+  async previous () {
+    const res = await request.post('/me/player/previous')
+    return res.status === 204 ? res.data : {}
+  },
   async seek (position = 0) {
     const res = await request.put('/me/player/seek', null, {
       params: { position_ms: Number(position).toFixed() },
