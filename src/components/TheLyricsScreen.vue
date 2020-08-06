@@ -1,43 +1,46 @@
 <template>
-  <div class="the-lyrics-screen" @click="() => toggle()">
-    <transition name="lyrics-trans" mode="out-in">
-      <the-lyrics v-if="hasLyrics" :isSynced="hasSynced" key="lyrics"/>
-      <div v-else class="the-lyrics-screen__info" key="info">
-        <transition name="lyrics-trans" mode="out-in">
-          <div v-if="errored" class="not-found" key="error">
-            <sad/>
-            <h2>{{ error.message }}</h2>
-            <base-button @click.native="refresh">REFRESH</base-button>
-          </div>
-          <div v-else-if="searching" key="loading">
-            <div class="spinner">
-              <div></div>
-              <div></div>
-              <div></div>
+  <swipe-skip-provider>
+    <div class="the-lyrics-screen" @click="() => toggle()" ref="screen">
+      <transition name="lyrics-trans" mode="out-in">
+        <the-lyrics v-if="hasLyrics" :isSynced="hasSynced" key="lyrics"/>
+        <div v-else class="the-lyrics-screen__info" key="info">
+          <transition name="lyrics-trans" mode="out-in">
+            <div v-if="errored" class="not-found" key="error">
+              <sad/>
+              <h2>{{ error.message }}</h2>
+              <base-button @click.native="refresh">REFRESH</base-button>
             </div>
-            <h2>We're getting your lyrics, stay tuned!</h2>
-          </div>
-          <div v-else-if="!progress" class="not-available" key="none">
-            <play class="anim-in"/>
-            <h2>Play something on Spotify and check back here</h2>
-          </div>
-          <div class="not-found" v-else key="404">
-            <sad/>
-            <h2>Sorry but we couldn't find any lyrics for this track</h2>
-            <base-button accent @click.native="add">Add lyrics</base-button>
-          </div>
-        </transition>
-      </div>
-    </transition>
-  </div>
+            <div v-else-if="searching" key="loading">
+              <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+              <h2>We're getting your lyrics, stay tuned!</h2>
+            </div>
+            <div v-else-if="!progress" class="not-available" key="none">
+              <play class="anim-in"/>
+              <h2>Play something on Spotify and check back here</h2>
+            </div>
+            <div class="not-found" v-else key="404">
+              <sad/>
+              <h2>Sorry but we couldn't find any lyrics for this track</h2>
+              <base-button accent @click.native="add">Add lyrics</base-button>
+            </div>
+          </transition>
+        </div>
+      </transition>
+    </div>
+  </swipe-skip-provider>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
-import TheLyrics from '@/components/TheLyrics'
-import BaseButton from '@/components/BaseButton'
 import sad from '@/assets/sad.svg'
 import play from '@/assets/play.svg'
+import TheLyrics from '@/components/TheLyrics'
+import BaseButton from '@/components/BaseButton'
+import SwipeSkipProvider from '@/components/SwipeSkipProvider'
 
 export default {
   name: 'TheLyricsScreen',
@@ -46,6 +49,7 @@ export default {
     play,
     TheLyrics,
     BaseButton,
+    SwipeSkipProvider,
   },
   computed: {
     ...mapState({
