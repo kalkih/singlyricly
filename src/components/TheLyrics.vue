@@ -169,8 +169,10 @@ export default {
     }),
     addScrollListener (setScrollPos = true) {
       this.scrollOffset = 0
-      this.lastScrollPos = this.$refs.lyrics.scrollTop
-      this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
+      if (this.$refs.lyrics) {
+        this.lastScrollPos = this.$refs.lyrics.scrollTop
+        this.$refs.lyrics.addEventListener('scroll', this.handleScroll)
+      }
     },
     removeScrollListener () {
       this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
