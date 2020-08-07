@@ -304,7 +304,7 @@ export default {
           line === -1 ? this.move(0) : this.move(line)
         }
         this.activeLine = line
-        if (this.playing) {
+        if (this.playing && !this.seekProgress) {
           this.calculateNext()
         }
       }
