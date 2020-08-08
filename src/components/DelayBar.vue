@@ -73,7 +73,7 @@ export default {
       this.feedback()
     },
     feedback () {
-      window.navigator.vibrate(10)
+      window.navigator.vibrate && window.navigator.vibrate(10)
     },
   },
 }
