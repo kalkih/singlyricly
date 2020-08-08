@@ -200,7 +200,7 @@ export default {
           this.removeScrollListener()
           this.setAutoSync(false)
           this.scrollOffset = 0
-          window.navigator.vibrate(10)
+          window.navigator.vibrate && window.navigator.vibrate(10)
         }
       }
     },
@@ -217,7 +217,7 @@ export default {
       input.select()
       document.execCommand('copy')
       window.getSelection().removeAllRanges()
-      window.navigator.vibrate(10)
+      window.navigator.vibrate && window.navigator.vibrate(10)
     },
     handleBlur () {
       this.hasFocus = false

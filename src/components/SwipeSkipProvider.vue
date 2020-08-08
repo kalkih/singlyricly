@@ -84,11 +84,11 @@ export default {
     },
     handleAction () {
       if (this.dragPosition >= 50) {
-        window.navigator.vibrate(8)
+        window.navigator.vibrate && window.navigator.vibrate(8)
         this.prev()
       }
       if (this.dragPosition <= -50) {
-        window.navigator.vibrate(8)
+        window.navigator.vibrate && window.navigator.vibrate(8)
         this.next()
       }
       this.touchStart = null
