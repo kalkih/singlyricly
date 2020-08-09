@@ -157,6 +157,10 @@ export default {
     },
     autoSync (newVal, oldVal) {
       if (newVal && newVal !== oldVal && this.loaded) {
+        this.$refs.lyrics.style.overflow = 'hidden'
+        setTimeout(() => {
+          this.$refs.lyrics.style.overflow = ''
+        }, 10)
         this.move()
       }
     },
@@ -178,12 +182,18 @@ export default {
       this.$refs.lyrics.removeEventListener('scroll', this.handleScroll)
       this.isTouching = false
     },
+    beforeAutoScroll () {
+      this.removeScrollListener()
+    },
+    afterAutoScroll () {
+      this.addScrollListener()
+    },
     initScroller () {
       this.scroller = new SweetScroll({
         duration: this.SCROLL_DURATION,
         easing: 'easeOutCubic',
-        before: this.removeScrollListener,
-        complete: this.addScrollListener,
+        before: this.beforeAutoScroll,
+        complete: this.afterAutoScroll,
         cancellable: false,
       }, this.$refs.lyrics)
     },
