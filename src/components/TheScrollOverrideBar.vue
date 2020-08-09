@@ -58,9 +58,10 @@ export default {
     &:after,
     &:before {
       background: var(--font-color);
-      animation: 1s override forwards;
+      animation: 1s animate forwards;
       transition: unset;
       opacity: 0;
+      pointer-events: none;
     }
   }
   &:after,
@@ -92,7 +93,7 @@ export default {
     transform-origin: right bottom;
   }
 
-  @keyframes override {
+  @keyframes animate {
     0% {
       opacity: .25;
       transform: scaleX(10);
