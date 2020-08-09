@@ -166,6 +166,7 @@ export default {
     z-index: 10;
     overflow-y: auto;
     align-self: center;
+    transform: translateZ(0);
 
     @media only screen and (max-width: 320px) {
       font-size: .6em;

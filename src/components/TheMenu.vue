@@ -184,6 +184,7 @@ export default {
     min-height: 3em;
     margin-top: 1.8em;
     margin-bottom: 1.8em;
+    transform: translateZ(0);
 
     @media only screen and (min-width: 640px) {
       margin-top: 1.8em;
