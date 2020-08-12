@@ -14,10 +14,12 @@
       </div>
       <div v-else class="contribute-buttons" key="default"></div>
     </transition>
-    <h1 @click="report()" :class="{'--disabled': !lyrics}">Report lyrics</h1>
-    <h1 @click="toggleAbout()">About Us</h1>
-    <h1 @click="togglePrivacyPolicy()">Privacy Policy</h1>
-    <base-button class="--red" accent @click.native="logout()">Sign out</base-button>
+    <div class="menu-items">
+      <base-button transparent noripple :disabled="!lyrics" @click.native="report()">Report lyrics</base-button>
+      <base-button transparent noripple @click.native="toggleAbout()">About Us</base-button>
+      <base-button transparent noripple @click.native="togglePrivacyPolicy()">Privacy Policy</base-button>
+    </div>
+    <base-button accent @click.native="logout()">Sign out</base-button>
     <wake-lock-toggle />
     <delay-bar hideTitle/>
   </base-page>
@@ -149,29 +151,6 @@ export default {
     }
   }
 
-  h1 {
-    cursor: pointer;
-    margin: .8em 0;
-    -webkit-tap-highlight-color: transparent;
-    font-weight: 600;
-    transition: opacity .1s ease-out;
-    // text-transform: lowercase;
-
-    &:hover {
-      opacity: .75;
-    }
-
-    &.--red {
-      color: var(--color-red);
-    }
-
-    &.--disabled {
-      opacity: .25;
-      cursor: default;
-      pointer-events: none;
-    }
-  }
-
   .base-button {
     font-size: 1.1em;
     padding: 1.2em 3em;
@@ -179,7 +158,6 @@ export default {
     min-height: 3em;
     margin-top: 1.8em;
     margin-bottom: 1.8em;
-    transform: translateZ(0);
 
     @media only screen and (min-width: 640px) {
       margin-top: 1.8em;
@@ -200,6 +178,17 @@ export default {
 
     &:before {
       background: transparent;
+    }
+  }
+
+  .menu-items {
+    .base-button {
+      margin: 0;
+      font-weight: 600;
+      font-size: 2em;
+      text-transform: capitalize;
+      padding: 0 1em;
+      letter-spacing: unset;
     }
   }
 }

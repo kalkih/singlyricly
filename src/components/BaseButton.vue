@@ -30,6 +30,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    noripple: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     const vm = this
@@ -68,6 +72,7 @@ export default {
         '--transparent': this.transparent,
         '--accent': this.accent,
         '--disabled': this.disabled,
+        '--no-ripple': this.noripple,
       }
     },
   },
@@ -189,6 +194,12 @@ export default {
     cursor: default;
     pointer-events: none;
     opacity: .25;
+  }
+
+  &.--no-ripple {
+    &:before {
+      display: none;
+    }
   }
 }
 </style>
