@@ -4,13 +4,10 @@
       <slot></slot>
     </div>
     <div class="swipe-track-actions">
-      <div class="swipe-track-actions__prev">
-        <chevron/>
-        <span>Skip</span>
-      </div>
-      <div class="swipe-track-actions__next">
-        <chevron/>
-        <span>Skip</span>
+      <div class="swipe-track-actions__action" :class="{ '--next': !this.isRightSwipe }">
+        <skip/>
+        <!-- <span v-if="this.isRightSwipe">previous</span> -->
+        <span>skip</span>
       </div>
     </div>
   </div>
@@ -18,15 +15,17 @@
 
 <script>
 import { mapActions } from 'vuex'
-import chevron from '@/assets/chevron.svg'
+import skip from '@/assets/skip.svg'
 
 const X = 0
 const Y = 1
+const SWIPE_THRESHOLD = 25
+const SWIPE_TRIGGER_THRESHOLD = 40
 
 export default {
   name: 'SwipeSkipProvider',
   components: {
-    chevron,
+    skip,
   },
   props: {
   },
@@ -63,10 +62,10 @@ export default {
       this.dragPosition = Math.min(Math.max(offset, -100), 100)
       if (!this.active && Math.abs(this.touchOffset[Y]) > 20) {
         this.reset()
-        this.$refs.screen.removeEventListener('touchmove', this.moveHandler)
+        this.$refs.screen.removeEventListener('touchmove', this.moveHandler, { passive: true })
         this.disable = true
       }
-      if (Math.abs(this.dragPosition) >= 55) {
+      if (Math.abs(this.dragPosition) >= SWIPE_TRIGGER_THRESHOLD) {
         this.handleAction()
         this.disable = true
       }
@@ -79,17 +78,18 @@ export default {
     reset () {
       this.active = false
       this.touchOffset = null
-      this.dragPosition = null
       this.initialTimer = false
     },
     handleAction () {
-      if (this.dragPosition >= 50) {
-        window.navigator.vibrate && window.navigator.vibrate(8)
-        this.prev()
-      }
-      if (this.dragPosition <= -50) {
-        window.navigator.vibrate && window.navigator.vibrate(8)
-        this.next()
+      if (this.active) {
+        if (this.dragPosition >= SWIPE_THRESHOLD) {
+          window.navigator.vibrate && window.navigator.vibrate(8)
+          this.prev()
+        }
+        if (this.dragPosition <= -SWIPE_THRESHOLD) {
+          window.navigator.vibrate && window.navigator.vibrate(8)
+          this.next()
+        }
       }
       this.touchStart = null
       this.reset()
@@ -101,19 +101,22 @@ export default {
   computed: {
     styleList () {
       return this.active && this.dragPosition !== null && {
-        '--override': `${this.dragPosition}%`,
-        '--opacity': 1 - Math.abs(this.dragPosition / 100, 0),
+        '--progress': 1 - Math.abs(this.dragPosition / 100, 0),
+        '--opacity': (1 - Math.abs(this.dragPosition / 50, 0)) ** 5,
         '--transition': 'none',
       }
+    },
+    isRightSwipe () {
+      return this.dragPosition > 0
     },
   },
   mounted () {
     this.$refs.screen.addEventListener('touchmove', this.moveHandler, { passive: true })
-    this.$refs.screen.addEventListener('touchend', this.endHandler)
+    this.$refs.screen.addEventListener('touchend', this.endHandler, { passive: true })
   },
   beforeDestroy () {
-    this.$refs.screen.removeEventListener('touchmove', this.moveHandler)
-    this.$refs.screen.removeEventListener('touchend', this.endHandler)
+    this.$refs.screen.removeEventListener('touchmove', this.moveHandler, { passive: true })
+    this.$refs.screen.removeEventListener('touchend', this.endHandler, { passive: true })
   },
 }
 </script>
@@ -127,9 +130,10 @@ export default {
   .swipe-track-content {
     width: 100%;
     height: 100%;
-    transform: translateX(var(--override, 0%));
+    transform:
+      scale(max(calc(var(--progress, 1)), 0.75));
     transition: var(--transition);
-    opacity: var(--opacity, 1)
+    opacity: var(--opacity, 1);
   }
 }
 
@@ -143,46 +147,48 @@ export default {
   height: 100%;
   top: 0;
   bottom: 0;
-  opacity: calc(calc(0 - var(--opacity, 1) + 1) * 1.75);
+  opacity: calc(0 - var(--opacity, 1) + 1);
+  transform: scale(max(calc(var(--opacity, 1) + 1), 0.5));
   transition: var(--transition);
   pointer-events: none;
 
-  &__prev,
-  &__next {
+  &__action {
     font-size: 1.4em;
-    padding: 1em;
     display: flex;
-    flex-flow: column;
+    flex-flow: row;
     align-items: center;
     justify-content: center;
     pointer-events: none;
+    position: absolute;
+    left: 10%;
+    // transform: translateX(calc(calc(0 - var(--progress, 0) + 1) * 100%));
     transition: var(--transition);
 
     span {
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .075em;
-      font-size: .8em;
+      font-size: 1em;
+      margin-left: .2em;
+      // text-transform: uppercase;
     }
 
     svg {
       display: block;
       height: 2em;
-      margin-bottom: .4em;
     }
   }
-  &__next {
-    transform:
-      translateX(max(calc((var(--override, 0%) * 3) + 100%), -25%))
-      scale(max(calc(var(--opacity, 1) + 0.5), 1));
+  .--next {
+    left: unset;
+    right: 10%;
+    margin: 0;
+
+    span {
+      margin-right: .2em;
+    }
+
     svg {
       transform: rotate(-180deg);
+      order: 1;
     }
-  }
-  &__prev {
-    transform:
-      translateX(min(calc((var(--override, 0%) * 3) - 100%), 25%))
-      scale(max(calc(var(--opacity, 1) + 0.5), 1));
   }
 }
 </style>
