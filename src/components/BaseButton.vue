@@ -26,6 +26,10 @@ export default {
     accent: {
       type: Boolean,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data () {
     const vm = this
@@ -63,6 +67,7 @@ export default {
         '--hover': this.active,
         '--transparent': this.transparent,
         '--accent': this.accent,
+        '--disabled': this.disabled,
       }
     },
   },
@@ -178,6 +183,12 @@ export default {
     &:before {
       opacity: var(--button-hover-opacity);
     }
+  }
+
+  &.--disabled {
+    cursor: default;
+    pointer-events: none;
+    opacity: .25;
   }
 }
 </style>

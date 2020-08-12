@@ -7,7 +7,7 @@
           <span>{{ lyricsButtonText }}</span>
           <span>lyrics</span>
         </base-button>
-        <base-button accent @click.native="sync()" :class="{'--disabled': !lyrics}">
+        <base-button accent @click.native="sync()" :disabled="!lyrics">
           <span>{{ syncedButtonText }}</span>
           <span>sync</span>
         </base-button>
@@ -145,11 +145,6 @@ export default {
 
       > :nth-child(2) {
         margin: .15em 0 0 0;
-      }
-      &.--disabled {
-        cursor: default;
-        pointer-events: none;
-        opacity: .25;
       }
     }
   }
