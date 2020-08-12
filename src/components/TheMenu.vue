@@ -1,5 +1,5 @@
 <template>
-  <base-page class="the-menu" @swipe-down="toggleMenu(false)">
+  <base-page-animated class="the-menu" @swipe-down="toggleMenu(false)">
     <div class="spacer"></div>
     <transition name="swap-trans" mode="out-in">
       <div class="contribute-buttons" v-if="!fetching && playback" :key="fetching">
@@ -20,20 +20,20 @@
     <base-button class="--red" accent @click.native="logout()">Sign out</base-button>
     <wake-lock-toggle />
     <delay-bar hideTitle/>
-  </base-page>
+  </base-page-animated>
 </template>
 
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import menuNav from '@/mixins/menuNav'
-import BasePage from './BasePage'
+import BasePageAnimated from './BasePageAnimated'
 import BaseButton from './BaseButton'
 import DelayBar from '@/components/DelayBar'
 import WakeLockToggle from '@/components/WakeLockToggle'
 
 export default {
   components: {
-    BasePage,
+    BasePageAnimated,
     BaseButton,
     DelayBar,
     WakeLockToggle,

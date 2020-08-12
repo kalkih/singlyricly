@@ -3,9 +3,9 @@
     <base-page-transition mode="out-in">
       <the-acceptance v-if="!acceptance" key="acceptance"/>
     </base-page-transition>
-    <base-page-transition mode="out-in">
+    <!-- <base-page-transition mode="out-in"> -->
       <the-menu v-if="menu" key="menu"/>
-    </base-page-transition>
+    <!-- </base-page-transition> -->
     <base-page-transition mode="out-in">
       <the-about v-if="about" key="about"/>
     </base-page-transition>

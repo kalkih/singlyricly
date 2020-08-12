@@ -1,8 +1,8 @@
 <template>
   <div class="base-page" :class="classList" ref="page">
-    <div class="base-page__backdrop"></div>
+    <div class="base-page__backdrop" ref="backdrop"></div>
     <div class="base-page__container" :style="containerStyle">
-      <div class="base-page__bg">
+      <div class="base-page__bg" ref="bg">
         <transition name="fade-bg">
           <div :key="themeColorDark" :style="bgStyle"></div>
         </transition>
@@ -60,6 +60,22 @@ export default {
     },
   },
   methods: {
+    fadeIn () {
+      // const height = this.$refs.page.getBoundingClientRect().height
+      gsap.fromTo(
+        this.$refs.page,
+        { yPercent: 100 },
+        { yPercent: 0, duration: 0.4, ease: Power1.easeOut }
+      )
+    },
+    fadeOut () {
+      const height = this.$refs.page.getBoundingClientRect().height
+      gsap.fromTo(
+        this.$refs.page,
+        { y: this.touchOffset },
+        { y: height, duration: 0.4, ease: Power1.easeOut, onComplete: () => this.$emit('swipe-down') }
+      )
+    },
     moveHandler (e) {
       e.stopPropagation()
       if (this.$refs.content.scrollTop !== 0) return
@@ -79,13 +95,7 @@ export default {
     endHandler (e) {
       e.stopPropagation()
       if (this.isThresholdMet()) {
-        const height = this.$refs.page.getBoundingClientRect().height
-        gsap.fromTo(
-          this.$refs.page,
-          { y: this.touchOffset },
-          { y: height, duration: 0.4, ease: Power1.easeOut, onComplete: () => this.$emit('swipe-down') }
-        )
-        // this.$emit('swipe-down')
+        this.fadeOut()
       }
       this.touchStart = 0
       this.touchOffset = 0
@@ -98,10 +108,12 @@ export default {
     },
   },
   mounted () {
+    this.fadeIn()
     this.$refs.page.addEventListener('touchmove', this.moveHandler)
     this.$refs.page.addEventListener('touchend', this.endHandler)
   },
   beforeDestroy () {
+    this.fadeOut()
     this.$refs.page.removeEventListener('touchmove', this.moveHandler)
     this.$refs.page.removeEventListener('touchend', this.endHandler)
   },
