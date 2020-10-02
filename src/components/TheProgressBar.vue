@@ -39,6 +39,7 @@ export default {
         mouseup: vm.handleSeek,
         mouseleave: vm.resetSeek,
       },
+      offset: 40,
     }
   },
   computed: {
@@ -74,8 +75,8 @@ export default {
       this.emitSeek(position)
     },
     initSeek (e) {
-      const x = e.offsetX || e.touches[0].pageX
-      this.seekWidth = window.innerWidth
+      const x = e.offsetX || e.touches[0].pageX - this.offset / 2
+      this.seekWidth = window.innerWidth - this.offset
       this.setSeekPosition(this.calcProgress(x))
       window.addEventListener('touchmove', this.moveSeek, true)
       window.addEventListener('mousemove', this.moveSeek)
@@ -91,12 +92,12 @@ export default {
     moveSeek (e) {
       e.preventDefault()
       e.stopPropagation()
-      const x = e.offsetX || e.touches[0].pageX
+      const x = e.offsetX || e.touches[0].pageX - this.offset / 2
       this.setSeekPosition(this.calcProgress(x))
     },
     handleSeek (e) {
       this.resetSeek()
-      const x = e.offsetX || e.changedTouches[0].pageX
+      const x = e.offsetX || e.changedTouches[0].pageX - this.offset / 2
       this.seek(this.calcProgress(x))
       this.setAutoSync(true)
     },
@@ -115,12 +116,14 @@ export default {
 <style lang="scss" scoped>
 .the-progress-bar {
   position: absolute;
-  bottom: 0;
+  bottom: 20px;
   z-index: 200;
-  width: 100%;
+  width: calc(100% - 40px);
+  left: 20px;
+  right: 20px;
   height: 20px;
   cursor: pointer;
-  transform-origin: bottom;
+  transform-origin: center;
   transition: transform .2s var(--ease-io-cubic), opacity .35s;
   opacity: 1;
   -webkit-tap-highlight-color: transparent;
@@ -140,23 +143,26 @@ export default {
   }
 }
 .progress {
-  height: 3px;
+  overflow: hidden;
+  height: 6px;
+  border-radius: 3px;
   position: absolute;
   width: 100%;
-  bottom: 0;
+  top: calc(14px / 2);
   background-image: linear-gradient(var(--theme-color), var(--theme-color));
   background-repeat: no-repeat;
   background-size: 0% 100%;
   transition-property: background-size;
   transition-timing-function: linear;
 
-  // &:before {
-  //   content: '';
-  //   position: absolute;
-  //   z-index: -1;
-  //   width: 100vw;
-  //   height: 100%;
-  //   left: 0;
-  // }
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    background-color: rgba(255,255,255,.85);
+  }
 }
 </style>

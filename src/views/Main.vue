@@ -17,7 +17,7 @@
     </base-page-transition>
     <the-header/>
     <the-lyrics-screen/>
-    <div class="the-controls" :class="{'--center': !delayedScrollStatus}">
+    <div class="the-controls" :class="{'--center': !delayedScrollStatus, '--offset': hasProgress && (synced || normal)}">
       <now-playing/>
       <transition name="switch-trans" mode="out-in">
         <base-button v-if="scrollOverride" :key="delayedScrollStatus" class="resume-button" @click.native="setScroll(true)">
@@ -27,7 +27,7 @@
       <delay-bar v-if="synced" hideTitle/>
       <div class="spacer"/>
     </div>
-    <the-menu-toggle v-if="acceptance || privacy"/>
+    <the-menu-toggle v-if="acceptance || privacy" :class="{'--offset': hasProgress && (synced || normal)}" />
     <update-toast v-if="!$dev"/>
     <the-keys/>
   </div>
@@ -85,6 +85,9 @@ export default {
       privacy: state => state.privacyPolicy,
       report: state => state.report,
       acceptance: state => state.user.acceptance,
+      hasProgress (state) {
+        return state.playback.track.length && state.playback.progress
+      },
     }),
     ...mapGetters({
       hasPlayback: 'playback/hasPlayback',
@@ -152,9 +155,14 @@ export default {
     z-index: 9;
     animation: fade-in .25s ease-out;
     --font-color: rgba(255,255,255,.95);
+    transition: transform .25s var(--ease-io-cubic);
 
     @media only screen and (min-width: 640px) {
       display: none;
+    }
+
+    &.--offset {
+      transform: translateY(-30px);
     }
   }
 
@@ -168,6 +176,11 @@ export default {
     width: calc(100% - 40px);
     pointer-events: none;
     fill: var(--font-color);
+    transition: transform .25s var(--ease-io-cubic);
+
+    &.--offset {
+      transform: translateY(-30px);
+    }
 
     > * {
       pointer-events: auto;
