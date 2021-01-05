@@ -27,6 +27,9 @@ module.exports = {
 
     svgRule.uses.clear()
     svgRule
+      .use('vue-loader')
+      .loader('vue-loader-v16')
+      .end()
       .use('vue-svg-loader')
       .loader('vue-svg-loader')
       .options({
@@ -41,5 +44,21 @@ module.exports = {
           ],
         },
       })
+
+    // svgRule
+    //   .use('vue-svg-loader')
+    //   .loader('vue-loader-v16')
+    //   .options({
+    //     svgo: {
+    //       plugins: [
+    //         { collapseGroups: false },
+    //         { moveGroupAttrsToElems: false },
+    //         { moveElemsAttrsToGroup: false },
+    //         { removeUselessStrokeAndFill: false },
+    //         { removeUnknownsAndDefaults: false },
+    //         { cleanupIDs: false },
+    //       ],
+    //     },
+    //   })
   },
 }

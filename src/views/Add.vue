@@ -24,22 +24,22 @@
           </div>
           <div v-else-if="step === 3" key="three">
             <h2>That's it, well done!</h2>
-            <base-button accent @click.native="exit">Return to app</base-button>
+            <base-button accent @click="exit">Return to app</base-button>
           </div>
           <div v-else key="res">
             <sad/>
             <h2>Oops! Something went wrong, please try again</h2>
-            <base-button @click.native="exit">Reload</base-button>
+            <base-button @click="exit">Reload</base-button>
           </div>
         </transition>
       </div>
     </transition>
     <div class="the-add__buttons">
-      <base-button circle transparent @click.native="exit">
+      <base-button circle transparent @click="exit">
         <close/>
       </base-button>
-      <base-button v-if="step === 1" class="save" @click.native="save">Submit</base-button>
-      <base-button v-if="step !== 9" circle transparent @click.native="reset">
+      <base-button v-if="step === 1" class="save" @click="save">Submit</base-button>
+      <base-button v-if="step !== 9" circle transparent @click="reset">
         <reload/>
       </base-button>
     </div>

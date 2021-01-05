@@ -3,8 +3,8 @@
     <div></div>
     <h1 class="title">Just one last boring thing...</h1>
     <p>"I've read and accept the <span class="bold" @click="togglePrivacyPolicy">Privacy Policy</span>."</p>
-    <base-button @click.native="accept()">Yes</base-button>
-    <base-button accent @click.native="decline()">Sign out</base-button>
+    <base-button @click="accept()">Yes</base-button>
+    <base-button accent @click="decline()">Sign out</base-button>
     <div></div>
   </base-page>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div class="the-menu-toggle">
-    <base-button circle transparent @click.native="toggleMenu">
+    <base-button circle transparent @click="toggleMenu">
       <transition name="swap-trans">
         <div v-if="nestedNav" key="nested">
           <chevron/>
@@ -23,7 +23,7 @@ export default {
   components: {
     BaseButton, close, chevron, dots,
   },
-  mixins: [ menuNav ],
+  mixins: [menuNav],
 }
 </script>
 

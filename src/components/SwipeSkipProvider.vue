@@ -111,7 +111,7 @@ export default {
     this.$refs.screen.addEventListener('touchmove', this.moveHandler, { passive: true })
     this.$refs.screen.addEventListener('touchend', this.endHandler)
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.$refs.screen.removeEventListener('touchmove', this.moveHandler)
     this.$refs.screen.removeEventListener('touchend', this.endHandler)
   },

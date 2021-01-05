@@ -20,11 +20,11 @@
             <h3>{{ title }} <span class="highlight">-</span> {{ artist }}</h3>
             <p>Syncing lyrics for a song is easy, just press the <span class="highlight">[ next line ]</span> button or <span class="highlight">[ spacebar ]</span> every time you hear the beginning of a line</p>
             <p>We will start the music when you're ready</p>
-            <base-button @click.native="startCountdown">START SYNC</base-button>
+            <base-button @click="startCountdown">START SYNC</base-button>
           </div>
           <div v-else-if="step === 6" key="two">
             <h2>That's it, well done!</h2>
-            <base-button accent @click.native="exit">Return to app</base-button>
+            <base-button accent @click="exit">Return to app</base-button>
           </div>
           <div v-else-if="step === 5" key="three">
             <h2>Processing synced lyrics</h2>
@@ -46,22 +46,22 @@
           <div v-else>
             <sad/>
             <h2>Oops! Something went wrong, please try again</h2>
-            <base-button @click.native="exit">Reload</base-button>
+            <base-button @click="exit">Reload</base-button>
           </div>
         </transition>
       </div>
     </transition>
     <div class="the-sync__buttons">
-      <base-button circle transparent @click.native="exit">
+      <base-button circle transparent @click="exit">
         <close/>
       </base-button>
-      <base-button v-if="step === 4" class="next" @click.native="next">next line</base-button>
-      <base-button circle transparent v-if="step !== 7" @click.native="reset">
+      <base-button v-if="step === 4" class="next" @click="next">next line</base-button>
+      <base-button circle transparent v-if="step !== 7" @click="reset">
         <reload/>
       </base-button>
     </div>
     <template v-if="step === 4">
-      <the-scroll-override-bar :offset="this.percent"/>
+      <the-scroll-override-bar :offset="percent"/>
       <span class="the-sync__status">
         {{ current - 1 }} / {{ length - 2 }}
       </span>
@@ -88,7 +88,7 @@ export default {
     close,
     reload,
   },
-  mixins: [ deviceDelay ],
+  mixins: [deviceDelay],
   data () {
     return {
       current: 1,
@@ -217,7 +217,7 @@ export default {
     this.savedTrack = this.track
     this.init()
   },
-  beforeDestroy () {
+  beforeUnmounted () {
     clearInterval(this.interval)
     clearInterval(this.fetchInterval)
     this.resetSync()
@@ -354,7 +354,7 @@ export default {
       opacity .075s ease-out,
       transform .075s ease-out;
   }
-  .line-trans-enter {
+  .line-trans-enter-from {
     opacity: 0 !important;
     transform:
       translateY(1em)

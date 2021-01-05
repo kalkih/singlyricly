@@ -21,8 +21,8 @@
       </transition>
     </div>
     <transition name="swap-trans">
-      <div v-if="thumbnail" class="thumbnail" :key="this.thumbnail">
-        <img :src="this.thumbnail"/>
+      <div v-if="thumbnail" class="thumbnail" :key="thumbnail">
+        <img :src="thumbnail"/>
       </div>
     </transition>
   </div>
@@ -43,7 +43,7 @@ export default {
     pause,
     note,
   },
-  mixins: [ scrollHelper ],
+  mixins: [scrollHelper],
   data () {
     const vm = this
     return {
@@ -337,7 +337,7 @@ export default {
       opacity .15s linear,
       transform .15s linear;
   }
-  .fade-enter {
+  .fade-enter-from {
     opacity: 0 !important;
     transform: translateY(1em);
   }
@@ -345,7 +345,7 @@ export default {
     opacity: 0 !important;
     transform: translateY(-1em);
   }
-  .fade-enter-to, .fade-leave {
+  .fade-enter-to, .fade-leave-from {
     opacity: 1;
     transform: translateY(0);
   }

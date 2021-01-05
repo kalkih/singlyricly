@@ -20,7 +20,7 @@
     <div class="the-controls" :class="{'--center': !delayedScrollStatus, '--offset': hasProgress && (synced || normal)}">
       <now-playing/>
       <transition name="switch-trans" mode="out-in">
-        <base-button v-if="scrollOverride" :key="delayedScrollStatus" class="resume-button" @click.native="setScroll(true)">
+        <base-button v-if="scrollOverride" :key="delayedScrollStatus" class="resume-button" @click="setScroll(true)">
           <span>RESUME</span>
         </base-button>
       </transition>
@@ -68,7 +68,7 @@ export default {
     UpdateToast,
     BasePageTransition,
   },
-  mixins: [ scrollHelper ],
+  mixins: [scrollHelper],
   data () {
     return {
       interval: null,
@@ -135,7 +135,7 @@ export default {
     this.fetchPlayback()
     this.interval = setInterval(this.fetchPlayback, 5000)
   },
-  destroyed () {
+  beforeUnmount () {
     clearInterval(this.interval)
   },
 }

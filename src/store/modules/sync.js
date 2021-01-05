@@ -8,7 +8,7 @@ const initialState = () => ({
 
 const mutations = {
   setLyrics (state, lyrics) {
-    state.lyrics = [ ' ', 'Intro', ...lyrics.filter(Boolean) ]
+    state.lyrics = [' ', 'Intro', ...lyrics.filter(Boolean)]
   },
   setTrack (state, track) {
     state.track = track

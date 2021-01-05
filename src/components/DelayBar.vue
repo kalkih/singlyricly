@@ -1,6 +1,6 @@
 <template>
   <div class="delay-bar">
-    <base-button circle transparent @click.native="sub">
+    <base-button circle transparent @click="sub">
       <minus/>
     </base-button>
     <transition name="swap-trans" mode="out-in">
@@ -20,7 +20,7 @@
         </span>
       </div>
     </transition>
-    <base-button circle transparent @click.native="add">
+    <base-button circle transparent @click="add">
       <plus/>
     </base-button>
   </div>
@@ -90,6 +90,7 @@ export default {
 
   svg {
     fill: inherit !important;
+    height: 1.2em;
     &:hover {
       opacity: .75;
     }
@@ -145,18 +146,18 @@ export default {
       opacity .075s var(--ease-io-cubic),
       transform .075s var(--ease-io-cubic);
   }
-  .fade-left-enter,
+  .fade-left-enter-from,
   .fade-right-leave-to {
     opacity: 0 !important;
     transform: translateX(2em);
   }
   .fade-left-leave-to,
-  .fade-right-enter {
+  .fade-right-enter-from {
     opacity: 0 !important;
     transform: translateX(-2em);
   }
-  .fade-left-enter-to, .fade-left-leave,
-  .fade-right-enter-to, .fade-right-leave {
+  .fade-left-enter-to, .fade-left-leave-from,
+  .fade-right-enter-to, .fade-right-leave-from {
     opacity: 1;
     transform: translateX(0);
   }

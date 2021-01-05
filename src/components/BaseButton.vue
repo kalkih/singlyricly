@@ -79,6 +79,20 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.base-button {
+  &.--circle {
+    padding: 0;
+    max-width: 2.6em;
+    height: 2.6em;
+    svg {
+      font-size: 1em;
+      height: 1.2em;
+    }
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 .base-button {
   position: relative;

@@ -11,7 +11,7 @@
           :index="index"
           :text="line"
           :active="activeLine === index"
-          @click.prevent.native="handleRowTouch(milliseconds)">
+          @click.prevent="handleRowTouch(milliseconds)">
         </base-lyrics-row>
       </template>
       <template v-else>
@@ -37,7 +37,7 @@
       :duration="duration"
       :hide="!!(scrollOffset || !playing)"
       :updatedAt="updatedAt"
-      @seeking="(position) => this.seekProgress = position"
+      @seeking="(position) => seekProgress = position"
     />
   </div>
 </template>
@@ -54,7 +54,7 @@ import TheProgressBar from './TheProgressBar'
 export default {
   name: 'TheLyrics',
   components: { BaseButton, TheScrollOverrideBar, BaseLyricsRow, TheProgressBar },
-  mixins: [ deviceDelay ],
+  mixins: [deviceDelay],
   props: {
     animate: {
       type: Boolean,
@@ -335,7 +335,7 @@ export default {
     window.addEventListener('focus', this.handleFocus)
     window.addEventListener('orientationchange', this.handleRotate)
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.clear()
     this.removeScrollListener()
     this.$refs.lyrics.removeEventListener('touchend', this.handleTouchend)

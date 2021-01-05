@@ -5,7 +5,7 @@
       transparent
       v-if="acceptance || nestedNav"
       class="the-header__settings"
-      @click.native="toggleMenu">
+      @click="toggleMenu">
       <span>{{ text }}</span>
       <transition name="swap-trans">
         <div v-if="nestedNav" key="nested">
@@ -33,7 +33,7 @@ export default {
     hamburger,
     chevron,
   },
-  mixins: [ menuNav ],
+  mixins: [menuNav],
   data () {
     return {
       home: false,

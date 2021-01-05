@@ -1,5 +1,5 @@
 <template>
-  <transition name="base-page-transition" v-bind="$attrs" v-on="$listeners">
+  <transition name="base-page-transition" v-bind="$attrs">
     <slot></slot>
   </transition>
 </template>
@@ -39,7 +39,7 @@ $short: .2s;
     transition: transform $short var(--ease-io-cubic) calc(#{$short} / 2);
   }
 }
-.base-page-transition-enter,
+.base-page-transition-enter-from,
 .base-page-transition-leave-to {
   .base-page__backdrop {
     opacity: 0;
@@ -52,7 +52,7 @@ $short: .2s;
     transform: translate3d(0, 100%, 0) translateZ(0);
   }
 }
-.base-page-transition-enter-to, .base-page-transition-leave {
+.base-page-transition-enter-to, .base-page-transition-leave-from {
   .base-page__content {
     opacity: 1;
     transform: translate3d(0, 0, 0) translateZ(0);

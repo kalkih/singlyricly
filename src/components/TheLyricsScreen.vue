@@ -8,7 +8,7 @@
             <div v-if="errored" class="not-found" key="error">
               <sad/>
               <h2>{{ error.message }}</h2>
-              <base-button @click.native="refresh">REFRESH</base-button>
+              <base-button @click="refresh">REFRESH</base-button>
             </div>
             <div v-else-if="searching" key="loading">
               <div class="spinner">
@@ -25,7 +25,7 @@
             <div class="not-found" v-else key="404">
               <sad/>
               <h2>Sorry but we couldn't find any lyrics for this track</h2>
-              <base-button accent @click.native="add">Add lyrics</base-button>
+              <base-button accent @click="add">Add lyrics</base-button>
             </div>
           </transition>
         </div>
@@ -184,7 +184,7 @@ export default {
       opacity .25s ease-out,
       transform .25s ease-out;
   }
-  .lyrics-trans-enter {
+  .lyrics-trans-enter-from {
     opacity: 0 !important;
     transform: translateY(10px);
   }
@@ -192,7 +192,7 @@ export default {
     opacity: 0 !important;
     transform: translateY(-10px);
   }
-  .lyrics-trans-enter-to, .lyrics-trans-leave {
+  .lyrics-trans-enter-to, .lyrics-trans-leave-from {
     opacity: 1;
     transform: translateY(0);
   }

@@ -3,7 +3,7 @@ import { mapActions } from 'vuex'
 import menuNav from '@/mixins/menuNav'
 
 export default {
-  mixins: [ menuNav ],
+  mixins: [menuNav],
   methods: {
     ...mapActions({
       togglePlayback: 'playback/toggle',
@@ -27,7 +27,7 @@ export default {
   created () {
     window.addEventListener('keydown', this.action)
   },
-  beforeDestroy () {
+  beforeUnmount () {
     window.removeEventListener('keydown', this.action)
   },
   render: () => null,

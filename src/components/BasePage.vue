@@ -48,13 +48,13 @@ export default {
     },
     containerStyle () {
       return {
-        'transform': `translateY(${this.touchOffset}px)`,
-        'transition': `transform ${this.touchOffset === 0 ? 0.25 : 0}s`,
+        transform: `translateY(${this.touchOffset}px)`,
+        transition: `transform ${this.touchOffset === 0 ? 0.25 : 0}s`,
       }
     },
     bgStyle () {
       return {
-        'background': this.themeColorDark,
+        background: this.themeColorDark,
       }
     },
   },
@@ -94,12 +94,28 @@ export default {
     this.$refs.page.addEventListener('touchmove', this.moveHandler)
     this.$refs.page.addEventListener('touchend', this.endHandler)
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.$refs.page.removeEventListener('touchmove', this.moveHandler)
     this.$refs.page.removeEventListener('touchend', this.endHandler)
   },
 }
 </script>
+
+<style lang="scss">
+.base-page__content {
+  > div:last-child {
+    margin-top: auto;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  > div:first-child {
+    margin-top: 0;
+    margin-bottom: auto;
+    width: 100%;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .base-page {
@@ -205,18 +221,6 @@ export default {
       margin: 2em 100px;
       left: 0;
       right: 0;
-    }
-
-    > div:last-child {
-      margin-top: auto;
-      margin-bottom: 0;
-      width: 100%;
-    }
-
-    > div:first-child {
-      margin-top: 0;
-      margin-bottom: auto;
-      width: 100%;
     }
   }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="the-progress-bar" :class="{ '--hide': hide, '--seek': this.seekProgress }"
+  <div class="the-progress-bar" :class="{ '--hide': hide, '--seek': seekProgress }"
     v-on="handlers">
     <div class="progress" :style="styleObject"></div>
   </div>
@@ -45,8 +45,8 @@ export default {
   computed: {
     styleObject () {
       return {
-        'transitionDuration': `${this.transition}ms`,
-        'backgroundSize': `${this.seekProgress || this.position}% 100%`,
+        transitionDuration: `${this.transition}ms`,
+        backgroundSize: `${this.seekProgress || this.position}% 100%`,
       }
     },
   },

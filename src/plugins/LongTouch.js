@@ -1,7 +1,7 @@
 const LongTouch = {
   install (Vue) {
     function handleTouchStart (ev) {
-      let $this = this.$$longtouch
+      const $this = this.$$longtouch
       $this.cancelled = false
       $this.timer = setTimeout(() => {
         const { binding } = $this
@@ -11,7 +11,7 @@ const LongTouch = {
       }, $this.length)
     }
     function reset (ev) {
-      let $this = this.$$longtouch
+      const $this = this.$$longtouch
       if ($this.timer) {
         clearTimeout($this.timer)
         $this.timer = null
