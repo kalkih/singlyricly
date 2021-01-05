@@ -6,7 +6,7 @@
       <h2 :style="sharedStyle">
         {{ text }}
       </h2>
-      <h2 :style="{...sharedStyle, left: `${this.width + 28}px`}">
+      <h2 :style="{...sharedStyle, left: `${width + 28}px`}">
         {{ text }}
       </h2>
     </div>
@@ -38,7 +38,7 @@ export default {
     sharedStyle () {
       const width = this.width + 24
       return {
-        'width': `${width}px`,
+        width: `${width}px`,
         'animation-duration': `${(width) * this.DUR_MULTIPLIER}s`,
       }
     },

@@ -3,17 +3,17 @@
     <div></div>
     <h1 class="title">report lyrics</h1>
     <transition name="swap-trans" mode="out-in">
-      <base-button accent v-if="lyrics" @click.native="report(LYRICS)">Wrong lyrics</base-button>
+      <base-button accent v-if="lyrics" @click="report(LYRICS)">Wrong lyrics</base-button>
     </transition>
     <transition name="swap-trans" mode="out-in">
-      <base-button accent v-if="synced" @click.native="report(SYNC)">Out of sync</base-button>
+      <base-button accent v-if="synced" @click="report(SYNC)">Out of sync</base-button>
     </transition>
     <base-page-transition mode="out-in">
       <base-page class="nested" v-if="step === STEP.COMPLETE" @swipe-down="closeNested()">
         <div></div>
         <h1 class="title">Thank you, that's it!</h1>
-        <base-button accent @click.native="correct">{{ ACTION_TEXT[type]}}</base-button>
-        <base-button accent @click.native="exit">Return to app</base-button>
+        <base-button accent @click="correct">{{ ACTION_TEXT[type]}}</base-button>
+        <base-button accent @click="exit">Return to app</base-button>
         <div></div>
       </base-page>
     </base-page-transition>

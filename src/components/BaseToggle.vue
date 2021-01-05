@@ -62,7 +62,7 @@ export default {
       return this.dragPosition !== null && {
         '--override': `${this.dragPosition}%`,
         '--opacity': Math.max(this.dragPosition / 100, 0.65),
-        '--transition': `none`,
+        '--transition': 'none',
       }
     },
   },
@@ -70,7 +70,7 @@ export default {
     this.$refs.toggle.addEventListener('touchmove', this.moveHandler)
     this.$refs.toggle.addEventListener('touchend', this.endHandler)
   },
-  beforeDestroy () {
+  beforeUnmount () {
     this.$refs.toggle.removeEventListener('touchmove', this.moveHandler)
     this.$refs.toggle.removeEventListener('touchend', this.endHandler)
   },

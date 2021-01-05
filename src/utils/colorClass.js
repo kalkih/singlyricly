@@ -22,9 +22,11 @@ export default class Color {
   set hue (hue) {
     this._h = hue
   }
+
   set saturation (sat) {
     this._s = sat
   }
+
   set lightness (light) {
     this._l = light
   }

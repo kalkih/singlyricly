@@ -1,7 +1,7 @@
 <template>
   <div class="welcome" :class="{'--loading': loading, '--loaded': loaded }">
     <transition name="fade">
-      <base-toast v-if="error" @click.native="reset()">
+      <base-toast v-if="error" @click="reset()">
         <span>{{ errorMessage }}</span>
       </base-toast>
     </transition>
@@ -11,7 +11,7 @@
     <base-page-transition mode="out-in">
       <the-privacy-policy v-if="privacy" key="privacy"/>
     </base-page-transition>
-    <base-button class="welcome__button" circle transparent @click.native="toggle()">
+    <base-button class="welcome__button" circle transparent @click="toggle()">
       <transition name="swap-trans">
         <div v-if="about || privacy">
           <chevron key="open"/>
@@ -21,7 +21,7 @@
     </base-button>
     <div class="welcome__container">
       <h1>{{ name }}</h1>
-      <base-button @click.native="login()" :class="{'--loading': loading}">
+      <base-button @click="login()" :class="{'--loading': loading}">
         <span class="text">Connect with Spotify</span>
         <div class="spinner-container" v-if="loading">
           <div class="spinner-pulse"></div>
@@ -32,11 +32,11 @@
 </template>
 
 <script>
-import BaseButton from '@/components/BaseButton'
-import BaseToast from '@/components/BaseToast'
-import TheAbout from '@/components/TheAbout'
-import ThePrivacyPolicy from '@/components/ThePrivacyPolicy'
-import BasePageTransition from '@/components/BasePageTransition'
+import BaseButton from '@/components/BaseButton.vue'
+import BaseToast from '@/components/BaseToast.vue'
+import TheAbout from '@/components/TheAbout.vue'
+import ThePrivacyPolicy from '@/components/ThePrivacyPolicy.vue'
+import BasePageTransition from '@/components/BasePageTransition.vue'
 import chevron from '@/assets/chevron.svg'
 import dots from '@/assets/dots.svg'
 import { mapState, mapActions } from 'vuex'

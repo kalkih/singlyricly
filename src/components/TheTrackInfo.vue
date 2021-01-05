@@ -74,7 +74,7 @@ export default {
       opacity .15s linear,
       transform .15s linear;
   }
-  .fade-enter {
+  .fade-enter-from {
     opacity: 0 !important;
     transform: translateY(1em);
   }
@@ -82,7 +82,7 @@ export default {
     opacity: 0 !important;
     transform: translateY(-1em);
   }
-  .fade-enter-to, .fade-leave {
+  .fade-enter-to, .fade-leave-from {
     opacity: 1;
     transform: translateY(0);
   }

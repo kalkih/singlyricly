@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
 import state from './state'
 import actions from './actions'
@@ -13,9 +12,7 @@ import lyrics from './modules/lyrics'
 import sync from './modules/sync'
 import theme from './modules/theme'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default Vuex.createStore({
   state,
   actions,
   mutations,

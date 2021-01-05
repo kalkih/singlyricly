@@ -1,8 +1,8 @@
 {
   "name": "singlyricly",
   "version": "0.3.1",
-  "author": "Karl Kihlström <mrkihlstrom@gmail.com>",
   "private": true,
+  "author": "Karl Kihlström <mrkihlstrom@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -10,50 +10,36 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "core-js": "^2.6.5",
+    "core-js": "^3.6.5",
     "lodash.throttle": "^4.1.1",
-    "node-vibrant": "^3.2.0-alpha",
+    "node-vibrant": "^3.2.1-alpha.1",
     "register-service-worker": "^1.6.2",
     "sweet-scroll": "^4.0.0",
-    "vue": "^2.6.10",
-    "vue-resize": "^0.4.5",
-    "vue-router": "^3.0.3",
-    "vuex": "^3.1.1",
+    "vue": "^3.0.5",
+    "vue-resize": "^2.0.0-alpha.1",
+    "vue-router": "^4.0.2",
+    "vue-template-compiler": "^2.6.12",
+    "vuex": "^4.0.0-rc.2",
     "vuex-persistedstate": "^2.7.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.7.0",
-    "@vue/cli-plugin-eslint": "^3.7.0",
-    "@vue/cli-plugin-pwa": "^3.7.0",
-    "@vue/cli-service": "^3.7.0",
-    "@vue/eslint-config-standard": "^4.0.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "@vue/cli-plugin-babel": "^4.5.9",
+    "@vue/cli-plugin-eslint": "^4.5.9",
+    "@vue/cli-plugin-pwa": "^4.5.9",
+    "@vue/cli-service": "^4.5.9",
+    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^7.0.0-alpha.0",
     "sass": "^1.23.0",
-    "sass-loader": "^7.1.0",
-    "vue-svg-loader": "^0.12.0",
-    "vue-template-compiler": "^2.5.21",
+    "sass-loader": "^10.1.0",
+    "vue-svg-loader": "^0.17.0-beta.2",
     "worker-loader": "^2.0.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/standard"
-    ],
-    "rules": {
-      "comma-dangle": [
-        "error",
-        "always-multiline"
-      ]
-    },
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
   },
   "postcss": {
     "plugins": {

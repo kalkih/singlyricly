@@ -3,11 +3,11 @@
     <div class="spacer"></div>
     <transition name="swap-trans" mode="out-in">
       <div class="contribute-buttons" v-if="!fetching && playback" :key="fetching">
-        <base-button accent @click.native="add()">
+        <base-button accent @click="add()">
           <span>{{ lyricsButtonText }}</span>
           <span>lyrics</span>
         </base-button>
-        <base-button accent @click.native="sync()" :disabled="!lyrics">
+        <base-button accent @click="sync()" :disabled="!lyrics">
           <span>{{ syncedButtonText }}</span>
           <span>sync</span>
         </base-button>
@@ -15,11 +15,11 @@
       <div v-else class="contribute-buttons" key="default"></div>
     </transition>
     <div class="menu-items">
-      <base-button transparent noripple :disabled="!lyrics" @click.native="report()">Report lyrics</base-button>
-      <base-button transparent noripple @click.native="toggleAbout()">About Us</base-button>
-      <base-button transparent noripple @click.native="togglePrivacyPolicy()">Privacy Policy</base-button>
+      <base-button transparent noripple :disabled="!lyrics" @click="report()">Report lyrics</base-button>
+      <base-button transparent noripple @click="toggleAbout()">About Us</base-button>
+      <base-button transparent noripple @click="togglePrivacyPolicy()">Privacy Policy</base-button>
     </div>
-    <base-button accent @click.native="logout()">Sign out</base-button>
+    <base-button accent @click="logout()">Sign out</base-button>
     <wake-lock-toggle />
     <delay-bar hideTitle/>
   </base-page>
@@ -40,7 +40,7 @@ export default {
     DelayBar,
     WakeLockToggle,
   },
-  mixins: [ menuNav ],
+  mixins: [menuNav],
   data () {
     return {
       BUTTON_TEXT: {
@@ -60,10 +60,10 @@ export default {
       playback: 'playback/hasPlayback',
     }),
     lyricsButtonText () {
-      return this.lyrics ? this.BUTTON_TEXT['IMPROVE'] : this.BUTTON_TEXT['ADD']
+      return this.lyrics ? this.BUTTON_TEXT.IMPROVE : this.BUTTON_TEXT.ADD
     },
     syncedButtonText () {
-      return this.synced ? this.BUTTON_TEXT['IMPROVE'] : this.BUTTON_TEXT['ADD']
+      return this.synced ? this.BUTTON_TEXT.IMPROVE : this.BUTTON_TEXT.ADD
     },
   },
   methods: {
@@ -94,13 +94,13 @@ export default {
 <style lang="scss" scoped>
 .the-menu {
 
-  ::v-deep .base-page__bg {
+  ::v-deep(.base-page__bg) {
     > div {
       opacity: .75;
     }
   }
 
-  ::v-deep .base-page__content {
+  ::v-deep(.base-page__content) {
     display: flex;
     align-items: center;
     flex-flow: column;

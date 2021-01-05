@@ -1,13 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import store from '@/store'
-import Login from '@/components/Login'
-import Main from '@/views/Main'
-import Welcome from '@/views/Welcome'
+import Login from '@/components/Login.vue'
+import Main from '@/views/Main.vue'
+import Welcome from '@/views/Welcome.vue'
 
 const APP_NAME = process.env.VUE_APP_NAME
-
-Vue.use(Router)
 
 const isAuth = () => store.getters['auth/isAuthenticated']
 
@@ -19,8 +16,8 @@ const authGuard = (to, from, next, route) => {
   }
 }
 
-const router = new Router({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
@@ -74,7 +71,7 @@ const router = new Router({
       },
       meta: { title: 'Welcome' },
     },
-    { path: '*', redirect: '/' },
+    { path: '/:pathMatch(.*)', redirect: '/' },
   ],
 })
 

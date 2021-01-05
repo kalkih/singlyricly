@@ -79,7 +79,7 @@ export default {
     async thumbnail (newVal, oldVal) {
       this.alt = +!this.alt
       if (newVal && oldVal !== newVal) {
-        let p = await Vibrant.from(newVal).getPalette()
+        const p = await Vibrant.from(newVal).getPalette()
         this.setTheme(p.Vibrant.hsl)
       }
     },

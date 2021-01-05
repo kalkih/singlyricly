@@ -11,7 +11,7 @@ export default {
   },
   async play (uri = undefined) {
     const res = await request.put('/me/player/play', {
-      ...(uri && { uris: [ uri ] }),
+      ...(uri && { uris: [uri] }),
     })
     return res.status === 200 ? res.data : {}
   },

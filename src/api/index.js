@@ -5,7 +5,7 @@ import lyrics from './lyrics'
 const defaultOpts = {
   withCredentials: false,
   headers: {
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 }
