@@ -193,7 +193,7 @@ export default {
     }
 
     .base-button {
-      color: rgba(0,0,0,0.65);
+      color: rgba(0,0,0,0.9);
       font-size: 1em;
       height: auto;
       min-height: 3.6em;
@@ -201,7 +201,7 @@ export default {
       margin-bottom: 0px;
       margin-top: auto;
       width: 100%;
-      height: 4.6em;
+      height: 4.2em;
       max-width: 100%;
       text-align: center;
       text-transform: uppercase;
@@ -209,6 +209,7 @@ export default {
       line-height: 1.5em;
       border-radius: 360px;
       white-space: normal;
+      font-weight: 600;
       transition:
         transform .15s,
         max-width .5s ease,
@@ -219,7 +220,7 @@ export default {
       }
 
       > span {
-        padding: 1em 0;
+        padding: .8em 0;
         display: block;
         height: auto;
         transition: opacity .15s .35s;
@@ -284,11 +285,11 @@ export default {
         font-size: 6em;
       }
       .base-button {
-        font-size: 1.4em;
+        font-size: 1.2em;
         margin-top: 10vh;
         letter-spacing: .15em;
         width: auto;
-        height: 4em;
+        height: 3.4em;
         padding: 1.2em 1.6em;
 
         &.--loading {
