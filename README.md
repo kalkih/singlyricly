@@ -8,9 +8,11 @@
 </p>
 
 <p align="center">
-  Singlyricly is a community based app which allow users to see real time song lyrics synchronized with their Spotify playback. Real time lyrics are accessible regardless of playback device, play music through Sonos, Chromecast or Spotify Connect, and the lyrics will always show up in the app as long as there's a connected Spotify account.
+  Singlyricly is a lyrics app powered by the community, Sinlyricly provide its users with real time song lyrics synchronized with their Spotify playback.
 </p>
-
+<p align="center">
+  Singlyricly makes synchronized lyrics accessible regardless of playback device, play music through Sonos, Chromecast, Spotify Connect or any other Spotify client and the lyrics are displayed in the app.
+</p>
 
 # Singlyricly - [https://singlyricly.com/](https://singlyricly.com/)
 
