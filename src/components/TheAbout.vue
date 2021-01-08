@@ -50,5 +50,6 @@ a {
 }
 p {
   max-width: 1200px;
+  line-height: 1.75;
 }
 </style>
