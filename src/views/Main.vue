@@ -169,7 +169,7 @@ export default {
   .the-controls {
     display: flex;
     position: fixed;
-    bottom: 20px;
+    bottom: calc(20px + env(safe-area-inset-top));
     left: 20px;
     right: 20px;
     justify-content: space-between;

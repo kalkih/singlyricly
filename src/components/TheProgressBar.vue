@@ -116,7 +116,7 @@ export default {
 <style lang="scss" scoped>
 .the-progress-bar {
   position: absolute;
-  bottom: 20px;
+  bottom: calc(20px + env(safe-area-inset-top));
   z-index: 200;
   width: calc(100% - 40px);
   left: 20px;
